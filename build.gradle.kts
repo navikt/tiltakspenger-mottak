@@ -34,7 +34,6 @@ dependencies {
 }
 
 application {
-    // Define the main class for the application.
     mainClass.set("no.nav.tpts.mottak.AppKt")
 }
 
@@ -64,7 +63,6 @@ tasks {
     }
     shadowJar {
         dependsOn("test")
-        archiveBaseName.set(rootProject.name)
     }
     // https://github.com/ben-manes/gradle-versions-plugin
     dependencyUpdates {

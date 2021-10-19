@@ -1,2 +1,2 @@
 FROM navikt/java:16
-COPY build/libs/tpts-mottak.jar app.jar
+COPY build/libs/tpts-mottak-all.jar app.jar
