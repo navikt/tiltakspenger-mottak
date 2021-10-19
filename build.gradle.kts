@@ -4,6 +4,7 @@ plugins {
     application
     kotlin("jvm") version "1.5.31"
     id("com.github.johnrengelman.shadow") version "7.1.0"
+    id("com.github.ben-manes.versions") version "0.39.0"
 }
 
 repositories {
@@ -29,6 +30,14 @@ java {
     targetCompatibility = javaVersion
 }
 
+// https://github.com/ben-manes/gradle-versions-plugin
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = javaVersion.toString()
@@ -43,5 +52,11 @@ tasks {
     shadowJar {
         dependsOn("test")
         archiveBaseName.set(rootProject.name)
+    }
+    // https://github.com/ben-manes/gradle-versions-plugin
+    dependencyUpdates {
+        rejectVersionIf {
+            isNonStable(candidate.version)
+        }
     }
 }

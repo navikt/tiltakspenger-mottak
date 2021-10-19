@@ -17,6 +17,11 @@ For å bygge artifaktene:
 ```sh
 ./gradlew build
 ```
+For å sjekke utdaterte avhengigheter:
+
+```sh
+./gradlew dependencyUpdates
+```
 
 ---
 
