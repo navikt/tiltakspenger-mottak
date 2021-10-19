@@ -1,4 +1,6 @@
 val javaVersion = JavaVersion.VERSION_16
+val ktorVersion = "1.6.4"
+val log4jVersion = "2.14.1"
 
 plugins {
     application
@@ -15,6 +17,17 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
+    implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
+    implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+    implementation("io.ktor:ktor-server:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-auth:$ktorVersion")
+    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-locations:$ktorVersion")
+    implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.7.5")
 
     // Use the Kotlin test library.
     testImplementation(kotlin("test"))

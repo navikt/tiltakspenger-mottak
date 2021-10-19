@@ -1,12 +1,11 @@
 package no.nav.tpts.mottak
 
 import kotlin.test.Test
-import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class AppTest {
     @Test
-    fun appHasAGreeting() {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+    fun `a test that does nothing`() {
+        assertNull(null)
     }
 }
