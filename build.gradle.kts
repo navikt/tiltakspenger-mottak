@@ -28,7 +28,9 @@ dependencies {
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.0")
-    implementation("org.apache.kafka:kafka-clients:3.0.0")
+
+    testImplementation("org.apache.kafka:kafka-clients:3.0.0")
+    testImplementation("org.apache.avro:avro:1.11.0")
 
     // Use the Kotlin test library.
     testImplementation(kotlin("test"))
