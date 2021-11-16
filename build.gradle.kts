@@ -1,10 +1,10 @@
-val javaVersion = JavaVersion.VERSION_16
+val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "1.6.5"
 val log4jVersion = "2.14.1"
 
 plugins {
     application
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.0"
     id("com.github.johnrengelman.shadow") version "7.1.0"
     id("com.github.ben-manes.versions") version "0.39.0"
 }
