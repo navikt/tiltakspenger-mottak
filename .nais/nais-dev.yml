@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: tpts-mottak
+  name: tpts-tiltakspenger-mottak
   namespace: tpts
   labels:
     team: tpts
@@ -9,7 +9,7 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://tpts-mottak.dev.intern.nav.no
+    - https://tpts-tiltakspenger-mottak.dev.intern.nav.no
   liveness:
     path: /isAlive
   readiness:

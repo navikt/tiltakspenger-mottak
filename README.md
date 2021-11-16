@@ -1,4 +1,4 @@
-tpts-mottak
+tpts-tiltakspenger-mottak
 ================
 
 En tjeneste for tiltakspenger
