@@ -42,7 +42,7 @@ jobs:
       - name: Notify Slack in case of build failure
         if: ${{ failure() && (github.ref == 'refs/heads/main') }}
         run: |
-          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[tpts-mottak] Build failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/navikt/tpts-joark-mottak/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
+          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[tpts-mottak] Build failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/navikt/tpts-mottak/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
         env:
           BRANCH: ${{github.ref }}
           AUTHOR: ${{ github.event.pusher.name }}
