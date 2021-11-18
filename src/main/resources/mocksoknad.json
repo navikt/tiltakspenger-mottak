@@ -1,11 +1,28 @@
 {
-  "personIdent": "01018412345",
   "tittel": "Søknad om tiltakspenger",
+  "personIdent": "01018412345",
+  "fornavn": "Ola",
+  "etternavn": "Nordmann",
+  "kontonummer": "12345678912",
+  "tiltaksType": "Arbeidstrening",
   "KVP": true,
   "institusjonsopphold": false,
+  "startdato": "2021-04-01",
+  "sluttdato": "2022-01-01",
+  "tiltaksarrangorNavn": "Tiltaksbedriften AS",
+  "tiltaksadresse": "Kongens gate 4",
+  "tiltakspostnummer": "0192",
+  "tiltaksdagerPerUke": 5,
+  "pensjonEtterlønn": false,
   "barn": [
     {
-      "personIdent": "01010612345"
+      "personIdent": "01010612345",
+      "sokerBarnetillegg": false
+    },
+    {
+      "personIdent": "01010812345",
+      "sokerBarnetillegg": true
     }
-  ]
+  ],
+  "tilleggsopplysninger": "Jeg tar bussen til tiltaket"
 }
