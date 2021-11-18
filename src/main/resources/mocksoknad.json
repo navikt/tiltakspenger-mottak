@@ -1,0 +1,11 @@
+{
+  "personIdent": "01018412345",
+  "tittel": "Søknad om tiltakspenger",
+  "KVP": true,
+  "institusjonsopphold": false,
+  "barn": [
+    {
+      "personIdent": "01010612345"
+    }
+  ]
+}
