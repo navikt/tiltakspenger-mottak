@@ -10,7 +10,6 @@ import io.ktor.server.netty.*
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
-import java.io.File
 
 private val LOG = KotlinLogging.logger {}
 
@@ -56,7 +55,7 @@ fun Route.healthRoutes() {
     route("/mocksoknad") {
         get {
             call.respondText(
-                text = File("mocksoknad.json").readText(Charsets.UTF_8),
+                text = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8) ?: "{}",
                 contentType = ContentType.Application.Json
             )
         }
