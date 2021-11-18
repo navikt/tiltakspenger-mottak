@@ -56,7 +56,7 @@ fun Route.healthRoutes() {
     route("/mocksoknad") {
         get {
             call.respondText(
-                text = File("src/main/resources/mocksoknad.json").readText(Charsets.UTF_8),
+                text = File("mocksoknad.json").readText(Charsets.UTF_8),
                 contentType = ContentType.Application.Json
             )
         }
