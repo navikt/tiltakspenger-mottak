@@ -10,6 +10,9 @@ spec:
   port: 8080
   ingresses:
     - https://tpts-tiltakspenger-mottak.dev.intern.nav.no
+  azure:
+    application:
+      enabled: true
   liveness:
     path: /isAlive
   readiness:
