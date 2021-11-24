@@ -43,6 +43,10 @@ fun main() {
                 }
             }
         }
+        install(CORS) {
+            host("127.0.0.1")
+            host("https://tpts-tiltakspenger-flate.dev.intern.nav.no/")
+        }
         routing {
             healthRoutes()
             applicationRoutes()
