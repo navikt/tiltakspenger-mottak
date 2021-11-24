@@ -25,3 +25,5 @@ spec:
     max: 1
   kafka:
     pool: nav-dev
+  envFrom:
+    - configmap: tpts-tiltakspenger-mottak-dev
