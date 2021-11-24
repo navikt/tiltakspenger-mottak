@@ -1,6 +1,9 @@
 package no.nav.tpts.mottak
 
+import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.*
+import io.ktor.auth.*
+import io.ktor.auth.jwt.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
@@ -10,22 +13,46 @@ import io.ktor.server.netty.*
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
+import no.nav.tpts.mottak.applications.applicationRoutes
+import java.net.URI
 
-private val LOG = KotlinLogging.logger {}
+val LOG = KotlinLogging.logger {}
 
 fun main() {
     LOG.info { "starting server" }
+
+    val issuer = System.getenv("AZURE_ISSUER")
+    val jwksUri = System.getenv("AZURE_JWKS_URI")
+
+    val jwkProvider = UrlJwkProvider(URI(jwksUri).toURL())
+
     val server = embeddedServer(Netty, 8080) {
         install(DefaultHeaders)
+        install(Authentication) {
+            jwt("auth-jwt") {
+                verifier(jwkProvider, issuer) {
+                    acceptLeeway(3)
+                }
+                validate { credential ->
+                    LOG.info(credential.payload.toString())
+                    if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
+                        JWTPrincipal(credential.payload)
+                    } else {
+                        null
+                    }
+                }
+            }
+        }
         routing {
             healthRoutes()
+            applicationRoutes()
         }
     }.start()
 
     Runtime.getRuntime().addShutdownHook(
         Thread {
             LOG.info { "stopping server" }
-            server.stop(gracePeriodMillis = 3000, timeoutMillis = 5000)
+            server.stop(gracePeriodMillis = 3000, timeoutMillis = 1000)
         }
     )
 }

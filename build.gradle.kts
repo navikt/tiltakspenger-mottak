@@ -27,6 +27,9 @@ dependencies {
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
+    implementation("io.ktor:ktor-auth:$ktorVersion")
+    implementation ("com.auth0:java-jwt:3.18.2")
+    implementation ("com.auth0:jwks-rsa:0.20.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.0")
 
     testImplementation("org.apache.kafka:kafka-clients:3.0.0")
