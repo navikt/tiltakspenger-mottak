@@ -44,8 +44,9 @@ fun main() {
             }
         }
         install(CORS) {
-            host("localhost")
-            host("127.0.0.1")
+            host("localhost:8081")
+            host("127.0.0.1:8081")
+            host("127.0.0.1:3000")
             host("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
         routing {
