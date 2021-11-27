@@ -1,5 +1,5 @@
 val javaVersion = JavaVersion.VERSION_17
-val ktorVersion = "1.6.5"
+val ktorVersion = "1.6.6"
 val log4jVersion = "2.14.1"
 
 plugins {
