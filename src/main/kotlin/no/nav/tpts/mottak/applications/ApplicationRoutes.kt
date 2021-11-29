@@ -3,6 +3,7 @@ package no.nav.tpts.mottak.applications
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.auth.jwt.*
+import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.*
@@ -22,6 +23,22 @@ fun Route.applicationRoutes() {
             LOG.info("Auth: ${headers["Authorization"]}")
         }
     }
+    route("/api/mocksoknad") {
+        get {
+            call.respondText(
+                text = javaClass.getResource("/mocksoknadList.json")?.readText(Charsets.UTF_8) ?: "{}",
+                contentType = ContentType.Application.Json
+            )
+        }
+    }.also { LOG.info { "setting up endpoint /api/mocksoknad" } }
+    route("/api/mocksoknad/{id}}") {
+        get {
+            call.respondText(
+                text = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8) ?: "{}",
+                contentType = ContentType.Application.Json
+            )
+        }
+    }.also { LOG.info { "setting up endpoint /api/mocksoknad/{id}" } }
     authenticate("auth-jwt") {
         route("/api/application") {
             get {
@@ -31,5 +48,6 @@ fun Route.applicationRoutes() {
                 LOG.info(principal!!.userId)
             }
         }
+
     }
 }

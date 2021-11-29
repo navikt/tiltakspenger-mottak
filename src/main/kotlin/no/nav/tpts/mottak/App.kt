@@ -85,13 +85,5 @@ fun Route.healthRoutes() {
             call.respondText(text = "READY", contentType = ContentType.Text.Plain)
         }
     }.also { LOG.info { "setting up endpoint /isReady" } }
-    route("/mocksoknad") {
-        get {
-            call.respondText(
-                text = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8) ?: "{}",
-                contentType = ContentType.Application.Json
-            )
-        }
-    }.also { LOG.info { "setting up endpoint /mocksoknad" } }
 }
 

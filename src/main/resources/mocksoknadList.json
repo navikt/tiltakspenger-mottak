@@ -1,0 +1,108 @@
+[
+  {
+    "dokumentInfoId": "533460658",
+    "tittel": "Søknad om tiltakspenger",
+    "personIdent": "17076518378",
+    "fornavn": "LITEN",
+    "etternavn": "KONSOLL",
+    "boadresse": "SKJØTTELVIKVEIEN 64",
+    "postnummer": "3484",
+    "kontonummer": "12345678912",
+    "tiltaksType": "AMO kurs",
+    "KVP": true,
+    "institusjonsopphold": false,
+    "startdato": "2021-04-01",
+    "sluttdato": "2022-01-01",
+    "tiltaksarrangorNavn": "Tiltaksbedriften AS",
+    "tiltaksadresse": "Tiltaksgaten 1",
+    "tiltakspostnummer": "0101",
+    "tiltaksdagerPerUke": 3,
+    "pensjonEtterlønn": false,
+    "barn": [],
+    "tilleggsopplysninger": "Jeg kan delta 3 dager i uken"
+  },
+  {
+    "dokumentInfoId": "533460660",
+    "tittel": "Søknad om tiltakspenger",
+    "personIdent": "10017311978",
+    "fornavn": "BLÅØYD",
+    "etternavn": "KAFFI",
+    "boadresse": "BRENDSRUDTOPPEN 56",
+    "postnummer": "1385",
+    "kontonummer": "12345678912",
+    "tiltaksType": "Arbeidstrening",
+    "KVP": false,
+    "institusjonsopphold": false,
+    "startdato": "2021-04-01",
+    "sluttdato": "2022-01-01",
+    "tiltaksarrangorNavn": "Tiltaksbedriften AS",
+    "tiltaksadresse": "Tiltaksgaten 1",
+    "tiltakspostnummer": "0101",
+    "tiltaksdagerPerUke": 5,
+    "pensjonEtterlønn": false,
+    "barn": [
+      {
+        "personIdent": "04020566464",
+        "sokerBarnetillegg": false
+      },
+      {
+        "personIdent": "05061677935",
+        "sokerBarnetillegg": true
+      }
+    ],
+    "tilleggsopplysninger": "Jeg tar bussen til tiltaket"
+  },
+  {
+    "dokumentInfoId": "533460659",
+    "tittel": "Søknad om tiltakspenger",
+    "personIdent": "17076518378",
+    "fornavn": "LITEN",
+    "etternavn": "KONSOLL",
+    "boadresse": "SKJØTTELVIKVEIEN 64",
+    "postnummer": "3484",
+    "kontonummer": "12345678912",
+    "tiltaksType": "AMO kurs",
+    "KVP": true,
+    "institusjonsopphold": false,
+    "startdato": "2021-04-01",
+    "sluttdato": "2022-01-01",
+    "tiltaksarrangorNavn": "Tiltaksbedriften AS",
+    "tiltaksadresse": "Tiltaksgaten 1",
+    "tiltakspostnummer": "0101",
+    "tiltaksdagerPerUke": 3,
+    "pensjonEtterlønn": false,
+    "barn": [],
+    "tilleggsopplysninger": "Jeg kan delta 3 dager i uken"
+  },
+  {
+    "dokumentInfoId": "533460661",
+    "tittel": "Søknad om tiltakspenger",
+    "personIdent": "10017311978",
+    "fornavn": "BLÅØYD",
+    "etternavn": "KAFFI",
+    "boadresse": "BRENDSRUDTOPPEN 56",
+    "postnummer": "1385",
+    "kontonummer": "12345678912",
+    "tiltaksType": "Arbeidstrening",
+    "KVP": false,
+    "institusjonsopphold": false,
+    "startdato": "2021-04-01",
+    "sluttdato": "2022-01-01",
+    "tiltaksarrangorNavn": "Tiltaksbedriften AS",
+    "tiltaksadresse": "Tiltaksgaten 1",
+    "tiltakspostnummer": "0101",
+    "tiltaksdagerPerUke": 5,
+    "pensjonEtterlønn": false,
+    "barn": [
+      {
+        "personIdent": "04020566464",
+        "sokerBarnetillegg": false
+      },
+      {
+        "personIdent": "05061677935",
+        "sokerBarnetillegg": true
+      }
+    ],
+    "tilleggsopplysninger": "Jeg tar bussen til tiltaket"
+  }
+]
