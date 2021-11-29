@@ -1,0 +1,22 @@
+{
+  "dokumentInfoId": "533460658",
+  "tittel": "Søknad om tiltakspenger",
+  "personIdent": "17076518378",
+  "fornavn": "LITEN",
+  "etternavn": "KONSOLL",
+  "boadresse": "SKJØTTELVIKVEIEN 64",
+  "postnummer": "3484",
+  "kontonummer": "12345678912",
+  "tiltaksType": "AMO kurs",
+  "KVP": true,
+  "institusjonsopphold": true,
+  "startdato": "2021-04-01",
+  "sluttdato": "2022-01-01",
+  "tiltaksarrangorNavn": "Tiltaksbedriften AS",
+  "tiltaksadresse": "Tiltaksgaten 1",
+  "tiltakspostnummer": "0101",
+  "tiltaksdagerPerUke": 3,
+  "pensjonEtterlønn": false,
+  "barn": [],
+  "tilleggsopplysninger": "Jeg kan delta 3 dager i uken"
+}

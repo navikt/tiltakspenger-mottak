@@ -23,6 +23,7 @@ fun Route.applicationRoutes() {
             LOG.info("Auth: ${headers["Authorization"]}")
         }
     }
+
     route("/api/mocksoknad") {
         get {
             call.respondText(
@@ -31,14 +32,20 @@ fun Route.applicationRoutes() {
             )
         }
     }.also { LOG.info { "setting up endpoint /api/mocksoknad" } }
-    route("/api/mocksoknad/{id}}") {
+
+    route("/api/mocksoknad/{id}") {
         get {
+            val soknadId = call.parameters["id"]
+            print(call.parameters.entries())
+            print(call.parameters["id"])
             call.respondText(
-                text = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8) ?: "{}",
+                text = javaClass.getResource("/mocksoknad${soknadId ?: ""}.json")?.readText(Charsets.UTF_8) ?: "{}",
                 contentType = ContentType.Application.Json
             )
+
         }
     }.also { LOG.info { "setting up endpoint /api/mocksoknad/{id}" } }
+
     authenticate("auth-jwt") {
         route("/api/application") {
             get {
