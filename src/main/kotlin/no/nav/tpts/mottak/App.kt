@@ -8,6 +8,7 @@ import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.prometheus.client.CollectorRegistry
@@ -28,13 +29,15 @@ fun main() {
 
     val server = embeddedServer(Netty, 8080) {
         install(DefaultHeaders)
+        install(ContentNegotiation) {
+            json()
+        }
         install(Authentication) {
             jwt("auth-jwt") {
                 verifier(jwkProvider, issuer) {
                     acceptLeeway(3)
                 }
                 validate { credential ->
-                    LOG.info(credential.payload.toString())
                     if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
                         JWTPrincipal(credential.payload)
                     } else {
