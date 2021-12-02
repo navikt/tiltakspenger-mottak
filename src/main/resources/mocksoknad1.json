@@ -1,22 +1,489 @@
 {
-  "dokumentInfoId": "533460658",
-  "tittel": "Søknad om tiltakspenger",
-  "personIdent": "17076518378",
-  "fornavn": "LITEN",
-  "etternavn": "KONSOLL",
-  "boadresse": "SKJØTTELVIKVEIEN 64",
-  "postnummer": "3484",
-  "kontonummer": "12345678912",
-  "tiltaksType": "AMO kurs",
-  "KVP": true,
-  "institusjonsopphold": false,
-  "startdato": "2021-04-01",
-  "sluttdato": "2022-01-01",
-  "tiltaksarrangorNavn": "Tiltaksbedriften AS",
-  "tiltaksadresse": "Tiltaksgaten 1",
-  "tiltakspostnummer": "0101",
-  "tiltaksdagerPerUke": 3,
-  "pensjonEtterlønn": false,
-  "barn": [],
-  "tilleggsopplysninger": "Jeg kan delta 3 dager i uken"
+  "soknadId": 11797,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "d6b9b8bb-0305-4ccb-959e-f884c65fef35",
+  "brukerBehandlingId": "10015oKQC",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 636718,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "bolker",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 636718,
+          "soknadId": 11797,
+          "key": "trygdogpensjon",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636718,
+          "soknadId": 11797,
+          "key": "barnetillegg",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636718,
+          "soknadId": 11797,
+          "key": "tiltaksliste",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636718,
+          "soknadId": 11797,
+          "key": "tilleggsopplysninger",
+          "value": "true",
+          "systemEgenskap": 0
+        }
+      ],
+      "properties": {
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636719,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "personalia",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "utenlandskKontoBanknavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "sekundarAdresseGyldigFra",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "sekundarAdresse",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "etternavn",
+          "value": "TAREMEL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "statsborgerskap",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "epost",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "diskresjonskode",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "utenlandskKontoLand",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "gjeldendeAdresseGyldigTil",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "gjeldendeAdresse",
+          "value": "SOLLIVEIEN 2, 1384 ASKER",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "fnr",
+          "value": "23127922160",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "alder",
+          "value": "41",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "statsborgerskapType",
+          "value": "norsk",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "kontonummer",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "gjeldendeAdresseType",
+          "value": "BOSTEDSADRESSE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "erUtenlandskBankkonto",
+          "value": "false",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "sekundarAdresseType",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "sekundarAdresseGyldigTil",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "fornavn",
+          "value": "GØYAL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "gjeldendeAdresseLandkode",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "navn",
+          "value": "GØYAL TAREMEL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 636719,
+          "soknadId": 11797,
+          "key": "gjeldendeAdresseGyldigFra",
+          "value": null,
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": null,
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "SOLLIVEIEN 2, 1384 ASKER",
+        "fnr": "23127922160",
+        "fornavn": "GØYAL",
+        "alder": "41",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "TAREMEL",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "GØYAL TAREMEL",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 636720,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "dagpenger",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636721,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636722,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636723,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636724,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636725,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636726,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636727,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636728,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636729,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636730,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636731,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636732,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636733,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": "en test for aa se om det kommer json",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636734,
+      "soknadId": 11797,
+      "parrentFaktum": 636730,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "AMO",
+      "faktumEgenskaper": [
+        {
+          "faktumId": 636734,
+          "soknadId": 11797,
+          "key": "postnummer",
+          "value": null,
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636734,
+          "soknadId": 11797,
+          "key": "fom",
+          "value": "2021-12-01",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636734,
+          "soknadId": 11797,
+          "key": "tom",
+          "value": "2021-12-31",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636734,
+          "soknadId": 11797,
+          "key": "antallDager",
+          "value": "5 dager",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636734,
+          "soknadId": 11797,
+          "key": "arrangoernavn",
+          "value": "Klaras kaker",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 636734,
+          "soknadId": 11797,
+          "key": "adresse",
+          "value": null,
+          "systemEgenskap": 0
+        }
+      ],
+      "properties": {
+        "tom": "2021-12-31",
+        "postnummer": null,
+        "fom": "2021-12-01",
+        "adresse": null,
+        "arrangoernavn": "Klaras kaker",
+        "antallDager": "5 dager"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636740,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 636741,
+      "soknadId": 11797,
+      "parrentFaktum": null,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "23127922160",
+  "opprettetDato": "2021-12-02T13:08:14.153Z",
+  "sistLagret": "2021-12-02T13:09:04.923Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
 }
