@@ -1092,5 +1092,657 @@
     "soknadUrl": "/soknadtiltakspenger/app",
     "fortsettSoknadUrl": "/soknadtiltakspenger/app",
     "erEttersending": false
+  },
+  {
+    "soknadId": 11800,
+    "skjemaNummer": "NAV 76-13.45",
+    "versjon": null,
+    "uuid": "50296258-7216-4a80-985c-3bbdf0f84a42",
+    "brukerBehandlingId": "10015oKQS",
+    "behandlingskjedeId": null,
+    "fakta": [
+      {
+        "faktumId": 636863,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "bolker",
+        "value": null,
+        "faktumEgenskaper": [
+          {
+            "faktumId": 636863,
+            "soknadId": 11800,
+            "key": "trygdogpensjon",
+            "value": "true",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636863,
+            "soknadId": 11800,
+            "key": "tiltaksliste",
+            "value": "true",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636863,
+            "soknadId": 11800,
+            "key": "barnetillegg",
+            "value": "true",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636863,
+            "soknadId": 11800,
+            "key": "tilleggsopplysninger",
+            "value": "true",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636863,
+            "soknadId": 11800,
+            "key": "personalia",
+            "value": "true",
+            "systemEgenskap": 0
+          }
+        ],
+        "properties": {
+          "personalia": "true",
+          "tilleggsopplysninger": "true",
+          "barnetillegg": "true",
+          "tiltaksliste": "true",
+          "trygdogpensjon": "true"
+        },
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636864,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "personalia",
+        "value": null,
+        "faktumEgenskaper": [
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "fornavn",
+            "value": "SEDAT",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "erUtenlandskBankkonto",
+            "value": "false",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "sekundarAdresseGyldigTil",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "alder",
+            "value": "39",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "etternavn",
+            "value": "SNERK",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "fnr",
+            "value": "13078222799",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "epost",
+            "value": "test@nav.no",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "diskresjonskode",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "navn",
+            "value": "SEDAT SNERK",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "gjeldendeAdresse",
+            "value": "DALVEIEN 28, 1391 VOLLEN",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "kjonn",
+            "value": "m",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "statsborgerskap",
+            "value": "NOR",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "utenlandskKontoBanknavn",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "gjeldendeAdresseGyldigTil",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "statsborgerskapType",
+            "value": "norsk",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "gjeldendeAdresseGyldigFra",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "sekundarAdresseType",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "utenlandskKontoLand",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "kontonummer",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "mellomnavn",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "gjeldendeAdresseType",
+            "value": "BOSTEDSADRESSE",
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "sekundarAdresse",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "sekundarAdresseGyldigFra",
+            "value": null,
+            "systemEgenskap": 1
+          },
+          {
+            "faktumId": 636864,
+            "soknadId": 11800,
+            "key": "gjeldendeAdresseLandkode",
+            "value": null,
+            "systemEgenskap": 1
+          }
+        ],
+        "properties": {
+          "gjeldendeAdresseLandkode": null,
+          "statsborgerskapType": "norsk",
+          "statsborgerskap": "NOR",
+          "mellomnavn": null,
+          "utenlandskKontoBanknavn": null,
+          "erUtenlandskBankkonto": "false",
+          "kjonn": "m",
+          "epost": "test@nav.no",
+          "sekundarAdresseType": null,
+          "gjeldendeAdresse": "DALVEIEN 28, 1391 VOLLEN",
+          "fnr": "13078222799",
+          "fornavn": "SEDAT",
+          "alder": "39",
+          "sekundarAdresseGyldigTil": null,
+          "utenlandskKontoLand": null,
+          "kontonummer": null,
+          "sekundarAdresse": null,
+          "sekundarAdresseGyldigFra": null,
+          "etternavn": "SNERK",
+          "gjeldendeAdresseType": "BOSTEDSADRESSE",
+          "diskresjonskode": null,
+          "navn": "SEDAT SNERK",
+          "gjeldendeAdresseGyldigTil": null,
+          "gjeldendeAdresseGyldigFra": null
+        },
+        "type": "SYSTEMREGISTRERT"
+      },
+      {
+        "faktumId": 636865,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "dagpenger",
+        "value": null,
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636866,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.dagpenger",
+        "value": null,
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636867,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+        "value": null,
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636868,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.institusjon",
+        "value": "ja",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636869,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.institusjon.ja.hvaslags",
+        "value": "annet",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636870,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+        "value": "nei",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636871,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.kvalifiseringsprogram",
+        "value": "ja",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636872,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+        "value": "nei",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636873,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.deltarIIntroprogram",
+        "value": null,
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636874,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "informasjonsside.deltarIIntroprogram.info",
+        "value": null,
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636875,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "tiltaksliste.valgtTiltak",
+        "value": "636885",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636876,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "tiltaksliste.tiltakslistenErTom",
+        "value": "false",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636877,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "trygdogpensjon",
+        "value": "true",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636878,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "tilleggsopplysninger.fritekst",
+        "value": null,
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636885,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "tiltaksliste.tiltakFraArena",
+        "value": "GRUPPEAMO",
+        "faktumEgenskaper": [
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "harSluttdatoFraArena",
+            "value": "false",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "navn",
+            "value": "Gruppe AMO",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "opprinneligstartdato",
+            "value": "2021-12-03",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "opprinneligsluttdato",
+            "value": null,
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "sluttdato",
+            "value": "2022-02-17",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "arrangoer",
+            "value": "ASK UNDERVISNING AS",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "arenaId",
+            "value": "136347577",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "erIEndreStatus",
+            "value": "false",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636885,
+            "soknadId": 11800,
+            "key": "startdato",
+            "value": "2021-12-03",
+            "systemEgenskap": 0
+          }
+        ],
+        "properties": {
+          "harSluttdatoFraArena": "false",
+          "opprinneligsluttdato": null,
+          "arenaId": "136347577",
+          "startdato": "2021-12-03",
+          "navn": "Gruppe AMO",
+          "erIEndreStatus": "false",
+          "arrangoer": "ASK UNDERVISNING AS",
+          "sluttdato": "2022-02-17",
+          "opprinneligstartdato": "2021-12-03"
+        },
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636886,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "arenakall.har.feilet",
+        "value": "false",
+        "faktumEgenskaper": [],
+        "properties": {},
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636887,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "trygdogpensjon.utbetalere",
+        "value": null,
+        "faktumEgenskaper": [
+          {
+            "faktumId": 636887,
+            "soknadId": 11800,
+            "key": "utbetaler",
+            "value": "SPK",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636887,
+            "soknadId": 11800,
+            "key": "prosent",
+            "value": "50",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636887,
+            "soknadId": 11800,
+            "key": "fom",
+            "value": "2021-12-01",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636887,
+            "soknadId": 11800,
+            "key": "tom",
+            "value": "2022-08-02",
+            "systemEgenskap": 0
+          }
+        ],
+        "properties": {
+          "prosent": "50",
+          "utbetaler": "SPK",
+          "tom": "2022-08-02",
+          "fom": "2021-12-01"
+        },
+        "type": "BRUKERREGISTRERT"
+      },
+      {
+        "faktumId": 636888,
+        "soknadId": 11800,
+        "parrentFaktum": null,
+        "key": "barn",
+        "value": null,
+        "faktumEgenskaper": [
+          {
+            "faktumId": 636888,
+            "soknadId": 11800,
+            "key": "fodselsdato",
+            "value": "2021-02-10",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636888,
+            "soknadId": 11800,
+            "key": "fornavn",
+            "value": "Laila Petrine",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636888,
+            "soknadId": 11800,
+            "key": "sokerbarnetillegg",
+            "value": "ja",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636888,
+            "soknadId": 11800,
+            "key": "alder",
+            "value": "0",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636888,
+            "soknadId": 11800,
+            "key": "etternavn",
+            "value": "Berg Hansen",
+            "systemEgenskap": 0
+          },
+          {
+            "faktumId": 636888,
+            "soknadId": 11800,
+            "key": "land",
+            "value": "NOR",
+            "systemEgenskap": 0
+          }
+        ],
+        "properties": {
+          "fodselsdato": "2021-02-10",
+          "etternavn": "Berg Hansen",
+          "land": "NOR",
+          "fornavn": "Laila Petrine",
+          "sokerbarnetillegg": "ja",
+          "alder": "0"
+        },
+        "type": "BRUKERREGISTRERT"
+      }
+    ],
+    "status": "UNDER_ARBEID",
+    "aktoerId": "13078222799",
+    "opprettetDato": "2021-12-03T14:31:56.131Z",
+    "sistLagret": "2021-12-03T14:35:52.075Z",
+    "delstegStatus": "VEDLEGG_VALIDERT",
+    "vedlegg": [
+      {
+        "vedleggId": 46872,
+        "soknadId": 11800,
+        "faktumId": null,
+        "skjemaNummer": "K5",
+        "skjemanummerTillegg": "tiltakspenger",
+        "innsendingsvalg": "SendesSenere",
+        "opprinneligInnsendingsvalg": null,
+        "navn": null,
+        "storrelse": 0,
+        "opprettetDato": 1638542112000,
+        "fillagerReferanse": "e4552e9a-dd2d-4a7c-a68c-94145b8a5bed",
+        "urls": {},
+        "tittel": null,
+        "aarsak": "Har ikke så god tid akkurat nå",
+        "filnavn": null,
+        "mimetype": null
+      },
+      {
+        "vedleggId": 46873,
+        "soknadId": 11800,
+        "faktumId": 636888,
+        "skjemaNummer": "X8",
+        "skjemanummerTillegg": null,
+        "innsendingsvalg": "SendesSenere",
+        "opprinneligInnsendingsvalg": null,
+        "navn": null,
+        "storrelse": 0,
+        "opprettetDato": 1638542112000,
+        "fillagerReferanse": "3cb93b76-e500-4287-a692-cfb80f59172f",
+        "urls": {},
+        "tittel": null,
+        "aarsak": "Finner det ikke",
+        "filnavn": null,
+        "mimetype": null
+      }
+    ],
+    "journalforendeEnhet": null,
+    "soknadPrefix": "tiltakspenger",
+    "soknadUrl": "/soknadtiltakspenger/app",
+    "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+    "erEttersending": false
   }
 ]
