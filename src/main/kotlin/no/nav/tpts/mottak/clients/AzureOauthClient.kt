@@ -1,8 +1,9 @@
 package no.nav.tpts.mottak.clients
 
-import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
-import io.ktor.http.*
+import io.ktor.client.request.forms.submitForm
+import io.ktor.client.request.get
+import io.ktor.http.Parameters
+import io.ktor.http.ParametersBuilder
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
 import no.nav.security.token.support.client.core.OAuth2GrantType
@@ -21,8 +22,9 @@ object AzureOauthClient {
         return httpClient.submitForm(
             url = wellknown.token_endpoint,
             formParameters = Parameters.build {
-            appendToken()
-        })
+                appendToken()
+            }
+        )
     }
 
     suspend fun onBehalfOfExchange(accessToken: String): OAuth2AccessTokenResponse {
@@ -30,7 +32,8 @@ object AzureOauthClient {
             url = wellknown.token_endpoint,
             formParameters = Parameters.build {
                 appendTokenExchangeParams(accessToken)
-            })
+            }
+        )
     }
 }
 

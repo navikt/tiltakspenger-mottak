@@ -1,10 +1,14 @@
 package no.nav.tpts.mottak.clients
 
-import io.ktor.client.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.client.features.logging.*
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.features.logging.DEFAULT
+import io.ktor.client.features.logging.LogLevel
+import io.ktor.client.features.logging.Logger
+import io.ktor.client.features.logging.Logging
+import kotlinx.serialization.json.Json
 
 val httpClient = HttpClient(CIO) {
     install(Logging) {
@@ -12,6 +16,6 @@ val httpClient = HttpClient(CIO) {
         level = LogLevel.BODY
     }
     install(JsonFeature) {
-        serializer = KotlinxSerializer(kotlinx.serialization.json.Json { ignoreUnknownKeys = true })
+        serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
     }
 }

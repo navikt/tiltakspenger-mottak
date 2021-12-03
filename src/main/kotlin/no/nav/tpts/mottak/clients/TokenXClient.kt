@@ -7,9 +7,9 @@ import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
-import io.ktor.http.*
+import io.ktor.client.request.forms.submitForm
+import io.ktor.client.request.get
+import io.ktor.http.Parameters
 import kotlinx.coroutines.runBlocking
 import no.nav.security.token.support.client.core.OAuth2GrantType
 import java.time.Instant
@@ -27,13 +27,14 @@ object TokenXClient {
         return httpClient.submitForm(
             url = wellknown.token_endpoint,
             formParameters = Parameters.build {
-                append("grant_type", OAuth2GrantType.TOKEN_EXCHANGE .value)
+                append("grant_type", OAuth2GrantType.TOKEN_EXCHANGE.value)
                 append("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
                 append("client_assertion", createClientAssertion(clientId, tokenXAudience))
                 append("subject_token_type", "urn:ietf:params:oauth:token-type:jwt")
                 append("subject_token", accessToken)
                 append("audience", targetAudience)
-            }) {}
+            }
+        ) {}
     }
 }
 
