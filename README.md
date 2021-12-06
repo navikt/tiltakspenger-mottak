@@ -33,3 +33,4 @@ Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Git
 
 Interne henvendelser kan sendes via Slack i kanalen #tpts-tech.
 
+Test fra ekstern bruker
