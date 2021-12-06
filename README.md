@@ -1,7 +1,7 @@
 tpts-tiltakspenger-mottak
 ================
 
-En tjeneste for tiltakspenger
+Håndterer søknader om tiltakspenger
 
 # Komme i gang
 ## Forutsetninger
@@ -32,5 +32,3 @@ Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Git
 ## For NAV-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #tpts-tech.
-
-Test fra ekstern bruker
