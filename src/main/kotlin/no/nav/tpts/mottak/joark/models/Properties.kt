@@ -1,0 +1,41 @@
+package no.nav.tpts.mottak.joark.models
+
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Properties(
+    val adresse: String? = null,
+    val alder:String? = null,
+    val antallDager:String? = null,
+    val arrangoernavn:String? = null,
+    val barnetillegg:String? = null,
+    val diskresjonskode: String? = null,
+    val epost: String? = null,
+    val erUtenlandskBankkonto:String? = null,
+    val etternavn:String? = null,
+    val fnr:String? = null,
+    val fom:String? = null,
+    val fornavn:String? = null,
+    val gjeldendeAdresse:String? = null,
+    val gjeldendeAdresseGyldigFra: String? = null,
+    val gjeldendeAdresseGyldigTil: String? = null,
+    val gjeldendeAdresseLandkode: String? = null,
+    val gjeldendeAdresseType:String? = null,
+    val kjonn:String? = null,
+    val kontonummer: String? = null,
+    val mellomnavn: String? = null,
+    val navn:String? = null,
+    val postnummer: String? = null,
+    val sekundarAdresse: String? = null,
+    val sekundarAdresseGyldigFra: String? = null,
+    val sekundarAdresseGyldigTil: String? = null,
+    val sekundarAdresseType: String? = null,
+    val statsborgerskap:String? = null,
+    val statsborgerskapType:String? = null,
+    val tilleggsopplysninger:String? = null,
+    val tiltaksliste:String? = null,
+    val tom:String? = null,
+    val trygdogpensjon:String? = null,
+    val utenlandskKontoBanknavn: String? = null,
+    val utenlandskKontoLand: String? = null,
+)
