@@ -18,7 +18,7 @@ import java.util.*
 private val wellKnown = System.getenv("TOKEN_X_WELL_KNOWN_URL")
 private val clientId = System.getenv("TOKEN_X_CLIENT_ID")
 private val privateJwk = System.getenv("TOKEN_X_PRIVATE_JWK")
-private const val tokenXAudience = "https://tokendings.dev-gcp.nais.io/token"
+private const val TOKENX_AUDIENCE = "https://tokendings.dev-gcp.nais.io/token"
 
 object TokenXClient {
     private var wellknown: WellKnown = runBlocking { httpClient.get(wellKnown) }
@@ -29,7 +29,7 @@ object TokenXClient {
             formParameters = Parameters.build {
                 append("grant_type", OAuth2GrantType.TOKEN_EXCHANGE.value)
                 append("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
-                append("client_assertion", createClientAssertion(clientId, tokenXAudience))
+                append("client_assertion", createClientAssertion(clientId, TOKENX_AUDIENCE))
                 append("subject_token_type", "urn:ietf:params:oauth:token-type:jwt")
                 append("subject_token", accessToken)
                 append("audience", targetAudience)
