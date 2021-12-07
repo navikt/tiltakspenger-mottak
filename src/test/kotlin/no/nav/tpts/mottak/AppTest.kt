@@ -31,7 +31,8 @@ class AppTest {
                 {"name": "kanalReferanseId", "type": "string"},
                 {"name": "behandlingstema", "type": "string", "default": ""}
               ]
-            }""".trimIndent()
+            }
+        """.trimIndent()
     )
 
     @Test
@@ -45,7 +46,7 @@ class AppTest {
         val consumerRecord: ConsumerRecord<String, GenericRecord> = ConsumerRecord("topic", 0, 0, "key", record)
         val producerRecord: ProducerRecord<String, String> = ProducerRecord("topic", "key", "value")
         mockProducer.send(producerRecord)
-        //mockConsumer.addRecord(consumerRecord)
+        // mockConsumer.addRecord(consumerRecord)
         assertNotNull(mockProducer)
     }
 }

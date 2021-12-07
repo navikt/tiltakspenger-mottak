@@ -36,8 +36,8 @@ dependencies {
 
     implementation("no.nav.security:token-client-core:1.3.9")
 
-    implementation ("com.auth0:java-jwt:3.18.2")
-    implementation ("com.auth0:jwks-rsa:0.20.0")
+    implementation("com.auth0:java-jwt:3.18.2")
+    implementation("com.auth0:jwks-rsa:0.20.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.0")
 
     testImplementation("org.apache.kafka:kafka-clients:3.0.0")
@@ -72,7 +72,7 @@ tasks {
         kotlinOptions.jvmTarget = javaVersion.toString()
     }
     test {
-        //JUnit 5 support
+        // JUnit 5 support
         useJUnitPlatform()
     }
     shadowJar {
