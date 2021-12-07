@@ -5,6 +5,7 @@ val log4jVersion = "2.14.1"
 plugins {
     application
     kotlin("jvm") version "1.6.0"
+    kotlin("plugin.serialization") version "1.6.0"
     id("com.github.johnrengelman.shadow") version "7.1.0"
     id("com.github.ben-manes.versions") version "0.39.0"
 }
@@ -28,8 +29,15 @@ dependencies {
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
-    implementation ("com.auth0:java-jwt:3.18.2")
-    implementation ("com.auth0:jwks-rsa:0.20.0")
+    implementation("io.ktor:ktor-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+
+    implementation("no.nav.security:token-client-core:1.3.9")
+
+    implementation("com.auth0:java-jwt:3.18.2")
+    implementation("com.auth0:jwks-rsa:0.20.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.0")
 
     testImplementation("org.apache.kafka:kafka-clients:3.0.0")
@@ -64,7 +72,7 @@ tasks {
         kotlinOptions.jvmTarget = javaVersion.toString()
     }
     test {
-        //JUnit 5 support
+        // JUnit 5 support
         useJUnitPlatform()
     }
     shadowJar {
