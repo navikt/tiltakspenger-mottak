@@ -13,7 +13,7 @@ import io.ktor.http.Parameters
 import kotlinx.coroutines.runBlocking
 import no.nav.security.token.support.client.core.OAuth2GrantType
 import java.time.Instant
-import java.util.*
+import java.util.Date
 
 private val wellKnown = System.getenv("TOKEN_X_WELL_KNOWN_URL")
 private val clientId = System.getenv("TOKEN_X_CLIENT_ID")

@@ -1,6 +1,7 @@
 val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "1.6.6"
 val log4jVersion = "2.14.1"
+val ktlintVersion = "0.38.1"
 
 plugins {
     application
@@ -8,6 +9,11 @@ plugins {
     kotlin("plugin.serialization") version "1.6.0"
     id("com.github.johnrengelman.shadow") version "7.1.0"
     id("com.github.ben-manes.versions") version "0.39.0"
+    id("com.diffplug.spotless") version "5.17.0"
+}
+
+apply {
+    plugin("com.diffplug.spotless")
 }
 
 repositories {
@@ -54,6 +60,16 @@ application {
 java {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
+}
+
+spotless {
+    kotlin {
+        ktlint(ktlintVersion)
+    }
+    kotlinGradle {
+        target("*.gradle.kts", "buildSrc/**/*.kt*")
+        ktlint(ktlintVersion)
+    }
 }
 
 // https://github.com/ben-manes/gradle-versions-plugin

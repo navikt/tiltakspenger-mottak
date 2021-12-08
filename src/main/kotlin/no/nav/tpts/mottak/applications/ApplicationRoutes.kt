@@ -8,8 +8,8 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.respondText
 import io.ktor.routing.Route
-import io.ktor.routing.route
 import io.ktor.routing.get
+import io.ktor.routing.route
 import io.ktor.util.toMap
 import no.nav.tpts.mottak.LOG
 import no.nav.tpts.mottak.clients.AzureOauthClient
