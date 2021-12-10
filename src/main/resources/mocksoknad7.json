@@ -1,0 +1,491 @@
+https://saf.dev-fss-pub.nais.io/rest/hentdokument/510868873/533783121/ORIGINAL
+
+{
+  "soknadId": 11844,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "e14b5389-8b24-46ee-b471-a31cd8c768b4",
+  "brukerBehandlingId": "10015oKSF",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 639597,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "bolker",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 639597,
+          "soknadId": 11844,
+          "key": "barnetillegg",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639597,
+          "soknadId": 11844,
+          "key": "tiltaksliste",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639597,
+          "soknadId": 11844,
+          "key": "tilleggsopplysninger",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639597,
+          "soknadId": 11844,
+          "key": "trygdogpensjon",
+          "value": "true",
+          "systemEgenskap": 0
+        }
+      ],
+      "properties": {
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639598,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "personalia",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "sekundarAdresse",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "etternavn",
+          "value": "DORULL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "gjeldendeAdresseLandkode",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "gjeldendeAdresseGyldigTil",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "alder",
+          "value": "39",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "gjeldendeAdresseType",
+          "value": "BOSTEDSADRESSE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "epost",
+          "value": "noreply@nav.no",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "statsborgerskap",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "statsborgerskapType",
+          "value": "norsk",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "fnr",
+          "value": "10098213754",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "navn",
+          "value": "RASK DORULL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "fornavn",
+          "value": "RASK",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "utenlandskKontoBanknavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "sekundarAdresseType",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "gjeldendeAdresse",
+          "value": "FYRSTIKKALLÉEN 2, 0661 OSLO",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "kontonummer",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "gjeldendeAdresseGyldigFra",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "sekundarAdresseGyldigTil",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "diskresjonskode",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "erUtenlandskBankkonto",
+          "value": "false",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "utenlandskKontoLand",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 639598,
+          "soknadId": 11844,
+          "key": "sekundarAdresseGyldigFra",
+          "value": null,
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": "noreply@nav.no",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "FYRSTIKKALLÉEN 2, 0661 OSLO",
+        "fnr": "10098213754",
+        "fornavn": "RASK",
+        "alder": "39",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "DORULL",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "RASK DORULL",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 639599,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "dagpenger",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639600,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639601,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639602,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639603,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639604,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639605,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639606,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639607,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639608,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639609,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639610,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639611,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639612,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639613,
+      "soknadId": 11844,
+      "parrentFaktum": 639609,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "JOBSOK",
+      "faktumEgenskaper": [
+        {
+          "faktumId": 639613,
+          "soknadId": 11844,
+          "key": "adresse",
+          "value": null,
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639613,
+          "soknadId": 11844,
+          "key": "antallDager",
+          "value": "4 dager",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639613,
+          "soknadId": 11844,
+          "key": "arrangoernavn",
+          "value": "greier",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639613,
+          "soknadId": 11844,
+          "key": "tom",
+          "value": "2021-12-24",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639613,
+          "soknadId": 11844,
+          "key": "postnummer",
+          "value": null,
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 639613,
+          "soknadId": 11844,
+          "key": "fom",
+          "value": "2021-12-09",
+          "systemEgenskap": 0
+        }
+      ],
+      "properties": {
+        "tom": "2021-12-24",
+        "postnummer": null,
+        "fom": "2021-12-09",
+        "adresse": null,
+        "arrangoernavn": "greier",
+        "antallDager": "4 dager"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639619,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 639620,
+      "soknadId": 11844,
+      "parrentFaktum": null,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "10098213754",
+  "opprettetDato": "2021-12-07T13:38:06.819Z",
+  "sistLagret": "2021-12-07T14:27:42.350Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
