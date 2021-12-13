@@ -1,18 +1,24 @@
 package no.nav.tpts.mottak.applications
 
+import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.principal
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.Route
 import io.ktor.routing.route
 import io.ktor.routing.get
+import io.ktor.util.pipeline.PipelineContext
 import io.ktor.util.toMap
 import no.nav.tpts.mottak.LOG
 import no.nav.tpts.mottak.clients.AzureOauthClient
+import no.nav.tpts.mottak.models.toSoknad
+import no.nav.tpts.mottak.saf.api.SAFClient
+import java.lang.IllegalArgumentException
 
 val JWTPrincipal.userId: String
     get() = this.subject ?: throw Exception("No user subject claim found on token")
@@ -77,5 +83,31 @@ fun Route.applicationRoutes() {
                 call.respondText("OK")
             }
         }
+
+        route("/api/soknad/{journalPostId}") {
+            get {
+                val dokumentInfoId = requireQueryParam("dokumentInfoId")
+                val journalPostId =  requireParam("journalPostId")
+                val response = SAFClient.getJournalPostDocument(journalpostId = journalPostId, dokumentInfoId = dokumentInfoId)
+                call.respond(response.toSoknad())
+            }
+        }
     }
+}
+
+suspend fun PipelineContext<Unit, ApplicationCall>.requireParam(paramName: String): String {
+    val param = call.parameters[paramName]
+    if (param == null) {
+        call.respond(HttpStatusCode.BadRequest, "Missing path param ${paramName}")
+        throw IllegalArgumentException("Missing path param ${paramName}")
+    }
+    return param
+}
+suspend fun PipelineContext<Unit, ApplicationCall>.requireQueryParam(paramName: String): String {
+    val param = call.request.queryParameters[paramName]
+    if (param == null) {
+        call.respond(HttpStatusCode.BadRequest, "Missing path param ${paramName}")
+        throw IllegalArgumentException("Missing path param ${paramName}")
+    }
+    return param
 }

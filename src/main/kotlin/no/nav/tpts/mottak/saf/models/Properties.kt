@@ -1,4 +1,4 @@
-package no.nav.tpts.mottak.joark.models
+package no.nav.tpts.mottak.saf.models
 
 import kotlinx.serialization.Serializable
 
