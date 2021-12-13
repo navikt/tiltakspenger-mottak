@@ -23,12 +23,17 @@ import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
+import no.nav.tpts.mottak.database.migrate
 import java.net.URI
 
 val LOG = KotlinLogging.logger {}
+// TODO: Temporary setup, should consider doing a on behalf of exchange in frontend before
+val FRONTEND_CLIENT_ID = "8cfaf79d-b131-4092-8227-32b3fa92ca82"
 
 fun main() {
     LOG.info { "starting server" }
+
+    migrate()
 
     val issuer = System.getenv("AZURE_ISSUER")
     val jwksUri = System.getenv("AZURE_JWKS_URI")
@@ -46,7 +51,7 @@ fun main() {
                     acceptLeeway(3)
                 }
                 validate { credential ->
-                    if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
+                    if (credential.payload.getClaim("aud").asString() == FRONTEND_CLIENT_ID) {
                         JWTPrincipal(credential.payload)
                     } else {
                         null

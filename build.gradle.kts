@@ -1,6 +1,6 @@
 val javaVersion = JavaVersion.VERSION_17
-val ktorVersion = "1.6.6"
-val log4jVersion = "2.14.1"
+val ktorVersion = "1.6.7"
+val log4jVersion = "2.15.0"
 
 plugins {
     application
@@ -21,7 +21,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
-    implementation("io.github.microutils:kotlin-logging-jvm:2.1.15")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.1.16")
     implementation("io.ktor:ktor-server:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
@@ -34,11 +34,16 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
+    implementation("org.flywaydb:flyway-core:8.2.1")
+    implementation("com.zaxxer:HikariCP:5.0.0")
+    implementation("org.jdbi:jdbi:2.78")
+    implementation("org.postgresql:postgresql:42.3.1")
+
     implementation("no.nav.security:token-client-core:1.3.9")
 
     implementation("com.auth0:java-jwt:3.18.2")
     implementation("com.auth0:jwks-rsa:0.20.0")
-    implementation("io.micrometer:micrometer-registry-prometheus:1.8.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
 
     testImplementation("org.apache.kafka:kafka-clients:3.0.0")
     testImplementation("org.apache.avro:avro:1.11.0")
