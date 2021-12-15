@@ -4,9 +4,9 @@ val log4jVersion = "2.16.0"
 
 plugins {
     application
-    kotlin("jvm") version "1.6.0"
-    kotlin("plugin.serialization") version "1.6.0"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
+    kotlin("jvm") version "1.6.10"
+    kotlin("plugin.serialization") version "1.6.10"
+    id("com.github.johnrengelman.shadow") version "7.1.1"
     id("com.github.ben-manes.versions") version "0.39.0"
 }
 
