@@ -8,6 +8,7 @@ plugins {
     kotlin("plugin.serialization") version "1.6.10"
     id("com.github.johnrengelman.shadow") version "7.1.1"
     id("com.github.ben-manes.versions") version "0.39.0"
+    id("io.gitlab.arturbosch.detekt").version("1.19.0")
 }
 
 repositories {
@@ -15,6 +16,7 @@ repositories {
 }
 
 dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
