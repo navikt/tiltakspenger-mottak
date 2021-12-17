@@ -22,7 +22,7 @@ object AzureOauthClient {
 
     suspend fun getToken(): OAuth2AccessTokenResponse {
         return httpClient.submitForm(
-            url = wellknown.token_endpoint,
+            url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 appendToken()
             }
@@ -31,7 +31,7 @@ object AzureOauthClient {
 
     suspend fun onBehalfOfExchange(accessToken: String): OAuth2AccessTokenResponse {
         return httpClient.submitForm(
-            url = wellknown.token_endpoint,
+            url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 appendTokenExchangeParams(accessToken)
             }
