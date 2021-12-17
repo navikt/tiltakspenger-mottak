@@ -5,17 +5,18 @@ import io.ktor.auth.authenticate
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.principal
 import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
 import io.ktor.response.respondText
 import io.ktor.routing.Route
-import io.ktor.routing.route
 import io.ktor.routing.get
+import io.ktor.routing.route
 import io.ktor.util.toMap
 import no.nav.tpts.mottak.LOG
 import no.nav.tpts.mottak.clients.AzureOauthClient
 
 val JWTPrincipal.userId: String
-    get() = this.subject ?: throw Exception("No user subject claim found on token")
+    get() = this.subject ?: throw NoUserFound("No user subject claim found on token")
+
+class NoUserFound(override val message: String?) : SecurityException(message)
 
 fun Route.applicationRoutes() {
     route("/api/test") {
@@ -26,9 +27,9 @@ fun Route.applicationRoutes() {
             LOG.info(headers.toString())
             LOG.info("Auth: ${headers["Authorization"]}")
 
-            try {
+            kotlin.runCatching {
                 AzureOauthClient.getToken()
-            } catch (e: Exception) {
+            }.onFailure { e ->
                 e.printStackTrace()
             }
         }
@@ -67,6 +68,7 @@ fun Route.applicationRoutes() {
 
         route("/api/onbehalfoftoken") {
             get {
+                /*
                 try {
                     val token = AzureOauthClient.getToken()
                 } catch (e: Exception) {
@@ -75,6 +77,7 @@ fun Route.applicationRoutes() {
                     return@get
                 }
                 call.respondText("OK")
+                */
             }
         }
     }

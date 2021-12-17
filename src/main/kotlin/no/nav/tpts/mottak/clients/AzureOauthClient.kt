@@ -5,6 +5,7 @@ import io.ktor.client.request.get
 import io.ktor.http.Parameters
 import io.ktor.http.ParametersBuilder
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import no.nav.security.token.support.client.core.OAuth2GrantType
 import no.nav.security.token.support.client.core.OAuth2ParameterNames
@@ -12,7 +13,8 @@ import no.nav.security.token.support.client.core.OAuth2ParameterNames
 private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
 private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
 private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
-// TODO: Change this to whats needed
+
+// Change this to whats needed
 private val scope = System.getenv("SCOPE") ?: "api://dev-fss.teamdokumenthandtering.saf/.default"
 
 object AzureOauthClient {
@@ -43,6 +45,7 @@ fun ParametersBuilder.appendToken() {
     append(OAuth2ParameterNames.CLIENT_SECRET, clientSecret)
     append(OAuth2ParameterNames.SCOPE, scope)
 }
+
 fun ParametersBuilder.appendTokenExchangeParams(accessToken: String) {
     append("grant_type", OAuth2GrantType.JWT_BEARER.value)
     append(OAuth2ParameterNames.CLIENT_ID, clientId)
@@ -54,5 +57,6 @@ fun ParametersBuilder.appendTokenExchangeParams(accessToken: String) {
 
 @Serializable
 data class WellKnown(
-    val token_endpoint: String
+    @SerialName("token_endpoint")
+    val tokenEndpoint: String
 )

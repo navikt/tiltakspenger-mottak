@@ -4,18 +4,18 @@ import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
-import io.ktor.auth.jwt.jwt
 import io.ktor.auth.jwt.JWTPrincipal
+import io.ktor.auth.jwt.jwt
 import io.ktor.features.CORS
-import io.ktor.features.DefaultHeaders
 import io.ktor.features.ContentNegotiation
+import io.ktor.features.DefaultHeaders
 import io.ktor.http.ContentType
 import io.ktor.response.respondText
 import io.ktor.response.respondTextWriter
-import io.ktor.routing.routing
 import io.ktor.routing.Route
-import io.ktor.routing.route
 import io.ktor.routing.get
+import io.ktor.routing.route
+import io.ktor.routing.routing
 import io.ktor.serialization.json
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -26,6 +26,8 @@ import no.nav.tpts.mottak.applications.applicationRoutes
 import java.net.URI
 
 val LOG = KotlinLogging.logger {}
+const val PORT = 8080
+const val LEEWAY = 3L
 
 fun main() {
     LOG.info { "starting server" }
@@ -35,7 +37,7 @@ fun main() {
 
     val jwkProvider = UrlJwkProvider(URI(jwksUri).toURL())
 
-    val server = embeddedServer(Netty, 8080) {
+    val server = embeddedServer(Netty, PORT) {
         install(DefaultHeaders)
         install(ContentNegotiation) {
             json()
@@ -43,7 +45,7 @@ fun main() {
         install(Authentication) {
             jwt("auth-jwt") {
                 verifier(jwkProvider, issuer) {
-                    acceptLeeway(3)
+                    acceptLeeway(LEEWAY)
                 }
                 validate { credential ->
                     if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
@@ -54,7 +56,6 @@ fun main() {
                 }
             }
         }
-        /**/
         install(CORS) {
             host("localhost:8081")
             host("127.0.0.1:8081")

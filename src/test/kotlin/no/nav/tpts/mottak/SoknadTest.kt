@@ -13,5 +13,4 @@ class SoknadTest {
         val obj = Json.decodeFromString<SoknadRaw>(rawJsonSoknad)
         println(obj)
     }
-
 }
