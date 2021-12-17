@@ -23,7 +23,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
-    implementation("io.github.microutils:kotlin-logging-jvm:2.1.16")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.1.20")
     implementation("io.ktor:ktor-server:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
@@ -35,9 +35,7 @@ dependencies {
     implementation("io.ktor:ktor-client-serialization:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
-
     implementation("no.nav.security:token-client-core:1.3.9")
-
     implementation("com.auth0:java-jwt:3.18.2")
     implementation("com.auth0:jwks-rsa:0.20.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
