@@ -23,6 +23,7 @@ import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
+import no.nav.tpts.mottak.db.flywayMigrate
 import java.net.URI
 
 val LOG = KotlinLogging.logger {}
@@ -31,6 +32,8 @@ const val LEEWAY = 3L
 
 fun main() {
     LOG.info { "starting server" }
+
+    flywayMigrate()
 
     val issuer = System.getenv("AZURE_ISSUER")
     val jwksUri = System.getenv("AZURE_JWKS_URI")

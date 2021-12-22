@@ -40,6 +40,11 @@ dependencies {
     implementation("com.auth0:jwks-rsa:0.20.0")
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
 
+    // DB
+    implementation("org.flywaydb:flyway-core:8.2.2")
+    implementation("com.zaxxer:HikariCP:5.0.0")
+
+
     testImplementation("org.apache.kafka:kafka-clients:3.0.0")
     testImplementation("org.apache.avro:avro:1.11.0")
 
