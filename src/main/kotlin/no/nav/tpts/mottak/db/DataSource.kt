@@ -6,9 +6,9 @@ import javax.sql.DataSource
 
 val LOG = KotlinLogging.logger {}
 fun dataSource(): DataSource {
-    val env = System.getenv()
-    LOG.info { ("env: $env") }
     return HikariDataSource().apply {
-        jdbcUrl = "jdbc:${env["NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL"]}"
+        dataSourceClassName = "org.postgresql.ds.PGSimpleDataSource"
+        password = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASS")
+        username = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USER")
     }
 }
