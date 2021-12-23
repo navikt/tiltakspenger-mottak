@@ -4,7 +4,7 @@ import org.flywaydb.core.Flyway
 
 fun flywayMigrate() {
     Flyway.configure()
-        .dataSource(dataSource())
+        .dataSource(DataSource.dataSource)
         .load()
         .migrate()
 }

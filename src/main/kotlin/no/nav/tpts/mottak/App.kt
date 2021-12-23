@@ -24,6 +24,7 @@ import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
+import no.nav.tpts.mottak.soknad.soknadRoutes
 import java.net.URI
 
 val LOG = KotlinLogging.logger {}
@@ -69,6 +70,7 @@ fun main() {
         routing {
             healthRoutes()
             applicationRoutes()
+            soknadRoutes()
         }
     }.start()
 
