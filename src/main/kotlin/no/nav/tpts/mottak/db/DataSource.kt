@@ -1,10 +1,8 @@
 package no.nav.tpts.mottak.db
 
 import com.zaxxer.hikari.HikariDataSource
-import mu.KotlinLogging
 import javax.sql.DataSource
 
-val LOG = KotlinLogging.logger {}
 fun dataSource(): DataSource {
     return HikariDataSource().apply {
         dataSourceClassName = "org.postgresql.ds.PGSimpleDataSource"
