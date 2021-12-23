@@ -1,0 +1,883 @@
+https://saf.dev-fss-pub.nais.io/rest/hentdokument/510919331/533833909/ORIGINAL
+
+{
+  "soknadId": 12008,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "76e60889-21f9-4723-bf42-da106460beba",
+  "brukerBehandlingId": "10015oL1U",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 648908,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "bolker",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648908,
+          "soknadId": 12008,
+          "key": "trygdogpensjon",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648908,
+          "soknadId": 12008,
+          "key": "barnetillegg",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648908,
+          "soknadId": 12008,
+          "key": "tilleggsopplysninger",
+          "value": "true",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648908,
+          "soknadId": 12008,
+          "key": "tiltaksliste",
+          "value": "true",
+          "systemEgenskap": 0
+        }
+      ],
+      "properties": {
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648909,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "personalia",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "statsborgerskap",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "gjeldendeAdresse",
+          "value": "TORPSTUBBEN 49, 1389 HEGGEDAL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "utenlandskKontoBanknavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "fornavn",
+          "value": "TALENTFULL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "epost",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "navn",
+          "value": "TALENTFULL BOLLE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "sekundarAdresse",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "sekundarAdresseType",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "erUtenlandskBankkonto",
+          "value": "false",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "sekundarAdresseGyldigTil",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "etternavn",
+          "value": "BOLLE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "alder",
+          "value": "33",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "fnr",
+          "value": "20058803546",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "statsborgerskapType",
+          "value": "norsk",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "gjeldendeAdresseType",
+          "value": "BOSTEDSADRESSE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "diskresjonskode",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "gjeldendeAdresseLandkode",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "utenlandskKontoLand",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "gjeldendeAdresseGyldigFra",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "gjeldendeAdresseGyldigTil",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "kontonummer",
+          "value": "00161726516",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "sekundarAdresseGyldigFra",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648909,
+          "soknadId": 12008,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": null,
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "TORPSTUBBEN 49, 1389 HEGGEDAL",
+        "fnr": "20058803546",
+        "fornavn": "TALENTFULL",
+        "alder": "33",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": "00161726516",
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "BOLLE",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "TALENTFULL BOLLE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 648910,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "dagpenger",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648911,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648912,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648913,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648914,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648915,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648916,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648917,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648918,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648919,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648920,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "648930",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648921,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648922,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648923,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": "test g test",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648930,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "JOBBK",
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "startdato",
+          "value": "2021-12-06",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "opprinneligstartdato",
+          "value": "2021-12-06",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "arenaId",
+          "value": "136347592",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "opprinneligsluttdato",
+          "value": null,
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "erIEndreStatus",
+          "value": "false",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "arrangoer",
+          "value": "JOBLEARN AS",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "navn",
+          "value": "Jobbklubb",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "sluttdato",
+          "value": "2021-12-31",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648930,
+          "soknadId": 12008,
+          "key": "harSluttdatoFraArena",
+          "value": "false",
+          "systemEgenskap": 0
+        }
+      ],
+      "properties": {
+        "harSluttdatoFraArena": "false",
+        "opprinneligsluttdato": null,
+        "arenaId": "136347592",
+        "startdato": "2021-12-06",
+        "navn": "Jobbklubb",
+        "erIEndreStatus": "false",
+        "arrangoer": "JOBLEARN AS",
+        "sluttdato": "2021-12-31",
+        "opprinneligstartdato": "2021-12-06"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648931,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 648932,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "barn",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "alder",
+          "value": "6",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "sokerbarnetillegg",
+          "value": "nei",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "fnr",
+          "value": "26011579360",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "uniqueKey",
+          "value": "fnr",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "land",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "fornavn",
+          "value": "KORRUPT",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "etternavn",
+          "value": "STAUDE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648932,
+          "soknadId": 12008,
+          "key": "sammensattnavn",
+          "value": "KORRUPT STAUDE",
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "etternavn": "STAUDE",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "KORRUPT STAUDE",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "26011579360",
+        "fornavn": "KORRUPT",
+        "sokerbarnetillegg": "nei",
+        "alder": "6"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 648933,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "barn",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "uniqueKey",
+          "value": "fnr",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "land",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "fornavn",
+          "value": "SMEKKER",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "etternavn",
+          "value": "STAUDE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "fnr",
+          "value": "16081376917",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "sokerbarnetillegg",
+          "value": "ja",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "sammensattnavn",
+          "value": "SMEKKER STAUDE",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "alder",
+          "value": "8",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648933,
+          "soknadId": 12008,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "etternavn": "STAUDE",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "SMEKKER STAUDE",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "16081376917",
+        "fornavn": "SMEKKER",
+        "sokerbarnetillegg": "ja",
+        "alder": "8"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 648934,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "barn",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "sammensattnavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "etternavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "land",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "sokerbarnetillegg",
+          "value": "ja",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "fornavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "uniqueKey",
+          "value": "fnr",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "alder",
+          "value": "13",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "harinntekt",
+          "value": "nei",
+          "systemEgenskap": 0
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648934,
+          "soknadId": 12008,
+          "key": "fnr",
+          "value": "13120875919",
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "etternavn": null,
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": null,
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "13120875919",
+        "fornavn": null,
+        "harinntekt": "nei",
+        "sokerbarnetillegg": "ja",
+        "alder": "13"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 648935,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "barn",
+      "value": null,
+      "faktumEgenskaper": [
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "etternavn",
+          "value": "HØYSTAKK",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "mellomnavn",
+          "value": null,
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "fornavn",
+          "value": "TRIVIELL",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "land",
+          "value": "NOR",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "kjonn",
+          "value": "m",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "alder",
+          "value": "17",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "fnr",
+          "value": "03050456330",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "sammensattnavn",
+          "value": "TRIVIELL HØYSTAKK",
+          "systemEgenskap": 1
+        },
+        {
+          "faktumId": 648935,
+          "soknadId": 12008,
+          "key": "uniqueKey",
+          "value": "fnr",
+          "systemEgenskap": 1
+        }
+      ],
+      "properties": {
+        "etternavn": "HØYSTAKK",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "TRIVIELL HØYSTAKK",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "03050456330",
+        "fornavn": "TRIVIELL",
+        "alder": "17"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 648936,
+      "soknadId": 12008,
+      "parrentFaktum": null,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "faktumEgenskaper": [],
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "20058803546",
+  "opprettetDato": "2021-12-20T12:08:38.444Z",
+  "sistLagret": "2021-12-20T12:11:56.933Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
