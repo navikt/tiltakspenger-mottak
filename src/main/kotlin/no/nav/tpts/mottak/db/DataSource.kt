@@ -9,7 +9,10 @@ fun dataSource(): DataSource {
     LOG.info { System.getenv().keys }
     return HikariDataSource().apply {
         dataSourceClassName = "org.postgresql.ds.PGSimpleDataSource"
-        password = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
-        username = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
+//        password = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
+//        username = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
+        addDataSourceProperty("databaseName", System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE"))
+        addDataSourceProperty("password", System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD"))
+        addDataSourceProperty("username", System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME"))
     }
 }
