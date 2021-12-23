@@ -6,14 +6,9 @@ import javax.sql.DataSource
 
 val LOG = KotlinLogging.logger {}
 fun dataSource(): DataSource {
-//    val props = Properties().apply {
-//        put("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource")
-//    }
-//    val config = HikariConfig(props)
     val env = System.getenv()
     LOG.info { ("env: $env") }
     return HikariDataSource().apply {
         jdbcUrl = "jdbc:${env["NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL"]}"
-        driverClassName = ""
     }
 }
