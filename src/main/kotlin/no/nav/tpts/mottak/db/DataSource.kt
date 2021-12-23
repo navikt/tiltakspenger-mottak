@@ -4,7 +4,7 @@ import com.zaxxer.hikari.HikariDataSource
 import org.postgresql.ds.PGSimpleDataSource
 
 object DataSource {
-    val dataSource = HikariDataSource().apply {
+    val hikariDataSource = HikariDataSource().apply {
         dataSource = PGSimpleDataSource().apply {
             databaseName = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE")
         }

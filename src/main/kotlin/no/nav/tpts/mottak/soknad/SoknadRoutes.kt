@@ -20,7 +20,7 @@ fun Route.soknadRoutes() {
                 select navn, opprettet_dato, bruker_start_dato, bruker_slutt_dato from soknad
             """.trimIndent()
 
-            val session = Session(Connection(DataSource.dataSource.connection), strict = true)
+            val session = Session(Connection(DataSource.hikariDataSource.connection), strict = true)
             val soknader = session.run(queryOf(query).map(Soknad::fromRow).asList)
             call.respond(soknader)
         }
