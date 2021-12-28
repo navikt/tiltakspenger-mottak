@@ -35,7 +35,7 @@ class SoknadRoutesTest {
         every { DataSource.session } returns mockSession
 
         withTestApplication({ soknadRoutes() }) {
-            handleRequest(HttpMethod.Get, "/soknad").apply {
+            handleRequest(HttpMethod.Get, "/api/soknad").apply {
                 // javaClass.getResource will read from the resources folder in main, not test
                 val expectedJson = this::class.java.classLoader.getResource("soknadTest.json")!!.readText()
                     .replace(Regex("[\n\t\\s]"), "")
