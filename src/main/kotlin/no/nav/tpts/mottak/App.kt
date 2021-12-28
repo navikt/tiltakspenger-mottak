@@ -1,6 +1,8 @@
 package no.nav.tpts.mottak
 
 import com.auth0.jwk.UrlJwkProvider
+import io.ktor.application.Application
+import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
@@ -9,21 +11,14 @@ import io.ktor.auth.jwt.jwt
 import io.ktor.features.CORS
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
-import io.ktor.http.ContentType
-import io.ktor.response.respondText
-import io.ktor.response.respondTextWriter
-import io.ktor.routing.Route
-import io.ktor.routing.get
-import io.ktor.routing.route
 import io.ktor.routing.routing
 import io.ktor.serialization.json
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.prometheus.client.CollectorRegistry
-import io.prometheus.client.exporter.common.TextFormat
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
+import no.nav.tpts.mottak.health.healthRoutes
 import no.nav.tpts.mottak.soknad.soknadRoutes
 import java.net.URI
 
@@ -42,10 +37,7 @@ fun main() {
     val jwkProvider = UrlJwkProvider(URI(jwksUri).toURL())
 
     val server = embeddedServer(Netty, PORT) {
-        install(DefaultHeaders)
-        install(ContentNegotiation) {
-            json()
-        }
+        acceptJson()
         install(Authentication) {
             jwt("auth-jwt") {
                 verifier(jwkProvider, issuer) {
@@ -82,26 +74,9 @@ fun main() {
     )
 }
 
-fun Route.healthRoutes() {
-    route("/metrics") {
-        get {
-            call.respondTextWriter {
-                TextFormat.writeFormat(
-                    TextFormat.CONTENT_TYPE_004,
-                    this,
-                    CollectorRegistry.defaultRegistry.metricFamilySamples()
-                )
-            }
-        }
-    }.also { LOG.info { "setting up endpoint /metrics" } }
-    route("/isAlive") {
-        get {
-            call.respondText(text = "ALIVE", contentType = ContentType.Text.Plain)
-        }
-    }.also { LOG.info { "setting up endpoint /isAlive" } }
-    route("/isReady") {
-        get {
-            call.respondText(text = "READY", contentType = ContentType.Text.Plain)
-        }
-    }.also { LOG.info { "setting up endpoint /isReady" } }
+fun Application.acceptJson() {
+    install(DefaultHeaders)
+    install(ContentNegotiation) {
+        json()
+    }
 }

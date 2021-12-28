@@ -5,9 +5,7 @@ import io.ktor.response.respond
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.route
-import kotliquery.Connection
 import kotliquery.Row
-import kotliquery.Session
 import kotliquery.queryOf
 import no.nav.tpts.mottak.db.DataSource
 import org.intellij.lang.annotations.Language
@@ -19,9 +17,7 @@ fun Route.soknadRoutes() {
             val query = """
                 select navn, opprettet_dato, bruker_start_dato, bruker_slutt_dato from soknad
             """.trimIndent()
-
-            val session = Session(Connection(DataSource.dataSource.connection), strict = true)
-            val soknader = session.run(queryOf(query).map(Soknad::fromRow).asList)
+            val soknader = DataSource.session.run(queryOf(query).map(Soknad::fromRow).asList)
             call.respond(soknader)
         }
     }

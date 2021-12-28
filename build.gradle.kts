@@ -50,6 +50,9 @@ dependencies {
 
     // Use the Kotlin test library.
     testImplementation(kotlin("test"))
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$ktorVersion")
+    testImplementation("io.mockk:mockk:1.12.1")
 }
 
 application {

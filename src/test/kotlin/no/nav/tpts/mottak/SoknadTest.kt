@@ -10,7 +10,6 @@ class SoknadTest {
     @Test
     fun shouldSerializeRawSoknadsData() {
         val rawJsonSoknad = javaClass.getResource("/mocksoknad1.json")?.readText(Charsets.UTF_8)!!
-        val obj = Json.decodeFromString<SoknadRaw>(rawJsonSoknad)
-        println(obj)
+        Json.decodeFromString<SoknadRaw>(rawJsonSoknad)
     }
 }
