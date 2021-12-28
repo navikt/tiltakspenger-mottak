@@ -16,13 +16,13 @@ object DataSource {
         }
     }
 
-    val pgDataSource: HikariDataSource
+    val hikariDataSource: HikariDataSource
         get() {
             return init()
         }
 
     val session: Session
         get() {
-            return Session(Connection(pgDataSource.connection))
+            return Session(Connection(hikariDataSource.connection))
         }
 }

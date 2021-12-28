@@ -2,8 +2,6 @@ package no.nav.tpts.mottak
 
 import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
-import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.Authentication
 import io.ktor.auth.jwt.JWTPrincipal

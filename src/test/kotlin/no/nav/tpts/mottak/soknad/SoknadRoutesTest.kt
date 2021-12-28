@@ -31,7 +31,7 @@ class SoknadRoutesTest {
         )
 
         mockkObject(DataSource)
-        every { DataSource.pgDataSource } returns mockk()
+        every { DataSource.hikariDataSource } returns mockk()
         every { DataSource.session } returns mockSession
 
         withTestApplication({ soknadRoutes() }) {
