@@ -11,7 +11,7 @@ import no.nav.tpts.mottak.db.DataSource
 import org.intellij.lang.annotations.Language
 
 fun Route.soknadRoutes() {
-    route("/soknad") {
+    route("/api/soknad") {
         get {
             @Language("SQL")
             val query = """
