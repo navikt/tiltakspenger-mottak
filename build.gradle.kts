@@ -1,13 +1,13 @@
 val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "1.6.7"
-val log4jVersion = "2.17.0"
+val log4jVersion = "2.17.1"
 
 plugins {
     application
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.serialization") version "1.6.10"
-    id("com.github.johnrengelman.shadow") version "7.1.1"
-    id("com.github.ben-manes.versions") version "0.39.0"
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.ben-manes.versions") version "0.40.0"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
 }
 
@@ -41,7 +41,7 @@ dependencies {
     implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
 
     // DB
-    implementation("org.flywaydb:flyway-core:8.2.3")
+    implementation("org.flywaydb:flyway-core:8.3.0")
     implementation("com.zaxxer:HikariCP:5.0.0")
     implementation("org.postgresql:postgresql:42.3.1")
     implementation("com.github.seratch:kotliquery:1.6.1")
@@ -52,7 +52,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$ktorVersion")
-    testImplementation("io.mockk:mockk:1.12.1")
+    testImplementation("io.mockk:mockk:1.12.2")
 }
 
 application {
