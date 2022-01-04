@@ -3,7 +3,7 @@ package no.nav.tpts.mottak
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.joark.models.SoknadRaw
-import kotlin.test.Test
+import org.junit.jupiter.api.Test
 
 class SoknadTest {
 

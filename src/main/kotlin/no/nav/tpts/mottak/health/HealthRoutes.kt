@@ -14,12 +14,8 @@ import no.nav.tpts.mottak.LOG
 fun Route.healthRoutes() {
     route("/metrics") {
         get {
-            call.respondTextWriter {
-                TextFormat.writeFormat(
-                    TextFormat.CONTENT_TYPE_004,
-                    this,
-                    CollectorRegistry.defaultRegistry.metricFamilySamples()
-                )
+            call.respondTextWriter(ContentType.parse(TextFormat.CONTENT_TYPE_004), io.ktor.http.HttpStatusCode.OK) {
+                TextFormat.write004(this, CollectorRegistry.defaultRegistry.metricFamilySamples())
             }
         }
     }.also { LOG.info { "setting up endpoint /metrics" } }

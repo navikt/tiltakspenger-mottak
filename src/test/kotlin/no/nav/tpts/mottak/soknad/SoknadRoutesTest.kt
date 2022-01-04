@@ -12,10 +12,10 @@ import kotliquery.Session
 import kotliquery.action.ListResultQueryAction
 import no.nav.tpts.mottak.acceptJson
 import no.nav.tpts.mottak.db.DataSource
+import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import java.time.LocalDateTime
-import kotlin.test.Test
 
 class SoknadRoutesTest {
 

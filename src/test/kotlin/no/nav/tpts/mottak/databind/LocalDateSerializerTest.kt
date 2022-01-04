@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import java.time.LocalDate
 import java.time.Month
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 internal class LocalDateSerializerTest {
 

@@ -49,11 +49,18 @@ dependencies {
     testImplementation("org.apache.kafka:kafka-clients:3.0.0")
     testImplementation("org.apache.avro:avro:1.11.0")
 
-    // Use the Kotlin test library.
-    testImplementation(kotlin("test"))
-    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation(platform("org.junit:junit-bom:5.8.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
+        exclude(group = "ch.qos.logback", module = "logback-classic")
+    }
     testImplementation("io.mockk:mockk:1.12.2")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
+}
+
+configurations.all {
+    // exclude JUnit 4
+    exclude(group = "junit", module = "junit")
 }
 
 application {
