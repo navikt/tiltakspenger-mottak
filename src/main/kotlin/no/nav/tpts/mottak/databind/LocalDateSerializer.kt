@@ -1,4 +1,4 @@
-package no.nav.tpts.mottak.util
+package no.nav.tpts.mottak.databind
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
