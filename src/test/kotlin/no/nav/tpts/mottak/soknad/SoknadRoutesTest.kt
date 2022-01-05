@@ -12,9 +12,10 @@ import kotliquery.Session
 import kotliquery.action.ListResultQueryAction
 import no.nav.tpts.mottak.acceptJson
 import no.nav.tpts.mottak.db.DataSource
+import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 import java.time.LocalDateTime
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class SoknadRoutesTest {
 
@@ -38,11 +39,7 @@ class SoknadRoutesTest {
             handleRequest(HttpMethod.Get, "/api/soknad").apply {
                 // javaClass.getResource will read from the resources folder in main, not test
                 val expectedJson = this::class.java.classLoader.getResource("soknadTest.json")!!.readText()
-                    .replace(Regex("[\n\t\\s]"), "")
-                assertEquals(
-                    expectedJson,
-                    response.content
-                )
+                JSONAssert.assertEquals(expectedJson, response.content, JSONCompareMode.LENIENT)
             }
         }
     }

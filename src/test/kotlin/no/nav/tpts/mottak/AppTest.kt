@@ -6,8 +6,8 @@ import org.apache.kafka.clients.consumer.OffsetResetStrategy
 import org.apache.kafka.clients.producer.MockProducer
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
-import kotlin.test.Test
-import kotlin.test.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 
 class AppTest {
     // From https://stash.adeo.no/projects/BOAF/repos/dok-avro/browse/dok-journalfoering-hendelse-v1/src/main/avro/schema/v1/JournalfoeringHendelse.avsc
