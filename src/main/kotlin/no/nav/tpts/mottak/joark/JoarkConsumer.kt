@@ -7,6 +7,6 @@ fun joarkConsumer(): Consumer<String, GenericRecord> {
     throw NotImplementedError()
 }
 
-fun subscribeToTopic(consumer: Consumer<String, GenericRecord>) {
+fun subscribeToTopic() {
     throw NotImplementedError()
 }
