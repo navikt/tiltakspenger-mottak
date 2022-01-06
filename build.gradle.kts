@@ -12,6 +12,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.40.0"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
     id("ca.cutterslade.analyze").version("1.8.3")
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.3.0"
 }
 
 repositories {
