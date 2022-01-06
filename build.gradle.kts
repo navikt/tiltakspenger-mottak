@@ -46,8 +46,10 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.0.0")
     implementation("org.postgresql:postgresql:42.3.1")
     implementation("com.github.seratch:kotliquery:1.6.1")
-    testImplementation("org.apache.kafka:kafka-clients:3.0.0")
-    testImplementation("org.apache.avro:avro:1.11.0")
+    // Kafka
+    implementation("org.apache.kafka:kafka-clients:3.0.0")
+    implementation("org.apache.avro:avro:1.11.0")
+    // implementation("io.confluent:kafka-avro-serializer:6.2.1")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
