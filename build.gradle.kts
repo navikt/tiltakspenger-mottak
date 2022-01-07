@@ -17,6 +17,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://packages.confluent.io/maven/")
 }
 
 dependencies {
@@ -68,7 +69,7 @@ dependencies {
     // Kafka
     implementation("org.apache.kafka:kafka-clients:3.0.0")
     implementation("org.apache.avro:avro:1.11.0")
-    // implementation("io.confluent:kafka-avro-serializer:6.2.1")
+    implementation("io.confluent:kafka-avro-serializer:7.0.1")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
