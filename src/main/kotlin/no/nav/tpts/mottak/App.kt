@@ -17,7 +17,6 @@ import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
 import no.nav.tpts.mottak.health.healthRoutes
-import no.nav.tpts.mottak.joark.createJoarkConsumer
 import no.nav.tpts.mottak.soknad.soknadRoutes
 import java.net.URI
 

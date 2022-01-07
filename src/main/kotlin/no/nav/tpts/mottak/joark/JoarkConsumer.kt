@@ -35,7 +35,7 @@ fun createJoarkConsumer(): Consumer<String, GenericRecord> {
             it[CommonClientConfigs.SECURITY_PROTOCOL_CONFIG] = "SASL_SSL"
             it[SaslConfigs.SASL_MECHANISM] = "PLAIN"
             it[SaslConfigs.SASL_JAAS_CONFIG] = "org.apache.kafka.common.security.plain.PlainLoginModule required " +
-                    "username=\"$username\" password=\"$password\""
+                "username=\"$username\" password=\"$password\""
             it[AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG] = System.getenv("KAFKA_SCHEMA_REGISTRY")
             it[SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG] = File(System.getenv("NAV_TRUSTSTORE_PATH")).absolutePath
             it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = System.getenv("NAV_TRUSTSTORE_PASSWORD")
