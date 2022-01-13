@@ -5,7 +5,6 @@ import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
-import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.config.SslConfigs
@@ -18,8 +17,8 @@ const val MAX_POLL_RECORDS = 50
 const val SIXTY = 60
 val maxPollIntervalMs = Duration.ofSeconds(SIXTY + MAX_POLL_RECORDS * 2.toLong()).toMillis()
 
-fun createJoarkConsumer(): Consumer<String, GenericRecord> {
-    return KafkaConsumer(
+fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord> {
+    return KafkaConsumer<String, GenericRecord>(
         Properties().also {
             it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v1"
             it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
@@ -44,9 +43,5 @@ fun createJoarkConsumer(): Consumer<String, GenericRecord> {
             it[SchemaRegistryClientConfig.USER_INFO_CONFIG] =
                 System.getenv("KAFKA_SCHEMA_REGISTRY_USER") + ":" + System.getenv("KAFKA_SCHEMA_REGISTRY_PASSWORD")
         }
-    )
-}
-
-fun subscribeToTopic(kafkaConsumer: Consumer<String, GenericRecord>, topicName: String) {
-    kafkaConsumer.subscribe(listOf(topicName))
+    ).also { it.subscribe(listOf(topicName)) }
 }
