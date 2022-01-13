@@ -29,7 +29,7 @@ fun main() {
     LOG.info { "starting server" }
 
     flywayMigrate()
-    createJoarkConsumer("teamdokumenthandtering.aapen-dok-journalfoering-q1")
+    createJoarkConsumer("teamdokumenthandtering.aapen-dok-FOO-journalfoering-q1")
 
     val issuer = System.getenv("AZURE_ISSUER")
     val jwksUri = System.getenv("AZURE_JWKS_URI")
