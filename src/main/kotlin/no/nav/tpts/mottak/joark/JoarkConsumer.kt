@@ -33,7 +33,7 @@ val maxPollIntervalMs = Duration.ofSeconds(SIXTY + MAX_POLL_RECORDS * 2.toLong()
 fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord> {
     return KafkaConsumer<String, GenericRecord>(
         Properties().also {
-            it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v2"
+            it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v3"
             it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
             it[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
             it[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = KafkaAvroDeserializer::class.java
@@ -106,7 +106,7 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
         try {
             records.onEach { record ->
                 val tema = record.value().get("temaNytt")?.toString() ?: ""
-                if (tema == "IND" || tema == "TIL") {
+                if (tema == "IND") {
                     LOGGER.info { "Mottok tema '$tema'. $record" }
                 }
                 currentPositions[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
