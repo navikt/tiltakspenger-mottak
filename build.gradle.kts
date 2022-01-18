@@ -56,7 +56,7 @@ dependencies {
     implementation("no.nav.security:token-client-core:1.3.9")
     implementation("com.nimbusds:nimbus-jose-jwt:9.15.2")
     implementation("com.auth0:java-jwt:3.18.3")
-    implementation("com.auth0:jwks-rsa:0.20.0")
+    implementation("com.auth0:jwks-rsa:0.20.1")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
