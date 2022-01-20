@@ -16,13 +16,11 @@ object DataSource {
         }
     }
 
-    val hikariDataSource: HikariDataSource
-        get() {
-            return init()
-        }
+    val hikariDataSource: HikariDataSource by lazy {
+        init()
+    }
 
-    val session: Session
-        get() {
-            return Session(Connection(hikariDataSource.connection))
-        }
+    val session: Session by lazy {
+        Session(Connection(hikariDataSource.connection))
+    }
 }
