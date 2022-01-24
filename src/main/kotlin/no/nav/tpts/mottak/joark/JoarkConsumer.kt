@@ -25,7 +25,7 @@ import java.time.Duration
 import java.util.Properties
 import kotlin.coroutines.CoroutineContext
 
-private val LOGGER = KotlinLogging.logger {}
+private val LOG = KotlinLogging.logger {}
 
 const val MAX_POLL_RECORDS = 50
 const val SIXTY = 60
@@ -69,14 +69,14 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     }
 
     fun start() {
-        LOGGER.info("starting JournalfoeringReplicator")
+        LOG.info {"starting JoarkConsumer"}
         launch {
             run()
         }
     }
 
-    private fun stop() {
-        LOGGER.info("stopping JournalfoeringReplicator")
+    fun stop() {
+        LOG.info("stopping JoarkConsumer")
         consumer.wakeup()
         job.cancel()
     }
@@ -84,12 +84,12 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     private fun run() {
         try {
             while (job.isActive) {
-                onRecords(consumer.poll(Duration.ofSeconds(1)))
+                onRecords(consumer.poll(Duration.ofSeconds(1L)))
             }
         } catch (e: WakeupException) {
             if (job.isActive) throw e
         } catch (e: Exception) {
-            LOGGER.error(e) { "Noe feil skjedde i konsumeringen" }
+            LOG.error(e) { "Noe feil skjedde i konsumeringen" }
             throw e
         } finally {
             closeResources()
@@ -97,7 +97,7 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     }
 
     private fun onRecords(records: ConsumerRecords<String, GenericRecord>) {
-        LOGGER.debug { "onrecords: ${records.count()}" }
+        LOG.debug { "records received: ${records.count()}" }
         if (records.isEmpty) return // poll returns an empty collection in case of rebalancing
         val currentPositions = records
             .groupBy { TopicPartition(it.topic(), it.partition()) }
@@ -107,12 +107,12 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
             records.onEach { record ->
                 val tema = record.value().get("temaNytt")?.toString() ?: ""
                 if (tema == "IND") {
-                    LOGGER.info { "Mottok tema '$tema'. $record" }
+                    LOG.info { "Mottok tema '$tema'. $record" }
                 }
                 currentPositions[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
             }
         } catch (err: Exception) {
-            LOGGER.info(
+            LOG.info(
                 "due to an error during processing, positions are reset to " +
                     "each next message (after each record that was processed OK):" +
                     currentPositions.map { "\tpartition=${it.key}, offset=${it.value}" }
@@ -135,12 +135,12 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
         try {
             block()
         } catch (err: Exception) {
-            LOGGER.error(err.message, err)
+            LOG.error(err.message, err)
         }
     }
 
     private fun shutdownHook() {
-        LOGGER.info("received shutdown signal, stopping app")
+        LOG.info("received shutdown signal, stopping app")
         stop()
     }
 }
