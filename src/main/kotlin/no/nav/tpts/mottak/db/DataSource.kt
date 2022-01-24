@@ -5,6 +5,8 @@ import kotliquery.Connection
 import kotliquery.Session
 import org.postgresql.ds.PGSimpleDataSource
 
+const val MAX_POOLS = 10
+
 object DataSource {
     private fun init(): HikariDataSource {
         return HikariDataSource().apply {
@@ -13,16 +15,15 @@ object DataSource {
             }
             password = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
             username = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
+            maximumPoolSize = MAX_POOLS
         }
     }
 
-    val hikariDataSource: HikariDataSource
-        get() {
-            return init()
-        }
+    val hikariDataSource: HikariDataSource by lazy {
+        init()
+    }
 
-    val session: Session
-        get() {
-            return Session(Connection(hikariDataSource.connection))
-        }
+    val session: Session by lazy {
+        Session(Connection(hikariDataSource.connection))
+    }
 }

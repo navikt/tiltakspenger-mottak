@@ -1,9 +1,13 @@
 package no.nav.tpts.mottak.joark.models
 
 import kotlinx.serialization.Serializable
+import no.nav.tpts.mottak.databind.LocalDateSerializer
+import java.time.LocalDate
 
 @Serializable
 data class Properties(
+    val arenaId: String? = null,
+    val arrangoer: String? = null,
     val adresse: String? = null,
     val alder: String? = null,
     val antallDager: String? = null,
@@ -12,6 +16,7 @@ data class Properties(
     val diskresjonskode: String? = null,
     val epost: String? = null,
     val erUtenlandskBankkonto: String? = null,
+    val erIEndreStatus: String? = null,
     val etternavn: String? = null,
     val fnr: String? = null,
     val fom: String? = null,
@@ -21,16 +26,22 @@ data class Properties(
     val gjeldendeAdresseGyldigTil: String? = null,
     val gjeldendeAdresseLandkode: String? = null,
     val gjeldendeAdresseType: String? = null,
+    val harSluttdatoFraArena: String? = null,
     val kjonn: String? = null,
     val kontonummer: String? = null,
     val mellomnavn: String? = null,
     val navn: String? = null,
+    val personalia: String? = null,
     val postnummer: String? = null,
+    @Serializable(with = LocalDateSerializer::class) val opprinneligstartdato: LocalDate? = null,
+    @Serializable(with = LocalDateSerializer::class) val opprinneligsluttdato: LocalDate? = null,
     val sekundarAdresse: String? = null,
     val sekundarAdresseGyldigFra: String? = null,
     val sekundarAdresseGyldigTil: String? = null,
     val sekundarAdresseType: String? = null,
     val statsborgerskap: String? = null,
+    @Serializable(with = LocalDateSerializer::class) val startdato: LocalDate? = null,
+    @Serializable(with = LocalDateSerializer::class) val sluttdato: LocalDate? = null,
     val statsborgerskapType: String? = null,
     val tilleggsopplysninger: String? = null,
     val tiltaksliste: String? = null,
