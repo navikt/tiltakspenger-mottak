@@ -107,7 +107,7 @@ class SoknadRoutesTest {
     }
 
     @Test
-    fun `should return tolerate offset bigger than total`() {
+    fun `should tolerate offset bigger than total in pagination`() {
         every {
             mockSession.run(any<ListResultQueryAction<Soknad>>())
         } returns emptyList()
