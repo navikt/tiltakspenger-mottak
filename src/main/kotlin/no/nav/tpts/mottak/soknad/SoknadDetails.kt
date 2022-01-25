@@ -14,6 +14,7 @@ data class SoknadDetails(
     val fnr: String? = null,
     val etternavn: String? = null,
     val tiltak: Tiltak? = null,
+    val soknadStatus: SoknadStatus = SoknadStatus.IKKE_BEHANDLET,
     @Serializable(with = LocalDateTimeSerializer::class) val opprettetDato: LocalDateTime? = null,
     @Serializable(with = LocalDateSerializer::class) val brukerSluttDato: LocalDate? = null,
     @Serializable(with = LocalDateSerializer::class) val brukerStartDato: LocalDate? = null,
