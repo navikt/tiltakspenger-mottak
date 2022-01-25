@@ -71,6 +71,8 @@ dependencies {
     implementation("org.apache.avro:avro:1.11.0")
     implementation("io.confluent:kafka-avro-serializer:7.0.1")
 
+    implementation ("com.squareup.okhttp3:okhttp:4.3.1")
+
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
@@ -79,6 +81,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.2")
     testImplementation("io.mockk:mockk-dsl-jvm:1.12.2")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
+
 }
 
 configurations.all {
