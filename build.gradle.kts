@@ -54,7 +54,7 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     implementation("no.nav.security:token-client-core:1.3.10")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.15.2")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.16.1")
     implementation("com.auth0:java-jwt:3.18.3")
     implementation("com.auth0:jwks-rsa:0.20.1")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
@@ -62,7 +62,7 @@ dependencies {
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
     // DB
-    implementation("org.flywaydb:flyway-core:8.4.2")
+    implementation("org.flywaydb:flyway-core:8.4.3")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.postgresql:postgresql:42.3.1")
     implementation("com.github.seratch:kotliquery:1.6.1")
