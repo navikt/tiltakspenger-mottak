@@ -14,7 +14,7 @@ data class SoknadDetails(
     val fnr: String? = null,
     val etternavn: String? = null,
     val tiltak: Tiltak? = null,
-    @Serializable(with = LocalDateTimeSerializer::class) val opprettetDato: LocalDateTime? = null,
+    @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime? = null,
     @Serializable(with = LocalDateSerializer::class) val brukerSluttDato: LocalDate? = null,
     @Serializable(with = LocalDateSerializer::class) val brukerStartDato: LocalDate? = null,
 ) {
@@ -23,7 +23,7 @@ data class SoknadDetails(
             val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }?.properties
             return SoknadDetails(
                 soknadId = joarkSoknad.soknadId.toString(),
-                opprettetDato = joarkSoknad.opprettetDato,
+                opprettet = joarkSoknad.opprettetDato,
                 fornavn = personalia?.fornavn,
                 etternavn = personalia?.etternavn,
                 fnr = personalia?.fnr,
