@@ -1,4 +1,4 @@
-@file:Suppress("TooGenericExceptionCaught")
+@file:Suppress("TooGenericExceptionCaught", "MagicNumber")
 
 package no.nav.tpts.mottak.joark
 
@@ -28,8 +28,9 @@ import kotlin.coroutines.CoroutineContext
 private val LOG = KotlinLogging.logger {}
 
 const val MAX_POLL_RECORDS = 50
-const val SIXTY = 60
-val maxPollIntervalMs = Duration.ofSeconds(SIXTY + MAX_POLL_RECORDS * 2.toLong()).toMillis()
+const val MAX_POLL_INTERVAL_MS = 5000
+private val POLL_TIMEOUT = Duration.ofSeconds(4)
+
 fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord> {
     return KafkaConsumer<String, GenericRecord>(
         Properties().also {
@@ -39,8 +40,7 @@ fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord>
             it[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = KafkaAvroDeserializer::class.java
             it[ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG] = "false"
             it[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = MAX_POLL_RECORDS
-            it[ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG] = "$maxPollIntervalMs"
-
+            it[ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG] = MAX_POLL_INTERVAL_MS
             it[CommonClientConfigs.SECURITY_PROTOCOL_CONFIG] = SecurityProtocol.SSL.name
             it[SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG] = ""
             it[SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG] = "jks"
@@ -49,7 +49,6 @@ fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord>
             it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = System.getenv("KAFKA_CREDSTORE_PASSWORD")
             it[SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG] = "/var/run/secrets/nais.io/kafka/client.keystore.p12"
             it[SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG] = System.getenv("KAFKA_CREDSTORE_PASSWORD")
-
             it[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = System.getenv("KAFKA_BROKERS")
             it[AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG] = System.getenv("KAFKA_SCHEMA_REGISTRY")
             it[SchemaRegistryClientConfig.BASIC_AUTH_CREDENTIALS_SOURCE] = "USER_INFO"
@@ -61,7 +60,7 @@ fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord>
 
 internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecord>) : CoroutineScope {
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + Job()
+        get() = Dispatchers.IO + job
     private val job: Job = Job()
 
     init {
@@ -69,14 +68,14 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     }
 
     fun start() {
-        LOG.info {"starting JoarkConsumer"}
+        LOG.info { "starting JoarkConsumer" }
         launch {
             run()
         }
     }
 
     fun stop() {
-        LOG.info("stopping JoarkConsumer")
+        LOG.info { "stopping JoarkConsumer" }
         consumer.wakeup()
         job.cancel()
     }
@@ -84,7 +83,7 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     private fun run() {
         try {
             while (job.isActive) {
-                onRecords(consumer.poll(Duration.ofSeconds(1L)))
+                onRecords(consumer.poll(POLL_TIMEOUT))
             }
         } catch (e: WakeupException) {
             if (job.isActive) throw e
@@ -99,7 +98,7 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     private fun onRecords(records: ConsumerRecords<String, GenericRecord>) {
         LOG.debug { "records received: ${records.count()}" }
         if (records.isEmpty) return // poll returns an empty collection in case of rebalancing
-        val currentPositions = records
+        val currentPartitionOffsets = records
             .groupBy { TopicPartition(it.topic(), it.partition()) }
             .mapValues { partition -> partition.value.minOf { it.offset() } }
             .toMutableMap()
@@ -107,26 +106,26 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
             records.onEach { record ->
                 val tema = record.value().get("temaNytt")?.toString() ?: ""
                 if (tema == "IND") {
+                    // når den tid kommer: kall SAF med gitt journalpostId
                     LOG.info { "Mottok tema '$tema'. $record" }
                 }
-                currentPositions[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
+                currentPartitionOffsets[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
             }
-        } catch (err: Exception) {
-            LOG.info(
-                "due to an error during processing, positions are reset to " +
-                    "each next message (after each record that was processed OK):" +
-                    currentPositions.map { "\tpartition=${it.key}, offset=${it.value}" }
-                        .joinToString(separator = "\n", prefix = "\n", postfix = "\n"),
-                err
-            )
-            currentPositions.forEach { (partition, offset) -> consumer.seek(partition, offset) }
-            throw err
+        } catch (exception: Exception) {
+            val msg = currentPartitionOffsets.map { "\tpartition=${it.key}, offset=${it.value}" }
+                .joinToString(separator = "\n", prefix = "\n", postfix = "\n")
+            LOG.info(exception) {
+                "Processing error, reset positions to each next message (after each record that was processed OK): $msg"
+            }
+            currentPartitionOffsets.forEach { (partition, offset) -> consumer.seek(partition, offset) }
+            throw exception
         } finally {
             consumer.commitSync()
         }
     }
 
     private fun closeResources() {
+        LOG.info { "close resources" }
         tryAndLog(consumer::unsubscribe)
         tryAndLog(consumer::close)
     }
@@ -135,7 +134,7 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
         try {
             block()
         } catch (err: Exception) {
-            LOG.error(err.message, err)
+            LOG.error(err) { err.message }
         }
     }
 
