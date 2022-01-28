@@ -6,10 +6,9 @@
     {
       "fornavn": "Martin",
       "etternavn": "Grøneng",
-      "opprettetDato": "+999999999-12-31T23:59:59.999999999",
+      "opprettet": "+999999999-12-31T23:59:59.999999999",
       "brukerStartDato": null,
-      "brukerSluttDato": null,
-      "soknadStatus": "IKKE_BEHANDLET"
+      "brukerSluttDato": null
     }
   ]
 }

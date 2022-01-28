@@ -5,7 +5,8 @@ import io.ktor.application.call
 import io.ktor.response.respond
 import io.ktor.util.pipeline.PipelineContext
 import kotlinx.serialization.Serializable
-import no.nav.tpts.mottak.soknad.DEFAULT_PAGE_SIZE
+
+const val DEFAULT_PAGE_SIZE = 20
 
 @Serializable
 class Paginated<T>(
