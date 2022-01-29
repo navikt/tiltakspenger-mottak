@@ -71,6 +71,7 @@ internal class JoarkConsumerTest {
             delay(100L)
             assertEquals(1, mockConsumer.committed(setOf(partition0))[partition0]?.offset())
             joarkConsumer.stop()
+            delay(100L)
         }
         assertTrue(mockConsumer.closed())
     }
