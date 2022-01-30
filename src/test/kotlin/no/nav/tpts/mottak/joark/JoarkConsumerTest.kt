@@ -50,30 +50,31 @@ internal class JoarkConsumerTest {
     @Test
     fun `konsumere fra en topic endrer offset`() {
         val topicName = "topic"
-        val partition0 = TopicPartition(topicName, 0)
+        val partition = TopicPartition(topicName, 0)
         val journalpostId = 1L
+        val offsets = 3
         val mockConsumer = MockConsumer<String, GenericRecord>(OffsetResetStrategy.EARLIEST).apply {
-            assign(listOf(partition0))
-            updateBeginningOffsets(mapOf(partition0 to 0L))
+            assign(listOf(partition))
+            updateBeginningOffsets(mapOf(partition to 0L))
         }
+        val joarkConsumer = JoarkConsumer(mockConsumer)
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
         }
-        val consumerRecord: ConsumerRecord<String, GenericRecord> =
-            ConsumerRecord(topicName, partition0.partition(), 0, "$journalpostId", record)
-        mockConsumer.addRecord(consumerRecord)
+        repeat(offsets) {
+            mockConsumer.addRecord(
+                ConsumerRecord(topicName, partition.partition(), it.toLong(), "$journalpostId", record)
+            )
+        }
         runBlocking {
-            val joarkConsumer = JoarkConsumer(mockConsumer)
             joarkConsumer.start()
             // ikke optimalt med delay, men prod-koden har foreløpig ingen sideeffekter. Vil ha det når
             // SAF-integrasjonen er klar. Da kan vi sjekke for sideeffekten isteden
             delay(100L)
-            assertEquals(1, mockConsumer.committed(setOf(partition0))[partition0]?.offset())
+            assertEquals(offsets.toLong(), mockConsumer.committed(setOf(partition))[partition]?.offset())
             joarkConsumer.stop()
-            delay(100L)
         }
-        assertTrue(mockConsumer.closed())
     }
 
     @Disabled
@@ -91,8 +92,8 @@ internal class JoarkConsumerTest {
                     joarkConsumer.start()
                 }
             }
-        } catch (ef: Exception) {
-            LOG.error(ef) { "fanget exception" }
+        } catch (e: Exception) {
+            LOG.error(e) { "fanget exception" }
         }
         assertTrue(mockConsumer.closed())
     }
