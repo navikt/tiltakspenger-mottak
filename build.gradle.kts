@@ -2,6 +2,7 @@ val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "1.6.7"
 val log4jVersion = "2.17.1"
 val kotlinxSerializationVersion = "1.3.2"
+val kotlinxCoroutinesVersion = "1.6.0"
 val prometheusVersion = "0.14.1"
 
 plugins {
@@ -12,7 +13,6 @@ plugins {
     id("com.github.ben-manes.versions") version "0.41.0"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
     id("ca.cutterslade.analyze").version("1.8.3")
-    id("com.github.davidmc24.gradle.plugin.avro") version "1.3.0"
 }
 
 repositories {
@@ -25,7 +25,7 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$kotlinxCoroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:$kotlinxSerializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$kotlinxSerializationVersion")
     implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
@@ -79,6 +79,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.2")
     testImplementation("io.mockk:mockk-dsl-jvm:1.12.2")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
 }
 
 configurations.all {

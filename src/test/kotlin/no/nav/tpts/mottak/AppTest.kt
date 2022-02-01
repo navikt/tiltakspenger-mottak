@@ -1,6 +1,6 @@
 package no.nav.tpts.mottak
 
-import no.nav.joarkjournalfoeringhendelser.JournalfoeringHendelseRecord
+import no.nav.tpts.mottak.joark.JournalfoeringHendelseRecord
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -15,14 +15,32 @@ import java.time.Duration
 
 class AppTest {
     // From https://stash.adeo.no/projects/BOAF/repos/dok-avro/browse/dok-journalfoering-hendelse-v1/src/main/avro/schema/v1/JournalfoeringHendelse.avsc
-    private val schema = java.io.File("src/main/avro/joarkjournalfoeringhendelserAvroSchema.avsc").readText()
-    private val joarkjournalfoeringhendelserAvroSchema = Schema.Parser().parse(schema)
+    private val joarkjournalfoeringhendelserAvroSchema = Schema.Parser().parse(
+        """{ 
+              "namespace" : "no.nav.joarkjournalfoeringhendelser",
+              "type" : "record",
+              "name" : "JournalfoeringHendelseRecord",
+              "fields" : [
+                {"name": "hendelsesId", "type": "string"},
+                {"name": "versjon", "type": "int"},
+                {"name": "hendelsesType", "type": "string"},
+                {"name": "journalpostId", "type": "long"},
+                {"name": "journalpostStatus", "type": "string"},
+                {"name": "temaGammelt", "type": "string"},
+                {"name": "temaNytt", "type": "string"},
+                {"name": "mottaksKanal", "type": "string"},
+                {"name": "kanalReferanseId", "type": "string"},
+                {"name": "behandlingstema", "type": "string", "default": ""}
+              ]
+            }
+        """.trimIndent()
+    )
 
     @Test
     fun `happy case`() {
         val TOPIC = "topic"
         val PARTITION = 0
-        val journalfoeringHendelseRecord = JournalfoeringHendelseRecord("42", 1, "", 1, "", "", "", "", "", "")
+        val journalfoeringHendelseRecord = JournalfoeringHendelseRecord(42L, "MOTTATT", "IND")
 
         val mockConsumer = MockConsumer<String, GenericRecord>(OffsetResetStrategy.EARLIEST).also {
             val topicPartition = TopicPartition(TOPIC, PARTITION)
@@ -43,6 +61,6 @@ class AppTest {
         assertEquals("key", poll.records(TOPIC).first().key())
         assertEquals(1L, poll.records(TOPIC).first().value().get("journalpostId"))
         assertNull(poll.records(TOPIC).first().value().get("behandlingstema"))
-        assertEquals("42", journalfoeringHendelseRecord.hendelsesId)
+        assertEquals(42L, journalfoeringHendelseRecord.journalpostId)
     }
 }
