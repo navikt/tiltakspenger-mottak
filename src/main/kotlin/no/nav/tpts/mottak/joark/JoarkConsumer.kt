@@ -23,7 +23,6 @@ import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization.StringDeserializer
 import java.time.Duration
 import java.util.Properties
-import kotlin.coroutines.CoroutineContext
 
 private val LOG = KotlinLogging.logger {}
 
@@ -31,7 +30,7 @@ const val MAX_POLL_RECORDS = 50
 const val MAX_POLL_INTERVAL_MS = 5000
 private val POLL_TIMEOUT = Duration.ofSeconds(4)
 
-fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord> {
+fun createKafkaConsumer(topicName: String): KafkaConsumer<String, GenericRecord> {
     return KafkaConsumer<String, GenericRecord>(
         Properties().also {
             it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v3"
@@ -58,10 +57,11 @@ fun createJoarkConsumer(topicName: String): KafkaConsumer<String, GenericRecord>
     ).also { it.subscribe(listOf(topicName)) }
 }
 
-internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecord>) : CoroutineScope {
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + job
-    private val job: Job = Job()
+internal class JoarkConsumer(
+    private val consumer: Consumer<String, GenericRecord>,
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+) {
+    private lateinit var job: Job
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread(::shutdownHook))
@@ -69,7 +69,8 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
 
     fun start() {
         LOG.info { "starting JoarkConsumer" }
-        launch {
+        job = scope.launch {
+            LOG.info { 99 }
             run()
         }
     }
@@ -98,11 +99,12 @@ internal class JoarkConsumer(private val consumer: Consumer<String, GenericRecor
     private fun onRecords(records: ConsumerRecords<String, GenericRecord>) {
         LOG.debug { "records received: ${records.count()}" }
         if (records.isEmpty) return // poll returns an empty collection in case of rebalancing
-        val currentPartitionOffsets = records
-            .groupBy { TopicPartition(it.topic(), it.partition()) }
-            .mapValues { partition -> partition.value.minOf { it.offset() } }
-            .toMutableMap()
+        var currentPartitionOffsets: MutableMap<TopicPartition, Long> = mutableMapOf()
         try {
+            currentPartitionOffsets = records
+                .groupBy { TopicPartition(it.topic(), it.partition()) }
+                .mapValues { partition -> partition.value.minOf { it.offset() } }
+                .toMutableMap()
             records.onEach { record ->
                 val tema = record.value().get("temaNytt")?.toString() ?: ""
                 if (tema == "IND") {

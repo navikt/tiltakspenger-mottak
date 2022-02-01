@@ -1,13 +1,9 @@
 package no.nav.tpts.mottak.joark
 
-import io.mockk.every
-import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.withTimeout
 import mu.KotlinLogging
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
@@ -19,7 +15,6 @@ import org.apache.kafka.common.KafkaException
 import org.apache.kafka.common.TopicPartition
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 private val LOG = KotlinLogging.logger {}
@@ -77,24 +72,20 @@ internal class JoarkConsumerTest {
         }
     }
 
-    @Disabled
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `exception i handteringen lukker konsumenten`() = runTest {
+    fun `exception i handteringen lukker konsumenten`() {
         val mockConsumer = MockConsumer<String, GenericRecord>(OffsetResetStrategy.EARLIEST).apply {
             setPollException(KafkaException())
         }
-        val joarkConsumer = spyk(JoarkConsumer(mockConsumer))
-        every { joarkConsumer.coroutineContext } returns this.coroutineContext
         try {
-            withTimeout(10L) {
-                launch {
-                    joarkConsumer.start()
-                }
+            runTest {
+                JoarkConsumer(mockConsumer, this).start()
             }
-        } catch (e: Exception) {
-            LOG.error(e) { "fanget exception" }
+        } catch (e: KafkaException) {
+            LOG.debug(e) { "Fanget exception" }
+        } finally {
+            assertTrue(mockConsumer.closed())
         }
-        assertTrue(mockConsumer.closed())
     }
 }
