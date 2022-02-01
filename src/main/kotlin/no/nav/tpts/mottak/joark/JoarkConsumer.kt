@@ -70,7 +70,6 @@ internal class JoarkConsumer(
     fun start() {
         LOG.info { "starting JoarkConsumer" }
         job = scope.launch {
-            LOG.info { 99 }
             run()
         }
     }
