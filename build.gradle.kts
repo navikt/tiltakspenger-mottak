@@ -54,7 +54,7 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     implementation("no.nav.security:token-client-core:1.3.10")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.17")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.18")
     implementation("com.auth0:java-jwt:3.18.3")
     implementation("com.auth0:jwks-rsa:0.20.1")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
@@ -80,6 +80,7 @@ dependencies {
     testImplementation("io.mockk:mockk-dsl-jvm:1.12.2")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
 }
 
 configurations.all {
