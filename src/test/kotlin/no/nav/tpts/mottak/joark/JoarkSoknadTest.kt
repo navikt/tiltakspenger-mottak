@@ -20,7 +20,7 @@ class JoarkSoknadTest {
             assertEquals("136347575", it.tiltak?.id)
             assertEquals("Jobbklubb", it.tiltak?.navn)
             assertEquals("FRISK UTVIKLING AS", it.tiltak?.arrangoer)
-            assertEquals("2021-12-03T13:49:44.543", it.opprettetDato.toString())
+            assertEquals("2021-12-03T13:49:44.543", it.opprettet.toString())
         }
     }
 }

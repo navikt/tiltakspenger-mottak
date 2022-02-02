@@ -17,7 +17,8 @@ import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
 import no.nav.tpts.mottak.health.healthRoutes
-import no.nav.tpts.mottak.joark.createJoarkConsumer
+import no.nav.tpts.mottak.joark.JoarkConsumer
+import no.nav.tpts.mottak.joark.createKafkaConsumer
 import no.nav.tpts.mottak.soknad.soknadRoutes
 import java.net.URI
 
@@ -29,7 +30,7 @@ fun main() {
     LOG.info { "starting server" }
 
     flywayMigrate()
-    createJoarkConsumer("teamdokumenthandtering.aapen-dok-journalfoering-q1")
+    JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
     val issuer = System.getenv("AZURE_ISSUER")
     val jwksUri = System.getenv("AZURE_JWKS_URI")
