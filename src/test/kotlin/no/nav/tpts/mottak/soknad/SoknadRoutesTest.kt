@@ -25,7 +25,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
-import java.net.URL
 import java.time.LocalDateTime
 
 class SoknadRoutesTest {
@@ -175,7 +174,6 @@ class SoknadRoutesTest {
         }
     }
 }
-
 
 fun Application.soknadRoutes() {
     acceptJson()
