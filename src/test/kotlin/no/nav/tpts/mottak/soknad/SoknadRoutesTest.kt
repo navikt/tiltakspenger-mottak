@@ -1,8 +1,13 @@
 package no.nav.tpts.mottak.soknad
 
+import com.auth0.jwk.JwkProvider
+import com.auth0.jwk.JwkProviderBuilder
+import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.Application
+import io.ktor.auth.Authentication
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import io.ktor.routing.routing
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
@@ -10,17 +15,22 @@ import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
+import io.mockk.mockkStatic
 import kotliquery.Session
 import kotliquery.action.ListResultQueryAction
 import kotliquery.action.NullableResultQueryAction
+import no.nav.tpts.mottak.AuthConfig
 import no.nav.tpts.mottak.acceptJson
+import no.nav.tpts.mottak.appRoutes
 import no.nav.tpts.mottak.db.DataSource
+import no.nav.tpts.mottak.installAuth
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
+import java.net.URL
 import java.time.LocalDateTime
 
 class SoknadRoutesTest {
@@ -150,7 +160,27 @@ class SoknadRoutesTest {
             }
         }
     }
+
+    @Test
+    fun `soknad endpoint should require authentication`() {
+        mockkObject(AuthConfig)
+        every { AuthConfig.issuer } returns "Issuer"
+        val jwkProvider: UrlJwkProvider = mockk()
+
+        withTestApplication({
+            installAuth(jwkProvider)
+            appRoutes()
+        }) {
+            handleRequest(
+                HttpMethod.Get,
+                "/api/soknad"
+            ).apply {
+                Assertions.assertEquals(HttpStatusCode.Unauthorized, response.status())
+            }
+        }
+    }
 }
+
 
 fun Application.soknadRoutes() {
     acceptJson()
