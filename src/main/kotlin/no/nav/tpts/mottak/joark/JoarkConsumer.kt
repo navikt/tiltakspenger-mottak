@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import no.nav.tpts.mottak.topicName
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -30,7 +31,7 @@ const val MAX_POLL_RECORDS = 50
 const val MAX_POLL_INTERVAL_MS = 5000
 private val POLL_TIMEOUT = Duration.ofSeconds(4)
 
-fun createKafkaConsumer(topicName: String): KafkaConsumer<String, GenericRecord> {
+fun createKafkaConsumer(): KafkaConsumer<String, GenericRecord> {
     return KafkaConsumer<String, GenericRecord>(
         Properties().also {
             it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v3"
@@ -54,7 +55,7 @@ fun createKafkaConsumer(topicName: String): KafkaConsumer<String, GenericRecord>
             it[SchemaRegistryClientConfig.USER_INFO_CONFIG] =
                 System.getenv("KAFKA_SCHEMA_REGISTRY_USER") + ":" + System.getenv("KAFKA_SCHEMA_REGISTRY_PASSWORD")
         }
-    ).also { it.subscribe(listOf(topicName)) }
+    ).also { it.subscribe(listOf(topicName())) }
 }
 
 internal class JoarkConsumer(
