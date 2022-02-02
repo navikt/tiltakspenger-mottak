@@ -1,13 +1,9 @@
 package no.nav.tpts.mottak.soknad
 
-import com.auth0.jwk.JwkProvider
-import com.auth0.jwk.JwkProviderBuilder
 import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.Application
-import io.ktor.auth.Authentication
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
-import io.ktor.http.headersOf
 import io.ktor.routing.routing
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
@@ -15,7 +11,6 @@ import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkObject
-import io.mockk.mockkStatic
 import kotliquery.Session
 import kotliquery.action.ListResultQueryAction
 import kotliquery.action.NullableResultQueryAction
