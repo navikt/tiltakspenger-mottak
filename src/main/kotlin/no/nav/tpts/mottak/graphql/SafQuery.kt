@@ -1,4 +1,4 @@
-package no.nav.tpts.mottak.clients.saf
+package no.nav.tpts.mottak.graphql
 
 import kotlinx.serialization.Serializable
 
