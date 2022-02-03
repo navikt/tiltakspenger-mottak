@@ -12,6 +12,7 @@ import io.ktor.client.request.get
 import io.ktor.http.Parameters
 import kotlinx.coroutines.runBlocking
 import no.nav.security.token.support.client.core.OAuth2GrantType
+import no.nav.tpts.mottak.clients.HttpClient.httpClient
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
