@@ -18,18 +18,19 @@ object SafQuery {
     @Serializable
     data class Journalpost(
         val journalpostId: String,
+        val tittel: String,
         val dokumenter: List<DokumentInfo> = arrayListOf()
     )
 
     @Serializable
-    data class DokumentInfo (
+    data class DokumentInfo(
         val dokumentInfoId: String,
         val tittel: String,
         val dokumentvarianter: List<Dokumentvariant> = arrayListOf()
     )
 
     @Serializable
-    data class Dokumentvariant (
+    data class Dokumentvariant(
         val variantformat: Variantformat,
         val filnavn: String,
         val filtype: String
@@ -44,21 +45,21 @@ object SafQuery {
 fun journalpost(journalpostId: String): String {
 
     return """
-            query{
-                journalpost(journalpostId: $journalpostId){
-                    journalpostId
-                    dokumenter {
-                        dokumentInfoId
-                        tittel
-                        dokumentvarianter {
-                            variantformat
-                            filnavn
-                            filtype
-                        }
+        query{
+            journalpost(journalpostId: $journalpostId){
+                journalpostId
+                dokumenter {
+                    dokumentInfoId
+                    tittel
+                    dokumentvarianter {
+                        variantformat
+                        filnavn
+                        filtype
                     }
                 }
             }
-        """.trimIndent()
+        }
+    """.trimIndent()
 }
 
 data class JournalfortDokumentMetaData(

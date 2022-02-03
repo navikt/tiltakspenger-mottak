@@ -9,7 +9,7 @@ import no.nav.tpts.mottak.clients.saf.SafQuery.Variantformat.ORIGINAL
 
 const val SAF_URL = "https://saf.dev-fss-pub.nais.io"
 
-object SafClient{
+object SafClient {
     private val token = runBlocking { getToken().accessToken }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): SafQuery.Response {
@@ -17,10 +17,11 @@ object SafClient{
             header("Authorization", "(Bearer $token")
             header("Accept", "application/json")
             header("Tema", "IND")
+            header("Content-Type", "application/json")
             body = Graphql(journalpost(journalpostId))
         }
 
-        if(safResponse.errors?.get(0)?.message?.isNotEmpty() == true) {
+        if (safResponse.errors?.get(0)?.message?.isNotEmpty() == true) {
             throw RuntimeException("Det oppsto en feil ved å hente data fra SAF graphql. Message: ${safResponse.errors[0].message}")
         }
 
@@ -36,10 +37,10 @@ object SafClient{
         val dokument = dokumenter?.stream()?.filter { it.tittel == "Søknad om tiltakspenger" }?.findFirst()
         val dokumentTittel = dokument?.get()?.tittel
         val dokumentInfoId = dokument?.ifPresent { dok ->
-                     dok.dokumentvarianter.stream()
-                    .filter { it.variantformat == ORIGINAL }
-                    .findFirst().ifPresent { dok.dokumentInfoId }
-            }.toString()
+            dok.dokumentvarianter.stream()
+                .filter { it.variantformat == ORIGINAL }
+                .findFirst().ifPresent { dok.dokumentInfoId }
+        }.toString()
 
         return JournalfortDokumentMetaData(
             journalpostId = journalpostId,
