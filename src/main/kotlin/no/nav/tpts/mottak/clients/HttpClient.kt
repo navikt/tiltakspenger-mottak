@@ -10,8 +10,8 @@ import io.ktor.client.features.logging.Logger
 import io.ktor.client.features.logging.Logging
 import kotlinx.serialization.json.Json
 
-object  HttpClient {
-    val httpClient = HttpClient(CIO) {
+object HttpClient {
+    val client = HttpClient(CIO) {
         install(Logging) {
             logger = Logger.DEFAULT
             level = LogLevel.BODY

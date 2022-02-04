@@ -4,7 +4,9 @@ import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.http.*
+import io.ktor.http.HttpHeaders
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headersOf
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockkObject
@@ -16,10 +18,9 @@ import no.nav.tpts.mottak.clients.saf.SafClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class SafClientImplTest {
-
+class SafClientTest {
     private companion object {
-        val JOURNALPOST_ID = "524272526"
+        const val JOURNALPOST_ID = "524272526"
 
         val journalpostJson = """
             {
@@ -78,7 +79,7 @@ class SafClientImplTest {
         }
 
         mockkObject(HttpClient)
-        every { HttpClient.httpClient } returns io.ktor.client.HttpClient(mockEngine) {
+        every { HttpClient.client } returns io.ktor.client.HttpClient(mockEngine) {
             install(JsonFeature) {
                 serializer = KotlinxSerializer()
             }
