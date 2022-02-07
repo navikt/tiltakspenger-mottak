@@ -1,9 +1,11 @@
 package no.nav.tpts.mottak
 
+import com.auth0.jwk.JwkProvider
 import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.auth.Authentication
+import io.ktor.auth.authenticate
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.CORS
@@ -32,27 +34,9 @@ fun main() {
     flywayMigrate()
     JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
-    val issuer = System.getenv("AZURE_ISSUER")
-    val jwksUri = System.getenv("AZURE_JWKS_URI")
-
-    val jwkProvider = UrlJwkProvider(URI(jwksUri).toURL())
-
     val server = embeddedServer(Netty, PORT) {
         acceptJson()
-        install(Authentication) {
-            jwt("auth-jwt") {
-                verifier(jwkProvider, issuer) {
-                    acceptLeeway(LEEWAY)
-                }
-                validate { credential ->
-                    if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
-                        JWTPrincipal(credential.payload)
-                    } else {
-                        null
-                    }
-                }
-            }
-        }
+        installAuth()
         install(CORS) {
             host("localhost:8081")
             host("127.0.0.1:8081")
@@ -60,11 +44,7 @@ fun main() {
             host("127.0.0.1:3000")
             host("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
-        routing {
-            healthRoutes()
-            applicationRoutes()
-            soknadRoutes()
-        }
+        appRoutes()
     }.start()
 
     Runtime.getRuntime().addShutdownHook(
@@ -73,6 +53,33 @@ fun main() {
             server.stop(gracePeriodMillis = 3000, timeoutMillis = 1000)
         }
     )
+}
+
+fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthConfig.jwksUri).toURL())) {
+    install(Authentication) {
+        jwt("auth-jwt") {
+            verifier(jwkProvider, AuthConfig.issuer) {
+                acceptLeeway(LEEWAY)
+            }
+            validate { credential ->
+                if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
+                    JWTPrincipal(credential.payload)
+                } else {
+                    null
+                }
+            }
+        }
+    }
+}
+
+fun Application.appRoutes() {
+    routing {
+        healthRoutes()
+        applicationRoutes()
+        authenticate("auth-jwt") {
+            soknadRoutes()
+        }
+    }
 }
 
 fun Application.acceptJson() {
