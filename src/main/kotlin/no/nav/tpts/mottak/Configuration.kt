@@ -9,3 +9,8 @@ fun topicName(): String {
         else -> "teamdokumenthandtering.aapen-dok-journalfoering-q1"
     }
 }
+
+object AuthConfig {
+    val issuer = System.getenv("AZURE_ISSUER")
+    val jwksUri = System.getenv("AZURE_JWKS_URI")
+}

@@ -55,11 +55,6 @@ fun main() {
     )
 }
 
-object AuthConfig {
-    val issuer = System.getenv("AZURE_ISSUER")
-    val jwksUri = System.getenv("AZURE_JWKS_URI")
-}
-
 fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthConfig.jwksUri).toURL())) {
     install(Authentication) {
         jwt("auth-jwt") {
