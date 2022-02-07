@@ -32,7 +32,7 @@ fun main() {
     LOG.info { "starting server" }
 
     flywayMigrate()
-    JoarkConsumer(createKafkaConsumer("teamdokumenthandtering.aapen-dok-journalfoering-q1")).also { it.start() }
+    JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
         acceptJson()
