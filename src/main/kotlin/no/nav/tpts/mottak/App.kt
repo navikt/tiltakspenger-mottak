@@ -18,6 +18,7 @@ import io.ktor.server.netty.Netty
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
+import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.healthRoutes
 import no.nav.tpts.mottak.joark.JoarkConsumer
 import no.nav.tpts.mottak.joark.createKafkaConsumer
@@ -32,7 +33,7 @@ fun main() {
     LOG.info { "starting server" }
 
     flywayMigrate()
-    JoarkConsumer(createKafkaConsumer()).also { it.start() }
+    val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
         acceptJson()
@@ -44,7 +45,7 @@ fun main() {
             host("127.0.0.1:3000")
             host("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
-        appRoutes()
+        appRoutes(listOf(joarkConsumer))
     }.start()
 
     Runtime.getRuntime().addShutdownHook(
@@ -72,9 +73,9 @@ fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthCo
     }
 }
 
-fun Application.appRoutes() {
+fun Application.appRoutes(healthChecks: List<HealthCheck>) {
     routing {
-        healthRoutes()
+        healthRoutes(healthChecks)
         applicationRoutes()
         authenticate("auth-jwt") {
             soknadRoutes()

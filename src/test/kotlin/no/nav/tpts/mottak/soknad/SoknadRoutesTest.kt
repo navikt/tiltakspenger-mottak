@@ -163,7 +163,7 @@ class SoknadRoutesTest {
 
         withTestApplication({
             installAuth(jwkProvider)
-            appRoutes()
+            appRoutes(emptyList())
         }) {
             handleRequest(
                 HttpMethod.Get,
