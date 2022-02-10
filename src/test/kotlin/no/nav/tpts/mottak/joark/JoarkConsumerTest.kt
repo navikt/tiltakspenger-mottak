@@ -1,10 +1,13 @@
 package no.nav.tpts.mottak.joark
 
+import io.mockk.every
+import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
+import no.nav.tpts.mottak.health.HealthStatus
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -52,7 +55,8 @@ internal class JoarkConsumerTest {
             assign(listOf(partition))
             updateBeginningOffsets(mapOf(partition to 0L))
         }
-        val joarkConsumer = JoarkConsumer(mockConsumer)
+        val joarkConsumer = spyk(JoarkConsumer(mockConsumer))
+        every { joarkConsumer.status() } returns HealthStatus.TILFREDS
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
