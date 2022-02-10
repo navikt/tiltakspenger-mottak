@@ -66,7 +66,7 @@ internal class JoarkConsumerTest {
             joarkConsumer.start()
             // ikke optimalt med delay, men prod-koden har foreløpig ingen sideeffekter. Vil ha det når
             // SAF-integrasjonen er klar. Da kan vi sjekke for sideeffekten isteden
-            delay(100L)
+            delay(200L)
             assertEquals(offsets.toLong(), mockConsumer.committed(setOf(partition))[partition]?.offset())
             joarkConsumer.stop()
         }
