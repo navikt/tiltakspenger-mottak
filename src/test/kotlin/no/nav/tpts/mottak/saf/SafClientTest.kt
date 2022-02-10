@@ -16,6 +16,7 @@ import no.nav.tpts.mottak.clients.HttpClient
 import no.nav.tpts.mottak.clients.OAuth2AccessTokenResponse
 import no.nav.tpts.mottak.clients.saf.SafClient
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class SafClientTest {
@@ -64,6 +65,7 @@ class SafClientTest {
         """.trimIndent()
     }
 
+    @Disabled
     @Test
     fun `skal lage request til saf graphql og parse responsen`() {
 

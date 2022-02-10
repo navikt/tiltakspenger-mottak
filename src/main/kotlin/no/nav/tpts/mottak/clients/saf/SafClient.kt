@@ -3,32 +3,32 @@ package no.nav.tpts.mottak.clients.saf
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.features.NotFoundException
+import io.ktor.http.HttpHeaders
 import io.ktor.http.Url
 import kotlinx.coroutines.runBlocking
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
 import no.nav.tpts.mottak.clients.HttpClient.client
+import no.nav.tpts.mottak.getSafUrl
 import no.nav.tpts.mottak.graphql.Graphql
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
 import no.nav.tpts.mottak.graphql.SafQuery
 import no.nav.tpts.mottak.graphql.SafQuery.Variantformat.ORIGINAL
 import no.nav.tpts.mottak.graphql.journalpost
 
-const val SAF_URL = "https://saf.dev-fss-pub.nais.io"
-
 object SafClient {
     private val token = runBlocking { getToken().accessToken }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData {
-        val safResponse: SafQuery.Response = client.post(url = Url("$SAF_URL/graphql")) {
-            header("Authorization", "(Bearer $token")
-            header("Accept", "application/json")
+        val safResponse: SafQuery.Response = client.post(url = Url("{${getSafUrl()}/graphql}")) {
+            header(HttpHeaders.Authorization, "(Bearer $token")
+            header(HttpHeaders.Accept, "application/json")
             header("Tema", "IND")
-            header("Content-Type", "application/json")
+            header(HttpHeaders.ContentType, "application/json")
 
             body = Graphql(journalpost(journalpostId))
         }
 
-        if (safResponse.errors?.get(0)?.message?.isNotEmpty() == true) {
+        if (safResponse.errors != null) {
             throw NotFoundException(
                 "Det oppsto en feil ved å hente data fra SAF graphql. Message: ${safResponse.errors[0].message}"
             )
