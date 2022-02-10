@@ -62,22 +62,21 @@ fun Route.applicationRoutes() {
                 call.respondText("OK")
                 val principal = call.principal<JWTPrincipal>()
                 LOG.info(principal!!.payload.claims.toString())
-                LOG.info(principal!!.userId)
+                LOG.info(principal.userId)
             }
         }
 
         route("/api/onbehalfoftoken") {
             get {
-                /*
-                try {
+            /*    try {
                     val token = AzureOauthClient.getToken()
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                } catch (e: AuthenticationException) {
+                    val log = KotlinLogging.logger {}
+                    log.error(e) { e.message }
                     call.respondText("Invalid token", ContentType.Text.Plain, HttpStatusCode.BadRequest)
                     return@get
                 }
-                call.respondText("OK")
-                */
+                call.respondText("OK")  */
             }
         }
     }

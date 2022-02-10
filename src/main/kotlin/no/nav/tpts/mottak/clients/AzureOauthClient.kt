@@ -9,6 +9,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import no.nav.security.token.support.client.core.OAuth2GrantType
 import no.nav.security.token.support.client.core.OAuth2ParameterNames
+import no.nav.tpts.mottak.clients.HttpClient.client
 
 private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
 private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
@@ -18,10 +19,10 @@ private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 private val scope = System.getenv("SCOPE") ?: "api://dev-fss.teamdokumenthandtering.saf/.default"
 
 object AzureOauthClient {
-    private var wellknown: WellKnown = runBlocking { httpClient.get(wellknownUrl) }
+    private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl) } }
 
     suspend fun getToken(): OAuth2AccessTokenResponse {
-        return httpClient.submitForm(
+        return client.submitForm(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 appendToken()
@@ -30,7 +31,7 @@ object AzureOauthClient {
     }
 
     suspend fun onBehalfOfExchange(accessToken: String): OAuth2AccessTokenResponse {
-        return httpClient.submitForm(
+        return client.submitForm(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 appendTokenExchangeParams(accessToken)

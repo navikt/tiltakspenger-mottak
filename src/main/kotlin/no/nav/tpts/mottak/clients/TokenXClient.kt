@@ -12,6 +12,7 @@ import io.ktor.client.request.get
 import io.ktor.http.Parameters
 import kotlinx.coroutines.runBlocking
 import no.nav.security.token.support.client.core.OAuth2GrantType
+import no.nav.tpts.mottak.clients.HttpClient.client
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
@@ -22,10 +23,10 @@ private val privateJwk = System.getenv("TOKEN_X_PRIVATE_JWK")
 private const val TOKENX_AUDIENCE = "https://tokendings.dev-gcp.nais.io/token"
 
 object TokenXClient {
-    private var wellknown: WellKnown = runBlocking { httpClient.get(wellKnown) }
+    private var wellknown: WellKnown = runBlocking { client.get(wellKnown) }
 
     suspend fun exchangeToken(accessToken: String, targetAudience: String): OAuth2AccessTokenResponse {
-        return httpClient.submitForm(
+        return client.submitForm(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 append("grant_type", OAuth2GrantType.TOKEN_EXCHANGE.value)
