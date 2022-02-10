@@ -30,7 +30,7 @@ fun Route.healthRoutes(healthChecks: List<HealthCheck>) {
                 LOG.warn { "Failed health checks: $failedHealthChecks" }
                 call.respondText(text = "DEAD", contentType = ContentType.Text.Plain, status = ServiceUnavailable)
             } else {
-                call.respondText(text = "ALIVE", contentType = ContentType.Text.Plain)
+                call.respondText(text = "ALIVE", contentType = ContentType.Text.Plain, status = OK)
             }
         }
     }.also { LOG.info { "setting up endpoint /isAlive" } }
