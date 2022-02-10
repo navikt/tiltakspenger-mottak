@@ -1,18 +1,14 @@
 package no.nav.tpts.mottak.applications
 
-import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.principal
 import io.ktor.http.ContentType
-import io.ktor.http.HttpStatusCode
-import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.route
-import io.ktor.util.pipeline.PipelineContext
 import io.ktor.util.toMap
 import no.nav.tpts.mottak.LOG
 import no.nav.tpts.mottak.clients.AzureOauthClient
@@ -84,13 +80,4 @@ fun Route.applicationRoutes() {
             }
         }
     }
-}
-
-suspend fun PipelineContext<Unit, ApplicationCall>.requireParam(paramName: String): String {
-    val param = call.parameters[paramName]
-    if (param == null) {
-        call.respond(HttpStatusCode.BadRequest, "Missing path param $paramName")
-        throw IllegalArgumentException("Missing path param $paramName")
-    }
-    return param
 }

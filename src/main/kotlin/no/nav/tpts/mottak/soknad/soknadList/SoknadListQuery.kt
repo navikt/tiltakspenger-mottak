@@ -19,7 +19,7 @@ val totalQuery = "select count(*) as total from soknad"
 fun Soknad.Companion.fromRow(row: Row): Soknad {
     return Soknad(
         id = row.int("dokumentinfo_id").toString(),
-        fornavn = row.string("fornavn"),
+        fornavn = row.stringOrNull("fornavn"),
         etternavn = row.string("etternavn"),
         ident = row.string("identer").split(" ").first(),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),

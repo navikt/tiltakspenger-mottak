@@ -1,0 +1,2 @@
+ALTER TABLE person
+    ALTER COLUMN etternavn SET NOT NULL;

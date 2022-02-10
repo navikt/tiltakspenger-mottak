@@ -22,3 +22,8 @@ fun topicName(): String {
         "teamdokumenthandtering.aapen-dok-journalfoering"
     )
 }
+
+object AuthConfig {
+    val issuer = System.getenv("AZURE_ISSUER")
+    val jwksUri = System.getenv("AZURE_JWKS_URI")
+}

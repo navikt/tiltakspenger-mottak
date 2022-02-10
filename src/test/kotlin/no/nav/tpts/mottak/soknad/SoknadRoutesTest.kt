@@ -1,5 +1,6 @@
 package no.nav.tpts.mottak.soknad
 
+import com.auth0.jwk.UrlJwkProvider
 import io.ktor.application.Application
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
@@ -13,8 +14,11 @@ import io.mockk.mockkObject
 import kotliquery.Session
 import kotliquery.action.ListResultQueryAction
 import kotliquery.action.NullableResultQueryAction
+import no.nav.tpts.mottak.AuthConfig
 import no.nav.tpts.mottak.acceptJson
+import no.nav.tpts.mottak.appRoutes
 import no.nav.tpts.mottak.db.DataSource
+import no.nav.tpts.mottak.installAuth
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
@@ -147,6 +151,25 @@ class SoknadRoutesTest {
         withTestApplication({ soknadRoutes() }) {
             handleRequest(HttpMethod.Get, "/api/soknad/54123").apply {
                 Assertions.assertEquals(response.status(), HttpStatusCode.NotFound)
+            }
+        }
+    }
+
+    @Test
+    fun `soknad endpoint should require authentication`() {
+        mockkObject(AuthConfig)
+        every { AuthConfig.issuer } returns "Issuer"
+        val jwkProvider: UrlJwkProvider = mockk()
+
+        withTestApplication({
+            installAuth(jwkProvider)
+            appRoutes(emptyList())
+        }) {
+            handleRequest(
+                HttpMethod.Get,
+                "/api/soknad"
+            ).apply {
+                Assertions.assertEquals(HttpStatusCode.Unauthorized, response.status())
             }
         }
     }

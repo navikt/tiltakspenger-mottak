@@ -10,6 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import no.nav.tpts.mottak.health.HealthCheck
+import no.nav.tpts.mottak.health.HealthStatus
 import no.nav.tpts.mottak.topicName
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
@@ -61,12 +63,14 @@ fun createKafkaConsumer(): KafkaConsumer<String, GenericRecord> {
 internal class JoarkConsumer(
     private val consumer: Consumer<String, GenericRecord>,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
-) {
+) : HealthCheck {
     private lateinit var job: Job
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread(::shutdownHook))
     }
+
+    override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
 
     fun start() {
         LOG.info { "starting JoarkConsumer" }
