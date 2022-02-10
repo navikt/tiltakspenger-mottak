@@ -15,7 +15,6 @@ import org.apache.kafka.common.KafkaException
 import org.apache.kafka.common.TopicPartition
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 private val LOG = KotlinLogging.logger {}
@@ -43,7 +42,6 @@ internal class JoarkConsumerTest {
         """.trimIndent()
     )
 
-    @Disabled("Runs ok locally, fails on GHA. Because of delay?")
     @Test
     fun `konsumere fra en topic endrer offset`() {
         val topicName = "topic"

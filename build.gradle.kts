@@ -73,6 +73,7 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "ch.qos.logback", module = "logback-classic")
     }
@@ -81,8 +82,6 @@ dependencies {
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
-    testImplementation ("io.ktor:ktor-client-mock:$ktorVersion")
-
 }
 
 configurations.all {
@@ -113,6 +112,7 @@ tasks {
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = javaVersion.toString()
+        kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
     }
     test {
         // JUnit 5 support
