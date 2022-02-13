@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
+import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.HealthStatus
 import no.nav.tpts.mottak.topicName
@@ -111,9 +112,17 @@ internal class JoarkConsumer(
                 .toMutableMap()
             records.onEach { record ->
                 val tema = record.value().get("temaNytt")?.toString() ?: ""
+                scope.launch {
+                    LOG.info { "ny launch se 1" }
+                    //SafClient.hentMetadataForJournalpost("")
+                }
                 if (tema == "IND") {
                     // når den tid kommer: kall SAF med gitt journalpostId
                     LOG.info { "Mottok tema '$tema'. $record" }
+                    scope.launch {
+                        LOG.info { "ny launch se 2" }
+                        //SafClient.hentMetadataForJournalpost("")
+                    }
                 }
                 currentPartitionOffsets[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
             }
