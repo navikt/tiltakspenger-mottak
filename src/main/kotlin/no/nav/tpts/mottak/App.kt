@@ -6,7 +6,6 @@ import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.auth.Authentication
 import io.ktor.auth.authenticate
-import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.CORS
 import io.ktor.features.ContentNegotiation
@@ -17,6 +16,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
+import no.nav.tpts.mottak.auth.validateJwtClaims
 import no.nav.tpts.mottak.db.flywayMigrate
 import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.healthRoutes
@@ -62,13 +62,7 @@ fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthCo
             verifier(jwkProvider, AuthConfig.issuer) {
                 acceptLeeway(LEEWAY)
             }
-            validate { credential ->
-                if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
-                    JWTPrincipal(credential.payload)
-                } else {
-                    null
-                }
-            }
+            validate(validateJwtClaims(AuthConfig.clientId, AuthConfig.issuer))
         }
     }
 }
