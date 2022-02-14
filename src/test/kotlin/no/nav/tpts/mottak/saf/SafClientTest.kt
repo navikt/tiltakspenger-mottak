@@ -16,7 +16,7 @@ import no.nav.tpts.mottak.clients.HttpClient
 import no.nav.tpts.mottak.clients.OAuth2AccessTokenResponse
 import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
@@ -67,15 +67,13 @@ class SafClientTest {
         """.trimIndent()
     }
 
-    @Test
-    fun `skal lage request til saf graphql og parse responsen`() {
-
+    private fun mockSafRequest(mockJsonString: String) {
         mockkObject(AzureOauthClient)
         coEvery { AzureOauthClient.getToken() } returns OAuth2AccessTokenResponse("TOKEN", "ACCESS_TOKEN", 123, 123)
 
         val mockEngine = MockEngine {
             respond(
-                content = journalpostJson,
+                content = mockJsonString,
                 status = HttpStatusCode.OK,
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
@@ -87,7 +85,12 @@ class SafClientTest {
                 serializer = KotlinxSerializer()
             }
         }
+    }
 
+    @Test
+    fun `skal lage request til saf graphql og parse responsen`() {
+
+        mockSafRequest(journalpostJson)
         val safResponse = runBlocking {
             SafClient.hentMetadataForJournalpost(JOURNALPOST_ID)
         }
@@ -99,25 +102,9 @@ class SafClientTest {
 
     @Test
     fun `hente dokument fra SAF`() {
-        mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns OAuth2AccessTokenResponse("TOKEN", "ACCESS_TOKEN", 123, 123)
         val jsonSoknad = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8)!!
         val journalfortDokumentMetaData = JournalfortDokumentMetaData(JOURNALPOST_ID, "2", "tittel")
-
-        val mockEngine = MockEngine {
-            respond(
-                content = jsonSoknad,
-                status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
-            )
-        }
-
-        mockkObject(HttpClient)
-        every { HttpClient.client } returns io.ktor.client.HttpClient(mockEngine) {
-            install(JsonFeature) {
-                serializer = KotlinxSerializer()
-            }
-        }
+        mockSafRequest(jsonSoknad)
 
         val safResponse = runBlocking {
             SafClient.hentSoknad(journalfortDokumentMetaData)

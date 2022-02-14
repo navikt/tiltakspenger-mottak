@@ -1,5 +1,6 @@
 package no.nav.tpts.mottak.clients.saf
 
+import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.features.NotFoundException
@@ -14,7 +15,6 @@ import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
 import no.nav.tpts.mottak.graphql.SafQuery
 import no.nav.tpts.mottak.graphql.SafQuery.Variantformat.ORIGINAL
 import no.nav.tpts.mottak.graphql.journalpost
-import no.nav.tpts.mottak.joark.models.JoarkSoknad
 
 object SafClient {
     private val token = runBlocking { getToken().accessToken }
@@ -41,8 +41,19 @@ object SafClient {
     }
 
     suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
-        val variantformat = "ORIGINAL"
-        return "{  \"soknadId\": 12304...."
+        val variantFormat = "ORIGINAL"
+        val journalpostId = journalfortDokumentMetaData.journalpostId
+        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
+
+        val safResponse: String = client.get(
+            url = Url("{${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$variantFormat}")
+        ) {
+            header(HttpHeaders.Authorization, "(Bearer $token")
+            header(HttpHeaders.ContentType, "application/json")
+            header(HttpHeaders.Accept, "application/json")
+            header("Tema", "IND")
+        }
+        return safResponse
     }
 
     fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData {
