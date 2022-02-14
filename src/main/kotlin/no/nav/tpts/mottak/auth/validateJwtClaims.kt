@@ -14,11 +14,3 @@ val validateJwtClaims: (String, String) -> ApplicationCall.(JWTCredential) -> Pr
             }
         }
     }
-
-
-val avalidateJwtClaims: (String, String) -> (suspend (List<String>, String?) -> Boolean) =
-    { clientId, issuer ->
-        { audience, tokenIssuer ->
-            audience.contains(clientId) && issuer == tokenIssuer
-        }
-    }
