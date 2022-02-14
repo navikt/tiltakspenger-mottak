@@ -21,13 +21,24 @@ private val scope = System.getenv("SCOPE") ?: "api://dev-fss.teamdokumenthandter
 object AzureOauthClient {
     private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl) } }
 
-    suspend fun getToken(): OAuth2AccessTokenResponse {
-        return client.submitForm(
+    private val tokenCache = TokenCache()
+
+    suspend fun getToken(): String {
+        val currentToken = tokenCache.token
+        if (currentToken != null && !tokenCache.isExpired()) return currentToken
+
+        return client.submitForm<OAuth2AccessTokenResponse>(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 appendToken()
             }
-        )
+        ).let {
+            tokenCache.update(
+                it.accessToken,
+                it.expiresIn.toLong()
+            )
+            return@let it.accessToken
+        }
     }
 
     suspend fun onBehalfOfExchange(accessToken: String): OAuth2AccessTokenResponse {

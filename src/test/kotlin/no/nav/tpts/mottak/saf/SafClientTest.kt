@@ -13,7 +13,6 @@ import io.mockk.mockkObject
 import kotlinx.coroutines.runBlocking
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.HttpClient
-import no.nav.tpts.mottak.clients.OAuth2AccessTokenResponse
 import no.nav.tpts.mottak.clients.saf.SafClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -68,7 +67,7 @@ class SafClientTest {
     fun `skal lage request til saf graphql og parse responsen`() {
 
         mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns OAuth2AccessTokenResponse("TOKEN", "ACCESS_TOKEN", 123, 123)
+        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
 
         val mockEngine = MockEngine {
             respond(
