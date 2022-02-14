@@ -6,7 +6,7 @@ metadata:
   labels:
     team: tpts
 spec:
-  image: {{ image }}
+  image: { { image } }
   port: 8080
   ingresses:
     - https://tpts-tiltakspenger-mottak.dev.intern.nav.no
@@ -34,3 +34,9 @@ spec:
       - type: POSTGRES_12
         databases:
           - name: db
+  accessPolicy:
+    inbound:
+      rules:
+        - application: tpts-tiltakspenger-flate
+          namespace: tpts
+          cluster: dev-gcp
