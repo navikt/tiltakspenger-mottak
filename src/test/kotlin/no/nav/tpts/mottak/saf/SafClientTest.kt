@@ -15,8 +15,11 @@ import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.HttpClient
 import no.nav.tpts.mottak.clients.OAuth2AccessTokenResponse
 import no.nav.tpts.mottak.clients.saf.SafClient
-import org.junit.jupiter.api.Assertions.assertEquals
+import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 
 class SafClientTest {
     private companion object {
@@ -92,5 +95,34 @@ class SafClientTest {
         assertEquals(JOURNALPOST_ID, safResponse.journalpostId)
         assertEquals("Søknad om tiltakspenger", safResponse.dokumentTittel)
         assertEquals("548464748", safResponse.dokumentInfoId)
+    }
+
+    @Test
+    fun `hente dokument fra SAF`() {
+        mockkObject(AzureOauthClient)
+        coEvery { AzureOauthClient.getToken() } returns OAuth2AccessTokenResponse("TOKEN", "ACCESS_TOKEN", 123, 123)
+        val jsonSoknad = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8)!!
+        val journalfortDokumentMetaData = JournalfortDokumentMetaData(JOURNALPOST_ID, "2", "tittel")
+
+        val mockEngine = MockEngine {
+            respond(
+                content = jsonSoknad,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, "application/json")
+            )
+        }
+
+        mockkObject(HttpClient)
+        every { HttpClient.client } returns io.ktor.client.HttpClient(mockEngine) {
+            install(JsonFeature) {
+                serializer = KotlinxSerializer()
+            }
+        }
+
+        val safResponse = runBlocking {
+            SafClient.hentSoknad(journalfortDokumentMetaData)
+        }
+
+        JSONAssert.assertEquals(jsonSoknad, safResponse, JSONCompareMode.LENIENT)
     }
 }

@@ -14,6 +14,7 @@ import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
 import no.nav.tpts.mottak.graphql.SafQuery
 import no.nav.tpts.mottak.graphql.SafQuery.Variantformat.ORIGINAL
 import no.nav.tpts.mottak.graphql.journalpost
+import no.nav.tpts.mottak.joark.models.JoarkSoknad
 
 object SafClient {
     private val token = runBlocking { getToken().accessToken }
@@ -37,6 +38,11 @@ object SafClient {
         val journalPostResponse = safResponse.data?.journalpost
 
         return toJournalfortDokumentMetadata(journalPostResponse)
+    }
+
+    suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
+        val variantformat = "ORIGINAL"
+        return "{  \"soknadId\": 12304...."
     }
 
     fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData {
