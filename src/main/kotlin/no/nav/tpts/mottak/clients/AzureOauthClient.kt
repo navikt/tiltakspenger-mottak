@@ -10,7 +10,6 @@ import kotlinx.serialization.Serializable
 import no.nav.security.token.support.client.core.OAuth2GrantType
 import no.nav.security.token.support.client.core.OAuth2ParameterNames
 import no.nav.tpts.mottak.clients.HttpClient.client
-import java.time.LocalDateTime
 
 private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
 private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
