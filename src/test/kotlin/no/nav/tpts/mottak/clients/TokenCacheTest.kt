@@ -9,8 +9,8 @@ class TokenCacheTest {
     fun `Should be expired if actually expired`() {
         val tokenCache = TokenCache()
         tokenCache.update(
-            "token",
-            -1
+            accessToken = "token",
+            expiresIn = -1
         )
         Assertions.assertEquals(true, tokenCache.isExpired())
     }
@@ -19,8 +19,8 @@ class TokenCacheTest {
     fun `Should not be expired initially`() {
         val tokenCache = TokenCache()
         tokenCache.update(
-            "token",
-            100
+            accessToken = "token",
+            expiresIn = 100
         )
         Assertions.assertEquals(false, tokenCache.isExpired())
     }
@@ -29,8 +29,8 @@ class TokenCacheTest {
     fun `should return cached token`() {
         val tokenCache = TokenCache()
         tokenCache.update(
-            "token",
-            100
+            accessToken = "token",
+            expiresIn = 100
         )
         Assertions.assertEquals("token", tokenCache.token)
     }

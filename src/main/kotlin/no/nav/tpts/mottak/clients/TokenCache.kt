@@ -11,8 +11,6 @@ class TokenCache {
 
     fun update(accessToken: String, expiresIn: Long) {
         token = accessToken
-        expires = LocalDateTime.now().plusSeconds(
-            expiresIn.toLong()
-        )
+        expires = LocalDateTime.now().plusSeconds(expiresIn)
     }
 }
