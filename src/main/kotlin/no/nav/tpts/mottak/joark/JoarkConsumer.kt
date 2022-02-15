@@ -12,11 +12,13 @@ import kotlinx.coroutines.launch
 import mu.KotlinLogging
 import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.HealthStatus
+import no.nav.tpts.mottak.soknad.handleSoknad
 import no.nav.tpts.mottak.topicName
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.TopicPartition
@@ -110,10 +112,12 @@ internal class JoarkConsumer(
                 .mapValues { partition -> partition.value.minOf { it.offset() } }
                 .toMutableMap()
             records.onEach { record ->
-                val tema = record.value().get("temaNytt")?.toString() ?: ""
-                if (tema == "IND") {
-                    // når den tid kommer: kall SAF med gitt journalpostId
-                    LOG.info { "Mottok tema '$tema'. $record" }
+                if (isCorrectTemaAndStatus(record)) {
+                    LOG.info { "Mottok joark-melding: $record" }
+                    scope.launch {
+                        LOG.debug { "retreiving soknad" }
+                        handleSoknad(record.key())
+                    }
                 }
                 currentPartitionOffsets[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
             }
@@ -129,6 +133,10 @@ internal class JoarkConsumer(
             consumer.commitSync()
         }
     }
+
+    private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
+        (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
+            (record.value().get("journalpostStatus")?.toString() ?: "") == "J"
 
     private fun closeResources() {
         LOG.info { "close resources" }

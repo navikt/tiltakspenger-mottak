@@ -14,8 +14,11 @@ import kotlinx.coroutines.runBlocking
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.HttpClient
 import no.nav.tpts.mottak.clients.saf.SafClient
+import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.skyscreamer.jsonassert.JSONAssert
+import org.skyscreamer.jsonassert.JSONCompareMode
 
 class SafClientTest {
     private companion object {
@@ -63,15 +66,13 @@ class SafClientTest {
         """.trimIndent()
     }
 
-    @Test
-    fun `skal lage request til saf graphql og parse responsen`() {
-
+    private fun mockSafRequest(mockJsonString: String) {
         mockkObject(AzureOauthClient)
         coEvery { AzureOauthClient.getToken() } returns "TOKEN"
 
         val mockEngine = MockEngine {
             respond(
-                content = journalpostJson,
+                content = mockJsonString,
                 status = HttpStatusCode.OK,
                 headers = headersOf(HttpHeaders.ContentType, "application/json")
             )
@@ -83,7 +84,12 @@ class SafClientTest {
                 serializer = KotlinxSerializer()
             }
         }
+    }
 
+    @Test
+    fun `skal lage request til saf graphql og parse responsen`() {
+
+        mockSafRequest(journalpostJson)
         val safResponse = runBlocking {
             SafClient.hentMetadataForJournalpost(JOURNALPOST_ID)
         }
@@ -91,5 +97,18 @@ class SafClientTest {
         assertEquals(JOURNALPOST_ID, safResponse.journalpostId)
         assertEquals("Søknad om tiltakspenger", safResponse.dokumentTittel)
         assertEquals("548464748", safResponse.dokumentInfoId)
+    }
+
+    @Test
+    fun `hente dokument fra SAF`() {
+        val jsonSoknad = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8)!!
+        val journalfortDokumentMetaData = JournalfortDokumentMetaData(JOURNALPOST_ID, "2", "tittel")
+        mockSafRequest(jsonSoknad)
+
+        val safResponse = runBlocking {
+            SafClient.hentSoknad(journalfortDokumentMetaData)
+        }
+
+        JSONAssert.assertEquals(jsonSoknad, safResponse, JSONCompareMode.LENIENT)
     }
 }

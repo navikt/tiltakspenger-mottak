@@ -1,5 +1,6 @@
 package no.nav.tpts.mottak.clients.saf
 
+import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.features.NotFoundException
@@ -20,7 +21,7 @@ object SafClient {
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData {
         val safResponse: SafQuery.Response = client.post(url = Url("{${getSafUrl()}/graphql}")) {
-            header(HttpHeaders.Authorization, "(Bearer $token")
+            header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.Accept, "application/json")
             header("Tema", "IND")
             header(HttpHeaders.ContentType, "application/json")
@@ -37,6 +38,22 @@ object SafClient {
         val journalPostResponse = safResponse.data?.journalpost
 
         return toJournalfortDokumentMetadata(journalPostResponse)
+    }
+
+    suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
+        val variantFormat = "ORIGINAL"
+        val journalpostId = journalfortDokumentMetaData.journalpostId
+        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
+
+        val safResponse: String = client.get(
+            url = Url("{${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$variantFormat}")
+        ) {
+            header(HttpHeaders.Authorization, "Bearer $token")
+            header(HttpHeaders.ContentType, "application/json")
+            header(HttpHeaders.Accept, "application/json")
+            header("Tema", "IND")
+        }
+        return safResponse
     }
 
     fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData {
