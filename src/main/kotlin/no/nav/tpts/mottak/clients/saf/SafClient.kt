@@ -21,7 +21,7 @@ object SafClient {
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData {
         val safResponse: SafQuery.Response = client.post(url = Url("{${getSafUrl()}/graphql}")) {
-            header(HttpHeaders.Authorization, "(Bearer $token")
+            header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.Accept, "application/json")
             header("Tema", "IND")
             header(HttpHeaders.ContentType, "application/json")
@@ -48,7 +48,7 @@ object SafClient {
         val safResponse: String = client.get(
             url = Url("{${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$variantFormat}")
         ) {
-            header(HttpHeaders.Authorization, "(Bearer $token")
+            header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.ContentType, "application/json")
             header(HttpHeaders.Accept, "application/json")
             header("Tema", "IND")
