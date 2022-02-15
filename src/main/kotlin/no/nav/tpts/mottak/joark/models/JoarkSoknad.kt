@@ -13,7 +13,7 @@ data class JoarkSoknad(
     @SerialName("uuid") val uuid: String? = null,
     @SerialName("brukerBehandlingId") val brukerBehandlingId: String? = null,
     @SerialName("behandlingskjedeId") val behandlingskjedeId: String? = null,
-    @SerialName("fakta") val fakta: List<Fakta> = arrayListOf(),
+    @SerialName("fakta") val fakta: List<Faktum> = arrayListOf(),
     @SerialName("status") val status: String? = null,
     @SerialName("aktoerId") val aktoerId: String? = null,
     @Serializable(with = LocalDateTimeSerializer::class)

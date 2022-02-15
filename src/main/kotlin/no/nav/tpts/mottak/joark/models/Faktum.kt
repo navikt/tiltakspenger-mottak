@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Fakta(
+data class Faktum(
     @SerialName("faktumId") val faktumId: Int? = null,
     @SerialName("soknadId") val soknadId: Int? = null,
     @SerialName("parrentFaktum") val parrentFaktum: Int? = null,
