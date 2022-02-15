@@ -17,7 +17,7 @@ import no.nav.tpts.mottak.graphql.SafQuery.Variantformat.ORIGINAL
 import no.nav.tpts.mottak.graphql.journalpost
 
 object SafClient {
-    private val token = runBlocking { getToken().accessToken }
+    private val token = runBlocking { getToken() }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData {
         val safResponse: SafQuery.Response = client.post(url = Url("{${getSafUrl()}/graphql}")) {
