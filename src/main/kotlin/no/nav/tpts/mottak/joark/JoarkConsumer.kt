@@ -18,6 +18,7 @@ import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
 import org.apache.kafka.clients.consumer.ConsumerConfig
+import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.TopicPartition
@@ -111,11 +112,8 @@ internal class JoarkConsumer(
                 .mapValues { partition -> partition.value.minOf { it.offset() } }
                 .toMutableMap()
             records.onEach { record ->
-                val tema = record.value().get("temaNytt")?.toString() ?: ""
-                val journalpostStatus = record.value().get("journalpostStatus")?.toString() ?: ""
-                if (tema == "IND" && journalpostStatus == "J") {
-                    // når den tid kommer: kall SAF med gitt journalpostId
-                    LOG.info { "Mottok tema '$tema'. $record" }
+                if (isCorrectTemaAndStatus(record)) {
+                    LOG.info { "Mottok joark-melding: $record" }
                     scope.launch {
                         LOG.debug { "retreiving soknad" }
                         handleSoknad(record.key())
@@ -135,6 +133,10 @@ internal class JoarkConsumer(
             consumer.commitSync()
         }
     }
+
+    private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
+        (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
+            (record.value().get("journalpostStatus")?.toString() ?: "") == "J"
 
     private fun closeResources() {
         LOG.info { "close resources" }
