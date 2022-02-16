@@ -9,8 +9,8 @@ private fun getPropertyValueByEnvironment(devValue: String, prodValue: String): 
 }
 
 fun getSafUrl(): String = getPropertyValueByEnvironment(
-    devValue = "saf.dev-fss-pub.nais.io",
-    prodValue = "saf.prod-fss-pub.nais.io"
+    devValue = "https://saf.dev-fss-pub.nais.io",
+    prodValue = "https://saf.prod-fss-pub.nais.io"
 )
 
 fun topicName(): String = getPropertyValueByEnvironment(
