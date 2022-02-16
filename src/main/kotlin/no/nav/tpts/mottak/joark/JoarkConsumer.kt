@@ -136,7 +136,7 @@ internal class JoarkConsumer(
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
-            (record.value().get("journalpostStatus")?.toString() ?: "") == "J"
+            (record.value().get("journalpostStatus")?.toString() ?: "") == "M"
 
     private fun closeResources() {
         LOG.info { "close resources" }
