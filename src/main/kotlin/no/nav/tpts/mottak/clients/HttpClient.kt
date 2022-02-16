@@ -14,7 +14,7 @@ object HttpClient {
     val client = HttpClient(CIO) {
         install(Logging) {
             logger = Logger.DEFAULT
-            level = LogLevel.BODY
+            level = LogLevel.INFO
         }
         install(JsonFeature) {
             serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })

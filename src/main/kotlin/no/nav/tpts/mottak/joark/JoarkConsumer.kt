@@ -115,7 +115,7 @@ internal class JoarkConsumer(
                 if (isCorrectTemaAndStatus(record)) {
                     LOG.info { "Mottok joark-melding: $record" }
                     scope.launch {
-                        LOG.info { "retreiving soknad" }
+                        LOG.debug { "retreiving soknad" }
                         handleSoknad(record.key())
                     }
                 }
