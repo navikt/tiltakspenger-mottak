@@ -18,7 +18,6 @@ object SafQuery {
     @Serializable
     data class Journalpost(
         val journalpostId: String,
-        val tittel: String,
         val dokumenter: List<DokumentInfo> = arrayListOf()
     )
 

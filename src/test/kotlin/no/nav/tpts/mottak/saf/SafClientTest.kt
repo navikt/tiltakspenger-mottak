@@ -30,7 +30,6 @@ class SafClientTest {
                 "data": {
                     "journalpost": {
                         "journalpostId": "$JOURNALPOST_ID",
-                        "tittel": "Søknad om tiltakspenger",
                         "dokumenter": [
                         {
                             "dokumentInfoId": "548464748",
