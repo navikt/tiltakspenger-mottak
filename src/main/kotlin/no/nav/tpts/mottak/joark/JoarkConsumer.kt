@@ -115,7 +115,7 @@ internal class JoarkConsumer(
                 if (isCorrectTemaAndStatus(record)) {
                     LOG.info { "Mottok joark-melding: $record" }
                     scope.launch {
-                        LOG.debug { "retreiving soknad" }
+                        LOG.info { "retreiving soknad" }
                         handleSoknad(record.key())
                     }
                 }
@@ -135,8 +135,7 @@ internal class JoarkConsumer(
     }
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
-        (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
-            (record.value().get("journalpostStatus")?.toString() ?: "") == "M"
+        (record.value().get("temaNytt")?.toString() ?: "") == "IND"
 
     private fun closeResources() {
         LOG.info { "close resources" }
