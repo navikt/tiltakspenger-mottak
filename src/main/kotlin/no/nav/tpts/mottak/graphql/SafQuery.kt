@@ -6,8 +6,8 @@ object SafQuery {
 
     @Serializable
     data class Response(
-        override val errors: List<GraphqlError>?,
-        override val data: ResponseData?
+        override val errors: List<GraphqlError>? = null,
+        override val data: ResponseData? = null
     ) : GraphqlResponse<ResponseData>
 
     @Serializable
@@ -46,7 +46,7 @@ fun journalpost(journalpostId: String): String {
 
     return """
         query{
-            journalpost(journalpostId: $journalpostId){
+            journalpost(journalpostId: "$journalpostId"){
                 journalpostId
                 dokumenter {
                     dokumentInfoId
