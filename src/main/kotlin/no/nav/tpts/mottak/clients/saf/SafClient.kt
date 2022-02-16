@@ -20,7 +20,7 @@ object SafClient {
     private val token = runBlocking { getToken() }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData {
-        val safResponse: SafQuery.Response = client.post(url = Url("{${getSafUrl()}/graphql}")) {
+        val safResponse: SafQuery.Response = client.post(url = Url("${getSafUrl()}/graphql")) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.Accept, "application/json")
             header("Tema", "IND")
@@ -46,7 +46,7 @@ object SafClient {
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
 
         val safResponse: String = client.get(
-            url = Url("{${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$variantFormat}")
+            url = Url("${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$variantFormat")
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.ContentType, "application/json")
