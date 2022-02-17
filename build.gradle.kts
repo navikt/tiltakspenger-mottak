@@ -12,7 +12,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
-    id("ca.cutterslade.analyze").version("1.8.3")
+    id("ca.cutterslade.analyze").version("1.9.0")
 }
 
 repositories {
@@ -53,7 +53,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
-    implementation("no.nav.security:token-client-core:1.3.10")
+    implementation("no.nav.security:token-client-core:1.3.16")
     implementation("com.nimbusds:nimbus-jose-jwt:9.19")
     implementation("com.auth0:java-jwt:3.18.3")
     implementation("com.auth0:jwks-rsa:0.20.2")
