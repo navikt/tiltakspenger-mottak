@@ -21,4 +21,5 @@ fun topicName(): String = getPropertyValueByEnvironment(
 object AuthConfig {
     val issuer = System.getenv("AZURE_ISSUER")
     val jwksUri = System.getenv("AZURE_JWKS_URI")
+    val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 }

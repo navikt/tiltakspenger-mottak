@@ -60,15 +60,10 @@ fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthCo
     install(Authentication) {
         jwt("auth-jwt") {
             verifier(jwkProvider, AuthConfig.issuer) {
+                withAudience(AuthConfig.clientId)
                 acceptLeeway(LEEWAY)
             }
-            validate { credential ->
-                if (credential.payload.getClaim("aud").asString() != "http://tpts-mottak.nav.no") {
-                    JWTPrincipal(credential.payload)
-                } else {
-                    null
-                }
-            }
+            validate { jwtCredential -> JWTPrincipal(jwtCredential.payload) }
         }
     }
 }
