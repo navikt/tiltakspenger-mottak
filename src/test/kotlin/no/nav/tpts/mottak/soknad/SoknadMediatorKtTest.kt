@@ -9,7 +9,7 @@ import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.saf.SafClient
 import org.junit.jupiter.api.Test
 
-internal class SoknadMediatorTest {
+internal class SoknadMediatorKtTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
