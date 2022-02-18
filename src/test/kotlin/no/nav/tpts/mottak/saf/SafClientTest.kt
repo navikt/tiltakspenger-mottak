@@ -11,11 +11,13 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockkObject
 import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.HttpClient
 import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
@@ -80,7 +82,7 @@ class SafClientTest {
         mockkObject(HttpClient)
         every { HttpClient.client } returns io.ktor.client.HttpClient(mockEngine) {
             install(JsonFeature) {
-                serializer = KotlinxSerializer()
+                serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
             }
         }
     }
@@ -93,9 +95,20 @@ class SafClientTest {
             SafClient.hentMetadataForJournalpost(JOURNALPOST_ID)
         }
 
-        assertEquals(JOURNALPOST_ID, safResponse.journalpostId)
-        assertEquals("Søknad om tiltakspenger", safResponse.dokumentTittel)
-        assertEquals("548464748", safResponse.dokumentInfoId)
+        assertEquals(JOURNALPOST_ID, safResponse?.journalpostId)
+        assertEquals("Søknad om tiltakspenger", safResponse?.dokumentTittel)
+        assertEquals("548464748", safResponse?.dokumentInfoId)
+    }
+
+    @Test
+    fun `ignorerer soknad som ikke er en faktisk soknad`() {
+        val jsonSoknad = javaClass.getResource("/ettersendelse.json")?.readText(Charsets.UTF_8)!!
+        mockSafRequest(jsonSoknad)
+        val safResponse = runBlocking {
+            SafClient.hentMetadataForJournalpost("524975813")
+        }
+
+        assertNull(safResponse)
     }
 
     @Test

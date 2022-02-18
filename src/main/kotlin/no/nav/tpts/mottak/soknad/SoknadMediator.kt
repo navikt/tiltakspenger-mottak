@@ -9,10 +9,14 @@ suspend fun handleSoknad(journalPostId: String) {
     LOG.info { "Retreiving søknad metadata with journalPostId $journalPostId" }
     val journalfortDokumentMetaData = SafClient.hentMetadataForJournalpost(journalPostId)
 
-    LOG.info { "Retreiving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
-    val soknad = SafClient.hentSoknad(journalfortDokumentMetaData)
-    LOG.info { "Retreived søknad $soknad" }
+    if (journalfortDokumentMetaData != null) {
+        LOG.info { "Retreiving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
+        val soknad = SafClient.hentSoknad(journalfortDokumentMetaData)
+        LOG.info { "Retreived søknad $soknad" }
 
-    LOG.debug { "Saving soknad to database" }
-    // lagre soknad to database
+        LOG.debug { "Saving soknad to database" }
+        // lagre soknad to database
+    } else {
+        LOG.info { "Soknad with journalpostID $journalPostId was not handled" }
+    }
 }

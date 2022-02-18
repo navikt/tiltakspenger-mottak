@@ -18,7 +18,7 @@ import no.nav.tpts.mottak.graphql.journalpost
 object SafClient {
     private val token = runBlocking { getToken() }
 
-    suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData {
+    suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {
         val safResponse: SafQuery.Response = client.post(
             urlString = "${getSafUrl()}/graphql"
         ) {
@@ -57,13 +57,13 @@ object SafClient {
         return safResponse
     }
 
-    fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData {
+    private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData? {
 
         val journalpostId = response?.journalpostId
-        val dokument = response?.dokumenter?.first { it.tittel == "Søknad om tiltakspenger" }
+        val dokument = response?.dokumenter?.firstOrNull { it.tittel == "Søknad om tiltakspenger" }
 
         dokument?.dokumentvarianter?.firstOrNull { it.variantformat == ORIGINAL }
-            ?: throw NotFoundException("Dokument finnes ikke i json format")
+            ?: return null
 
         val dokumentTittel = dokument.tittel
         val dokumentInfoId = dokument.dokumentInfoId

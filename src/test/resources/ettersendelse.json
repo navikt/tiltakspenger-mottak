@@ -1,0 +1,45 @@
+{
+  "data": {
+    "journalpost": {
+      "journalpostId": "524975813",
+      "dokumenter": [
+        {
+          "dokumentInfoId": "549168777",
+          "tittel": "Ettersendelse til søknad om tiltakspenger",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "NAV 76-13.45.pdfa",
+              "filtype": "PDF",
+              "saksbehandlerHarTilgang": true
+            }
+          ]
+        },
+        {
+          "dokumentInfoId": "549168778",
+          "tittel": "Vedlegg 2",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "Vedlegg 2",
+              "filtype": "PDF",
+              "saksbehandlerHarTilgang": true
+            }
+          ]
+        },
+        {
+          "dokumentInfoId": "549168779",
+          "tittel": "Kvitteringsside for dokumentinnsending",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "L7",
+              "filtype": "PDF",
+              "saksbehandlerHarTilgang": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
