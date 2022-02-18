@@ -60,6 +60,7 @@ object SafClient {
     private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData? {
 
         val journalpostId = response?.journalpostId
+        // TODO vi bør kanskje heller sjekke om det finnes en dokumentvariant med filnavn tiltakspenger.json?
         val dokument = response?.dokumenter?.firstOrNull { it.tittel == "Søknad om tiltakspenger" }
 
         dokument?.dokumentvarianter?.firstOrNull { it.variantformat == ORIGINAL }

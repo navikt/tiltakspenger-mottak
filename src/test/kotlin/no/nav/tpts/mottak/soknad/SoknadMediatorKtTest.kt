@@ -7,6 +7,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.saf.SafClient
+import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
 import org.junit.jupiter.api.Test
 
 internal class SoknadMediatorKtTest {
@@ -20,9 +21,39 @@ internal class SoknadMediatorKtTest {
         coEvery { AzureOauthClient.getToken() } returns "TOKEN"
         mockkObject(SafClient)
         coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(null)
+
         // when
         handleSoknad(journalpostId)
+
         // then
+        coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 0) { SafClient.hentSoknad(any()) }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `when metadata is found, a document is retreived`() = runTest {
+        // given
+        val journalpostId = "42"
+        val dokumentInfoId = "43"
+        mockkObject(AzureOauthClient)
+        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
+        mockkObject(SafClient)
+        val journalfortDokumentMetaData = JournalfortDokumentMetaData(
+            journalpostId = journalpostId,
+            dokumentInfoId = dokumentInfoId,
+            dokumentTittel = "tittel"
+        )
+        coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(
+            journalfortDokumentMetaData
+        )
+        coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns("foo")
+
+        // when
+        handleSoknad(journalpostId)
+
+        // then
+        coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
+        coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
     }
 }
