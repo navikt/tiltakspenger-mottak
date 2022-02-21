@@ -64,5 +64,5 @@ fun journalpost(journalpostId: String): String {
 data class JournalfortDokumentMetaData(
     val journalpostId: String?,
     val dokumentInfoId: String?,
-    val dokumentTittel: String?,
+    val filnavn: String?,
 )

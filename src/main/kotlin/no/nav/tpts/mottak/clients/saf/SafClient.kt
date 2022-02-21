@@ -61,18 +61,20 @@ object SafClient {
 
         val journalpostId = response?.journalpostId
         // TODO vi bør kanskje heller sjekke om det finnes en dokumentvariant med filnavn tiltakspenger.json?
-        val dokument = response?.dokumenter?.firstOrNull { it.tittel == "Søknad om tiltakspenger" }
+        val jsondokument = response?.dokumenter?.firstOrNull { dokument ->
+            dokument.dokumentvarianter.any { it.filnavn == "tiltakspenger.json" }
+        }
 
-        dokument?.dokumentvarianter?.firstOrNull { it.variantformat == ORIGINAL }
+        jsondokument?.dokumentvarianter?.firstOrNull { it.variantformat == ORIGINAL }
             ?: return null
 
-        val dokumentTittel = dokument.tittel
-        val dokumentInfoId = dokument.dokumentInfoId
+        val filnavn = jsondokument.dokumentvarianter.first().filnavn
+        val dokumentInfoId = jsondokument.dokumentInfoId
 
         return JournalfortDokumentMetaData(
             journalpostId = journalpostId,
             dokumentInfoId = dokumentInfoId,
-            dokumentTittel = dokumentTittel,
+            filnavn = filnavn,
         )
     }
 }

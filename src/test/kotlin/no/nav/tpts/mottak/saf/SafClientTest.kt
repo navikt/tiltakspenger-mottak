@@ -35,7 +35,7 @@ class SafClientTest {
                         "dokumenter": [
                         {
                             "dokumentInfoId": "548464748",
-                            "tittel": "Søknad om tiltakspenger",
+                            "tittel": "en eller annen tittel",
                             "dokumentvarianter": [
                                 {
                                     "variantformat": "ORIGINAL",
@@ -96,7 +96,7 @@ class SafClientTest {
         }
 
         assertEquals(JOURNALPOST_ID, safResponse?.journalpostId)
-        assertEquals("Søknad om tiltakspenger", safResponse?.dokumentTittel)
+        assertEquals("tiltakspenger.json", safResponse?.filnavn)
         assertEquals("548464748", safResponse?.dokumentInfoId)
     }
 
