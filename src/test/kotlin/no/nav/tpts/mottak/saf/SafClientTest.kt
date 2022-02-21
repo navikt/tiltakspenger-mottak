@@ -35,7 +35,7 @@ class SafClientTest {
                         "dokumenter": [
                         {
                             "dokumentInfoId": "548464748",
-                            "tittel": "Søknad om tiltakspenger",
+                            "tittel": "en eller annen tittel",
                             "dokumentvarianter": [
                                 {
                                     "variantformat": "ORIGINAL",
