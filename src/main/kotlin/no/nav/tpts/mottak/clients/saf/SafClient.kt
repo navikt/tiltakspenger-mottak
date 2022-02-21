@@ -61,8 +61,8 @@ object SafClient {
 
         val journalpostId = response?.journalpostId
         // TODO vi bør kanskje heller sjekke om det finnes en dokumentvariant med filnavn tiltakspenger.json?
-        val jsondokument = response?.dokumenter?.firstOrNull {
-                dokument -> dokument.dokumentvarianter.any { it.filnavn == "tiltakspenger.json"}
+        val jsondokument = response?.dokumenter?.firstOrNull { dokument ->
+            dokument.dokumentvarianter.any { it.filnavn == "tiltakspenger.json" }
         }
 
         jsondokument?.dokumentvarianter?.firstOrNull { it.variantformat == ORIGINAL }
