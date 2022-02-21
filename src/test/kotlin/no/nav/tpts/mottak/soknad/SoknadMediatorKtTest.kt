@@ -42,7 +42,7 @@ internal class SoknadMediatorKtTest {
         val journalfortDokumentMetaData = JournalfortDokumentMetaData(
             journalpostId = journalpostId,
             dokumentInfoId = dokumentInfoId,
-            dokumentTittel = "tittel"
+            filnavn = "filnavn"
         )
         coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(
             journalfortDokumentMetaData

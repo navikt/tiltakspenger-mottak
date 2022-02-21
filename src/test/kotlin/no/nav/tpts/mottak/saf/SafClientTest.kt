@@ -96,7 +96,7 @@ class SafClientTest {
         }
 
         assertEquals(JOURNALPOST_ID, safResponse?.journalpostId)
-        assertEquals("Søknad om tiltakspenger", safResponse?.dokumentTittel)
+        assertEquals("tiltakspenger.json", safResponse?.filnavn)
         assertEquals("548464748", safResponse?.dokumentInfoId)
     }
 
