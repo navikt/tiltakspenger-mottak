@@ -15,6 +15,8 @@ import no.nav.tpts.mottak.graphql.SafQuery
 import no.nav.tpts.mottak.graphql.SafQuery.Variantformat.ORIGINAL
 import no.nav.tpts.mottak.graphql.journalpost
 
+const val FILNAVN = "tiltakspenger.json"
+
 object SafClient {
     private val token = runBlocking { getToken() }
 
@@ -42,12 +44,11 @@ object SafClient {
     }
 
     suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
-        val variantFormat = "ORIGINAL"
         val journalpostId = journalfortDokumentMetaData.journalpostId
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
 
         val safResponse: String = client.get(
-            urlString = "${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$variantFormat"
+            urlString = "${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.ContentType, "application/json")
@@ -58,23 +59,14 @@ object SafClient {
     }
 
     private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData? {
+        val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->
+            dokument.dokumentvarianter.any { it.filnavn == FILNAVN && it.variantformat == ORIGINAL }
+        }?.dokumentInfoId
 
-        val journalpostId = response?.journalpostId
-        // TODO vi bør kanskje heller sjekke om det finnes en dokumentvariant med filnavn tiltakspenger.json?
-        val jsondokument = response?.dokumenter?.firstOrNull { dokument ->
-            dokument.dokumentvarianter.any { it.filnavn == "tiltakspenger.json" }
-        }
-
-        jsondokument?.dokumentvarianter?.firstOrNull { it.variantformat == ORIGINAL }
-            ?: return null
-
-        val filnavn = jsondokument.dokumentvarianter.first().filnavn
-        val dokumentInfoId = jsondokument.dokumentInfoId
-
-        return JournalfortDokumentMetaData(
-            journalpostId = journalpostId,
+        return if (dokumentInfoId == null) null else JournalfortDokumentMetaData(
+            journalpostId = response.journalpostId,
             dokumentInfoId = dokumentInfoId,
-            filnavn = filnavn,
+            filnavn = FILNAVN
         )
     }
 }
