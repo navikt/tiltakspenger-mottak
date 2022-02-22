@@ -19,10 +19,11 @@ const val FILNAVN = "tiltakspenger.json"
 
 object SafClient {
     private val token = runBlocking { getToken() }
+    private val safUrl = getSafUrl()
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {
         val safResponse: SafQuery.Response = client.post(
-            urlString = "${getSafUrl()}/graphql"
+            urlString = "$safUrl/graphql"
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.Accept, "application/json")
@@ -48,7 +49,7 @@ object SafClient {
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
 
         val safResponse: String = client.get(
-            urlString = "${getSafUrl()}/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
+            urlString = "$safUrl/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.ContentType, "application/json")
