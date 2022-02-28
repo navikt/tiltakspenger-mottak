@@ -6,7 +6,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 
 @Testcontainers
 class DataSourceTest {
-    
+
     companion object {
         @Container
         @JvmField
