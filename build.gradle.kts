@@ -4,6 +4,7 @@ val log4jVersion = "2.17.1"
 val kotlinxSerializationVersion = "1.3.2"
 val kotlinxCoroutinesVersion = "1.6.0"
 val prometheusVersion = "0.15.0"
+val testContainersVersion = "1.16.2"
 
 plugins {
     application
@@ -83,6 +84,13 @@ dependencies {
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
+
+    testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
+    testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
+    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
+    testImplementation("io.quarkus:quarkus-junit4-mock:2.7.2.Final")
+    testImplementation( "com.willowtreeapps.assertk:assertk-jvm:0.25")
+
 }
 
 configurations.all {
