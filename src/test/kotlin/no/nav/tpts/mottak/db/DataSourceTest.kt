@@ -1,14 +1,12 @@
 package no.nav.tpts.mottak.db
 
-import assertk.assertThat
-import assertk.assertions.isNotNull
 import org.junit.jupiter.api.Test
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 
 @Testcontainers
 class DataSourceTest {
-
+    
     companion object {
         @Container
         @JvmField

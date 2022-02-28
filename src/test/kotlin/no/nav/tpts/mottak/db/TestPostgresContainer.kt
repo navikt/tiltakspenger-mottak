@@ -3,8 +3,7 @@ package no.nav.tpts.mottak.db
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy
 
-class TestPostgresqlContainer private constructor() :
-    PostgreSQLContainer<TestPostgresqlContainer?>(IMAGE_VERSION) {
+class TestPostgresqlContainer private constructor() : PostgreSQLContainer<TestPostgresqlContainer?>(IMAGE_VERSION) {
 
     companion object {
         private const val IMAGE_VERSION = "postgres:12.6"
@@ -19,9 +18,9 @@ class TestPostgresqlContainer private constructor() :
 
     override fun start() {
         super.start()
-        print("Starter opp")
         System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL", CONTAINER.jdbcUrl)
-        System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE", CONTAINER.databaseName)
+        //Dette er ikke nok, trenger å sette hostname og port også hvis man skal bruke databaseName:
+        //System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE", CONTAINER.databaseName)
         System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME", CONTAINER.username)
         System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD", CONTAINER.password)
     }
