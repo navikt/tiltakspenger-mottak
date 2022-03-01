@@ -16,7 +16,6 @@ private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
 private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
 private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 
-
 object AzureOauthClient {
     private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl) } }
 

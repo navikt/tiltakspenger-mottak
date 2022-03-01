@@ -16,7 +16,6 @@ import io.ktor.serialization.json
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import mu.KotlinLogging
-import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
 import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.healthRoutes
@@ -71,7 +70,6 @@ fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthCo
 fun Application.appRoutes(healthChecks: List<HealthCheck>) {
     routing {
         healthRoutes(healthChecks)
-        applicationRoutes()
         authenticate("auth-jwt") {
             soknadRoutes()
         }

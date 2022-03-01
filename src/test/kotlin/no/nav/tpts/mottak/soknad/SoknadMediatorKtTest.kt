@@ -5,6 +5,7 @@ import io.mockk.coVerify
 import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import no.nav.tpts.mottak.Scope
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
@@ -18,7 +19,7 @@ internal class SoknadMediatorKtTest {
         // given
         val journalpostId = "42"
         mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
+        coEvery { AzureOauthClient.getToken(Scope.SAF) } returns "TOKEN"
         mockkObject(SafClient)
         coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(null)
 
@@ -37,7 +38,7 @@ internal class SoknadMediatorKtTest {
         val journalpostId = "42"
         val dokumentInfoId = "43"
         mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
+        coEvery { AzureOauthClient.getToken(Scope.SAF) } returns "TOKEN"
         mockkObject(SafClient)
         val journalfortDokumentMetaData = JournalfortDokumentMetaData(
             journalpostId = journalpostId,

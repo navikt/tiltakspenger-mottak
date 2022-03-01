@@ -26,10 +26,10 @@ object AuthConfig {
 
 private val arenaClientId = System.getenv("TPTS_ARENA_CLIENT_ID")
 private val arenaScope = "api://$arenaClientId/.default"
-private val safClientName = "dev-fss.teamdokumenthandtering.saf"
-private val safScope = "api://$safClientName/.default"
+private const val SAF_CLIENT_NAME = "dev-fss.teamdokumenthandtering.saf"
+private const val SAF_SCOPE = "api://$SAF_CLIENT_NAME/.default"
 
 enum class Scope(val value: String) {
     ARENA(arenaScope),
-    SAF(safScope)
+    SAF(SAF_SCOPE)
 }

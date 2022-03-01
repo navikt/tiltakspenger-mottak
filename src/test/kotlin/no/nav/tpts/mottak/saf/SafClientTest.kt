@@ -12,6 +12,7 @@ import io.mockk.every
 import io.mockk.mockkObject
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
+import no.nav.tpts.mottak.Scope
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.HttpClient
 import no.nav.tpts.mottak.clients.saf.SafClient
@@ -69,7 +70,7 @@ class SafClientTest {
 
     private fun mockSafRequest(mockJsonString: String) {
         mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
+        coEvery { AzureOauthClient.getToken(Scope.SAF) } returns "TOKEN"
 
         val mockEngine = MockEngine {
             respond(
