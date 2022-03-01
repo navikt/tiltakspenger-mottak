@@ -6,9 +6,9 @@ import io.ktor.client.request.post
 import io.ktor.features.NotFoundException
 import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.runBlocking
+import no.nav.tpts.mottak.Scope
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
 import no.nav.tpts.mottak.clients.HttpClient.client
-import no.nav.tpts.mottak.clients.Scope
 import no.nav.tpts.mottak.getSafUrl
 import no.nav.tpts.mottak.graphql.Graphql
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData

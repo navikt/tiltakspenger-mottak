@@ -6,8 +6,8 @@ import io.ktor.client.request.get
 import io.ktor.util.pipeline.PipelineContext
 import no.nav.tpts.arena.api.ArenaControllerApi
 import no.nav.tpts.arena.model.YtelseSak
+import no.nav.tpts.mottak.Scope
 import no.nav.tpts.mottak.clients.AzureOauthClient
-import no.nav.tpts.mottak.clients.Scope
 import no.nav.tpts.mottak.clients.TokenCache
 import no.nav.tpts.mottak.common.http.getCallToken
 
