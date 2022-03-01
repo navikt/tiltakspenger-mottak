@@ -15,15 +15,6 @@ private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
 private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
 private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 
-// Change this to whats needed
-private val safScope = System.getenv("SCOPE") ?: "api://dev-fss.teamdokumenthandtering.saf/.default"
-private val arenaClientId = "f7fef8f7-01a0-4b72-b167-b6a0528496be"
-private val arenaScope = "api://${arenaClientId}/.default"
-
-enum class Scope(val value: String) {
-    ARENA(arenaScope),
-    SAF(safScope)
-}
 
 object AzureOauthClient {
     private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl) } }

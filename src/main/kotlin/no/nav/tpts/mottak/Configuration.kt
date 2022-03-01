@@ -23,3 +23,13 @@ object AuthConfig {
     val jwksUri = System.getenv("AZURE_JWKS_URI")
     val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 }
+
+private val arenaClientId = System.getenv("TPTS_ARENA_CLIENT_ID")
+private val arenaScope = "api://$arenaClientId/.default"
+private val safClientName = "dev-fss.teamdokumenthandtering.saf"
+private val safScope = "api://$safClientName/.default"
+
+enum class Scope(val value: String) {
+    ARENA(arenaScope),
+    SAF(safScope)
+}
