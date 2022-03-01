@@ -12,11 +12,10 @@ import no.nav.tpts.mottak.clients.TokenCache
 import no.nav.tpts.mottak.common.http.getCallToken
 
 val tptsArenaBaseUrl: String = System.getenv("TPTS_ARENA_URL")
-fun arenaUrl(fnr: String): String = "$tptsArenaBaseUrl/arena/soap/ytelser/$fnr"
 
 object ArenaClient {
     private val tokenCache = TokenCache()
-    private val api = ArenaControllerApi(baseUrl = "url here")
+    private val api = ArenaControllerApi(baseUrl = tptsArenaBaseUrl)
 
     private suspend fun getArenaToken(token: String): String {
         val currentToken = tokenCache.token
