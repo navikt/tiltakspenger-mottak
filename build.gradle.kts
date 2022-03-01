@@ -67,7 +67,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.3.3")
     implementation("com.github.seratch:kotliquery:1.6.3")
     // Kafka
-    implementation("org.apache.kafka:kafka-clients:3.1.0")
+    implementation("org.apache.kafka:kafka-clients:7.0.1-ce")
     implementation("org.apache.avro:avro:1.11.0")
     implementation("io.confluent:kafka-avro-serializer:7.0.1")
 
