@@ -13,6 +13,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.42.0"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
     id("ca.cutterslade.analyze").version("1.8.3")
+    id("org.openapi.generator").version("5.4.0")
 }
 
 repositories {
@@ -53,6 +54,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-client-auth:$ktorVersion")
     implementation("no.nav.security:token-client-core:1.3.19")
     implementation("com.nimbusds:nimbus-jose-jwt:9.20")
     implementation("com.auth0:java-jwt:3.18.3")
@@ -61,6 +63,7 @@ dependencies {
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
+    implementation("org.openapitools:openapi-generator:5.4.0")
     // DB
     implementation("org.flywaydb:flyway-core:8.5.0")
     implementation("com.zaxxer:HikariCP:5.0.1")
@@ -83,6 +86,10 @@ dependencies {
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
+}
+
+sourceSets.main {
+    java.srcDirs("src/main/kotlin", "$buildDir/generated/src/commonMain/kotlin")
 }
 
 configurations.all {
@@ -135,5 +142,15 @@ tasks {
     analyzeTestClassesDependencies {
         warnUsedUndeclared = true
         warnUnusedDeclared = true
+    }
+
+    openApiGenerate {
+        generatorName.set("kotlin")
+        apiPackage.set("no.nav.tpts.arena.api")
+        invokerPackage.set("no.nav.tpts.arena.invoker")
+        modelPackage.set("no.nav.tpts.arena.model")
+        outputDir.set("$buildDir/generated")
+        inputSpec.set("$rootDir/src/main/resources/openapi-arena.json")
+        library.set("multiplatform")
     }
 }

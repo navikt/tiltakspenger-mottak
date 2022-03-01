@@ -8,6 +8,7 @@ import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.runBlocking
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
 import no.nav.tpts.mottak.clients.HttpClient.client
+import no.nav.tpts.mottak.clients.Scope
 import no.nav.tpts.mottak.getSafUrl
 import no.nav.tpts.mottak.graphql.Graphql
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
@@ -18,7 +19,7 @@ import no.nav.tpts.mottak.graphql.journalpost
 const val FILNAVN = "tiltakspenger.json"
 
 object SafClient {
-    private val token = runBlocking { getToken() }
+    private val token = runBlocking { getToken(Scope.SAF) }
     private val safUrl = getSafUrl()
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {

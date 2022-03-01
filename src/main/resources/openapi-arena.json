@@ -1,0 +1,145 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/arena/soap/ytelser/{fnr}": {
+      "get": {
+        "tags": [
+          "arena-controller"
+        ],
+        "operationId": "getYtelser",
+        "parameters": [
+          {
+            "name": "fnr",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/YtelseSak"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/arena/soap/ping": {
+      "get": {
+        "tags": [
+          "arena-controller"
+        ],
+        "operationId": "ping",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "YtelseSak": {
+        "type": "object",
+        "properties": {
+          "dataKravMottatt": {
+            "type": "string"
+          },
+          "fagsystemSakId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string"
+          },
+          "ytelsestype": {
+            "type": "string"
+          },
+          "vedtak": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/YtelseVedtak"
+            }
+          }
+        }
+      },
+      "YtelseVedtak": {
+        "type": "object",
+        "properties": {
+          "beslutningsDato": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "periodetypeForYtelse": {
+            "type": "string"
+          },
+          "vedtaksperiodeFom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vedtaksperiodeTom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vedtaksType": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "oauth": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/oauth2/v2.0/authorize",
+            "tokenUrl": "https://login.microsoftonline.com/966ac572-f5b7-4bbe-aa88-c76419c0f851/oauth2/v2.0/token",
+            "scopes": {
+              "api://f7fef8f7-01a0-4b72-b167-b6a0528496be/.default": "api-access"
+            }
+          }
+        }
+      }
+    }
+  }
+}
