@@ -54,7 +54,7 @@ dependencies {
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     implementation("no.nav.security:token-client-core:2.0.5")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.20")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.21")
     implementation("com.auth0:java-jwt:3.18.3")
     implementation("com.auth0:jwks-rsa:0.20.2")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
