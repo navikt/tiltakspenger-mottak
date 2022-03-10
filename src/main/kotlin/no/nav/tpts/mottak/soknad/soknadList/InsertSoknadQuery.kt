@@ -10,9 +10,9 @@ import org.intellij.lang.annotations.Language
 
 @Language("SQL")
 val insertQuery: String = """
-    insert into soknad (soker, journalpost_id,  dokumentinfo_id, data, navn, 
+    insert into soknad (soker, journalpost_id,  dokumentinfo_id, data, 
         opprettet_dato, bruker_start_dato, bruker_slutt_dato,
-           system_start_dato, system_slutt_dato) values (:fnr, :journalPost, :dokumentInfo, :data,
+           system_start_dato, system_slutt_dato) values (:fnr, :journalPostId, :dokumentInfoId, to_jsonb(:data),
            :opprettetDato, :brukerStartDato, :brukerSluttDato, :systemStartDato, :systemSluttDato)
 """.trimIndent()
 
@@ -27,7 +27,7 @@ fun insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String) {
         queryOf(
             insertQuery,
             mapOf(
-                "journalPost" to journalPostId,
+                "journalPostId" to journalPostId,
                 "dokumentInfoId" to dokumentInfoId,
                 "opprettetDato" to soknad.opprettet,
                 "brukerStartDato" to null,

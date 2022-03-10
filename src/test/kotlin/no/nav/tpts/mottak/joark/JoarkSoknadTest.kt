@@ -18,6 +18,7 @@ class JoarkSoknadTest {
             assertEquals("BLYANT", it.etternavn)
             assertEquals("14038205537", it.fnr)
             assertEquals("136950219", it.tiltak?.id)
+            assertEquals("2022-03-10T10:03:35.365", it.opprettet.toString())
             assertEquals("Arbeidsrettet rehabilitering (dag)", it.tiltak?.navn)
             assertEquals("AVONOVA HELSE AS", it.tiltak?.arrangoer)
             assertEquals("2022-03-10", it.tiltak?.opprinneligStartdato.toString())

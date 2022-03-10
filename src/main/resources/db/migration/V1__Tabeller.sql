@@ -6,18 +6,17 @@ CREATE TABLE IF NOT EXISTS person
 
 CREATE TABLE IF NOT EXISTS soknad
 (
-    --soker             BIGINT REFERENCES PERSON,
-    ident             TEXT NOT NULL,
+    soker             BIGINT REFERENCES PERSON,
     journalpost_id    BIGINT                   NOT NULL,
     dokumentinfo_id   BIGINT                   NOT NULL,
     data              JSONB                    NOT NULL,
-    -- navn              VARCHAR(255),
+    navn              VARCHAR(255),
     opprettet_dato    TIMESTAMP WITH TIME ZONE NOT NULL,
     bruker_start_dato DATE,
     bruker_slutt_dato DATE,
     system_start_dato DATE,
     system_slutt_dato DATE,
-    created_at        TIMESTAMP WITH TIME ZONE NOT NULL,
+    created_at        TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     PRIMARY KEY (journalpost_id, dokumentinfo_id)
 );
 

@@ -1,6 +1,8 @@
 package no.nav.tpts.mottak.soknad.soknadList
 
 import kotliquery.Row
+import kotliquery.queryOf
+import no.nav.tpts.mottak.db.DataSource.session
 import org.intellij.lang.annotations.Language
 
 @Language("SQL")
@@ -9,12 +11,26 @@ val soknadListQuery = """
         concat_ws(' ', i.ident) as identer
     from soknad 
     join person p on soknad.soker = p.id
-    join public.ident i on p.id = i.person_id
+    join ident i on p.id = i.person_id
     limit :pageSize offset :offset
 """.trimIndent()
 
 @Language("SQL")
 val totalQuery = "select count(*) as total from soknad"
+
+fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
+
+fun listSoknader(pageSize: Int, offset: Int): List<Soknad> {
+    return session.run(
+        queryOf(
+            soknadListQuery,
+            mapOf(
+                "pageSize" to pageSize,
+                "offset" to offset
+            )
+        ).map(Soknad::fromRow).asList
+    )
+}
 
 fun Soknad.Companion.fromRow(row: Row): Soknad {
     return Soknad(
