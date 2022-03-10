@@ -26,10 +26,4 @@ class InsertSoknadTest {
         val matchingSoknad = soknader.firstOrNull() { it.id === dokumentInfoId.toString() }
         assertNotNull(matchingSoknad)
     }
-
-    @Test
-    fun listSoknad() {
-        val soknader = listSoknader(10, 0)
-        assertEquals(1, soknader.size)
-    }
 }
