@@ -1,9 +1,9 @@
 package no.nav.tpts.mottak.joark.models
 
-import java.time.LocalDateTime
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
+import java.time.LocalDateTime
 
 @Serializable
 data class JoarkSoknad(
@@ -26,5 +26,6 @@ data class JoarkSoknad(
     @SerialName("soknadPrefix") val soknadPrefix: String? = null,
     @SerialName("soknadUrl") val soknadUrl: String? = null,
     @SerialName("fortsettSoknadUrl") val fortsettSoknadUrl: String? = null,
-    @SerialName("erEttersending") val erEttersending: Boolean? = null
+    @SerialName("erEttersending") val erEttersending: Boolean? = null,
+    val vedlegg: List<Vedlegg> = emptyList()
 )

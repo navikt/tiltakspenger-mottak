@@ -4,10 +4,8 @@ import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.route
 import kotlinx.coroutines.async
-import kotliquery.queryOf
 import no.nav.tpts.mottak.common.pagination.PageData
 import no.nav.tpts.mottak.common.pagination.paginate
-import no.nav.tpts.mottak.db.DataSource
 
 fun Route.soknadListRoute() {
     route("/api/soknad") {

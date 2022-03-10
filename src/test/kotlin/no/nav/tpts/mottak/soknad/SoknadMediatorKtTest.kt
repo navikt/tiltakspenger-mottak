@@ -60,5 +60,6 @@ internal class SoknadMediatorKtTest {
         // then
         coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
+        coVerify(exactly = 1) { SoknadQueries.insertSoknad(journalpostId.toInt(), dokumentInfoId.toInt(), "foo") }
     }
 }

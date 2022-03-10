@@ -4,6 +4,7 @@ import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
 import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 class InsertSoknadTest {
@@ -15,6 +16,7 @@ class InsertSoknadTest {
         System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME", "postgres")
     }
 
+    @Disabled // Can be run locally with docker-compose, enable when testcontainers-branch is merged
     @Test
     fun testInsert() {
         val rawJson = this::class.java.classLoader.getResource("faktumsSkjermet.json")!!.readText()

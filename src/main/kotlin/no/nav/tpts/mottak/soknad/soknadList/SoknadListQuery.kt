@@ -33,7 +33,6 @@ object SoknadQueries {
     }
 }
 
-
 fun Soknad.Companion.fromRow(row: Row): Soknad {
     return Soknad(
         id = row.int("dokumentinfo_id").toString(),
