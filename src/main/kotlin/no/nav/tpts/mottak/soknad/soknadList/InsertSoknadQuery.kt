@@ -20,7 +20,7 @@ private val lenientJson = Json {
     ignoreUnknownKeys = true
 }
 
-fun insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String) {
+fun SoknadQueries.insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String) {
     val joarkSoknad: JoarkSoknad = lenientJson.decodeFromString(data)
     val soknad = SoknadDetails.fromJoarkSoknad(joarkSoknad)
     session.run(

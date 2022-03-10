@@ -3,11 +3,14 @@ package no.nav.tpts.mottak.soknad
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockkObject
+import io.mockk.mockkStatic
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import no.nav.tpts.mottak.clients.AzureOauthClient
 import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.graphql.JournalfortDokumentMetaData
+import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
+import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
 import org.junit.jupiter.api.Test
 
 internal class SoknadMediatorKtTest {
@@ -48,6 +51,8 @@ internal class SoknadMediatorKtTest {
             journalfortDokumentMetaData
         )
         coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns("foo")
+        mockkStatic(SoknadQueries::insertSoknad)
+        coEvery { SoknadQueries.insertSoknad(any(), any(), any()) } returns Unit
 
         // when
         handleSoknad(journalpostId)

@@ -13,8 +13,8 @@ fun Route.soknadListRoute() {
     route("/api/soknad") {
         get {
             paginate { offset, pageSize ->
-                val total = async { countSoknader() }
-                val soknader = async { listSoknader(pageSize = pageSize, offset = offset) }
+                val total = async { SoknadQueries.countSoknader() }
+                val soknader = async { SoknadQueries.listSoknader(pageSize = pageSize, offset = offset) }
                 return@paginate PageData(data = soknader.await(), total = total.await() ?: 0)
             }
         }

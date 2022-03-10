@@ -1,8 +1,7 @@
 package no.nav.tpts.mottak.soknad
 
+import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
 import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
-import no.nav.tpts.mottak.soknad.soknadList.listSoknader
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -20,9 +19,9 @@ class InsertSoknadTest {
     fun testInsert() {
         val rawJson = this::class.java.classLoader.getResource("faktumsSkjermet.json")!!.readText()
         val dokumentInfoId = 321312
-        insertSoknad(12312, dokumentInfoId, rawJson)
+        SoknadQueries.insertSoknad(12312, dokumentInfoId, rawJson)
 
-        val soknader = listSoknader(10, 0)
+        val soknader = SoknadQueries.listSoknader(10, 0)
         val matchingSoknad = soknader.firstOrNull() { it.id === dokumentInfoId.toString() }
         assertNotNull(matchingSoknad)
     }

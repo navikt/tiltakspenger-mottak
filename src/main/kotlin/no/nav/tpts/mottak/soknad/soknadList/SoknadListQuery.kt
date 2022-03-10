@@ -18,19 +18,21 @@ val soknadListQuery = """
 @Language("SQL")
 val totalQuery = "select count(*) as total from soknad"
 
-fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
-
-fun listSoknader(pageSize: Int, offset: Int): List<Soknad> {
-    return session.run(
-        queryOf(
-            soknadListQuery,
-            mapOf(
-                "pageSize" to pageSize,
-                "offset" to offset
-            )
-        ).map(Soknad::fromRow).asList
-    )
+object SoknadQueries {
+    fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
+    fun listSoknader(pageSize: Int, offset: Int): List<Soknad> {
+        return session.run(
+            queryOf(
+                soknadListQuery,
+                mapOf(
+                    "pageSize" to pageSize,
+                    "offset" to offset
+                )
+            ).map(Soknad::fromRow).asList
+        )
+    }
 }
+
 
 fun Soknad.Companion.fromRow(row: Row): Soknad {
     return Soknad(

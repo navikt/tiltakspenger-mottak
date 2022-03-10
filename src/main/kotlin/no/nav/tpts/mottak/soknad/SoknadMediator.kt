@@ -2,6 +2,7 @@ package no.nav.tpts.mottak.soknad
 
 import mu.KotlinLogging
 import no.nav.tpts.mottak.clients.saf.SafClient
+import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
 import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
 
 val LOG = KotlinLogging.logger {}
@@ -17,7 +18,7 @@ suspend fun handleSoknad(journalPostId: String) {
 
         LOG.debug { "Saving soknad to database" }
         // lagre soknad to database
-        insertSoknad(journalPostId.toInt(), journalfortDokumentMetaData.dokumentInfoId?.toInt(), soknad)
+        SoknadQueries.insertSoknad(journalPostId.toInt(), journalfortDokumentMetaData.dokumentInfoId?.toInt(), soknad)
     } else {
         LOG.info { "Journalpost with ID $journalPostId was not handled" }
     }
