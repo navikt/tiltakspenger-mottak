@@ -24,7 +24,7 @@ class InsertSoknadTest {
         SoknadQueries.insertSoknad(12312, dokumentInfoId, rawJson)
 
         val soknader = SoknadQueries.listSoknader(10, 0)
-        val matchingSoknad = soknader.firstOrNull() { it.id === dokumentInfoId.toString() }
+        val matchingSoknad = soknader.firstOrNull { it.id === dokumentInfoId.toString() }
         assertNotNull(matchingSoknad)
     }
 }

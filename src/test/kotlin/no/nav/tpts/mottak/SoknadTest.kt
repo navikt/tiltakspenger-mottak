@@ -5,11 +5,12 @@ import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.joark.models.JoarkSoknad
 import org.junit.jupiter.api.Test
 
-class SoknadTest {
+internal class SoknadTest {
+    private val json = Json { ignoreUnknownKeys = true }
 
     @Test
     fun shouldSerializeRawSoknadsData() {
         val rawJsonSoknad = javaClass.getResource("/mocksoknad1.json")?.readText(Charsets.UTF_8)!!
-        Json.decodeFromString<JoarkSoknad>(rawJsonSoknad)
+        json.decodeFromString<JoarkSoknad>(rawJsonSoknad)
     }
 }

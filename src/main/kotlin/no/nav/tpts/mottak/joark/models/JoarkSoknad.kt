@@ -27,5 +27,4 @@ data class JoarkSoknad(
     @SerialName("soknadUrl") val soknadUrl: String? = null,
     @SerialName("fortsettSoknadUrl") val fortsettSoknadUrl: String? = null,
     @SerialName("erEttersending") val erEttersending: Boolean? = null,
-    val vedlegg: List<Vedlegg> = emptyList()
 )
