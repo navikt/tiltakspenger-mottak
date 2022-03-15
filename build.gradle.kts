@@ -1,6 +1,6 @@
 val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "1.6.7"
-val log4jVersion = "2.17.1"
+val log4jVersion = "2.17.2"
 val kotlinxSerializationVersion = "1.3.2"
 val kotlinxCoroutinesVersion = "1.6.0"
 val prometheusVersion = "0.15.0"
@@ -53,21 +53,21 @@ dependencies {
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
-    implementation("no.nav.security:token-client-core:1.3.19")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.20")
-    implementation("com.auth0:java-jwt:3.18.3")
-    implementation("com.auth0:jwks-rsa:0.20.2")
+    implementation("no.nav.security:token-client-core:2.0.11")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.21")
+    implementation("com.auth0:java-jwt:3.19.0")
+    implementation("com.auth0:jwks-rsa:0.21.0")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
     // DB
-    implementation("org.flywaydb:flyway-core:8.5.0")
+    implementation("org.flywaydb:flyway-core:8.5.3")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.postgresql:postgresql:42.3.3")
-    implementation("com.github.seratch:kotliquery:1.6.1")
+    implementation("com.github.seratch:kotliquery:1.6.3")
     // Kafka
-    implementation("org.apache.kafka:kafka-clients:3.0.0")
+    implementation("org.apache.kafka:kafka-clients:3.1.0")
     implementation("org.apache.avro:avro:1.11.0")
     implementation("io.confluent:kafka-avro-serializer:7.0.1")
 
@@ -78,8 +78,8 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "ch.qos.logback", module = "logback-classic")
     }
-    testImplementation("io.mockk:mockk:1.12.2")
-    testImplementation("io.mockk:mockk-dsl-jvm:1.12.2")
+    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation("io.mockk:mockk-dsl-jvm:1.12.3")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
