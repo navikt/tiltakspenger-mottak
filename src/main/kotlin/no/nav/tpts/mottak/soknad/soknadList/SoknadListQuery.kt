@@ -7,11 +7,9 @@ import org.intellij.lang.annotations.Language
 
 @Language("SQL")
 val soknadListQuery = """
-    select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
-        concat_ws(' ', i.ident) as identer
-    from soknad 
+    select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
+    from soknad
     join person p on soknad.soker = p.id
-    join ident i on p.id = i.person_id
     limit :pageSize offset :offset
 """.trimIndent()
 
@@ -38,7 +36,7 @@ fun Soknad.Companion.fromRow(row: Row): Soknad {
         id = row.int("dokumentinfo_id").toString(),
         fornavn = row.stringOrNull("fornavn"),
         etternavn = row.string("etternavn"),
-        ident = row.string("identer").split(" ").first(),
+        ident = row.string("ident"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerSluttDato = row.localDateOrNull("bruker_slutt_dato")
