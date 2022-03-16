@@ -30,10 +30,12 @@ class JoarkSoknadTest {
     }
 
     @Test
-    fun `should put joark faktum data into soknad object `() {
+    fun `should put brukerregistrert start and sluttdato in soknad`() {
         val soknad = this::class.java.classLoader.getResource("brukerregistrert_soknad.json")!!.readText()
         val joarkSoknad = json.decodeFromString<JoarkSoknad>(soknad)
         Soknad.fromJoarkSoknad(joarkSoknad).also {
+            assertEquals("STERK", it.fornavn)
+            assertEquals("LAPP", it.etternavn)
             assertEquals("2022-03-01", it.brukerStartDato)
             assertEquals("2022-03-31", it.brukerSluttDato)
         }
