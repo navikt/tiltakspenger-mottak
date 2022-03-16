@@ -6,7 +6,9 @@ import no.nav.tpts.mottak.joark.models.JoarkSoknad
 import no.nav.tpts.mottak.soknad.SoknadDetails
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 
 class JoarkSoknadTest {
 
@@ -36,8 +38,10 @@ class JoarkSoknadTest {
         Soknad.fromJoarkSoknad(joarkSoknad).also {
             assertEquals("STERK", it.fornavn)
             assertEquals("LAPP", it.etternavn)
-            assertEquals("2022-03-01", it.brukerStartDato)
-            assertEquals("2022-03-31", it.brukerSluttDato)
+            assertEquals(LocalDate.parse("2022-03-01"), it.brukerRegistrertStartDato)
+            assertEquals(LocalDate.parse("2022-03-31"), it.brukerRegistrertSluttDato)
+            assertNull(it.systemRegistrertStartDato)
+            assertNull(it.systemRegistrertSluttDato)
         }
     }
 }

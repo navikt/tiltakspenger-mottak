@@ -35,9 +35,11 @@ class SoknadRoutesTest {
         etternavn = "Grøneng",
         id = "12312",
         opprettet = LocalDateTime.MAX,
-        brukerStartDato = null,
-        brukerSluttDato = null,
-        sokerId = 123
+        brukerRegistrertStartDato = null,
+        brukerRegistrertSluttDato = null,
+        ident = "123",
+        systemRegistrertStartDato = null,
+        systemRegistrertSluttDato = null,
     )
     /*
     private val mockSoknadDetails = SoknadDetails(
