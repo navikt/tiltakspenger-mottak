@@ -1,6 +1,5 @@
 package no.nav.tpts.mottak.soknad.soknadList
 
-import io.ktor.client.request.request
 import kotlinx.serialization.Serializable
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
@@ -11,15 +10,15 @@ import java.time.LocalDateTime
 
 @Serializable
 data class Soknad(
-    val id: String,
-    val fornavn: String?,
-    val etternavn: String?,
-    val ident: String,
-    @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime,
-    @Serializable(with = LocalDateSerializer::class) val brukerStartDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class) val brukerSluttDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class) val systemStartDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class) val systemSluttDato: LocalDate?
+        val id: String,
+        val fornavn: String?,
+        val etternavn: String?,
+        val ident: String,
+        @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime,
+        @Serializable(with = LocalDateSerializer::class) val brukerStartDato: LocalDate?,
+        @Serializable(with = LocalDateSerializer::class) val brukerSluttDato: LocalDate?,
+        @Serializable(with = LocalDateSerializer::class) val systemStartDato: LocalDate?,
+        @Serializable(with = LocalDateSerializer::class) val systemSluttDato: LocalDate?
 ) {
     companion object {
         fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): Soknad {
@@ -33,17 +32,20 @@ data class Soknad(
             val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key === "tiltaksliste.annetTiltak" }
             val tiltaksInfoSystem = if (valgtIsFromSystem) joarkSoknad.fakta.firstOrNull { it.key === "" } else null
 
+
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,
                 etternavn = personalia.properties.etternavn,
                 ident = fnr,
                 opprettet = LocalDateTime.MIN,
-                brukerStartDato = tiltaksInfoBruker?.properties?.tom,
-                brukerSluttDato = LocalDate.MAX
+                brukerStartDato = tiltaksInfoBruker?.properties?.fom,
+                brukerSluttDato = tiltaksInfoBruker?.properties?.tom,
+                systemStartDato = tiltaksInfoSystem?.properties?.startdato,
+                systemSluttDato = tiltaksInfoSystem?.properties?.sluttdato
             )
         }
 
-        fun get
+
     }
 }
