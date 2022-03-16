@@ -37,7 +37,7 @@ class SoknadRoutesTest {
         opprettet = LocalDateTime.MAX,
         brukerStartDato = null,
         brukerSluttDato = null,
-        ident = "123"
+        sokerId = 123
     )
     /*
     private val mockSoknadDetails = SoknadDetails(

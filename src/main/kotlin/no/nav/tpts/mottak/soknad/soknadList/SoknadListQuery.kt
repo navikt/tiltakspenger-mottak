@@ -36,7 +36,7 @@ fun Soknad.Companion.fromRow(row: Row): Soknad {
         id = row.int("dokumentinfo_id").toString(),
         fornavn = row.stringOrNull("fornavn"),
         etternavn = row.string("etternavn"),
-        ident = row.string("ident"),
+        sokerId = row.int("ident"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerSluttDato = row.localDateOrNull("bruker_slutt_dato")
