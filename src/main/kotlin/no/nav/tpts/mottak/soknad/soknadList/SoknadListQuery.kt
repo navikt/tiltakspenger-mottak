@@ -9,7 +9,7 @@ import org.intellij.lang.annotations.Language
 val soknadListQuery = """
     select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
     from soknad
-    join person p on soknad.soker = p.id
+    join person p on soknad.ident = p.ident
     limit :pageSize offset :offset
 """.trimIndent()
 
