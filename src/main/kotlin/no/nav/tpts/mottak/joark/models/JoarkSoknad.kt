@@ -18,7 +18,7 @@ data class JoarkSoknad(
     @SerialName("aktoerId") val aktoerId: String? = null,
     @Serializable(with = LocalDateTimeSerializer::class)
     @SerialName("opprettetDato")
-    val opprettetDato: LocalDateTime? = null,
+    val opprettetDato: LocalDateTime,
     @SerialName("sistLagret") val sistLagret: String? = null,
     @SerialName("delstegStatus") val delstegStatus: String? = null,
     // @SerialName("vedlegg") val vedlegg: List<Object> = arrayListOf(),
