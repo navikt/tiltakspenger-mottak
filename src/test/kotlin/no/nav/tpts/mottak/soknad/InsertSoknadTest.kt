@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
-class InsertSoknadTest {
+internal class InsertSoknadTest {
 
     @BeforeAll
     fun setup() {
@@ -21,7 +21,7 @@ class InsertSoknadTest {
     fun testInsert() {
         val rawJson = this::class.java.classLoader.getResource("faktumsSkjermet.json")!!.readText()
         val dokumentInfoId = 321312
-        val soknad = Soknad.fromJoarkSoknad(rawJson)
+        val soknad = Soknad.fromJson(rawJson)
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
         SoknadQueries.insertSoknad(12312, dokumentInfoId, rawJson, soknad)
 

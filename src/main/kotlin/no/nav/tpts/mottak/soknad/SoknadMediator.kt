@@ -15,10 +15,9 @@ suspend fun handleSoknad(journalPostId: String) {
         LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
         LOG.info { "Retrieved søknad" }
-        val soknad = Soknad.fromJoarkSoknad(json)
+        val soknad = Soknad.fromJson(json)
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
         LOG.debug { "Saving soknad to database" }
-        // lagre soknad to database
         SoknadQueries.insertSoknad(
             journalPostId.toInt(),
             journalfortDokumentMetaData.dokumentInfoId?.toInt(),

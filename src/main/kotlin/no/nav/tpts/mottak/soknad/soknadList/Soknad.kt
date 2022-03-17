@@ -6,7 +6,6 @@ import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
 import no.nav.tpts.mottak.joark.models.JoarkSoknad
-import java.lang.IllegalArgumentException
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -23,15 +22,15 @@ data class Soknad(
     @Serializable(with = LocalDateSerializer::class) val systemRegistrertSluttDato: LocalDate?
 ) {
     companion object {
-        private val lenientJson = Json {
+        private val json = Json {
             ignoreUnknownKeys = true
         }
 
-        fun fromJoarkSoknad(json: String): Soknad {
-            val joarkSoknad: JoarkSoknad = lenientJson.decodeFromString(json)
-            val personalia = joarkSoknad.fakta.first { it.key == "personalia" }
-            val fnr = personalia.properties?.fnr
-                ?: throw IllegalArgumentException("No matching fnr, cannot behandle ${joarkSoknad.soknadId}")
+        fun fromJson(json: String): Soknad {
+            val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
+            val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }
+            val fnr = personalia?.properties?.fnr
+            requireNotNull(fnr) { "No fnr, cannot handle soknad with id ${joarkSoknad.soknadId}" }
             val valgtTiltak = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }
             val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
             val tiltaksInfoSystem = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }

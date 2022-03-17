@@ -5,11 +5,9 @@ import kotliquery.Connection
 import kotliquery.Session
 import org.postgresql.ds.PGSimpleDataSource
 
-const val MAX_POOLS = 10
-
-fun getEnvOrProp(name: String) = System.getenv(name) ?: System.getProperty(name)
-
 object DataSource {
+    private const val MAX_POOLS = 10
+    private fun getEnvOrProp(name: String) = System.getenv(name) ?: System.getProperty(name)
     private fun init(): HikariDataSource {
         return HikariDataSource().apply {
             dataSource = PGSimpleDataSource().apply {

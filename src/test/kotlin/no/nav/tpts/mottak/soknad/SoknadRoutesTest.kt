@@ -27,7 +27,7 @@ import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import java.time.LocalDateTime
 
-class SoknadRoutesTest {
+internal class SoknadRoutesTest {
 
     private val mockSession = mockk<Session>(relaxed = false)
     private val mockSoknad = Soknad(

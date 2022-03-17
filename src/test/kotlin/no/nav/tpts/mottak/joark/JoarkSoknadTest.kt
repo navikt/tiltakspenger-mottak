@@ -1,24 +1,19 @@
 package no.nav.tpts.mottak.joark
 
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import no.nav.tpts.mottak.joark.models.JoarkSoknad
 import no.nav.tpts.mottak.soknad.SoknadDetails
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 
-class JoarkSoknadTest {
-
-    private val json = Json { ignoreUnknownKeys = true }
+internal class JoarkSoknadTest {
 
     @Test
     fun `should put joark faktum data into soknad object`() {
         val faktums = this::class.java.classLoader.getResource("faktumsSkjermet.json")!!.readText()
-        val joarkSoknad = json.decodeFromString<JoarkSoknad>(faktums)
-        SoknadDetails.fromJoarkSoknad(joarkSoknad).also {
+        SoknadDetails.fromJson(faktums).also {
             assertEquals("BRÅKETE", it.fornavn)
             assertEquals("BLYANT", it.etternavn)
             assertEquals("14038205537", it.fnr)
@@ -34,7 +29,7 @@ class JoarkSoknadTest {
     @Test
     fun `should put brukerregistrert start and sluttdato in soknad`() {
         val soknad = this::class.java.classLoader.getResource("brukerregistrert_soknad.json")!!.readText()
-        Soknad.fromJoarkSoknad(soknad).also {
+        Soknad.fromJson(soknad).also {
             assertEquals("STERK", it.fornavn)
             assertEquals("LAPP", it.etternavn)
             assertEquals(LocalDate.parse("2022-03-01"), it.brukerRegistrertStartDato)
@@ -42,5 +37,23 @@ class JoarkSoknadTest {
             assertNull(it.systemRegistrertStartDato)
             assertNull(it.systemRegistrertSluttDato)
         }
+    }
+
+    @Test
+    fun `missing fnr throws exception`() {
+        val json = """
+            {
+              "opprettetDato": "2022-03-11T15:40:03.942Z",
+              "fakta": [
+                {
+                  "key": "personalia",
+                  "properties": {}
+                  }
+                }
+              ]
+            }
+        """.trimIndent()
+        assertThrows<IllegalArgumentException> { Soknad.fromJson(json) }
+        assertThrows<IllegalArgumentException> { SoknadDetails.fromJson(json) }
     }
 }

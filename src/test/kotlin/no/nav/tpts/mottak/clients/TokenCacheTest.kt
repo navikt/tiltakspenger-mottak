@@ -3,7 +3,7 @@ package no.nav.tpts.mottak.clients
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
-class TokenCacheTest {
+internal class TokenCacheTest {
 
     @Test
     fun `Should be expired if actually expired`() {

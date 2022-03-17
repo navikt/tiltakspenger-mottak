@@ -1,6 +1,8 @@
 package no.nav.tpts.mottak.soknad
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
 import no.nav.tpts.mottak.joark.models.JoarkSoknad
@@ -19,14 +21,21 @@ data class SoknadDetails(
     @Serializable(with = LocalDateSerializer::class) val brukerStartDato: LocalDate? = null,
 ) {
     companion object {
-        fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): SoknadDetails {
+        private val json = Json {
+            ignoreUnknownKeys = true
+        }
+
+        fun fromJson(json: String): SoknadDetails {
+            val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
             val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }?.properties
+            val fnr = personalia?.fnr
+            requireNotNull(fnr) { "No fnr, cannot handle soknad with id ${joarkSoknad.soknadId}" }
             return SoknadDetails(
                 soknadId = joarkSoknad.soknadId.toString(),
                 opprettet = joarkSoknad.opprettetDato,
-                fornavn = personalia?.fornavn,
-                etternavn = personalia?.etternavn,
-                fnr = personalia?.fnr,
+                fornavn = personalia.fornavn,
+                etternavn = personalia.etternavn,
+                fnr = fnr,
                 tiltak = Tiltak.fromJoarkSoknad(joarkSoknad)
             )
         }
