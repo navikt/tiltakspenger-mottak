@@ -8,11 +8,20 @@ import org.intellij.lang.annotations.Language
 
 object SoknadQueries {
     @Language("SQL")
-    val soknadListQuery = """
+    val soknaderByIdentQuery = """
         select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
-        from soknad 
-        where ident = :ident
-        join person p on soknad.ident = p.id
+        from soknad
+        join person p on soknad.ident = p.ident
+        where soknad.ident = :ident
+        limit :pageSize 
+        offset :offset
+    """.trimIndent()
+
+    @Language("SQL")
+    val soknaderQuery = """
+        select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
+        from soknad
+        join person p on soknad.ident = p.ident
         limit :pageSize 
         offset :offset
     """.trimIndent()
@@ -31,9 +40,13 @@ object SoknadQueries {
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
 
     fun listSoknader(pageSize: Int, offset: Int, ident: String?): List<Soknad> {
+        val query = when (ident) {
+            null -> soknaderQuery
+            else -> soknaderByIdentQuery
+        }
         return session.run(
             queryOf(
-                soknadListQuery,
+                query,
                 mapOf(
                     "pageSize" to pageSize,
                     "offset" to offset,
