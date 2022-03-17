@@ -7,6 +7,8 @@ import io.ktor.routing.route
 import kotlinx.coroutines.async
 import no.nav.tpts.mottak.common.pagination.PageData
 import no.nav.tpts.mottak.common.pagination.paginate
+import no.nav.tpts.mottak.soknad.SoknadQueries.countSoknader
+import no.nav.tpts.mottak.soknad.SoknadQueries.listSoknader
 
 fun Route.soknadListRoute() {
     route("/api/soknad") {
@@ -14,8 +16,8 @@ fun Route.soknadListRoute() {
             val ident = call.request.queryParameters["ident"]
 
             paginate { offset, pageSize ->
-                val total = async { SoknadQueries.countSoknader() }
-                val soknader = async { SoknadQueries.listSoknader(pageSize = pageSize, offset = offset, ident = ident) }
+                val total = async { countSoknader() }
+                val soknader = async { listSoknader(pageSize = pageSize, offset = offset, ident = ident) }
 
                 return@paginate PageData(data = soknader.await(), total = total.await() ?: 0)
             }

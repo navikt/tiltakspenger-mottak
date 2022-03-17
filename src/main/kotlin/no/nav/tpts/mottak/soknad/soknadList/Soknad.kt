@@ -2,6 +2,7 @@ package no.nav.tpts.mottak.soknad.soknadList
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
 import no.nav.tpts.mottak.joark.models.JoarkSoknad
@@ -22,6 +23,10 @@ data class Soknad(
     @Serializable(with = LocalDateSerializer::class) val systemRegistrertSluttDato: LocalDate?
 ) {
     companion object {
+        private val lenientJson = Json {
+            ignoreUnknownKeys = true
+        }
+
         fun fromJoarkSoknad(json: String): Soknad {
             val joarkSoknad: JoarkSoknad = lenientJson.decodeFromString(json)
             val personalia = joarkSoknad.fakta.first { it.key == "personalia" }

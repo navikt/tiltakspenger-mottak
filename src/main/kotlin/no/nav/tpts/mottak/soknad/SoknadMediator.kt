@@ -4,8 +4,6 @@ import mu.KotlinLogging
 import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.db.queries.PersonQueries
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
-import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
-import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
 
 val LOG = KotlinLogging.logger {}
 

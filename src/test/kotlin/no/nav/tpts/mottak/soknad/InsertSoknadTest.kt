@@ -2,8 +2,6 @@ package no.nav.tpts.mottak.soknad
 
 import no.nav.tpts.mottak.db.queries.PersonQueries
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
-import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
-import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
