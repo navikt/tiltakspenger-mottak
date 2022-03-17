@@ -29,3 +29,14 @@ spec:
     enabled: true
   envFrom:
     - configmap: tpts-tiltakspenger-mottak-dev
+  gcp:
+    sqlInstances:
+      - type: POSTGRES_12
+        databases:
+          - name: db
+  accessPolicy:
+    inbound:
+      rules:
+        - application: tpts-tiltakspenger-flate
+          namespace: tpts
+          cluster: dev-gcp

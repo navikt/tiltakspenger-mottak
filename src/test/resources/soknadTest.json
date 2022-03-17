@@ -1,0 +1,14 @@
+{
+  "total": 1,
+  "offset": 0,
+  "pageSize": 20,
+  "data": [
+    {
+      "fornavn": "Sigurd",
+      "etternavn": "Grøneng",
+      "opprettet": "+999999999-12-31T23:59:59.999999999",
+      "brukerRegistrertStartDato": null,
+      "brukerRegistrertSluttDato": null
+    }
+  ]
+}

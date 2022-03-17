@@ -1,17 +1,22 @@
 package no.nav.tpts.mottak.applications
 
-import io.ktor.application.*
-import io.ktor.auth.*
-import io.ktor.auth.jwt.*
-import io.ktor.http.*
-import io.ktor.response.*
-import io.ktor.routing.*
-import io.ktor.util.*
+import io.ktor.application.call
+import io.ktor.auth.authenticate
+import io.ktor.auth.jwt.JWTPrincipal
+import io.ktor.auth.principal
+import io.ktor.http.ContentType
+import io.ktor.response.respondText
+import io.ktor.routing.Route
+import io.ktor.routing.get
+import io.ktor.routing.route
+import io.ktor.util.toMap
 import no.nav.tpts.mottak.LOG
-import java.lang.Exception
+import no.nav.tpts.mottak.clients.AzureOauthClient
 
 val JWTPrincipal.userId: String
-    get() = this.subject ?: throw Exception("No user subject claim found on token")
+    get() = this.subject ?: throw NoUserFound("No user subject claim found on token")
+
+class NoUserFound(override val message: String?) : SecurityException(message)
 
 fun Route.applicationRoutes() {
     route("/api/test") {
@@ -21,6 +26,12 @@ fun Route.applicationRoutes() {
             val headers = call.request.headers.toMap()
             LOG.info(headers.toString())
             LOG.info("Auth: ${headers["Authorization"]}")
+
+            kotlin.runCatching {
+                AzureOauthClient.getToken()
+            }.onFailure { e ->
+                e.printStackTrace()
+            }
         }
     }
 
@@ -42,7 +53,6 @@ fun Route.applicationRoutes() {
                 text = javaClass.getResource("/mocksoknad${soknadId ?: ""}.json")?.readText(Charsets.UTF_8) ?: "{}",
                 contentType = ContentType.Application.Json
             )
-
         }
     }.also { LOG.info { "setting up endpoint /api/mocksoknad/{id}" } }
 
@@ -50,11 +60,24 @@ fun Route.applicationRoutes() {
         route("/api/application") {
             get {
                 call.respondText("OK")
-                val principal =  call.principal<JWTPrincipal>()
+                val principal = call.principal<JWTPrincipal>()
                 LOG.info(principal!!.payload.claims.toString())
-                LOG.info(principal!!.userId)
+                LOG.info(principal.userId)
             }
         }
 
+        route("/api/onbehalfoftoken") {
+            get {
+            /*    try {
+                    val token = AzureOauthClient.getToken()
+                } catch (e: AuthenticationException) {
+                    val log = KotlinLogging.logger {}
+                    log.error(e) { e.message }
+                    call.respondText("Invalid token", ContentType.Text.Plain, HttpStatusCode.BadRequest)
+                    return@get
+                }
+                call.respondText("OK")  */
+            }
+        }
     }
 }

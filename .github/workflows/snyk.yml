@@ -1,0 +1,20 @@
+name: Vulnerabilities scanning of dependencies
+on: push
+jobs:
+  security:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle-jdk11@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
+          args: |
+            --configuration-attributes=usage:java-runtime
+            --project-name=${{ github.repository }}
+            --remote-repo-url=https://github.com/${{ github.repository }}.git
+            --org=tpts
