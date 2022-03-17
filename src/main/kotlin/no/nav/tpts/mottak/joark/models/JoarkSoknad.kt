@@ -18,13 +18,13 @@ data class JoarkSoknad(
     @SerialName("aktoerId") val aktoerId: String? = null,
     @Serializable(with = LocalDateTimeSerializer::class)
     @SerialName("opprettetDato")
-    val opprettetDato: LocalDateTime? = null,
+    val opprettetDato: LocalDateTime,
     @SerialName("sistLagret") val sistLagret: String? = null,
     @SerialName("delstegStatus") val delstegStatus: String? = null,
-    @SerialName("vedlegg") val vedlegg: List<String> = arrayListOf(),
+    // @SerialName("vedlegg") val vedlegg: List<Object> = arrayListOf(),
     @SerialName("journalforendeEnhet") val journalforendeEnhet: String? = null,
     @SerialName("soknadPrefix") val soknadPrefix: String? = null,
     @SerialName("soknadUrl") val soknadUrl: String? = null,
     @SerialName("fortsettSoknadUrl") val fortsettSoknadUrl: String? = null,
-    @SerialName("erEttersending") val erEttersending: Boolean? = null
+    @SerialName("erEttersending") val erEttersending: Boolean? = null,
 )

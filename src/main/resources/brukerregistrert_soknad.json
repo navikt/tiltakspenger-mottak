@@ -1,0 +1,282 @@
+{
+  "soknadId": 12546,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "09ff841d-7755-40c3-adad-2fbb3ced2b64",
+  "brukerBehandlingId": "10018YN3V",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 673384,
+      "soknadId": 12546,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673385,
+      "soknadId": 12546,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": "test@nav.no",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "KONGLUNGVEIEN 263, 1392 VETTRE",
+        "fnr": "17038204750",
+        "fornavn": "STERK",
+        "alder": "39",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "LAPP",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "STERK LAPP",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 673386,
+      "soknadId": 12546,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673387,
+      "soknadId": 12546,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673388,
+      "soknadId": 12546,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673389,
+      "soknadId": 12546,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673390,
+      "soknadId": 12546,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673391,
+      "soknadId": 12546,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673392,
+      "soknadId": 12546,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673393,
+      "soknadId": 12546,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673394,
+      "soknadId": 12546,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673395,
+      "soknadId": 12546,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673396,
+      "soknadId": 12546,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673397,
+      "soknadId": 12546,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673398,
+      "soknadId": 12546,
+      "key": "trygdogpensjon",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673399,
+      "soknadId": 12546,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673400,
+      "soknadId": 12546,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "AMO",
+      "properties": {
+        "tom": "2022-03-31",
+        "postnummer": "0318",
+        "fom": "2022-03-01",
+        "adresse": "Storgata 1",
+        "arrangoernavn": "Tull og tøys AS",
+        "antallDager": "5 dager"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673406,
+      "soknadId": 12546,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673407,
+      "soknadId": 12546,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {
+        "prosent": "20",
+        "utbetaler": "Nordea",
+        "tom": "2022-12-01",
+        "fom": "2022-02-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673408,
+      "soknadId": 12546,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {
+        "prosent": "10",
+        "utbetaler": "Storebrand",
+        "tom": "2022-09-01",
+        "fom": "2022-01-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 673409,
+      "soknadId": 12546,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "fodselsdato": "2015-02-02",
+        "etternavn": "Sandersen",
+        "land": "NOR",
+        "fornavn": "Sander",
+        "sokerbarnetillegg": "ja",
+        "alder": "7"
+      },
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "17038204750",
+  "opprettetDato": "2022-03-11T15:40:03.942Z",
+  "sistLagret": "2022-03-11T15:44:28.200Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [
+    {
+      "vedleggId": 47868,
+      "soknadId": 12546,
+      "faktumId": null,
+      "skjemaNummer": "K5",
+      "skjemanummerTillegg": "tiltakspenger",
+      "innsendingsvalg": "SendesSenere",
+      "opprinneligInnsendingsvalg": null,
+      "navn": null,
+      "storrelse": 0,
+      "opprettetDato": 1647013425000,
+      "fillagerReferanse": "19b501ae-bd44-4db5-b077-b3d2c1f093ae",
+      "urls": {},
+      "tittel": null,
+      "aarsak": "eryrtytryt",
+      "filnavn": null,
+      "mimetype": null
+    },
+    {
+      "vedleggId": 47867,
+      "soknadId": 12546,
+      "faktumId": 673409,
+      "skjemaNummer": "X8",
+      "skjemanummerTillegg": null,
+      "innsendingsvalg": "SendesSenere",
+      "opprinneligInnsendingsvalg": null,
+      "navn": null,
+      "storrelse": 0,
+      "opprettetDato": 1647013425000,
+      "fillagerReferanse": "34c6a6d9-cbd6-4817-810f-96221582712d",
+      "urls": {},
+      "tittel": null,
+      "aarsak": "eryrtyrtyrt",
+      "filnavn": null,
+      "mimetype": null
+    }
+  ],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
+

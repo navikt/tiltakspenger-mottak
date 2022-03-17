@@ -7,14 +7,16 @@ import org.postgresql.ds.PGSimpleDataSource
 
 const val MAX_POOLS = 10
 
+fun getEnvOrProp(name: String) = System.getenv(name) ?: System.getProperty(name)
+
 object DataSource {
     private fun init(): HikariDataSource {
         return HikariDataSource().apply {
             dataSource = PGSimpleDataSource().apply {
-                databaseName = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE")
+                databaseName = getEnvOrProp("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE")
             }
-            password = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
-            username = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
+            password = getEnvOrProp("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
+            username = getEnvOrProp("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
             maximumPoolSize = MAX_POOLS
         }
     }

@@ -18,12 +18,14 @@ data class Tiltak(
     companion object {
         fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): Tiltak {
             val valgtTiltakId = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }?.value
-            val arenaTiltak = joarkSoknad.fakta
+            val valgtArenaTiltak = joarkSoknad.fakta
                 .firstOrNull { it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId }
             return Tiltak(
-                id = arenaTiltak?.properties?.arenaId,
-                navn = arenaTiltak?.properties?.navn,
-                arrangoer = arenaTiltak?.properties?.arrangoer
+                id = valgtArenaTiltak?.properties?.arenaId,
+                navn = valgtArenaTiltak?.properties?.navn,
+                arrangoer = valgtArenaTiltak?.properties?.arrangoer,
+                opprinneligStartdato = valgtArenaTiltak?.properties?.opprinneligstartdato,
+                opprinneligSluttdato = valgtArenaTiltak?.properties?.opprinneligsluttdato
             )
         }
     }
