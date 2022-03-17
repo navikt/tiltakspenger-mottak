@@ -33,7 +33,7 @@ fun main() {
     LOG.info { "starting server" }
 
     flywayMigrate()
-    val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
+    // val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
         acceptJson()
@@ -45,7 +45,7 @@ fun main() {
             host("127.0.0.1:3000")
             host("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
-        appRoutes(listOf(joarkConsumer))
+        appRoutes(listOf(/*joarkConsumer*/))
     }.start()
 
     Runtime.getRuntime().addShutdownHook(
