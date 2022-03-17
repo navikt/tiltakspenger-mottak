@@ -15,9 +15,9 @@ import no.nav.tpts.mottak.graphql.SafQuery
 import no.nav.tpts.mottak.graphql.SafQuery.Variantformat.ORIGINAL
 import no.nav.tpts.mottak.graphql.journalpost
 
-const val FILNAVN = "tiltakspenger.json"
-
 object SafClient {
+    private const val FILNAVN = "tiltakspenger.json"
+    private const val INDIVIDSTONAD = "IND"
     private val token = runBlocking { getToken() }
     private val safUrl = getSafUrl()
 
@@ -27,9 +27,8 @@ object SafClient {
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.Accept, "application/json")
-            header("Tema", "IND")
+            header("Tema", INDIVIDSTONAD)
             header(HttpHeaders.ContentType, "application/json")
-
             body = Graphql(journalpost(journalpostId))
         }
 
@@ -38,23 +37,20 @@ object SafClient {
                 "Det oppsto en feil ved å hente data fra SAF graphql. Message: ${safResponse.errors[0].message}"
             )
         }
-
         val journalPostResponse = safResponse.data?.journalpost
-
         return toJournalfortDokumentMetadata(journalPostResponse)
     }
 
     suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
         val journalpostId = journalfortDokumentMetaData.journalpostId
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
-
         val safResponse: String = client.get(
             urlString = "$safUrl/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.ContentType, "application/json")
             header(HttpHeaders.Accept, "application/json")
-            header("Tema", "IND")
+            header("Tema", INDIVIDSTONAD)
         }
         return safResponse
     }
