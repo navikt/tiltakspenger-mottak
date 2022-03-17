@@ -27,7 +27,7 @@ class InsertSoknadTest {
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
         SoknadQueries.insertSoknad(12312, dokumentInfoId, rawJson, soknad)
 
-        val soknader = SoknadQueries.listSoknader(10, 0)
+        val soknader = SoknadQueries.listSoknader(10, 0, "0")
         val matchingSoknad = soknader.firstOrNull { it.ident == soknad.ident }
         assertNotNull(matchingSoknad)
     }

@@ -8,8 +8,9 @@ import org.intellij.lang.annotations.Language
 @Language("SQL")
 val soknadListQuery = """
     select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
-    from soknad
-    join person p on soknad.ident = p.ident
+    from soknad 
+    where ident  =:ident
+    join person p on soknad.ident = p.id
     limit :pageSize offset :offset
 """.trimIndent()
 
@@ -18,13 +19,15 @@ val totalQuery = "select count(*) as total from soknad"
 
 object SoknadQueries {
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
-    fun listSoknader(pageSize: Int, offset: Int): List<Soknad> {
+
+    fun listSoknader(pageSize: Int, offset: Int, ident: String?): List<Soknad> {
         return session.run(
             queryOf(
                 soknadListQuery,
                 mapOf(
                     "pageSize" to pageSize,
-                    "offset" to offset
+                    "offset" to offset,
+                    "ident" to ident
                 )
             ).map(Soknad::fromRow).asList
         )

@@ -20,6 +20,7 @@ suspend fun handleSoknad(journalPostId: String) {
         val soknad = Soknad.fromJoarkSoknad(json)
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
         LOG.debug { "Saving soknad to database" }
+        // lagre soknad to database
         SoknadQueries.insertSoknad(
             journalPostId.toInt(),
             journalfortDokumentMetaData.dokumentInfoId?.toInt(),
