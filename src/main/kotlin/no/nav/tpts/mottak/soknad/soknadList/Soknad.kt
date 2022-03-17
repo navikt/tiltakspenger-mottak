@@ -25,14 +25,9 @@ data class Soknad(
             val personalia = joarkSoknad.fakta.first { it.key == "personalia" }
             val fnr = personalia.properties?.fnr
                 ?: throw IllegalArgumentException("No matching fnr, cannot behandle ${joarkSoknad.soknadId}")
-            // Hvis valgtTiltak =="annetTiltak"
-            // Hvis tiltak fra arena kun startdato
             val valgtTiltak = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }
-//            val valgtIsFromSystem = valgtTiltak.value === "tiltaksliste.annetTiltak"
             val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
             val tiltaksInfoSystem = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
-
-
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,
@@ -45,7 +40,5 @@ data class Soknad(
                 systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato
             )
         }
-
-
     }
 }
