@@ -34,7 +34,7 @@ object SoknadQueries {
 fun Soknad.Companion.fromRow(row: Row): Soknad {
     return Soknad(
         id = row.int("dokumentinfo_id").toString(),
-        fornavn = row.stringOrNull("fornavn"),
+        fornavn = row.string("fornavn"),
         etternavn = row.string("etternavn"),
         ident = row.string("ident"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),

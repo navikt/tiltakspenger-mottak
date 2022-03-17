@@ -1,6 +1,7 @@
 package no.nav.tpts.mottak.soknad.soknadList
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
 import no.nav.tpts.mottak.joark.models.JoarkSoknad
@@ -11,8 +12,8 @@ import java.time.LocalDateTime
 @Serializable
 data class Soknad(
     val id: String,
-    val fornavn: String?,
-    val etternavn: String?,
+    val fornavn: String,
+    val etternavn: String,
     val ident: String,
     @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime?,
     @Serializable(with = LocalDateSerializer::class) val brukerRegistrertStartDato: LocalDate?,
@@ -21,7 +22,8 @@ data class Soknad(
     @Serializable(with = LocalDateSerializer::class) val systemRegistrertSluttDato: LocalDate?
 ) {
     companion object {
-        fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): Soknad {
+        fun fromJoarkSoknad(json: String): Soknad {
+            val joarkSoknad: JoarkSoknad = lenientJson.decodeFromString(json)
             val personalia = joarkSoknad.fakta.first { it.key == "personalia" }
             val fnr = personalia.properties?.fnr
                 ?: throw IllegalArgumentException("No matching fnr, cannot behandle ${joarkSoknad.soknadId}")

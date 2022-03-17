@@ -1,11 +1,8 @@
 package no.nav.tpts.mottak.soknad.soknadList
 
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotliquery.queryOf
 import no.nav.tpts.mottak.db.DataSource.session
-import no.nav.tpts.mottak.joark.models.JoarkSoknad
-import no.nav.tpts.mottak.soknad.SoknadDetails
 import org.intellij.lang.annotations.Language
 
 @Language("SQL")
@@ -20,9 +17,7 @@ val lenientJson = Json {
     ignoreUnknownKeys = true
 }
 
-fun SoknadQueries.insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String) {
-    val joarkSoknad: JoarkSoknad = lenientJson.decodeFromString(data)
-    val soknad = Soknad.fromJoarkSoknad(joarkSoknad)
+fun SoknadQueries.insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String, soknad: Soknad) {
     session.run(
         queryOf(
             insertQuery,
@@ -40,5 +35,3 @@ fun SoknadQueries.insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: 
         ).asUpdate
     )
 }
-
-
