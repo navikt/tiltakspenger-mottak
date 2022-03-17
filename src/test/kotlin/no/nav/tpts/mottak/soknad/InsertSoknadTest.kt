@@ -4,7 +4,6 @@ import no.nav.tpts.mottak.db.queries.PersonQueries
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import no.nav.tpts.mottak.soknad.soknadList.SoknadQueries
 import no.nav.tpts.mottak.soknad.soknadList.insertSoknad
-import no.nav.tpts.mottak.soknad.soknadList.soknadListQuery
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
@@ -19,6 +18,7 @@ class InsertSoknadTest {
         System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME", "postgres")
     }
 
+    @Disabled
     @Test
     fun testInsert() {
         val rawJson = this::class.java.classLoader.getResource("faktumsSkjermet.json")!!.readText()
