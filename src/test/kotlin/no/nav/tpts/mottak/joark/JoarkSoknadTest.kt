@@ -16,11 +16,11 @@ internal class JoarkSoknadTest {
     fun `should put joark faktum data into soknad object`() {
         val faktums = this::class.java.classLoader.getResource("faktumsSkjermet.json")!!.readText()
         SoknadDetails.fromJson(faktums).also {
-            assertEquals("BRÅKETE", it.fornavn)
-            assertEquals("BLYANT", it.etternavn)
-            assertEquals("14038205537", it.fnr)
+            assertEquals("BRÅKETE", it.soknad.fornavn)
+            assertEquals("BLYANT", it.soknad.etternavn)
+            assertEquals("14038205537", it.soknad.ident)
+            assertEquals("2022-03-10T10:03:35.365", it.soknad.opprettet.toString())
             assertEquals("136950219", it.tiltak?.id)
-            assertEquals("2022-03-10T10:03:35.365", it.opprettet.toString())
             assertEquals("Arbeidsrettet rehabilitering (dag)", it.tiltak?.navn)
             assertEquals("AVONOVA HELSE AS", it.tiltak?.arrangoer)
             assertEquals("2022-03-10", it.tiltak?.opprinneligStartdato.toString())

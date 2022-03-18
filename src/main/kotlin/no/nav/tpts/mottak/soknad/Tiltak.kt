@@ -1,6 +1,8 @@
 package no.nav.tpts.mottak.soknad
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.joark.models.JoarkSoknad
 import java.time.LocalDate
@@ -16,9 +18,14 @@ data class Tiltak(
     @Serializable(with = LocalDateSerializer::class) val opprinneligStartdato: LocalDate? = null
 ) {
     companion object {
-        fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): Tiltak {
-            val valgtTiltakId = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }?.value
-            val valgtArenaTiltak = joarkSoknad.fakta
+        private val json = Json {
+            ignoreUnknownKeys = true
+        }
+
+        fun fromJson(json: String): Tiltak? {
+            val jSoknad = this.json.decodeFromString<JoarkSoknad>(json)
+            val valgtTiltakId = jSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }?.value ?: return null
+            val valgtArenaTiltak = jSoknad.fakta
                 .firstOrNull { it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId }
             return Tiltak(
                 id = valgtArenaTiltak?.properties?.arenaId,
