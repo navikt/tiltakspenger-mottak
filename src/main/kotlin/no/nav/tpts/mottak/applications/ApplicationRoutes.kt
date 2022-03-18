@@ -37,25 +37,6 @@ fun Route.applicationRoutes() {
         }
     }
 
-    route("/api/mocksoknad") {
-        get {
-            call.respondText(
-                text = javaClass.getResource("/mocksoknadList.json")?.readText(Charsets.UTF_8) ?: "{}",
-                contentType = ContentType.Application.Json
-            )
-        }
-    }.also { LOG.info { "setting up endpoint /api/mocksoknad" } }
-
-    route("/api/mocksoknad/{id}") {
-        get {
-            val soknadId = call.parameters["id"]
-            call.respondText(
-                text = javaClass.getResource("/mocksoknad${soknadId ?: ""}.json")?.readText(Charsets.UTF_8) ?: "{}",
-                contentType = ContentType.Application.Json
-            )
-        }
-    }.also { LOG.info { "setting up endpoint /api/mocksoknad/{id}" } }
-
     authenticate("auth-jwt") {
         route("/api/application") {
             get {
