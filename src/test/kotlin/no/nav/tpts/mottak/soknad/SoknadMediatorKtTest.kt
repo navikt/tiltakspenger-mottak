@@ -37,7 +37,7 @@ internal class SoknadMediatorKtTest {
         // given
         val journalpostId = "42"
         val dokumentInfoId = "43"
-        val rawJson = this::class.java.classLoader.getResource("mocksoknad1.json")!!.readText()
+        val rawJson = this::class.java.classLoader.getResource("mocksoknad.json")!!.readText()
         mockkObject(AzureOauthClient)
         coEvery { AzureOauthClient.getToken() } returns "TOKEN"
         mockkObject(SafClient)

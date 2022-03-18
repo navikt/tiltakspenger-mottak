@@ -49,8 +49,6 @@ fun Route.applicationRoutes() {
     route("/api/mocksoknad/{id}") {
         get {
             val soknadId = call.parameters["id"]
-            print(call.parameters.entries())
-            print(call.parameters["id"])
             call.respondText(
                 text = javaClass.getResource("/mocksoknad${soknadId ?: ""}.json")?.readText(Charsets.UTF_8) ?: "{}",
                 contentType = ContentType.Application.Json
@@ -70,15 +68,15 @@ fun Route.applicationRoutes() {
 
         route("/api/onbehalfoftoken") {
             get {
-            /*    try {
-                    val token = AzureOauthClient.getToken()
-                } catch (e: AuthenticationException) {
-                    val log = KotlinLogging.logger {}
-                    log.error(e) { e.message }
-                    call.respondText("Invalid token", ContentType.Text.Plain, HttpStatusCode.BadRequest)
-                    return@get
-                }
-                call.respondText("OK")  */
+                /*    try {
+                        val token = AzureOauthClient.getToken()
+                    } catch (e: AuthenticationException) {
+                        val log = KotlinLogging.logger {}
+                        log.error(e) { e.message }
+                        call.respondText("Invalid token", ContentType.Text.Plain, HttpStatusCode.BadRequest)
+                        return@get
+                    }
+                    call.respondText("OK")  */
             }
         }
     }

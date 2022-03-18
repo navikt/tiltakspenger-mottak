@@ -1,5 +1,8 @@
 package no.nav.tpts.mottak.joark
 
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import no.nav.tpts.mottak.joark.models.JoarkSoknad
 import no.nav.tpts.mottak.soknad.SoknadDetails
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -11,6 +14,13 @@ import java.io.File
 import java.time.LocalDate
 
 internal class JoarkSoknadTest {
+    private val json = Json { ignoreUnknownKeys = true }
+
+    @Test
+    fun `deserialize soknad`() {
+        val rawJsonSoknad = javaClass.getResource("/mocksoknad.json")?.readText(Charsets.UTF_8)!!
+        json.decodeFromString<JoarkSoknad>(rawJsonSoknad)
+    }
 
     @Test
     fun `should put joark faktum data into soknad object`() {
