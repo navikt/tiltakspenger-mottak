@@ -5,7 +5,7 @@ import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.db.queries.PersonQueries
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 
-val LOG = KotlinLogging.logger {}
+private val LOG = KotlinLogging.logger {}
 
 suspend fun handleSoknad(journalPostId: String) {
     LOG.info { "Retrieving journalpost metadata with journalPostId $journalPostId" }

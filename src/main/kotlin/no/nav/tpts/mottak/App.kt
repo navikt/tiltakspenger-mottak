@@ -25,7 +25,7 @@ import no.nav.tpts.mottak.joark.createKafkaConsumer
 import no.nav.tpts.mottak.soknad.soknadRoutes
 import java.net.URI
 
-val LOG = KotlinLogging.logger {}
+private val LOG = KotlinLogging.logger {}
 const val PORT = 8080
 const val LEEWAY = 3L
 

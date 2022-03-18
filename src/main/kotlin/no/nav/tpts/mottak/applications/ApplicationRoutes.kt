@@ -10,8 +10,10 @@ import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.route
 import io.ktor.util.toMap
-import no.nav.tpts.mottak.LOG
+import mu.KotlinLogging
 import no.nav.tpts.mottak.clients.AzureOauthClient
+
+private val LOG = KotlinLogging.logger {}
 
 val JWTPrincipal.userId: String
     get() = this.subject ?: throw NoUserFound("No user subject claim found on token")
