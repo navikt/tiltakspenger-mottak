@@ -30,7 +30,7 @@ internal class JoarkSoknadTest {
 
     @Test
     fun `should put brukerregistrert start and sluttdato in soknad`() {
-        val soknad = this::class.java.classLoader.getResource("brukerregistrert_soknad.json")!!.readText()
+        val soknad = this::class.java.classLoader.getResource("soknad_uten_tiltak_fra_arena.json")!!.readText()
         Soknad.fromJson(soknad).also {
             assertEquals("STERK", it.fornavn)
             assertEquals("LAPP", it.etternavn)

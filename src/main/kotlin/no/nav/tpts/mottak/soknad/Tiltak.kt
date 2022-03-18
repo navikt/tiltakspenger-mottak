@@ -23,16 +23,17 @@ data class Tiltak(
         }
 
         fun fromJson(json: String): Tiltak? {
-            val jSoknad = this.json.decodeFromString<JoarkSoknad>(json)
-            val valgtTiltakId = jSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }?.value ?: return null
-            val valgtArenaTiltak = jSoknad.fakta
-                .firstOrNull { it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId }
+            val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
+            val valgtTiltakId = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }?.value
+            val valgtArenaTiltak = joarkSoknad.fakta.firstOrNull {
+                it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId
+            } ?: return null
             return Tiltak(
-                id = valgtArenaTiltak?.properties?.arenaId,
-                navn = valgtArenaTiltak?.properties?.navn,
-                arrangoer = valgtArenaTiltak?.properties?.arrangoer,
-                opprinneligStartdato = valgtArenaTiltak?.properties?.opprinneligstartdato,
-                opprinneligSluttdato = valgtArenaTiltak?.properties?.opprinneligsluttdato
+                id = valgtArenaTiltak.properties?.arenaId,
+                navn = valgtArenaTiltak.properties?.navn,
+                arrangoer = valgtArenaTiltak.properties?.arrangoer,
+                opprinneligStartdato = valgtArenaTiltak.properties?.opprinneligstartdato,
+                opprinneligSluttdato = valgtArenaTiltak.properties?.opprinneligsluttdato
             )
         }
     }
