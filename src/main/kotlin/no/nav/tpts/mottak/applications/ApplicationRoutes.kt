@@ -4,7 +4,6 @@ import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.principal
-import io.ktor.http.ContentType
 import io.ktor.response.respondText
 import io.ktor.routing.Route
 import io.ktor.routing.get
