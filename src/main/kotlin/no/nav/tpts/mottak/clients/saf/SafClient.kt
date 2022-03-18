@@ -4,6 +4,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.features.NotFoundException
+import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import kotlinx.coroutines.runBlocking
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
@@ -26,9 +27,9 @@ object SafClient {
             urlString = "$safUrl/graphql"
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
-            header(HttpHeaders.Accept, "application/json")
+            header(HttpHeaders.Accept, ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
-            header(HttpHeaders.ContentType, "application/json")
+            header(HttpHeaders.ContentType, ContentType.Application.Json)
             body = Graphql(journalpost(journalpostId))
         }
 
@@ -48,8 +49,8 @@ object SafClient {
             urlString = "$safUrl/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
             header(HttpHeaders.Authorization, "Bearer $token")
-            header(HttpHeaders.ContentType, "application/json")
-            header(HttpHeaders.Accept, "application/json")
+            header(HttpHeaders.ContentType, ContentType.Application.Json)
+            header(HttpHeaders.Accept, ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
         }
         return safResponse
