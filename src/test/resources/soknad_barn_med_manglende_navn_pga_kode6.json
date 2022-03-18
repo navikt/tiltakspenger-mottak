@@ -1,0 +1,390 @@
+{
+  "soknadId": 12588,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "e14d6c56-b7e0-42a9-8b08-8db187ea93b8",
+  "brukerBehandlingId": "10018YNHX",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 674547,
+      "soknadId": 12588,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674548,
+      "soknadId": 12588,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": null,
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "TORPSTUBBEN 49, 1389 HEGGEDAL",
+        "fnr": "20058803546",
+        "fornavn": "TALENTFULL",
+        "alder": "33",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "BOLLE",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "TALENTFULL BOLLE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 674549,
+      "soknadId": 12588,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674550,
+      "soknadId": 12588,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674551,
+      "soknadId": 12588,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674552,
+      "soknadId": 12588,
+      "key": "informasjonsside.institusjon",
+      "value": "ja",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674553,
+      "soknadId": 12588,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": "annet",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674554,
+      "soknadId": 12588,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674555,
+      "soknadId": 12588,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "ja",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674556,
+      "soknadId": 12588,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674557,
+      "soknadId": 12588,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674558,
+      "soknadId": 12588,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674559,
+      "soknadId": 12588,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674560,
+      "soknadId": 12588,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674561,
+      "soknadId": 12588,
+      "key": "trygdogpensjon",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674562,
+      "soknadId": 12588,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": "Dette er noe tilleggsopplysninger",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674563,
+      "soknadId": 12588,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "PRAKSORD",
+      "properties": {
+        "tom": "2022-03-26",
+        "postnummer": "0318",
+        "fom": "2022-03-01",
+        "adresse": "Storgata 1",
+        "arrangoernavn": "Test AS",
+        "beskrivelse": null,
+        "antallDager": "3 dager"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674569,
+      "soknadId": 12588,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674570,
+      "soknadId": 12588,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "etternavn": "STAUDE",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "KORRUPT STAUDE",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "26011579360",
+        "fornavn": "KORRUPT",
+        "sokerbarnetillegg": "ja",
+        "alder": "7"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 674571,
+      "soknadId": 12588,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "etternavn": "STAUDE",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "SMEKKER STAUDE",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "16081376917",
+        "fornavn": "SMEKKER",
+        "sokerbarnetillegg": "nei",
+        "alder": "8"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 674572,
+      "soknadId": 12588,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "etternavn": null,
+        "mellomnavn": null,
+        "inntekt": "33000",
+        "kjonn": "m",
+        "sammensattnavn": null,
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "13120875919",
+        "fornavn": null,
+        "harinntekt": "ja",
+        "sokerbarnetillegg": "nei",
+        "alder": "13"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 674573,
+      "soknadId": 12588,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "etternavn": "HØYSTAKK",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "TRIVIELL HØYSTAKK",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "03050456330",
+        "fornavn": "TRIVIELL",
+        "alder": "17"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 674574,
+      "soknadId": 12588,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {
+        "prosent": "20",
+        "utbetaler": "Nordea",
+        "tom": "2022-08-05",
+        "fom": "2022-03-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674575,
+      "soknadId": 12588,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {
+        "prosent": "30",
+        "utbetaler": "Gjensidige",
+        "tom": "2022-03-30",
+        "fom": "2022-03-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674576,
+      "soknadId": 12588,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {
+        "prosent": "20",
+        "utbetaler": "IF",
+        "tom": "2022-06-09",
+        "fom": "2022-03-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 674577,
+      "soknadId": 12588,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "fodselsdato": "2021-12-08",
+        "etternavn": "Hansen",
+        "land": "MKD",
+        "fornavn": "Ida Kornelia",
+        "sokerbarnetillegg": "ja",
+        "alder": "0"
+      },
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "20058803546",
+  "opprettetDato": "2022-03-16T12:34:21.465Z",
+  "sistLagret": "2022-03-16T12:39:54.088Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [
+    {
+      "vedleggId": 47894,
+      "soknadId": 12588,
+      "faktumId": null,
+      "skjemaNummer": "H8",
+      "skjemanummerTillegg": null,
+      "innsendingsvalg": "SendesSenere",
+      "opprinneligInnsendingsvalg": null,
+      "navn": null,
+      "storrelse": 0,
+      "opprettetDato": 1647434344000,
+      "fillagerReferanse": "4107ef50-b016-45e0-b7ed-01e404d8374c",
+      "urls": {},
+      "tittel": null,
+      "aarsak": "rththrth",
+      "filnavn": null,
+      "mimetype": null
+    },
+    {
+      "vedleggId": 47895,
+      "soknadId": 12588,
+      "faktumId": null,
+      "skjemaNummer": "K5",
+      "skjemanummerTillegg": "tiltakspenger",
+      "innsendingsvalg": "VedleggAlleredeSendt",
+      "opprinneligInnsendingsvalg": null,
+      "navn": null,
+      "storrelse": 0,
+      "opprettetDato": 1647434344000,
+      "fillagerReferanse": "36c4020d-20cd-473d-be87-863832d91edf",
+      "urls": {},
+      "tittel": null,
+      "aarsak": "krgjerg",
+      "filnavn": null,
+      "mimetype": null
+    },
+    {
+      "vedleggId": 47896,
+      "soknadId": 12588,
+      "faktumId": 674577,
+      "skjemaNummer": "X8",
+      "skjemanummerTillegg": null,
+      "innsendingsvalg": "VedleggAlleredeSendt",
+      "opprinneligInnsendingsvalg": null,
+      "navn": null,
+      "storrelse": 0,
+      "opprettetDato": 1647434344000,
+      "fillagerReferanse": "aa186ad5-df66-4e4a-a0b5-1c05cdc435b8",
+      "urls": {},
+      "tittel": null,
+      "aarsak": "iyuiyik",
+      "filnavn": null,
+      "mimetype": null
+    }
+  ],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}

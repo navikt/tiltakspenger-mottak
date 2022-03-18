@@ -19,10 +19,10 @@ object PersonQueries {
         queryOf(existsQuery, mapOf("ident" to ident)).map { row -> row.boolean("exists") }.asSingle
     ) ?: throw InternalError("Failed to check if person exists")
 
-    fun insertIfNotExists(ident: String, fornavn: String, etternavn: String) {
+    fun insertIfNotExists(ident: String, fornavn: String?, etternavn: String?) {
         if (exists(ident))
             return
         else
-            insert(ident, fornavn, etternavn)
+            insert(ident, fornavn ?: "", etternavn ?: "")
     }
 }

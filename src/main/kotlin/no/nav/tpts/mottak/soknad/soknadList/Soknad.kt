@@ -12,8 +12,8 @@ import java.time.LocalDateTime
 @Serializable
 data class Soknad(
     val id: String,
-    val fornavn: String,
-    val etternavn: String,
+    val fornavn: String?,
+    val etternavn: String?,
     val ident: String,
     @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime?,
     @Serializable(with = LocalDateSerializer::class) val brukerRegistrertStartDato: LocalDate?,

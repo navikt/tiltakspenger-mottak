@@ -14,10 +14,10 @@ suspend fun handleSoknad(journalPostId: String) {
     if (journalfortDokumentMetaData != null) {
         LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
-        LOG.info { "Retrieved søknad" }
+        LOG.info { "Retrieved søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val soknad = Soknad.fromJson(json)
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
-        LOG.debug { "Saving soknad to database" }
+        LOG.info { "Saving soknad to database with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         SoknadQueries.insertSoknad(
             journalPostId.toInt(),
             journalfortDokumentMetaData.dokumentInfoId?.toInt(),

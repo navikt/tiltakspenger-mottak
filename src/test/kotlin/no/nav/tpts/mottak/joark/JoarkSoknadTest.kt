@@ -5,7 +5,9 @@ import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
+import java.io.File
 import java.time.LocalDate
 
 internal class JoarkSoknadTest {
@@ -37,6 +39,12 @@ internal class JoarkSoknadTest {
             assertNull(it.systemRegistrertStartDato)
             assertNull(it.systemRegistrertSluttDato)
         }
+    }
+
+    @Test
+    fun `null name in soknad does not throw exception`() {
+        val soknad = File("src/test/resources/soknad_barn_med_manglende_navn_pga_kode6.json").readText()
+        assertDoesNotThrow { Soknad.fromJson(soknad) }
     }
 
     @Test
