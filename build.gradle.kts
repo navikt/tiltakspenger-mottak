@@ -122,7 +122,7 @@ tasks {
     }
     shadowJar {
         dependsOn("test")
-        exclude("**/Log4j2Plugins.dat")
+        transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer::class.java)
     }
     // https://github.com/ben-manes/gradle-versions-plugin
     dependencyUpdates {
