@@ -2,10 +2,7 @@
 <Configuration status="INFO">
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout>
-                <Pattern>%d %p [%t] %c - %m%n</Pattern>
-            </PatternLayout>
-            <JsonTemplateLayout templateUri="classpath:LogstashJsonEventLayoutV1.json" stackTraceEnabled="true"/>
+            <JsonTemplateLayout eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"/>
         </Console>
     </Appenders>
     <Loggers>
