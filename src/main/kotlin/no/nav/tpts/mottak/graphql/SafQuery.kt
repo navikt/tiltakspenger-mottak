@@ -31,7 +31,7 @@ object SafQuery {
     @Serializable
     data class Dokumentvariant(
         val variantformat: Variantformat,
-        val filnavn: String,
+        val filnavn: String?,
         val filtype: String
     )
 

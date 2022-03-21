@@ -1,0 +1,30 @@
+{
+  "data": {
+    "journalpost": {
+      "journalpostId": "524989475",
+      "sak": {
+        "arkivsaksnummer": "155242496",
+        "arkivsaksystem": "GSAK",
+        "datoOpprettet": "2022-03-21T07:58:28",
+        "fagsakId": "10695768",
+        "fagsaksystem": "AO01",
+        "sakstype": "FAGSAK",
+        "tema": "IND"
+      },
+      "dokumenter": [
+        {
+          "dokumentInfoId": "549183274",
+          "tittel": "Søknad om tiltakspenger",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": null,
+              "filtype": "PDF",
+              "saksbehandlerHarTilgang": true
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

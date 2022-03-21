@@ -102,6 +102,17 @@ class SafClientTest {
     }
 
     @Test
+    fun `ignorerer soknad som har filnavn==null`() {
+        val jsonSoknad = javaClass.getResource("/journalpost_med_null_filnavn.json")?.readText(Charsets.UTF_8)!!
+        mockSafRequest(jsonSoknad)
+        val safResponse = runBlocking {
+            SafClient.hentMetadataForJournalpost("524989475")
+        }
+
+        assertNull(safResponse)
+    }
+
+    @Test
     fun `ignorerer soknad som ikke er en faktisk soknad`() {
         val jsonSoknad = javaClass.getResource("/ettersendelse.json")?.readText(Charsets.UTF_8)!!
         mockSafRequest(jsonSoknad)
