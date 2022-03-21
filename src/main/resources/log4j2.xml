@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="INFO">
+<Configuration status="INFO" packages="com.vlkan.log4j2.logstash.layout">
     <Appenders>
-        <Console name="ConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout>
-                <Pattern>%d %p [%t] %c - %m%n</Pattern>
-            </PatternLayout>
-            <JsonTemplateLayout templateUri="classpath:LogstashJsonEventLayoutV1.json" stackTraceEnabled="true"/>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} [%t] %-5level %logger{36} - %mdc %msg%n"/>
+        </Console>
+        <Console name="stdout_json" target="SYSTEM_OUT">
+            <LogstashLayout dateTimeFormatPattern="yyyy-MM-dd'T'HH:mm:ss.SSSZZZ"
+                            templateUri="classpath:LogstashJsonEventLayoutV1.json"
+                            prettyPrintEnabled="false"
+                            stackTraceEnabled="true"/>
         </Console>
     </Appenders>
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="${env:LOG_APPENDER:-stdout_json}"/>
         </Root>
     </Loggers>
 </Configuration>
