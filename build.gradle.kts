@@ -122,6 +122,7 @@ tasks {
     }
     shadowJar {
         dependsOn("test")
+        exclude("**/Log4j2Plugins.dat")
     }
     // https://github.com/ben-manes/gradle-versions-plugin
     dependencyUpdates {
