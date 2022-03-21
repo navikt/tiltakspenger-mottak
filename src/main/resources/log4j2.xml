@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="info" name="tpts-tiltakspenger-mottak">
+<Configuration status="INFO">
     <Appenders>
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout>
-                <Pattern>%d %p [%t] %c - %m%n</Pattern>
-            </PatternLayout>
+            <JsonTemplateLayout templateUri="classpath:LogstashJsonEventLayoutV1.json" stackTraceEnabled="true"/>
         </Console>
     </Appenders>
     <Loggers>
