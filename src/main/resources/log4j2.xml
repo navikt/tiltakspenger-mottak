@@ -4,14 +4,10 @@
         <Console name="stdout" target="SYSTEM_OUT">
             <JsonTemplateLayout eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"/>
         </Console>
-        <Console name="stderr" target="SYSTEM_ERR">
-            <JsonTemplateLayout eventTemplateUri="classpath:LogstashJsonEventLayoutV1.json"/>
-        </Console>
     </Appenders>
     <Loggers>
         <Root level="info">
             <AppenderRef ref="stdout"/>
-            <AppenderRef ref="stderr"/>
         </Root>
     </Loggers>
 </Configuration>

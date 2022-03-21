@@ -148,7 +148,7 @@ internal class JoarkConsumer(
         try {
             block()
         } catch (err: Exception) {
-            LOG.error(err) { err.message }
+            LOG.error { err.message }
         }
     }
 
