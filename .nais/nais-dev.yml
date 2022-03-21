@@ -17,6 +17,7 @@ spec:
     path: /isAlive
   readiness:
     path: /isReady
+    initialDelay: 5
   prometheus:
     enabled: true
     path: /metrics
