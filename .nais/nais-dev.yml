@@ -32,9 +32,9 @@ spec:
   gcp:
     sqlInstances:
         name: tpts-tiltakspenger-mottak-pg14
-        type: POSTGRES_14
+      - type: POSTGRES_14
         databases:
-            name: db
+          - name: db
   accessPolicy:
     inbound:
       rules:
