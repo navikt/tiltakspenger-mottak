@@ -17,7 +17,7 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
-import no.nav.tpts.mottak.db.flywayMigrate
+// import no.nav.tpts.mottak.db.flywayMigrate
 import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.healthRoutes
 import no.nav.tpts.mottak.joark.JoarkConsumer
@@ -32,7 +32,7 @@ const val LEEWAY = 3L
 fun main() {
     LOG.info { "starting server" }
 
-    //flywayMigrate()
+    // flywayMigrate()
     val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
