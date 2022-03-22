@@ -31,6 +31,7 @@ spec:
     - configmap: tpts-tiltakspenger-mottak-dev
   gcp:
     sqlInstances:
+      - name: tpts-tiltakspenger-mottak-pg14
       - type: POSTGRES_14
         databases:
           - name: db
