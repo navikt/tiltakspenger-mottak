@@ -29,13 +29,13 @@ spec:
     enabled: true
   envFrom:
     - configmap: tpts-tiltakspenger-mottak-dev
-    - secret: my-google-secret
   gcp:
     sqlInstances:
-      - name: tiltakspenger-mottak
+      - name: tpts-tiltakspenger-mottak-dev
         type: POSTGRES_14
         databases:
           - name: mottak
+            envVarPrefix: DB
   accessPolicy:
     inbound:
       rules:
