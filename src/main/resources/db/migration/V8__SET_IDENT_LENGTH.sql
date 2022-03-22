@@ -1,2 +1,0 @@
-ALTER TABLE person
-    ALTER COLUMN ident TYPE VARCHAR(11);

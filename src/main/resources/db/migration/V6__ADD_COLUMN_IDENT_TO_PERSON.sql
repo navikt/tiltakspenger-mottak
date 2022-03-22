@@ -1,5 +1,0 @@
-ALTER TABLE person
-    ADD COLUMN ident VARCHAR(20);
-
-ALTER TABLE person
-    ALTER COLUMN ident SET NOT NULL;
