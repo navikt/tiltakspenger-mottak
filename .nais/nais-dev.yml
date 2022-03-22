@@ -33,7 +33,7 @@ spec:
     sqlInstances:
       - type: POSTGRES_14
         databases:
-          - name: mottak
+          - name: db
   accessPolicy:
     inbound:
       rules:
