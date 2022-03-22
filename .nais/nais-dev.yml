@@ -35,6 +35,7 @@ spec:
         type: POSTGRES_14
         databases:
           - name: mottak
+            envVarPrefix: DB
   accessPolicy:
     inbound:
       rules:
