@@ -32,7 +32,7 @@ const val LEEWAY = 3L
 fun main() {
     LOG.info { "starting server" }
 
-    flywayMigrate()
+    //flywayMigrate()
     val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
