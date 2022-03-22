@@ -95,7 +95,7 @@ internal class JoarkConsumer(
         } catch (e: WakeupException) {
             if (job.isActive) throw e
         } catch (e: Exception) {
-            LOG.error(e) { "Noe feil skjedde i konsumeringen" }
+            LOG.error { "Noe feil skjedde i konsumeringen: ${e.message}" }
             throw e
         } finally {
             closeResources()
@@ -124,7 +124,7 @@ internal class JoarkConsumer(
         } catch (exception: Exception) {
             val msg = currentPartitionOffsets.map { "\tpartition=${it.key}, offset=${it.value}" }
                 .joinToString(separator = "\n", prefix = "\n", postfix = "\n")
-            LOG.info(exception) {
+            LOG.info {
                 "Processing error, reset positions to each next message (after each record that was processed OK): $msg"
             }
             currentPartitionOffsets.forEach { (partition, offset) -> consumer.seek(partition, offset) }
@@ -136,7 +136,7 @@ internal class JoarkConsumer(
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
-            (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
+                (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
 
     private fun closeResources() {
         LOG.info { "close resources" }
@@ -153,7 +153,7 @@ internal class JoarkConsumer(
     }
 
     private fun shutdownHook() {
-        LOG.info("received shutdown signal, stopping app")
+        LOG.info { "received shutdown signal, stopping app" }
         stop()
     }
 }
