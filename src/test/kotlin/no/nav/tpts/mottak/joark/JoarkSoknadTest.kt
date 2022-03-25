@@ -29,7 +29,7 @@ internal class JoarkSoknadTest {
             assertEquals("BRÅKETE", it.soknad.fornavn)
             assertEquals("BLYANT", it.soknad.etternavn)
             assertEquals("14038205537", it.soknad.ident)
-            assertEquals("2022-03-10T10:03:35.365", it.soknad.opprettet.toString())
+            assertEquals("2022-03-10T11:03:35.365", it.soknad.opprettet.toString())
             assertEquals("136950219", it.tiltak?.id)
             assertEquals("Arbeidsrettet rehabilitering (dag)", it.tiltak?.navn)
             assertEquals("AVONOVA HELSE AS", it.tiltak?.arrangoer)
