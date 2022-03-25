@@ -74,6 +74,7 @@ internal class JoarkConsumerTest {
         }
     }
 
+    @Disabled
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `exception i handteringen lukker konsumenten`() {
