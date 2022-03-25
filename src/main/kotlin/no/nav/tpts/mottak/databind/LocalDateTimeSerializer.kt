@@ -7,10 +7,12 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 object LocalDateTimeSerializer : KSerializer<LocalDateTime> {
-    override fun deserialize(decoder: Decoder) = ZonedDateTime.parse(decoder.decodeString()).toLocalDateTime()
+    override fun deserialize(decoder: Decoder): LocalDateTime =
+        ZonedDateTime.parse(decoder.decodeString()).withZoneSameInstant(ZoneId.of("Europe/Oslo")).toLocalDateTime()
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDateTime", PrimitiveKind.STRING)
     override fun serialize(encoder: Encoder, value: LocalDateTime) = encoder.encodeString(value.toString())
 }

@@ -30,14 +30,14 @@ internal class LocalDateTimeSerializerTest {
 
     @Test
     fun `Deserializes LocalDateTime`() {
-        // given
-        val dateTime = "2022-01-01T14:15:16"
-        val json = """{"dateTime":"${dateTime}Z"}"""
+        assertEquals(
+            LocalDateTime.of(2022, Month.MARCH, 25, 14, 41, 7),
+            Json.decodeFromString<ClassForTest>("""{"dateTime":"2022-03-25T13:41:07.000Z"}""").dateTime
+        )
 
-        // when
-        val classForTest = Json.decodeFromString<ClassForTest>(json)
-
-        // then
-        assertEquals(dateTime, classForTest.dateTime.toString())
+        assertEquals(
+            LocalDateTime.of(2022, Month.MARCH, 25, 14, 41, 7),
+            Json.decodeFromString<ClassForTest>("""{"dateTime":"2022-03-25T14:41:07.000+01:00"}""").dateTime
+        )
     }
 }
