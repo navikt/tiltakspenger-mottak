@@ -31,7 +31,7 @@ const val LEEWAY = 3L
 
 fun main() {
     LOG.info { "starting server" }
-    Thread.setDefaultUncaughtExceptionHandler { _, e -> LOG.error { e.message } }
+    Thread.setDefaultUncaughtExceptionHandler { _, e -> LOG.error(e) { e.message } }
     flywayMigrate()
     val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
