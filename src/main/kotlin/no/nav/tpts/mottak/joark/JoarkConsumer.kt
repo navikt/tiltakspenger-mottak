@@ -79,6 +79,13 @@ internal class JoarkConsumer(
         job = scope.launch {
             run()
         }
+        LOG.warn { "Tester logging" }
+        try {
+            throw IllegalArgumentException("Catch2: Test for å se om kommer til stderr eller ikke\n og en ny rad her")
+        } catch (e: IllegalArgumentException) {
+            LOG.error(e) { e.message }
+        }
+        throw IllegalArgumentException("NoCatch2: Test for å se om kommer til stderr eller ikke\n og en ny rad her")
     }
 
     fun stop() {
