@@ -55,9 +55,7 @@ fun main() {
         }
     )
     LOG.warn { "Tester logging" }
-    val e = RuntimeException("Tester for å se om dette kommer til stderr eller ikke")
-    e.printStackTrace()
-    throw e
+    throw RuntimeException("Tester for å se om dette kommer til stderr eller ikke\n og en ny rad her")
 }
 
 fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthConfig.jwksUri).toURL())) {
