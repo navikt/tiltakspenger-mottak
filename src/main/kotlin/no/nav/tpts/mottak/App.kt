@@ -54,6 +54,10 @@ fun main() {
             server.stop(gracePeriodMillis = 3000, timeoutMillis = 3000)
         }
     )
+    LOG.warn { "Tester logging" }
+    val e = RuntimeException("Tester for å se om dette kommer til stderr eller ikke")
+    e.printStackTrace()
+    throw e
 }
 
 fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthConfig.jwksUri).toURL())) {
