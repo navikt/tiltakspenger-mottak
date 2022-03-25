@@ -1,12 +1,12 @@
 package no.nav.tpts.mottak.db.queries
 
 import kotliquery.queryOf
+import mu.KotlinLogging
 import no.nav.tpts.mottak.db.DataSource.session
-import org.apache.logging.log4j.kotlin.logger
 import org.intellij.lang.annotations.Language
 
 object PersonQueries {
-    private val LOG = logger(this::javaClass.name)
+    private val LOG = KotlinLogging.logger {}
 
     @Language("SQL")
     private val insert = "insert into person (ident, fornavn, etternavn) values (:ident, :fornavn, :etternavn)"

@@ -1,11 +1,11 @@
 package no.nav.tpts.mottak.soknad
 
+import mu.KotlinLogging
 import no.nav.tpts.mottak.clients.saf.SafClient
 import no.nav.tpts.mottak.db.queries.PersonQueries
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
-import org.apache.logging.log4j.kotlin.logger
 
-private val LOG = logger("no.nav.tpts.mottak.soknad.SoknadMediator")
+private val LOG = KotlinLogging.logger {}
 
 suspend fun handleSoknad(journalPostId: String) {
     LOG.info { "Retrieving journalpost metadata with journalPostId $journalPostId" }

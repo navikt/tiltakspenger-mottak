@@ -11,9 +11,9 @@ import io.ktor.routing.get
 import io.ktor.routing.route
 import io.prometheus.client.CollectorRegistry
 import io.prometheus.client.exporter.common.TextFormat
-import org.apache.logging.log4j.kotlin.logger
+import mu.KotlinLogging
 
-private val LOG = logger("no.nav.tpts.mottak.health.HealthRoutes")
+val LOG = KotlinLogging.logger { }
 
 fun Route.healthRoutes(healthChecks: List<HealthCheck>) {
     route("/metrics") {

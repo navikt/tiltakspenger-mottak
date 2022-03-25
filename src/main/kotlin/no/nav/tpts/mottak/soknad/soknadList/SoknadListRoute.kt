@@ -5,13 +5,13 @@ import io.ktor.routing.Route
 import io.ktor.routing.get
 import io.ktor.routing.route
 import kotlinx.coroutines.async
+import mu.KotlinLogging
 import no.nav.tpts.mottak.common.pagination.PageData
 import no.nav.tpts.mottak.common.pagination.paginate
 import no.nav.tpts.mottak.soknad.SoknadQueries.countSoknader
 import no.nav.tpts.mottak.soknad.SoknadQueries.listSoknader
-import org.apache.logging.log4j.kotlin.logger
 
-private val LOG = logger("no.nav.tpts.mottak.soknad.soknadList.SoknadListRoute")
+private val LOG = KotlinLogging.logger {}
 
 fun Route.soknadListRoute() {
     route("/api/soknad") {
