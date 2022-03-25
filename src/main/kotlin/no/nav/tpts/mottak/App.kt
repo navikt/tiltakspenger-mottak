@@ -31,7 +31,7 @@ const val LEEWAY = 3L
 
 fun main() {
     LOG.info { "starting server" }
-
+    Thread.setDefaultUncaughtExceptionHandler { _, e -> LOG.error { e.message } }
     flywayMigrate()
     val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
@@ -56,10 +56,11 @@ fun main() {
     )
     LOG.warn { "Tester logging" }
     try {
-        throw IllegalArgumentException("Tester for å se om dette kommer til stderr eller ikke\n og en ny rad her")
+        throw IllegalArgumentException("Catch: Test for å se om dette kommer til stderr eller ikke\n og en ny rad her")
     } catch (e: IllegalArgumentException) {
         LOG.error(e) { e.message }
     }
+    throw IllegalArgumentException("NoCatch: Test for å se om dette kommer til stderr eller ikke\n og en ny rad her")
 }
 
 fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthConfig.jwksUri).toURL())) {
