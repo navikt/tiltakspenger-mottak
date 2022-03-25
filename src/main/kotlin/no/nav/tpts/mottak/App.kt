@@ -15,7 +15,6 @@ import io.ktor.routing.routing
 import io.ktor.serialization.json
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate
 import no.nav.tpts.mottak.health.HealthCheck
@@ -23,9 +22,10 @@ import no.nav.tpts.mottak.health.healthRoutes
 import no.nav.tpts.mottak.joark.JoarkConsumer
 import no.nav.tpts.mottak.joark.createKafkaConsumer
 import no.nav.tpts.mottak.soknad.soknadRoutes
+import org.apache.logging.log4j.kotlin.logger
 import java.net.URI
 
-private val LOG = KotlinLogging.logger {}
+private val LOG = logger("no.nav.tpts.mottak.App")
 const val PORT = 8080
 const val LEEWAY = 3L
 

@@ -9,7 +9,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import mu.KotlinLogging
 import no.nav.tpts.mottak.health.HealthCheck
 import no.nav.tpts.mottak.health.HealthStatus
 import no.nav.tpts.mottak.soknad.handleSoknad
@@ -26,10 +25,11 @@ import org.apache.kafka.common.config.SslConfigs
 import org.apache.kafka.common.errors.WakeupException
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.logging.log4j.kotlin.logger
 import java.time.Duration
 import java.util.Properties
 
-private val LOG = KotlinLogging.logger {}
+private val LOG = logger("no.nav.tpts.mottak.joark.JoarkConsumer")
 
 const val MAX_POLL_RECORDS = 50
 const val MAX_POLL_INTERVAL_MS = 5000
