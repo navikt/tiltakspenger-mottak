@@ -55,7 +55,11 @@ fun main() {
         }
     )
     LOG.warn { "Tester logging" }
-    throw IllegalArgumentException("Tester for å se om dette kommer til stderr eller ikke\n og en ny rad her")
+    try {
+        throw IllegalArgumentException("Tester for å se om dette kommer til stderr eller ikke\n og en ny rad her")
+    } catch (e: IllegalArgumentException) {
+        LOG.error { e.message }
+    }
 }
 
 fun Application.installAuth(jwkProvider: JwkProvider = UrlJwkProvider(URI(AuthConfig.jwksUri).toURL())) {
