@@ -58,7 +58,7 @@ fun main() {
     try {
         throw IllegalArgumentException("Tester for å se om dette kommer til stderr eller ikke\n og en ny rad her")
     } catch (e: IllegalArgumentException) {
-        LOG.error { e.message }
+        LOG.error(e) { e.message }
     }
 }
 
