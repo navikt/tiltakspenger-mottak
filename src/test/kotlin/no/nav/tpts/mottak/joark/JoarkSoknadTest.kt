@@ -48,6 +48,8 @@ internal class JoarkSoknadTest {
             assertEquals(LocalDate.parse("2022-03-31"), it.brukerRegistrertSluttDato)
             assertNull(it.systemRegistrertStartDato)
             assertNull(it.systemRegistrertSluttDato)
+            assertEquals(false, it.onKvp)
+            assertEquals(false, it.onIntroduksjonsprogrammet)
         }
     }
 

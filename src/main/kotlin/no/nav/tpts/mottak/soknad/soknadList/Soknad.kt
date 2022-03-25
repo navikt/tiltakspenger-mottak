@@ -15,11 +15,18 @@ data class Soknad(
     val fornavn: String?,
     val etternavn: String?,
     val ident: String,
-    @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime?,
-    @Serializable(with = LocalDateSerializer::class) val brukerRegistrertStartDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class) val brukerRegistrertSluttDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class) val systemRegistrertStartDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class) val systemRegistrertSluttDato: LocalDate?
+    val onKvp: Boolean?,
+    val onIntroduksjonsprogrammet: Boolean?,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val opprettet: LocalDateTime?,
+    @Serializable(with = LocalDateSerializer::class)
+    val brukerRegistrertStartDato: LocalDate?,
+    @Serializable(with = LocalDateSerializer::class)
+    val brukerRegistrertSluttDato: LocalDate?,
+    @Serializable(with = LocalDateSerializer::class)
+    val systemRegistrertStartDato: LocalDate?,
+    @Serializable(with = LocalDateSerializer::class)
+    val systemRegistrertSluttDato: LocalDate?
 ) {
     companion object {
         private val json = Json {
@@ -34,6 +41,10 @@ data class Soknad(
             val valgtTiltak = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }
             val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
             val tiltaksInfoSystem = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
+            val onKvp =
+                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value === "ja"
+            val onIntroduksjonsprogrammet =
+                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram" }?.value == "ja"
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,
@@ -43,7 +54,9 @@ data class Soknad(
                 brukerRegistrertStartDato = tiltaksInfoBruker?.properties?.fom,
                 brukerRegistrertSluttDato = tiltaksInfoBruker?.properties?.tom,
                 systemRegistrertStartDato = tiltaksInfoSystem?.properties?.startdato,
-                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato
+                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato,
+                onKvp = onKvp,
+                onIntroduksjonsprogrammet = onIntroduksjonsprogrammet
             )
         }
     }

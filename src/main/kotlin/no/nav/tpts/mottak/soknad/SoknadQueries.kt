@@ -8,20 +8,12 @@ import org.intellij.lang.annotations.Language
 
 object SoknadQueries {
     @Language("SQL")
-    val soknaderByIdentQuery = """
-        select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
-        from soknad
-        join person p on soknad.ident = p.ident
-        where soknad.ident = :ident
-        limit :pageSize 
-        offset :offset
-    """.trimIndent()
-
-    @Language("SQL")
     val soknaderQuery = """
-        select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident
+        select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
+        onKvp, onIntroduksjonsprogrammet
         from soknad
         join person p on soknad.ident = p.ident
+        where :ident IS NULL or soknad.ident = :ident 
         limit :pageSize 
         offset :offset
     """.trimIndent()
@@ -34,19 +26,15 @@ object SoknadQueries {
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
         bruker_slutt_dato, system_start_dato, system_slutt_dato) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
-        :brukerSluttDato, :systemStartDato, :systemSluttDato)
+        :brukerSluttDato, :systemStartDato, :systemSluttDato, :onKvp, :onIntroduksjonsprogrammet)
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
 
     fun listSoknader(pageSize: Int, offset: Int, ident: String?): List<Soknad> {
-        val query = when (ident) {
-            null -> soknaderQuery
-            else -> soknaderByIdentQuery
-        }
         return session.run(
             queryOf(
-                query,
+                soknaderQuery,
                 mapOf(
                     "pageSize" to pageSize,
                     "offset" to offset,
@@ -70,6 +58,8 @@ object SoknadQueries {
                     "systemStartDato" to soknad.systemRegistrertStartDato,
                     "systemSluttDato" to soknad.systemRegistrertSluttDato,
                     "data" to data,
+                    "onKvp" to soknad.onKvp,
+                    "onIntroduksjonsprogrammet" to soknad.onIntroduksjonsprogrammet
                 )
             ).asUpdate
         )
@@ -86,6 +76,8 @@ fun fromRow(row: Row): Soknad {
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
         systemRegistrertStartDato = null,
-        systemRegistrertSluttDato = null
+        systemRegistrertSluttDato = null,
+        onIntroduksjonsprogrammet = row.boolean("onIntroduksjonsprogrammet"),
+        onKvp = row.boolean("onKvp")
     )
 }
