@@ -33,8 +33,9 @@ spec:
     sqlInstances:
       - name: tpts-tiltakspenger-mottak-dev
         type: POSTGRES_14
-        diskAutoresize: true
-        pointInTimeRecovery: true
+        # PIT og diskAutoResize trenger ikke være på i dev, men skru det på i prod
+        # diskAutoresize: true
+        # pointInTimeRecovery: true
         databases:
           - name: mottak
             envVarPrefix: DB
