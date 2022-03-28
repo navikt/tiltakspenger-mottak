@@ -63,7 +63,7 @@ dependencies {
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
     // DB
-    implementation("org.flywaydb:flyway-core:8.5.4")
+    implementation("org.flywaydb:flyway-core:8.5.5")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.postgresql:postgresql:42.3.3")
     implementation("com.github.seratch:kotliquery:1.6.3")
