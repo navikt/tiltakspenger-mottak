@@ -2,19 +2,19 @@ package no.nav.tpts.mottak
 
 import com.auth0.jwk.JwkProvider
 import com.auth0.jwk.UrlJwkProvider
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.jwt.JWTPrincipal
 import io.ktor.server.auth.jwt.jwt
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.CORS
 import io.ktor.server.plugins.ContentNegotiation
 import io.ktor.server.plugins.DefaultHeaders
 import io.ktor.server.routing.routing
-import io.ktor.serialization.kotlinx.json.json
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
 import no.nav.tpts.mottak.db.flywayMigrate

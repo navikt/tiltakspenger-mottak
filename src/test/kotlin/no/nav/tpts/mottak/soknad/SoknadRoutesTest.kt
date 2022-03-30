@@ -1,10 +1,10 @@
 package no.nav.tpts.mottak.soknad
 
 import com.auth0.jwk.UrlJwkProvider
-import io.ktor.application.Application
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
-import io.ktor.routing.routing
+import io.ktor.server.application.Application
+import io.ktor.server.routing.routing
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
 import io.mockk.clearAllMocks
