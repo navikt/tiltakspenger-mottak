@@ -43,7 +43,6 @@ dependencies {
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
 //    implementation("io.ktor:ktor-locations:$ktorVersion")
 //    implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
-    implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-serialization:$ktorVersion")
     implementation("io.ktor:ktor-client-serialization:$ktorVersion")
     implementation("io.ktor:ktor-client-core:$ktorVersion")
