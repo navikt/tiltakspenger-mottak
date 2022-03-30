@@ -3,7 +3,8 @@ package no.nav.tpts.mottak.clients.saf
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
-import io.ktor.features.NotFoundException
+import io.ktor.client.statement.bodyAsText
+import io.ktor.server.plugins.NotFoundException
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
@@ -52,7 +53,7 @@ object SafClient {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
             header(HttpHeaders.Accept, ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
-        }
+        }.bodyAsText()
         return safResponse
     }
 
