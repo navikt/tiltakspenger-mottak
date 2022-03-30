@@ -6,7 +6,6 @@ import io.ktor.client.request.post
 import io.ktor.features.NotFoundException
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
-import kotlinx.coroutines.runBlocking
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
 import no.nav.tpts.mottak.clients.HttpClient.client
 import no.nav.tpts.mottak.getSafUrl
