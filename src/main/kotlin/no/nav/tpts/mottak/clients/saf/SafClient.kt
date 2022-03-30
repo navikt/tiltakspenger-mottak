@@ -19,10 +19,10 @@ import no.nav.tpts.mottak.graphql.journalpost
 object SafClient {
     private const val FILNAVN = "tiltakspenger.json"
     private const val INDIVIDSTONAD = "IND"
-    private val token = runBlocking { getToken() }
     private val safUrl = getSafUrl()
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {
+        val token = getToken()
         val safResponse: SafQuery.Response = client.post(
             urlString = "$safUrl/graphql"
         ) {
@@ -43,6 +43,7 @@ object SafClient {
     }
 
     suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
+        val token = getToken()
         val journalpostId = journalfortDokumentMetaData.journalpostId
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
         val safResponse: String = client.get(
