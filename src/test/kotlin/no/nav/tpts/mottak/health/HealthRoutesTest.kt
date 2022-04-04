@@ -4,7 +4,6 @@ import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.testApplication
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class HealthRoutesTest {
@@ -34,7 +33,6 @@ internal class HealthRoutesTest {
         }
     }
 
-    @Disabled
     @Test
     fun `one unhappy health check returns not ok`() {
         val healthCheck = object : HealthCheck {
@@ -43,6 +41,9 @@ internal class HealthRoutesTest {
         testApplication {
             routing {
                 healthRoutes(listOf(healthCheck))
+            }
+            val client = createClient {
+                expectSuccess = false
             }
             val response = client.get("/isAlive")
             assertEquals(HttpStatusCode.ServiceUnavailable, response.status)

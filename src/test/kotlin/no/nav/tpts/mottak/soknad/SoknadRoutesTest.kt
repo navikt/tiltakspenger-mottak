@@ -73,7 +73,7 @@ internal class SoknadRoutesTest {
         every { DataSource.session } returns mockSession
 
         testApplication {
-            soknadRoutes()
+            soknadTestRoutes()
             val response = client.get("/api/soknad")
             val expectedJson = this::class.java.classLoader.getResource("soknadTest.json")!!.readText()
             JSONAssert.assertEquals(expectedJson, response.bodyAsText(), JSONCompareMode.LENIENT)
@@ -99,7 +99,7 @@ internal class SoknadRoutesTest {
         every { DataSource.session } returns mockSession
 
         testApplication {
-            soknadRoutes()
+            soknadTestRoutes()
             var response = client.get("/api/soknad?pageSize=1&offset=1")
             var expectedJson = this::class.java.classLoader.getResource("soknadPage2.json")!!.readText()
             JSONAssert.assertEquals(expectedJson, response.bodyAsText(), JSONCompareMode.LENIENT)
@@ -121,7 +121,7 @@ internal class SoknadRoutesTest {
         every { DataSource.session } returns mockSession
 
         testApplication {
-            soknadRoutes()
+            soknadTestRoutes()
             val response = client.get("/api/soknad?offset=20000")
             val expectedJson = this::class.java.classLoader.getResource("emptyPage.json")!!.readText()
             JSONAssert.assertEquals(expectedJson, response.bodyAsText(), JSONCompareMode.LENIENT)
@@ -148,7 +148,7 @@ internal class SoknadRoutesTest {
         every { mockSession.run(any<NullableResultQueryAction<Soknad>>()) } returns null
 
         testApplication {
-            soknadRoutes()
+            soknadTestRoutes()
             val client = createClient {
                 expectSuccess = false
             }
@@ -177,7 +177,7 @@ internal class SoknadRoutesTest {
     }
 }
 
-fun ApplicationTestBuilder.soknadRoutes() {
+fun ApplicationTestBuilder.soknadTestRoutes() {
     application { acceptJson() }
     routing {
         soknadRoutes()
