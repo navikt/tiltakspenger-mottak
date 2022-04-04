@@ -7,8 +7,8 @@ val prometheusVersion = "0.15.0"
 
 plugins {
     application
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.serialization") version "1.6.10"
+    kotlin("jvm") version "1.6.20"
+    kotlin("plugin.serialization") version "1.6.20"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
     id("io.gitlab.arturbosch.detekt").version("1.19.0")
@@ -65,8 +65,9 @@ dependencies {
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     implementation("no.nav.security:token-client-core:2.0.14")
     implementation("com.nimbusds:nimbus-jose-jwt:9.21")
-    implementation("com.auth0:java-jwt:3.19.0")
-    implementation("com.auth0:jwks-rsa:0.21.0")
+    implementation("com.auth0:java-jwt:3.19.1")
+    implementation("com.auth0:jwks-rsa:0.21.1")
+//    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
@@ -74,7 +75,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:8.5.5")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.postgresql:postgresql:42.3.3")
-    implementation("com.github.seratch:kotliquery:1.6.3")
+    implementation("com.github.seratch:kotliquery:1.7.0")
     // Kafka
     implementation("org.apache.kafka:kafka-clients:3.1.0")
     implementation("org.apache.avro:avro:1.11.0")
