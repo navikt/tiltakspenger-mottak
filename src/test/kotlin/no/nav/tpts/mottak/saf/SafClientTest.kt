@@ -2,12 +2,12 @@ package no.nav.tpts.mottak.saf
 
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.plugins.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
+import io.ktor.serialization.kotlinx.json.json
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockkObject
@@ -82,9 +82,7 @@ class SafClientTest {
 
         mockkObject(HttpClient)
         every { HttpClient.client } returns io.ktor.client.HttpClient(mockEngine) {
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
-            }
+            install(ContentNegotiation) { json(Json { ignoreUnknownKeys = true }) }
         }
     }
 

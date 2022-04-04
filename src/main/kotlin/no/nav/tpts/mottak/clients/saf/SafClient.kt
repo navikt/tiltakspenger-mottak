@@ -1,11 +1,15 @@
 package no.nav.tpts.mottak.clients.saf
 
+import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
-import io.ktor.features.NotFoundException
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
+import io.ktor.server.plugins.NotFoundException
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
 import no.nav.tpts.mottak.clients.HttpClient.client
 import no.nav.tpts.mottak.getSafUrl
@@ -28,9 +32,9 @@ object SafClient {
             header(HttpHeaders.Authorization, "Bearer $token")
             header(HttpHeaders.Accept, ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            body = Graphql(journalpost(journalpostId))
-        }
+            contentType(ContentType.Application.Json)
+            setBody(Graphql(journalpost(journalpostId)))
+        }.body()
 
         if (safResponse.errors != null) {
             throw NotFoundException(
@@ -52,7 +56,7 @@ object SafClient {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
             header(HttpHeaders.Accept, ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
-        }
+        }.bodyAsText()
         return safResponse
     }
 

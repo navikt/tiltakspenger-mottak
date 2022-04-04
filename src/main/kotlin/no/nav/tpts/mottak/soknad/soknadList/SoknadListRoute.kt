@@ -1,9 +1,9 @@
 package no.nav.tpts.mottak.soknad.soknadList
 
-import io.ktor.application.call
-import io.ktor.routing.Route
-import io.ktor.routing.get
-import io.ktor.routing.route
+import io.ktor.server.application.call
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.get
+import io.ktor.server.routing.route
 import kotlinx.coroutines.async
 import mu.KotlinLogging
 import no.nav.tpts.mottak.common.pagination.PageData
