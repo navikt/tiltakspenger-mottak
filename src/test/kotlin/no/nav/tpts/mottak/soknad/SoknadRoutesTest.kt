@@ -21,7 +21,6 @@ import no.nav.tpts.mottak.installAuth
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
@@ -144,19 +143,20 @@ internal class SoknadRoutesTest {
     }
     */
 
-    @Disabled
     @Test
     fun `should return 404 when soknad not found`() {
         every { mockSession.run(any<NullableResultQueryAction<Soknad>>()) } returns null
 
         testApplication {
             soknadRoutes()
+            val client = createClient {
+                expectSuccess = false
+            }
             val response = client.get("/api/soknad/54123")
             assertEquals(HttpStatusCode.NotFound, response.status)
         }
     }
 
-    @Disabled
     @Test
     fun `soknad endpoint should require authentication`() {
         mockkObject(AuthConfig)
@@ -167,6 +167,9 @@ internal class SoknadRoutesTest {
             application {
                 installAuth(jwkProvider)
                 appRoutes(emptyList())
+            }
+            val client = createClient {
+                expectSuccess = false
             }
             val response = client.get("/api/soknad")
             assertEquals(HttpStatusCode.Unauthorized, response.status)
