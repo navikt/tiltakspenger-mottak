@@ -65,7 +65,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:8.5.5")
     implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("org.postgresql:postgresql:42.3.3")
-    implementation("com.github.seratch:kotliquery:1.6.3")
+    implementation("com.github.seratch:kotliquery:1.7.0")
     // Kafka
     implementation("org.apache.kafka:kafka-clients:3.1.0")
     implementation("org.apache.avro:avro:1.11.0")
