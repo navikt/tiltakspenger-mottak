@@ -22,5 +22,3 @@ jobs:
 
       - name: "detekt"
         uses: natiginfo/action-detekt-all@1.19.0
-        with:
-          args: --fail-fast --config config/detekt.yml
