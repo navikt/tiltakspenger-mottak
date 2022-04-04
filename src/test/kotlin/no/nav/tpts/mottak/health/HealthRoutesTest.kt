@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class HealthRoutesTest {
+    private val foo = "fdjksf"
 
     @Test
     fun `empty health checks returns status ok`() {
