@@ -2,7 +2,7 @@ val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "2.0.0-beta-1"
 val log4jVersion = "2.17.2"
 val kotlinxSerializationVersion = "1.3.2"
-val kotlinxCoroutinesVersion = "1.6.0"
+val kotlinxCoroutinesVersion = "1.6.1"
 val prometheusVersion = "0.15.0"
 
 plugins {
