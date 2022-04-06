@@ -85,7 +85,7 @@ fun fromRow(row: Row): Soknad {
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
-        systemRegistrertStartDato = null,
-        systemRegistrertSluttDato = null
+        systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
+        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato")
     )
 }
