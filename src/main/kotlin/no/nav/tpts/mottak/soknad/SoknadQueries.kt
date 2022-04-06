@@ -1,6 +1,7 @@
 package no.nav.tpts.mottak.soknad
 
 import kotliquery.Row
+import kotliquery.param
 import kotliquery.queryOf
 import no.nav.tpts.mottak.db.DataSource.session
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
@@ -38,7 +39,7 @@ object SoknadQueries {
                 mapOf(
                     "pageSize" to pageSize,
                     "offset" to offset,
-                    "ident" to ident
+                    "ident" to ident.param<String>()
                 )
             ).map(::fromRow).asList
         )
