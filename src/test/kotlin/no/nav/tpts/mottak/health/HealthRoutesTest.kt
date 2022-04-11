@@ -1,10 +1,8 @@
 package no.nav.tpts.mottak.health
 
-import io.ktor.http.HttpMethod
+import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
-import io.ktor.routing.routing
-import io.ktor.server.testing.handleRequest
-import io.ktor.server.testing.withTestApplication
+import io.ktor.server.testing.testApplication
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -12,10 +10,12 @@ internal class HealthRoutesTest {
 
     @Test
     fun `empty health checks returns status ok`() {
-        withTestApplication({ routing { healthRoutes(emptyList()) } }) {
-            handleRequest(method = HttpMethod.Get, uri = "/isAlive").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
+        testApplication {
+            routing {
+                healthRoutes(emptyList())
             }
+            val response = client.get("/isAlive")
+            assertEquals(HttpStatusCode.OK, response.status)
         }
     }
 
@@ -24,10 +24,12 @@ internal class HealthRoutesTest {
         val healthCheck = object : HealthCheck {
             override fun status(): HealthStatus = HealthStatus.TILFREDS
         }
-        withTestApplication({ routing { healthRoutes(listOf(healthCheck)) } }) {
-            handleRequest(method = HttpMethod.Get, uri = "/isAlive").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
+        testApplication {
+            routing {
+                healthRoutes(listOf(healthCheck))
             }
+            val response = client.get("/isAlive")
+            assertEquals(HttpStatusCode.OK, response.status)
         }
     }
 
@@ -36,10 +38,15 @@ internal class HealthRoutesTest {
         val healthCheck = object : HealthCheck {
             override fun status(): HealthStatus = HealthStatus.ULYKKELIG
         }
-        withTestApplication({ routing { healthRoutes(listOf(healthCheck)) } }) {
-            handleRequest(method = HttpMethod.Get, uri = "/isAlive").apply {
-                assertEquals(HttpStatusCode.ServiceUnavailable, response.status())
+        testApplication {
+            routing {
+                healthRoutes(listOf(healthCheck))
             }
+            val client = createClient {
+                expectSuccess = false
+            }
+            val response = client.get("/isAlive")
+            assertEquals(HttpStatusCode.ServiceUnavailable, response.status)
         }
     }
 }

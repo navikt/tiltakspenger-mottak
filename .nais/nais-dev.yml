@@ -33,6 +33,8 @@ spec:
     sqlInstances:
       - name: tpts-tiltakspenger-mottak-dev
         type: POSTGRES_14
+        diskAutoresize: false # prod: true
+        pointInTimeRecovery: false # prod: true
         databases:
           - name: mottak
             envVarPrefix: DB

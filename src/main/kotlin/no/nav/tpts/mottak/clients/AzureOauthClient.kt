@@ -1,5 +1,6 @@
 package no.nav.tpts.mottak.clients
 
+import io.ktor.client.call.body
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.http.Parameters
@@ -19,7 +20,7 @@ private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 private val scope = System.getenv("SCOPE") ?: "api://dev-fss.teamdokumenthandtering.saf/.default"
 
 object AzureOauthClient {
-    private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl) } }
+    private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl).body() } }
 
     private val tokenCache = TokenCache()
 
@@ -27,12 +28,12 @@ object AzureOauthClient {
         val currentToken = tokenCache.token
         if (currentToken != null && !tokenCache.isExpired()) return currentToken
 
-        return client.submitForm<OAuth2AccessTokenResponse>(
+        return client.submitForm(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 appendToken()
             }
-        ).let {
+        ).body<OAuth2AccessTokenResponse>().let {
             tokenCache.update(
                 it.accessToken,
                 it.expiresIn.toLong()
@@ -47,7 +48,7 @@ object AzureOauthClient {
             formParameters = Parameters.build {
                 appendTokenExchangeParams(accessToken)
             }
-        )
+        ).body()
     }
 }
 

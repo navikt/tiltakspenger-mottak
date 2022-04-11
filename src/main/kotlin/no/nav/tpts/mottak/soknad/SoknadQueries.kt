@@ -1,6 +1,7 @@
 package no.nav.tpts.mottak.soknad
 
 import kotliquery.Row
+import kotliquery.param
 import kotliquery.queryOf
 import no.nav.tpts.mottak.db.DataSource.session
 import no.nav.tpts.mottak.soknad.soknadList.Soknad
@@ -38,7 +39,7 @@ object SoknadQueries {
                 mapOf(
                     "pageSize" to pageSize,
                     "offset" to offset,
-                    "ident" to ident
+                    "ident" to ident.param<String>()
                 )
             ).map(::fromRow).asList
         )
@@ -75,8 +76,8 @@ fun fromRow(row: Row): Soknad {
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
-        systemRegistrertStartDato = null,
-        systemRegistrertSluttDato = null,
+        systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
+        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
         onIntroduksjonsprogrammet = row.boolean("onIntroduksjonsprogrammet"),
         onKvp = row.boolean("onKvp")
     )
