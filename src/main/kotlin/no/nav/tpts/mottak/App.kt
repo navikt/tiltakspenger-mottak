@@ -11,9 +11,9 @@ import io.ktor.server.auth.jwt.JWTPrincipal
 import io.ktor.server.auth.jwt.jwt
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import io.ktor.server.plugins.CORS
-import io.ktor.server.plugins.ContentNegotiation
-import io.ktor.server.plugins.DefaultHeaders
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.cors.CORS
+import io.ktor.server.plugins.defaultheaders.DefaultHeaders
 import io.ktor.server.routing.routing
 import mu.KotlinLogging
 import no.nav.tpts.mottak.applications.applicationRoutes
@@ -39,11 +39,11 @@ fun main() {
         acceptJson()
         installAuth()
         install(CORS) {
-            host("localhost:8081")
-            host("127.0.0.1:8081")
-            host("localhost:3000")
-            host("127.0.0.1:3000")
-            host("tpts-tiltakspenger-flate.dev.intern.nav.no")
+            allowHost("localhost:8081")
+            allowHost("127.0.0.1:8081")
+            allowHost("localhost:3000")
+            allowHost("127.0.0.1:3000")
+            allowHost("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
         appRoutes(listOf(joarkConsumer))
     }.start()
