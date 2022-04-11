@@ -42,9 +42,12 @@ data class Soknad(
             val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
             val tiltaksInfoSystem = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
             val onKvp =
-                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value === "ja"
+                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
+            /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
+            * og null når søker svarer nei, sjekker derfor kommune istedet for å unngå (mer) forvirring */
             val onIntroduksjonsprogrammet =
-                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram" }?.value == "ja"
+                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
+                    ?.properties?.kommune?.isNotEmpty() ?: false
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,

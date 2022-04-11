@@ -28,6 +28,7 @@ data class Properties(
     val gjeldendeAdresseType: String? = null,
     val harSluttdatoFraArena: String? = null,
     val kjonn: String? = null,
+    val kommune: String? = null,
     val kontonummer: String? = null,
     val mellomnavn: String? = null,
     val navn: String? = null,
