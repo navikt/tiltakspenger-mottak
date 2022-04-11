@@ -1,13 +1,14 @@
 package no.nav.tpts.mottak.clients.saf
 
 import io.ktor.client.call.body
+import io.ktor.client.request.accept
+import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
-import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.server.plugins.NotFoundException
 import no.nav.tpts.mottak.clients.AzureOauthClient.getToken
@@ -29,8 +30,8 @@ object SafClient {
         val safResponse: SafQuery.Response = client.post(
             urlString = "$safUrl/graphql"
         ) {
-            header(HttpHeaders.Authorization, "Bearer $token")
-            header(HttpHeaders.Accept, ContentType.Application.Json)
+            bearerAuth(token)
+            accept(ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
             contentType(ContentType.Application.Json)
             setBody(Graphql(journalpost(journalpostId)))
@@ -52,9 +53,9 @@ object SafClient {
         val safResponse: String = client.get(
             urlString = "$safUrl/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
-            header(HttpHeaders.Authorization, "Bearer $token")
-            header(HttpHeaders.ContentType, ContentType.Application.Json)
-            header(HttpHeaders.Accept, ContentType.Application.Json)
+            bearerAuth(token)
+            contentType(ContentType.Application.Json)
+            accept(ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
         }.bodyAsText()
         return safResponse
