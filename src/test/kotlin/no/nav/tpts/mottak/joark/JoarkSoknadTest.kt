@@ -42,12 +42,12 @@ internal class JoarkSoknadTest {
     fun `should put brukerregistrert start and sluttdato in soknad`() {
         val soknad = this::class.java.classLoader.getResource("soknad_uten_tiltak_fra_arena.json")!!.readText()
         Soknad.fromJson(soknad).also {
-            assertEquals("STERK", it.fornavn)
-            assertEquals("LAPP", it.etternavn)
             assertEquals(LocalDate.parse("2022-03-01"), it.brukerRegistrertStartDato)
             assertEquals(LocalDate.parse("2022-03-31"), it.brukerRegistrertSluttDato)
             assertNull(it.systemRegistrertStartDato)
             assertNull(it.systemRegistrertSluttDato)
+            assertEquals(false, it.deltarKvp)
+            assertEquals(false, it.deltarIntroduksjonsprogrammet)
         }
     }
 
@@ -55,6 +55,18 @@ internal class JoarkSoknadTest {
     fun `null name in soknad does not throw exception`() {
         val soknad = File("src/test/resources/soknad_barn_med_manglende_navn_pga_kode6.json").readText()
         assertDoesNotThrow { Soknad.fromJson(soknad) }
+    }
+
+    @Test
+    fun `soker som deltar på intro should have true in deltarIntroduksjonsprogrammet field`() {
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_på_intro.json").readText())
+        assertEquals(soknad.deltarIntroduksjonsprogrammet, true)
+    }
+
+    @Test
+    fun `soker som deltar på kvp should have true in deltarKvp field`() {
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_på_kvp.json").readText())
+        assertEquals(soknad.deltarKvp, true)
     }
 
     @Test

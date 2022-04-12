@@ -39,16 +39,9 @@ internal class SoknadRoutesTest {
         ident = "123",
         systemRegistrertStartDato = null,
         systemRegistrertSluttDato = null,
+        deltarIntroduksjonsprogrammet = false,
+        deltarKvp = false
     )
-    /*
-    private val mockSoknadDetails = SoknadDetails(
-        fornavn = "Sigurd",
-        etternavn = "Groneng",
-        opprettet = LocalDateTime.MAX,
-        brukerStartDato = null,
-        brukerSluttDato = null,
-        fnr = "12121221212"
-    )*/
 
     init {
         mockkObject(DataSource)
@@ -127,21 +120,6 @@ internal class SoknadRoutesTest {
             JSONAssert.assertEquals(expectedJson, response.bodyAsText(), JSONCompareMode.LENIENT)
         }
     }
-
-    /*
-    @Test
-    fun `should get soknad by id`() {
-        every { mockSession.run(any<NullableResultQueryAction<SoknadDetails>>()) } returns mockSoknadDetails
-
-        withTestApplication({ soknadRoutes() }) {
-            handleRequest(HttpMethod.Get, "/api/soknad/54123").apply {
-                // javaClass.getResource will read from the resources folder in main, not test
-                val expectedJson = this::class.java.classLoader.getResource("soknad.json")!!.readText()
-                JSONAssert.assertEquals(expectedJson, response.content, JSONCompareMode.LENIENT)
-            }
-        }
-    }
-    */
 
     @Test
     fun `should return 404 when soknad not found`() {

@@ -1,0 +1,214 @@
+{
+  "soknadId": 12853,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "42619bef-ff48-4ef3-81ba-8f79415c1dae",
+  "brukerBehandlingId": "10018YNQP",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 686922,
+      "soknadId": 12853,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686923,
+      "soknadId": 12853,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": "test@nav.no",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "KIRKEVEIEN 173, 1384 ASKER",
+        "fnr": "15899796796",
+        "fornavn": "SJELDEN",
+        "alder": "24",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "PERLE",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "SJELDEN PERLE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 686924,
+      "soknadId": 12853,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686925,
+      "soknadId": 12853,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686926,
+      "soknadId": 12853,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686927,
+      "soknadId": 12853,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686928,
+      "soknadId": 12853,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686929,
+      "soknadId": 12853,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686930,
+      "soknadId": 12853,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "ja",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686931,
+      "soknadId": 12853,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686932,
+      "soknadId": 12853,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686933,
+      "soknadId": 12853,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686934,
+      "soknadId": 12853,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "686944",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686935,
+      "soknadId": 12853,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686936,
+      "soknadId": 12853,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686937,
+      "soknadId": 12853,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": "Jeg har mange barn",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686944,
+      "soknadId": 12853,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "ARBFORB",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2022-05-01",
+        "arenaId": "137328043",
+        "startdato": "2022-04-01",
+        "navn": "Arbeidsforberedende trening (AFT)",
+        "erIEndreStatus": "false",
+        "arrangoer": "STIFTELSEN KIRKENS BYMISJON I",
+        "sluttdato": "2022-05-01",
+        "opprinneligstartdato": "2022-04-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686945,
+      "soknadId": 12853,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 686946,
+      "soknadId": 12853,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "15899796796",
+  "opprettetDato": "2022-04-01T13:56:54.943Z",
+  "sistLagret": "2022-04-01T13:57:36.899Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
