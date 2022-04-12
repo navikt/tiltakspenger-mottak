@@ -30,17 +30,19 @@ internal class SoknadRoutesTest {
 
     private val mockSession = mockk<Session>(relaxed = false)
     private val mockSoknad = Soknad(
+        id = "12312",
         fornavn = "Sigurd",
         etternavn = "Grøneng",
-        id = "12312",
+        ident = "123",
+        deltarKvp = false,
+        deltarIntroduksjonsprogrammet = false,
+        oppholdInstitusjon = false,
+        typeInstitusjon = "",
         opprettet = LocalDateTime.MAX,
         brukerRegistrertStartDato = null,
         brukerRegistrertSluttDato = null,
-        ident = "123",
         systemRegistrertStartDato = null,
-        systemRegistrertSluttDato = null,
-        deltarIntroduksjonsprogrammet = false,
-        deltarKvp = false
+        systemRegistrertSluttDato = null
     )
 
     init {

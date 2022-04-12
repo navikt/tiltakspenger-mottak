@@ -11,7 +11,7 @@ object SoknadQueries {
     @Language("SQL")
     val soknaderQuery = """
         select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
-        deltar_kvp, deltar_introduksjonsprogrammet
+        deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon 
         from soknad
         join person p on soknad.ident = p.ident
         where :ident IS NULL or soknad.ident = :ident 
@@ -25,9 +25,11 @@ object SoknadQueries {
     @Language("SQL")
     private val insertQuery = """
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
-        bruker_slutt_dato, system_start_dato, system_slutt_dato) 
+        bruker_slutt_dato, system_start_dato, system_slutt_dato, deltar_kvp, deltar_introduksjonsprogrammet, 
+        opphold_institusjon, type_institusjon) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
-        :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltar_kvp, :deltar_introduksjonsprogrammet)
+        :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltar_kvp, :deltar_introduksjonsprogrammet,
+        :opphold_institusjon, :type_institusjon)
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
@@ -60,7 +62,9 @@ object SoknadQueries {
                     "systemSluttDato" to soknad.systemRegistrertSluttDato,
                     "data" to data,
                     "deltarKvp" to soknad.deltarKvp,
-                    "deltarIntroduksjonsprogrammet" to soknad.deltarIntroduksjonsprogrammet
+                    "deltarIntroduksjonsprogrammet" to soknad.deltarIntroduksjonsprogrammet,
+                    "oppholdInstitusjon" to soknad.oppholdInstitusjon,
+                    "typeInstitusjon" to soknad.typeInstitusjon
                 )
             ).asUpdate
         )
@@ -73,12 +77,14 @@ fun fromRow(row: Row): Soknad {
         fornavn = row.string("fornavn"),
         etternavn = row.string("etternavn"),
         ident = row.string("ident"),
+        deltarKvp = row.boolean("deltar_kvp"),
+        deltarIntroduksjonsprogrammet = row.boolean("deltar_introduksjonsprogrammet"),
+        oppholdInstitusjon = row.boolean("opphold_institusjon"),
+        typeInstitusjon = row.string("type_institusjon"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
         systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
-        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
-        deltarIntroduksjonsprogrammet = row.boolean("onIntroduksjonsprogrammet"),
-        deltarKvp = row.boolean("onKvp")
+        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato")
     )
 }

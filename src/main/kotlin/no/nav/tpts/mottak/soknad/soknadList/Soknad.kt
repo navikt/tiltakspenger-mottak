@@ -17,6 +17,8 @@ data class Soknad(
     val ident: String,
     val deltarKvp: Boolean,
     val deltarIntroduksjonsprogrammet: Boolean?,
+    val oppholdInstitusjon: Boolean?,
+    val typeInstitusjon: String?,
     @Serializable(with = LocalDateTimeSerializer::class)
     val opprettet: LocalDateTime?,
     @Serializable(with = LocalDateSerializer::class)
@@ -41,25 +43,31 @@ data class Soknad(
             val valgtTiltak = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }
             val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
             val tiltaksInfoSystem = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
-            val onKvp =
+            val deltarKvp =
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
             /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
             * og null når søker svarer nei, sjekker derfor kommune istedet for å unngå (mer) forvirring */
-            val onIntroduksjonsprogrammet =
+            val deltarIntroduksjonsprogrammet =
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
                     ?.properties?.kommune?.isNotEmpty() ?: false
+            val oppholdInstitusjon =
+                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon" }?.value == "ja"
+            val typeInstitusjon = if (oppholdInstitusjon)
+                joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value else null
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,
                 etternavn = personalia.properties.etternavn,
                 ident = fnr,
+                deltarKvp = deltarKvp,
+                deltarIntroduksjonsprogrammet = deltarIntroduksjonsprogrammet,
+                oppholdInstitusjon = oppholdInstitusjon,
+                typeInstitusjon = typeInstitusjon,
                 opprettet = joarkSoknad.opprettetDato,
                 brukerRegistrertStartDato = tiltaksInfoBruker?.properties?.fom,
                 brukerRegistrertSluttDato = tiltaksInfoBruker?.properties?.tom,
                 systemRegistrertStartDato = tiltaksInfoSystem?.properties?.startdato,
-                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato,
-                deltarKvp = onKvp,
-                deltarIntroduksjonsprogrammet = onIntroduksjonsprogrammet
+                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato
             )
         }
     }

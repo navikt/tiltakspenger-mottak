@@ -60,13 +60,28 @@ internal class JoarkSoknadTest {
     @Test
     fun `soker som deltar på intro should have true in deltarIntroduksjonsprogrammet field`() {
         val soknad = Soknad.fromJson(File("src/test/resources/soknad_deltar_intro.json").readText())
-        assertEquals(soknad.deltarIntroduksjonsprogrammet, true)
+        assertEquals(true, soknad.deltarIntroduksjonsprogrammet)
     }
 
     @Test
     fun `soker som deltar på kvp should have true in deltarKvp field`() {
         val soknad = Soknad.fromJson(File("src/test/resources/soknad_deltar_kvp.json").readText())
-        assertEquals(soknad.deltarKvp, true)
+        assertEquals(true, soknad.deltarKvp)
+    }
+
+    @Test
+    fun `soker på insitusjon should have true in oppholdInstitusjon field`() {
+        val soknad =
+            Soknad.fromJson(File("src/test/resources/soknad_barn_med_manglende_navn_pga_kode6.json").readText())
+        assertEquals(true, soknad.oppholdInstitusjon)
+        assertEquals("annet", soknad.typeInstitusjon)
+    }
+
+    @Test
+    fun `soker utenfor insitusjon should have false in oppholdInstitusjon field`() {
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText())
+        assertEquals(false, soknad.oppholdInstitusjon)
+        assertNull(soknad.typeInstitusjon)
     }
 
     @Test
