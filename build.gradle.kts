@@ -110,6 +110,12 @@ java {
     targetCompatibility = javaVersion
 }
 
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config = files("$projectDir/config/detekt.yml")
+}
+
 // https://github.com/ben-manes/gradle-versions-plugin
 fun isNonStable(version: String): Boolean {
     val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
