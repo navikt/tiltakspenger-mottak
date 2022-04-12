@@ -59,13 +59,13 @@ internal class JoarkSoknadTest {
 
     @Test
     fun `soker som deltar på intro should have true in deltarIntroduksjonsprogrammet field`() {
-        val soknad = Soknad.fromJson(File("src/test/resources/soknad_på_intro.json").readText())
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_deltar_intro.json").readText())
         assertEquals(soknad.deltarIntroduksjonsprogrammet, true)
     }
 
     @Test
     fun `soker som deltar på kvp should have true in deltarKvp field`() {
-        val soknad = Soknad.fromJson(File("src/test/resources/soknad_på_kvp.json").readText())
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_deltar_kvp.json").readText())
         assertEquals(soknad.deltarKvp, true)
     }
 
