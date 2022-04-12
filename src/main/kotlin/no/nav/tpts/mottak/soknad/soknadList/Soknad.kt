@@ -15,8 +15,8 @@ data class Soknad(
     val fornavn: String?,
     val etternavn: String?,
     val ident: String,
-    val onKvp: Boolean?,
-    val onIntroduksjonsprogrammet: Boolean?,
+    val deltarKvp: Boolean,
+    val deltarIntroduksjonsprogrammet: Boolean?,
     @Serializable(with = LocalDateTimeSerializer::class)
     val opprettet: LocalDateTime?,
     @Serializable(with = LocalDateSerializer::class)
@@ -58,8 +58,8 @@ data class Soknad(
                 brukerRegistrertSluttDato = tiltaksInfoBruker?.properties?.tom,
                 systemRegistrertStartDato = tiltaksInfoSystem?.properties?.startdato,
                 systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato,
-                onKvp = onKvp,
-                onIntroduksjonsprogrammet = onIntroduksjonsprogrammet
+                deltarKvp = onKvp,
+                deltarIntroduksjonsprogrammet = onIntroduksjonsprogrammet
             )
         }
     }

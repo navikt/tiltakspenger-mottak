@@ -39,8 +39,8 @@ internal class SoknadRoutesTest {
         ident = "123",
         systemRegistrertStartDato = null,
         systemRegistrertSluttDato = null,
-        onIntroduksjonsprogrammet = false,
-        onKvp = false
+        deltarIntroduksjonsprogrammet = false,
+        deltarKvp = false
     )
     /*
     private val mockSoknadDetails = SoknadDetails(

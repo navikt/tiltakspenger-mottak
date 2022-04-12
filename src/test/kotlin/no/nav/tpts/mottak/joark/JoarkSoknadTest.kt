@@ -46,8 +46,8 @@ internal class JoarkSoknadTest {
             assertEquals(LocalDate.parse("2022-03-31"), it.brukerRegistrertSluttDato)
             assertNull(it.systemRegistrertStartDato)
             assertNull(it.systemRegistrertSluttDato)
-            assertEquals(false, it.onKvp)
-            assertEquals(false, it.onIntroduksjonsprogrammet)
+            assertEquals(false, it.deltarKvp)
+            assertEquals(false, it.deltarIntroduksjonsprogrammet)
         }
     }
 
@@ -58,15 +58,15 @@ internal class JoarkSoknadTest {
     }
 
     @Test
-    fun `soker on intro should have true in onIntroduksjonsprogrammet field`() {
+    fun `soker som deltar på intro should have true in deltarIntroduksjonsprogrammet field`() {
         val soknad = Soknad.fromJson(File("src/test/resources/soknad_på_intro.json").readText())
-        assertEquals(soknad.onIntroduksjonsprogrammet, true)
+        assertEquals(soknad.deltarIntroduksjonsprogrammet, true)
     }
 
     @Test
-    fun `soker on kvp should have true in onKvp field`() {
+    fun `soker som deltar på kvp should have true in deltarKvp field`() {
         val soknad = Soknad.fromJson(File("src/test/resources/soknad_på_kvp.json").readText())
-        assertEquals(soknad.onKvp, true)
+        assertEquals(soknad.deltarKvp, true)
     }
 
     @Test

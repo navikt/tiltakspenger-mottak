@@ -11,7 +11,7 @@ object SoknadQueries {
     @Language("SQL")
     val soknaderQuery = """
         select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
-        onKvp, onIntroduksjonsprogrammet
+        deltar_kvp, deltar_introduksjonsprogrammet
         from soknad
         join person p on soknad.ident = p.ident
         where :ident IS NULL or soknad.ident = :ident 
@@ -27,7 +27,7 @@ object SoknadQueries {
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
         bruker_slutt_dato, system_start_dato, system_slutt_dato) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
-        :brukerSluttDato, :systemStartDato, :systemSluttDato, :onKvp, :onIntroduksjonsprogrammet)
+        :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltar_kvp, :deltar_introduksjonsprogrammet)
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
@@ -59,8 +59,8 @@ object SoknadQueries {
                     "systemStartDato" to soknad.systemRegistrertStartDato,
                     "systemSluttDato" to soknad.systemRegistrertSluttDato,
                     "data" to data,
-                    "onKvp" to soknad.onKvp,
-                    "onIntroduksjonsprogrammet" to soknad.onIntroduksjonsprogrammet
+                    "deltarKvp" to soknad.deltarKvp,
+                    "deltarIntroduksjonsprogrammet" to soknad.deltarIntroduksjonsprogrammet
                 )
             ).asUpdate
         )
@@ -78,7 +78,7 @@ fun fromRow(row: Row): Soknad {
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
         systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
         systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
-        onIntroduksjonsprogrammet = row.boolean("onIntroduksjonsprogrammet"),
-        onKvp = row.boolean("onKvp")
+        deltarIntroduksjonsprogrammet = row.boolean("onIntroduksjonsprogrammet"),
+        deltarKvp = row.boolean("onKvp")
     )
 }
