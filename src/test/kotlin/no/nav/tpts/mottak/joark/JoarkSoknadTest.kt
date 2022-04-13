@@ -46,8 +46,6 @@ internal class JoarkSoknadTest {
             assertEquals(LocalDate.parse("2022-03-31"), it.brukerRegistrertSluttDato)
             assertNull(it.systemRegistrertStartDato)
             assertNull(it.systemRegistrertSluttDato)
-            assertEquals(false, it.deltarKvp)
-            assertEquals(false, it.deltarIntroduksjonsprogrammet)
         }
     }
 
@@ -64,9 +62,23 @@ internal class JoarkSoknadTest {
     }
 
     @Test
+    fun `soker som IKKE deltar på intro should have false in deltarIntroduksjonsprogrammet field`() {
+        val soknadJson = this::class.java.classLoader.getResource("soknad_uten_tiltak_fra_arena.json")!!.readText()
+        val soknad = Soknad.fromJson(soknadJson)
+        assertEquals(false, soknad.deltarIntroduksjonsprogrammet)
+    }
+
+    @Test
     fun `soker som deltar på kvp should have true in deltarKvp field`() {
         val soknad = Soknad.fromJson(File("src/test/resources/soknad_deltar_kvp.json").readText())
         assertEquals(true, soknad.deltarKvp)
+    }
+
+    @Test
+    fun `soker som IKKE deltar på kvp should have false in deltarKvp field`() {
+        val soknadJson = this::class.java.classLoader.getResource("soknad_uten_tiltak_fra_arena.json")!!.readText()
+        val soknad = Soknad.fromJson(soknadJson)
+        assertEquals(false, soknad.deltarKvp)
     }
 
     @Test
