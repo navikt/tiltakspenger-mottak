@@ -85,6 +85,20 @@ internal class JoarkSoknadTest {
     }
 
     @Test
+    fun `should get tiltaks-info from soknad with tiltak from Arena`() {
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_med_tiltak_fra_arena.json").readText())
+        assertEquals("JOBLEARN AS", soknad.tiltaksArrangoer)
+        assertEquals("Jobbklubb", soknad.tiltaksType)
+    }
+
+    @Test
+    fun `should get tiltaks-info from soknad with tiltak from user`() {
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText())
+        assertEquals("Tull og tøys AS", soknad.tiltaksArrangoer)
+        assertEquals("AMO", soknad.tiltaksType)
+    }
+
+    @Test
     fun `missing fnr throws exception`() {
         val json = """
             {

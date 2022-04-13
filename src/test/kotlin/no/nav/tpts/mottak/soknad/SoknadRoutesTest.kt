@@ -37,6 +37,8 @@ internal class SoknadRoutesTest {
         deltarKvp = false,
         deltarIntroduksjonsprogrammet = false,
         oppholdInstitusjon = false,
+        tiltaksArrangoer = "JOBLEARN AS",
+        tiltaksType = "Jobbklubb",
         typeInstitusjon = "",
         opprettet = LocalDateTime.MAX,
         brukerRegistrertStartDato = null,
