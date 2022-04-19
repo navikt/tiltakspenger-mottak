@@ -80,7 +80,7 @@ fun fromRow(row: Row): Soknad {
         deltarKvp = row.boolean("deltar_kvp"),
         deltarIntroduksjonsprogrammet = row.boolean("deltar_introduksjonsprogrammet"),
         oppholdInstitusjon = row.boolean("opphold_institusjon"),
-        typeInstitusjon = row.string("type_institusjon"),
+        typeInstitusjon = row.stringOrNull("type_institusjon"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
