@@ -28,8 +28,8 @@ object SoknadQueries {
         bruker_slutt_dato, system_start_dato, system_slutt_dato, deltar_kvp, deltar_introduksjonsprogrammet, 
         opphold_institusjon, type_institusjon) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
-        :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltar_kvp, :deltar_introduksjonsprogrammet,
-        :opphold_institusjon, :type_institusjon)
+        :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltarKvp, :deltarIntroduksjonsprogrammet,
+        :oppholdInstitusjon, :typeInstitusjon)
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
