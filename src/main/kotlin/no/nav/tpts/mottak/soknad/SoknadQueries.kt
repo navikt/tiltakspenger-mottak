@@ -11,7 +11,8 @@ object SoknadQueries {
     @Language("SQL")
     val soknaderQuery = """
         select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
-        deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon 
+        deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
+        system_slutt_dato
         from soknad
         join person p on soknad.ident = p.ident
         where :ident IS NULL or soknad.ident = :ident 
