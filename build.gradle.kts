@@ -79,7 +79,7 @@ dependencies {
     // Kafka
     implementation("org.apache.kafka:kafka-clients:3.1.0")
     implementation("org.apache.avro:avro:1.11.0")
-    implementation("io.confluent:kafka-avro-serializer:7.1.0")
+    implementation("io.confluent:kafka-avro-serializer:7.1.1")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
