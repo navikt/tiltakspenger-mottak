@@ -11,7 +11,7 @@ plugins {
     kotlin("plugin.serialization") version "1.6.20"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
-    id("io.gitlab.arturbosch.detekt").version("1.19.0")
+    id("io.gitlab.arturbosch.detekt").version("1.20.0")
     id("ca.cutterslade.analyze").version("1.9.0")
 }
 
