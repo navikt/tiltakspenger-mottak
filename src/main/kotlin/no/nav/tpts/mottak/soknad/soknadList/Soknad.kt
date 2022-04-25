@@ -19,6 +19,8 @@ data class Soknad(
     val deltarIntroduksjonsprogrammet: Boolean?,
     val oppholdInstitusjon: Boolean?,
     val typeInstitusjon: String?,
+    @Serializable val tiltaksArrangoer: String?,
+    @Serializable val tiltaksType: String?,
     @Serializable(with = LocalDateTimeSerializer::class)
     val opprettet: LocalDateTime?,
     @Serializable(with = LocalDateSerializer::class)
@@ -54,6 +56,10 @@ data class Soknad(
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon" }?.value == "ja"
             val typeInstitusjon = if (oppholdInstitusjon)
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value else null
+            val tiltaksArrangoer =
+                tiltaksInfoBruker?.properties?.arrangoernavn ?: tiltaksInfoSystem?.properties?.arrangoer
+            val tiltaksType = tiltaksInfoBruker?.value ?: tiltaksInfoSystem?.properties?.navn
+
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,
@@ -62,6 +68,8 @@ data class Soknad(
                 deltarKvp = deltarKvp,
                 deltarIntroduksjonsprogrammet = deltarIntroduksjonsprogrammet,
                 oppholdInstitusjon = oppholdInstitusjon,
+                tiltaksArrangoer = tiltaksArrangoer,
+                tiltaksType = tiltaksType,
                 typeInstitusjon = typeInstitusjon,
                 opprettet = joarkSoknad.opprettetDato,
                 brukerRegistrertStartDato = tiltaksInfoBruker?.properties?.fom,

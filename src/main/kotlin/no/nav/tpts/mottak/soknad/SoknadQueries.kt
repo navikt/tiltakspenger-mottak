@@ -12,7 +12,7 @@ object SoknadQueries {
     val soknaderQuery = """
         select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
         deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
-        system_slutt_dato
+        system_slutt_dato, tiltak_arrangoer, tiltak_type
         from soknad
         join person p on soknad.ident = p.ident
         where :ident IS NULL or soknad.ident = :ident 
@@ -27,10 +27,10 @@ object SoknadQueries {
     private val insertQuery = """
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
         bruker_slutt_dato, system_start_dato, system_slutt_dato, deltar_kvp, deltar_introduksjonsprogrammet, 
-        opphold_institusjon, type_institusjon) 
+        opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
         :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltarKvp, :deltarIntroduksjonsprogrammet,
-        :oppholdInstitusjon, :typeInstitusjon)
+        :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type)
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
@@ -65,7 +65,9 @@ object SoknadQueries {
                     "deltarKvp" to soknad.deltarKvp,
                     "deltarIntroduksjonsprogrammet" to soknad.deltarIntroduksjonsprogrammet,
                     "oppholdInstitusjon" to soknad.oppholdInstitusjon,
-                    "typeInstitusjon" to soknad.typeInstitusjon
+                    "type_institusjon" to soknad.typeInstitusjon,
+                    "tiltak_arrangoer" to soknad.tiltaksArrangoer,
+                    "tiltaks_type" to soknad.tiltaksType
                 )
             ).asUpdate
         )
@@ -82,6 +84,8 @@ fun fromRow(row: Row): Soknad {
         deltarIntroduksjonsprogrammet = row.boolean("deltar_introduksjonsprogrammet"),
         oppholdInstitusjon = row.boolean("opphold_institusjon"),
         typeInstitusjon = row.stringOrNull("type_institusjon"),
+        tiltaksArrangoer = row.string("tiltak_arrangoer"),
+        tiltaksType = row.string("tiltak_type"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
