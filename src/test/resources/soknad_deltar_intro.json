@@ -1,0 +1,218 @@
+{
+  "soknadId": 12918,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "59fa7190-e96d-4511-9f1c-57d4a937fad5",
+  "brukerBehandlingId": "10018YNTD",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 691259,
+      "soknadId": 12918,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true "
+      },
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691260,
+      "soknadId": 12918,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "ikkeEos",
+        "statsborgerskap": "ARG",
+        "mellomnavn": "GJØRME",
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "k",
+        "epost": null,
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "BRENNMOVEGEN 12, 8660 MOSJØEN",
+        "fnr": "07878896291",
+        "fornavn": "USNOBBET",
+        "alder": "33",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "BJELKE",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "USNOBBET GJØRME BJELKE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT "
+    },
+    {
+      "faktumId": 691261,
+      "soknadId": 12918,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691262,
+      "soknadId": 12918,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691263,
+      "soknadId": 12918,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691264,
+      "soknadId": 12918,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691265,
+      "soknadId": 12918,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691266,
+      "soknadId": 12918,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691267,
+      "soknadId": 12918,
+      "key": "informasjonsside.kvalikvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691268,
+      "soknadId": 12918,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691269,
+      "soknadId": 12918,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691270,
+      "soknadId": 12918,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {
+        "kommune": "Oslo",
+        "kontonummer": null,
+        "tom": "2022-04-30",
+        "fom": "2022-04-01",
+        "bydel": "Grorud "
+      },
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691271,
+      "soknadId": 12918,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691272,
+      "soknadId": 12918,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691273,
+      "soknadId": 12918,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691274,
+      "soknadId": 12918,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": "ertytrutyikuyiuyiyuok",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691275,
+      "soknadId": 12918,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "Annet",
+      "properties": {
+        "tom": "2022-04-22",
+        "postnummer": null,
+        "fom": "2022-04-01",
+        "adresse": null,
+        "arrangoernavn": "test as",
+        "beskrivelse": "Intro",
+        "antallDager": "5 dager "
+      },
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691281,
+      "soknadId": 12918,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    },
+    {
+      "faktumId": 691282,
+      "soknadId": 12918,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT "
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "07878896291",
+  "opprettetDato": "2022-04-08T13:39:56.242Z",
+  "sistLagret": "2022-04-08T13:49:05.680Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}

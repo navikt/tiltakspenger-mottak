@@ -2,11 +2,12 @@ package no.nav.tpts.mottak.saf
 
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
+import io.ktor.serialization.kotlinx.json.json
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockkObject
@@ -75,15 +76,13 @@ class SafClientTest {
             respond(
                 content = mockJsonString,
                 status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, "application/json")
+                headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
             )
         }
 
         mockkObject(HttpClient)
         every { HttpClient.client } returns io.ktor.client.HttpClient(mockEngine) {
-            install(JsonFeature) {
-                serializer = KotlinxSerializer(Json { ignoreUnknownKeys = true })
-            }
+            install(ContentNegotiation) { json(Json { ignoreUnknownKeys = true }) }
         }
     }
 
@@ -98,6 +97,17 @@ class SafClientTest {
         assertEquals(JOURNALPOST_ID, safResponse?.journalpostId)
         assertEquals("tiltakspenger.json", safResponse?.filnavn)
         assertEquals("548464748", safResponse?.dokumentInfoId)
+    }
+
+    @Test
+    fun `ignorerer soknad som har filnavn==null`() {
+        val jsonSoknad = javaClass.getResource("/journalpost_med_null_filnavn.json")?.readText(Charsets.UTF_8)!!
+        mockSafRequest(jsonSoknad)
+        val safResponse = runBlocking {
+            SafClient.hentMetadataForJournalpost("524989475")
+        }
+
+        assertNull(safResponse)
     }
 
     @Test

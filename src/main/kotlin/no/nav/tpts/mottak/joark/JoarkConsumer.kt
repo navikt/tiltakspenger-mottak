@@ -38,7 +38,7 @@ private val POLL_TIMEOUT = Duration.ofSeconds(4)
 fun createKafkaConsumer(): KafkaConsumer<String, GenericRecord> {
     return KafkaConsumer<String, GenericRecord>(
         Properties().also {
-            it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v3"
+            it[ConsumerConfig.GROUP_ID_CONFIG] = "tpts-tiltakspenger-aiven-mottak-v6"
             it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
             it[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
             it[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = KafkaAvroDeserializer::class.java
@@ -148,7 +148,7 @@ internal class JoarkConsumer(
         try {
             block()
         } catch (err: Exception) {
-            LOG.error(err) { err.message }
+            LOG.error { err.message }
         }
     }
 

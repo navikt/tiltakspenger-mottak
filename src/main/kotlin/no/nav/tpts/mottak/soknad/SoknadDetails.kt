@@ -1,34 +1,11 @@
 package no.nav.tpts.mottak.soknad
 
 import kotlinx.serialization.Serializable
-import no.nav.tpts.mottak.databind.LocalDateSerializer
-import no.nav.tpts.mottak.databind.LocalDateTimeSerializer
-import no.nav.tpts.mottak.joark.models.JoarkSoknad
-import java.time.LocalDate
-import java.time.LocalDateTime
+import no.nav.tpts.mottak.soknad.soknadList.Soknad
 
 @Serializable
-data class SoknadDetails(
-    val soknadId: String? = null,
-    val fornavn: String? = null,
-    val fnr: String? = null,
-    val etternavn: String? = null,
-    val tiltak: Tiltak? = null,
-    @Serializable(with = LocalDateTimeSerializer::class) val opprettet: LocalDateTime? = null,
-    @Serializable(with = LocalDateSerializer::class) val brukerSluttDato: LocalDate? = null,
-    @Serializable(with = LocalDateSerializer::class) val brukerStartDato: LocalDate? = null,
-) {
+class SoknadDetails(val soknad: Soknad, val tiltak: Tiltak? = null) {
     companion object {
-        fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): SoknadDetails {
-            val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }?.properties
-            return SoknadDetails(
-                soknadId = joarkSoknad.soknadId.toString(),
-                opprettet = joarkSoknad.opprettetDato,
-                fornavn = personalia?.fornavn,
-                etternavn = personalia?.etternavn,
-                fnr = personalia?.fnr,
-                tiltak = Tiltak.fromJoarkSoknad(joarkSoknad)
-            )
-        }
+        fun fromJson(json: String) = SoknadDetails(soknad = Soknad.fromJson(json), tiltak = Tiltak.fromJson(json))
     }
 }

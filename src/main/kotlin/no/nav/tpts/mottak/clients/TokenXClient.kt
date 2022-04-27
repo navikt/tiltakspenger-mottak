@@ -7,6 +7,7 @@ import com.nimbusds.jose.crypto.RSASSASigner
 import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
+import io.ktor.client.call.body
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
 import io.ktor.http.Parameters
@@ -23,7 +24,7 @@ private val privateJwk = System.getenv("TOKEN_X_PRIVATE_JWK")
 private const val TOKENX_AUDIENCE = "https://tokendings.dev-gcp.nais.io/token"
 
 object TokenXClient {
-    private var wellknown: WellKnown = runBlocking { client.get(wellKnown) }
+    private var wellknown: WellKnown = runBlocking { client.get(wellKnown).body() }
 
     suspend fun exchangeToken(accessToken: String, targetAudience: String): OAuth2AccessTokenResponse {
         return client.submitForm(
@@ -36,7 +37,7 @@ object TokenXClient {
                 append("subject_token", accessToken)
                 append("audience", targetAudience)
             }
-        ) {}
+        ).body()
     }
 }
 

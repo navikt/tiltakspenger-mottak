@@ -31,9 +31,13 @@ spec:
     - configmap: tpts-tiltakspenger-mottak-dev
   gcp:
     sqlInstances:
-      - type: POSTGRES_12
+      - name: tpts-tiltakspenger-mottak-dev
+        type: POSTGRES_14
+        diskAutoresize: false # prod: true
+        pointInTimeRecovery: false # prod: true
         databases:
-          - name: db
+          - name: mottak
+            envVarPrefix: DB
   accessPolicy:
     inbound:
       rules:

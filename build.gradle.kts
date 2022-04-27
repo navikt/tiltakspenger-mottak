@@ -1,21 +1,19 @@
 val javaVersion = JavaVersion.VERSION_17
-val ktorVersion = "1.6.7"
-val log4jVersion = "2.17.1"
+val ktorVersion = "2.0.0"
+val log4jVersion = "2.17.2"
 val kotlinxSerializationVersion = "1.3.2"
-val kotlinxCoroutinesVersion = "1.6.0"
+val kotlinxCoroutinesVersion = "1.6.1"
 val prometheusVersion = "0.15.0"
-val testContainersVersion = "1.16.2"
-val junit4MockVersion = "2.7.2.Final"
-val assertkVersion = "0.25"
+val testContainersVersion = "1.17.1"
 
 plugins {
     application
-    kotlin("jvm") version "1.6.10"
-    kotlin("plugin.serialization") version "1.6.10"
+    kotlin("jvm") version "1.6.21"
+    kotlin("plugin.serialization") version "1.6.21"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
-    id("io.gitlab.arturbosch.detekt").version("1.19.0")
-    id("ca.cutterslade.analyze").version("1.8.3")
+    id("io.gitlab.arturbosch.detekt").version("1.20.0")
+    id("ca.cutterslade.analyze").version("1.9.0")
 }
 
 repositories {
@@ -24,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.19.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
@@ -33,56 +31,67 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$kotlinxSerializationVersion")
     implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
+    implementation("org.apache.logging.log4j:log4j-layout-template-json:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
-//    implementation("io.ktor:ktor-server:$ktorVersion")
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-server-host-common:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-http-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-default-headers-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-host-common:$ktorVersion")
+    implementation("io.ktor:ktor-server-host-common-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-server-default-headers:$ktorVersion")
+    implementation("io.ktor:ktor-server-auth-jwt:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
     implementation("io.ktor:ktor-utils-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-auth:$ktorVersion")
-    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
-//    implementation("io.ktor:ktor-locations:$ktorVersion")
-//    implementation("io.ktor:ktor-metrics-micrometer:$ktorVersion")
-    implementation("io.ktor:ktor-auth:$ktorVersion")
-    implementation("io.ktor:ktor-serialization:$ktorVersion")
-    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-client-core:$ktorVersion")
     implementation("io.ktor:ktor-client-core-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-client-json-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-client-plugins:$ktorVersion")
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
-    implementation("no.nav.security:token-client-core:1.3.19")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.20")
-    implementation("com.auth0:java-jwt:3.18.3")
-    implementation("com.auth0:jwks-rsa:0.20.2")
+    implementation("no.nav.security:token-client-core:2.0.15")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.22")
+    implementation("com.auth0:java-jwt:3.19.1")
+    implementation("com.auth0:jwks-rsa:0.21.1")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
     // DB
-    implementation("org.flywaydb:flyway-core:8.5.0")
+    implementation("org.flywaydb:flyway-core:8.5.9")
     implementation("com.zaxxer:HikariCP:5.0.1")
-    implementation("org.postgresql:postgresql:42.3.3")
-    implementation("com.github.seratch:kotliquery:1.6.1")
+    implementation("org.postgresql:postgresql:42.3.4")
+    implementation("com.github.seratch:kotliquery:1.7.0")
     // Kafka
-    implementation("org.apache.kafka:kafka-clients:3.0.0")
+    implementation("org.apache.kafka:kafka-clients:3.1.0")
     implementation("org.apache.avro:avro:1.11.0")
-    implementation("io.confluent:kafka-avro-serializer:7.0.1")
+    implementation("io.confluent:kafka-avro-serializer:7.1.1")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.ktor:ktor-client-mock:$ktorVersion")
     testImplementation("io.ktor:ktor-client-mock-jvm:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:$ktorVersion")
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "ch.qos.logback", module = "logback-classic")
     }
-    testImplementation("io.mockk:mockk:1.12.2")
-    testImplementation("io.mockk:mockk-dsl-jvm:1.12.2")
+    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation("io.mockk:mockk-dsl-jvm:1.12.3")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
@@ -90,8 +99,7 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
     testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
     testImplementation("org.testcontainers:postgresql:$testContainersVersion")
-    testImplementation("io.quarkus:quarkus-junit4-mock:$junit4MockVersion")
-    testImplementation( "com.willowtreeapps.assertk:assertk-jvm:$assertkVersion")
+    testImplementation("io.quarkus:quarkus-junit4-mock:2.8.1.Final")
 }
 
 configurations.all {
@@ -106,6 +114,12 @@ application {
 java {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
+}
+
+detekt {
+    buildUponDefaultConfig = true
+    allRules = false
+    config = files("$projectDir/config/detekt.yml")
 }
 
 // https://github.com/ben-manes/gradle-versions-plugin
@@ -130,6 +144,7 @@ tasks {
     }
     shadowJar {
         dependsOn("test")
+        transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer::class.java)
     }
     // https://github.com/ben-manes/gradle-versions-plugin
     dependencyUpdates {

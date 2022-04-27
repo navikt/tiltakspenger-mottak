@@ -5,28 +5,20 @@ import kotliquery.Connection
 import kotliquery.Session
 import mu.KotlinLogging
 
-const val MAX_POOLS = 10
-
 private val LOG = KotlinLogging.logger {}
 
 object DataSource {
+    private const val MAX_POOLS = 10
+    private fun getEnvOrProp(name: String) = System.getenv(name) ?: System.getProperty(name)
     private fun init(): HikariDataSource {
-        LOG.info {
-            "Kobler til Postgres med URL ${
-                System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL")
-                    ?: System.getProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL")
-            }"
-        }
+        LOG.info { "Kobler til Postgres med URL ${getEnvOrProp("DB_URL")}" }
         return HikariDataSource().apply {
-            //dataSource = PGSimpleDataSource().apply {
-            //    databaseName = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE")
-            //}
-            jdbcUrl = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL")
-                ?: System.getProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_URL")
-            password = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
-                ?: System.getProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_PASSWORD")
-            username = System.getenv("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
-                ?: System.getProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_USERNAME")
+//            dataSource = PGSimpleDataSource().apply {
+//                databaseName = getEnvOrProp("DB_DATABASE")
+//            }
+            password = getEnvOrProp("DB_PASSWORD")
+            username = getEnvOrProp("DB_USERNAME")
+            jdbcUrl = getEnvOrProp("DB_URL")
             maximumPoolSize = MAX_POOLS
         }
     }
