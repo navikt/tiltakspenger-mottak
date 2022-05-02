@@ -67,7 +67,7 @@ object SoknadQueries {
                     "oppholdInstitusjon" to soknad.oppholdInstitusjon,
                     "type_institusjon" to soknad.typeInstitusjon,
                     "tiltak_arrangoer" to soknad.tiltaksArrangoer,
-                    "tiltaks_type" to soknad.tiltaksType
+                    "tiltak_type" to soknad.tiltaksType
                 )
             ).asUpdate
         )
