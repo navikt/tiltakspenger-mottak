@@ -46,7 +46,7 @@ fun main() {
             allowHost("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
         appRoutes(listOf(joarkConsumer))
-    }.start()
+    }.start(wait = true)
 
     Runtime.getRuntime().addShutdownHook(
         Thread {
