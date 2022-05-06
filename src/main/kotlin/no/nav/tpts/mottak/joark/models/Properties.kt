@@ -1,11 +1,9 @@
 package no.nav.tpts.mottak.joark.models
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import no.nav.tpts.mottak.databind.LocalDateSerializer
 import no.nav.tpts.mottak.databind.NorskBoolSerializer
 import java.time.LocalDate
-
 
 enum class NorskBool(val value: Boolean) {
     Ja(true),
