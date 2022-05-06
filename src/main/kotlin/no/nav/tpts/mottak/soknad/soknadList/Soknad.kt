@@ -30,7 +30,8 @@ data class Soknad(
     @Serializable(with = LocalDateSerializer::class)
     val systemRegistrertStartDato: LocalDate?,
     @Serializable(with = LocalDateSerializer::class)
-    val systemRegistrertSluttDato: LocalDate?
+    val systemRegistrertSluttDato: LocalDate?,
+    val barnetillegg: List<Barnetillegg>
 ) {
     companion object {
         private val json = Json {
@@ -59,6 +60,20 @@ data class Soknad(
             val tiltaksArrangoer =
                 tiltaksInfoBruker?.properties?.arrangoernavn ?: tiltaksInfoSystem?.properties?.arrangoer
             val tiltaksType = tiltaksInfoBruker?.value ?: tiltaksInfoSystem?.properties?.navn
+            val barneFakta = joarkSoknad.fakta
+                .filter { it.key == "barn" }
+            val barneTillegg = barneFakta
+                .filter { it.properties?.sokerbarnetillegg?.value == true }
+                .filter { it.properties?.fnr?.isNotEmpty() ?: false }
+                .map {
+                    Barnetillegg(
+                        ident = it.properties?.fnr!!,
+                        fornavn = it.properties.fornavn,
+                        etternavn = it.properties.etternavn,
+                        alder = it.properties.alder!!.toInt(),
+                        bosted = it.properties.land!!
+                    )
+                }
 
             return Soknad(
                 id = joarkSoknad.soknadId.toString(),
@@ -75,7 +90,8 @@ data class Soknad(
                 brukerRegistrertStartDato = tiltaksInfoBruker?.properties?.fom,
                 brukerRegistrertSluttDato = tiltaksInfoBruker?.properties?.tom,
                 systemRegistrertStartDato = tiltaksInfoSystem?.properties?.startdato,
-                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato
+                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato,
+                barnetillegg = barneTillegg
             )
         }
     }

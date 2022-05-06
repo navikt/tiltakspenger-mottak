@@ -1,5 +1,8 @@
 package no.nav.tpts.mottak.soknad
 
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotliquery.Row
 import kotliquery.param
 import kotliquery.queryOf
@@ -12,7 +15,7 @@ object SoknadQueries {
     val soknaderQuery = """
         select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
         deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
-        system_slutt_dato, tiltak_arrangoer, tiltak_type
+        system_slutt_dato, tiltak_arrangoer, tiltak_type, barnetillegg
         from soknad
         join person p on soknad.ident = p.ident
         where :ident IS NULL or soknad.ident = :ident 
@@ -27,10 +30,10 @@ object SoknadQueries {
     private val insertQuery = """
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
         bruker_slutt_dato, system_start_dato, system_slutt_dato, deltar_kvp, deltar_introduksjonsprogrammet, 
-        opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type) 
+        opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type, barnetillegg) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
         :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltarKvp, :deltarIntroduksjonsprogrammet,
-        :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type)
+        :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type, :barnetillegg::jsonb[])
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
@@ -67,7 +70,9 @@ object SoknadQueries {
                     "oppholdInstitusjon" to soknad.oppholdInstitusjon,
                     "type_institusjon" to soknad.typeInstitusjon,
                     "tiltak_arrangoer" to soknad.tiltaksArrangoer,
-                    "tiltak_type" to soknad.tiltaksType
+                    "tiltak_type" to soknad.tiltaksType,
+                    "barnetillegg" to soknad.barnetillegg.map { Json.encodeToString(it) }.toTypedArray()
+                        .param<Array<String>>()
                 )
             ).asUpdate
         )
@@ -90,6 +95,8 @@ fun fromRow(row: Row): Soknad {
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
         systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
-        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato")
+        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
+        barnetillegg = row.array<String>("barnetillegg")
+            .map { barnetilleggJson -> Json.decodeFromString(barnetilleggJson) }
     )
 }
