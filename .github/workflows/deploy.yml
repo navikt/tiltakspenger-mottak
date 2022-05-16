@@ -30,7 +30,11 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build with Gradle
-        run: ./gradlew build --info
+        uses: gradle/gradle-build-action@v2.1.5
+        env:
+          GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
+        with:
+          arguments: test shadowJar --continue --no-daemon --no-build-cache
 
       - name: Build and push Docker image
         if: github.ref == 'refs/heads/main'
