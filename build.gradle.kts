@@ -4,6 +4,7 @@ val log4jVersion = "2.17.2"
 val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.1"
 val prometheusVersion = "0.15.0"
+val testContainersVersion = "1.17.1"
 
 plugins {
     application
@@ -94,6 +95,12 @@ dependencies {
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
+
+    testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
+    testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
+    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
+    // need quarkus-junit-4-mock because of https://github.com/testcontainers/testcontainers-java/issues/970
+    testImplementation("io.quarkus:quarkus-junit4-mock:2.8.2.Final")
 }
 
 configurations.all {
