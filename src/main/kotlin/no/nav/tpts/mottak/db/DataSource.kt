@@ -13,9 +13,7 @@ object DataSource {
     private fun init(): HikariDataSource {
         LOG.info { "Kobler til Postgres med URL ${getEnvOrProp("DB_URL")}" }
         return HikariDataSource().apply {
-//            dataSource = PGSimpleDataSource().apply {
-//                databaseName = getEnvOrProp("DB_DATABASE")
-//            }
+            driverClassName = "org.postgresql.Driver"
             password = getEnvOrProp("DB_PASSWORD")
             username = getEnvOrProp("DB_USERNAME")
             jdbcUrl = getEnvOrProp("DB_URL")
