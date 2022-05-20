@@ -1,5 +1,10 @@
 package no.nav.tpts.mottak.db
 
+import no.nav.tpts.mottak.db.DataSource.DB_DATABASE_KEY
+import no.nav.tpts.mottak.db.DataSource.DB_HOST_KEY
+import no.nav.tpts.mottak.db.DataSource.DB_PASSWORD_KEY
+import no.nav.tpts.mottak.db.DataSource.DB_PORT_KEY
+import no.nav.tpts.mottak.db.DataSource.DB_USERNAME_KEY
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy
 
@@ -18,11 +23,11 @@ class TestPostgresqlContainer private constructor() : PostgreSQLContainer<TestPo
 
     override fun start() {
         super.start()
-        System.setProperty("DB_URL", CONTAINER.jdbcUrl)
-        // Dette er ikke nok, trenger å sette hostname og port også hvis man skal bruke databaseName:
-        // System.setProperty("NAIS_DATABASE_TPTS_TILTAKSPENGER_MOTTAK_DB_DATABASE", CONTAINER.databaseName)
-        System.setProperty("DB_USERNAME", CONTAINER.username)
-        System.setProperty("DB_PASSWORD", CONTAINER.password)
+        System.setProperty(DB_HOST_KEY, CONTAINER.host)
+        System.setProperty(DB_PORT_KEY, CONTAINER.getMappedPort(POSTGRESQL_PORT).toString())
+        System.setProperty(DB_DATABASE_KEY, CONTAINER.databaseName)
+        System.setProperty(DB_USERNAME_KEY, CONTAINER.username)
+        System.setProperty(DB_PASSWORD_KEY, CONTAINER.password)
     }
 
     override fun stop() {
