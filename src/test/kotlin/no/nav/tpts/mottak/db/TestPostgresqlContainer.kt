@@ -31,6 +31,10 @@ class TestPostgresqlContainer private constructor() : PostgreSQLContainer<TestPo
     }
 
     override fun stop() {
-        // do nothing, JVM handles shut down
+        System.clearProperty(DB_HOST_KEY)
+        System.clearProperty(DB_PORT_KEY)
+        System.clearProperty(DB_DATABASE_KEY)
+        System.clearProperty(DB_USERNAME_KEY)
+        System.clearProperty(DB_PASSWORD_KEY)
     }
 }
