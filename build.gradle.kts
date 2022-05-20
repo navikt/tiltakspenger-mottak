@@ -4,7 +4,7 @@ val log4jVersion = "2.17.2"
 val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.1"
 val prometheusVersion = "0.15.0"
-val testContainersVersion = "1.17.1"
+val testContainersVersion = "1.17.2"
 
 plugins {
     application
