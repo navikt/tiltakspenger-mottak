@@ -5,7 +5,7 @@ val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.1"
 val prometheusVersion = "0.15.0"
 val testContainersVersion = "1.17.2"
-val kafkaClientsVersion = "3.1.0"
+val kafkaClientsVersion = "3.2.0"
 
 plugins {
     application
@@ -107,7 +107,7 @@ dependencies {
 configurations.all {
     // exclude JUnit 4
     exclude(group = "junit", module = "junit")
-
+    // because of https://nav-it.slack.com/archives/C73B9LC86/p1645620641779659
     resolutionStrategy {
         force(
             "org.apache.kafka:kafka-clients:$kafkaClientsVersion"
