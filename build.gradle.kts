@@ -5,6 +5,7 @@ val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.1"
 val prometheusVersion = "0.15.0"
 val testContainersVersion = "1.17.2"
+val kafkaClientsVersion = "3.1.0"
 
 plugins {
     application
@@ -12,8 +13,8 @@ plugins {
     kotlin("plugin.serialization") version "1.6.21"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
-    id("io.gitlab.arturbosch.detekt").version("1.20.0")
-    id("ca.cutterslade.analyze").version("1.9.0")
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
+    id("ca.cutterslade.analyze") version "1.9.0"
 }
 
 repositories {
@@ -78,7 +79,7 @@ dependencies {
     implementation("org.postgresql:postgresql:42.3.5")
     implementation("com.github.seratch:kotliquery:1.7.0")
     // Kafka
-    implementation("org.apache.kafka:kafka-clients:3.1.0")
+    implementation("org.apache.kafka:kafka-clients:$kafkaClientsVersion")
     implementation("org.apache.avro:avro:1.11.0")
     implementation("io.confluent:kafka-avro-serializer:7.1.1")
 
@@ -106,6 +107,12 @@ dependencies {
 configurations.all {
     // exclude JUnit 4
     exclude(group = "junit", module = "junit")
+
+    resolutionStrategy {
+        force(
+            "org.apache.kafka:kafka-clients:$kafkaClientsVersion"
+        )
+    }
 }
 
 application {
