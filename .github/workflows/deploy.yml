@@ -30,7 +30,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2.1.6
+        uses: gradle/gradle-build-action@v2.1.7
         env:
           GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
         with:
