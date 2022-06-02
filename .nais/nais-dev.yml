@@ -28,7 +28,7 @@ spec:
   tokenx:
     enabled: true
   envFrom:
-    - configmap: tiltakspenger-mottak-dev
+    - configmap: tpts-tiltakspenger-mottak-dev
   gcp:
     sqlInstances:
       - name: tpts-tiltakspenger-mottak-dev
