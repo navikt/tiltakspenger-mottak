@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: tpts-tiltakspenger-mottak
+  name: tiltakspenger-mottak
   namespace: tpts
   labels:
     team: tpts
@@ -9,7 +9,7 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://tpts-tiltakspenger-mottak.dev.intern.nav.no
+    - https://tiltakspenger-mottak.dev.intern.nav.no
   azure:
     application:
       enabled: true
@@ -28,7 +28,7 @@ spec:
   tokenx:
     enabled: true
   envFrom:
-    - configmap: tpts-tiltakspenger-mottak-dev
+    - configmap: tiltakspenger-mottak-dev
   gcp:
     sqlInstances:
       - name: tpts-tiltakspenger-mottak-dev

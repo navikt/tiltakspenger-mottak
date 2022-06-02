@@ -116,7 +116,7 @@ configurations.all {
 }
 
 application {
-    mainClass.set("no.nav.tpts.mottak.AppKt")
+    mainClass.set("no.nav.tiltakspenger.mottak.AppKt")
 }
 
 java {
