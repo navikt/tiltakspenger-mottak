@@ -31,7 +31,7 @@ spec:
     - configmap: tpts-tiltakspenger-mottak-dev
   gcp:
     sqlInstances:
-      - name: tpts-tiltakspenger-mottak-dev
+      - name: tiltakspenger-mottak-dev
         type: POSTGRES_14
         diskAutoresize: false # prod: true
         pointInTimeRecovery: false # prod: true
