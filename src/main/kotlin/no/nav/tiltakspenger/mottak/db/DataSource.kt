@@ -19,6 +19,10 @@ object DataSource {
 
     private fun init(): HikariDataSource {
         LOG.info { "Kobler til Postgres med databasenavn ${getEnvOrProp(DB_DATABASE_KEY)}" }
+        LOG.info { "Kobler til Postgres med brukernavn ${getEnvOrProp(DB_USERNAME_KEY)}" }
+        LOG.info { "Kobler til Postgres med host ${getEnvOrProp(DB_HOST_KEY)}" }
+        LOG.info { "Kobler til Postgres med port ${getEnvOrProp(DB_PORT_KEY)}" }
+
         return HikariDataSource().apply {
             dataSourceClassName = "org.postgresql.ds.PGSimpleDataSource"
             addDataSourceProperty("serverName", getEnvOrProp(DB_HOST_KEY))
