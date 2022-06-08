@@ -7,16 +7,18 @@ import no.nav.tiltakspenger.mottak.db.DataSource.session
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
 import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
+import org.postgresql.util.PSQLException
 
 object SoknadQueries {
     @Language("SQL")
     val soknaderQuery = """
         select p.fornavn, p.etternavn, soknad.dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
         p.ident, deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
-        system_slutt_dato, tiltak_arrangoer, tiltak_type
+        system_slutt_dato, tiltak_arrangoer, tiltak_type, b.fornavn barn_fornavn, b.etternavn barn_etternavn, 
+        b.bosted barn_bosted, b.alder barn_alder, b.ident barn_ident
         from soknad
         join person p on soknad.ident = p.ident
-        left join barnetillegg b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
+        left join barnetillegg as b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
         where :ident IS NULL or soknad.ident = :ident 
         limit :pageSize 
         offset :offset
@@ -100,3 +102,19 @@ fun Soknad.Companion.fromRow(row: Row): Soknad =
         systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
         barnetillegg = if (row.hasBarnetillegg()) listOf(Barnetillegg.fromRow(row)) else emptyList()
     )
+
+fun Row.hasBarnetillegg(): Boolean {
+    return try {
+        this.stringOrNull("barn_ident")?.isNotEmpty() ?: false
+    } catch (e: PSQLException) {
+        false
+    }
+}
+
+fun Barnetillegg.Companion.fromRow(row: Row): Barnetillegg = Barnetillegg(
+    fornavn = row.string("barn_fornavn"),
+    etternavn = row.string("barn_etternavn"),
+    alder = row.int("barn_alder"),
+    bosted = row.string("barn_bosted"),
+    ident = row.string("barn_ident"),
+)

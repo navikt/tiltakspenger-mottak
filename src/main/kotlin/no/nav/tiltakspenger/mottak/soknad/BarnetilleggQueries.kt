@@ -30,19 +30,3 @@ object BarnetilleggQueries {
         )
     }
 }
-
-fun Row.hasBarnetillegg(): Boolean {
-    return try {
-        this.string("barnetillegg.ident").isNotEmpty()
-    } catch (e: PSQLException) {
-        false
-    }
-}
-
-fun Barnetillegg.Companion.fromRow(row: Row): Barnetillegg = Barnetillegg(
-    fornavn = row.string("barnetillegg.fornavn"),
-    etternavn = row.string("barnetillegg.etternavn"),
-    alder = row.int("barnetillegg.alder"),
-    bosted = row.string("barnetillegg.bosted"),
-    ident = row.string("barnetillegg.ident"),
-)
