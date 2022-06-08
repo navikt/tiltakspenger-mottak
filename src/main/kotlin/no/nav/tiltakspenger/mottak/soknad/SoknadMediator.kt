@@ -26,7 +26,7 @@ suspend fun handleSoknad(journalPostId: String) {
             json,
             soknad
         )
-        // Can not insert before soknad is exist
+        // Can not inserted before soknad is exist
         soknad.barnetillegg.map {
             BarnetilleggQueries.insertBarnetillegg(
                 barnetillegg = it,
