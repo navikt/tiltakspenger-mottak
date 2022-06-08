@@ -34,7 +34,7 @@ object SoknadQueries {
         opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type, barnetillegg) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
         :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltarKvp, :deltarIntroduksjonsprogrammet,
-        :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type, :barnetillegg::jsonb[])
+        :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type)
     """.trimIndent()
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
@@ -76,9 +76,7 @@ object SoknadQueries {
                     "oppholdInstitusjon" to soknad.oppholdInstitusjon,
                     "type_institusjon" to soknad.typeInstitusjon,
                     "tiltak_arrangoer" to soknad.tiltaksArrangoer,
-                    "tiltak_type" to soknad.tiltaksType,
-                    "barnetillegg" to soknad.barnetillegg.map { Json.encodeToString(it) }.toTypedArray()
-                        .param<Array<String>>()
+                    "tiltak_type" to soknad.tiltaksType
                 )
             ).asUpdate
         )
