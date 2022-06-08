@@ -18,12 +18,22 @@ suspend fun handleSoknad(journalPostId: String) {
         val soknad = Soknad.fromJson(json)
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
         LOG.info { "Saving soknad to database with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
+        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
+            ?: throw IllegalStateException("Missing dokumentInfoId for søknad")
         SoknadQueries.insertSoknad(
             journalPostId.toInt(),
-            journalfortDokumentMetaData.dokumentInfoId?.toInt(),
+            dokumentInfoId,
             json,
             soknad
         )
+        // Can not insert before soknad is exist
+        soknad.barnetillegg.map {
+            BarnetilleggQueries.insertBarnetillegg(
+                barnetillegg = it,
+                journalPostId = journalPostId.toInt(),
+                dokumentInfoId = dokumentInfoId
+            )
+        }
     } else {
         LOG.info { "Journalpost with ID $journalPostId was not handled" }
     }

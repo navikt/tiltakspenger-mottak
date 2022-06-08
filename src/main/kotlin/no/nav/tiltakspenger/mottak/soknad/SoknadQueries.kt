@@ -16,7 +16,7 @@ object SoknadQueries {
         select p.fornavn, p.etternavn, soknad.dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
         p.ident, deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
         system_slutt_dato, tiltak_arrangoer, tiltak_type
-        from soknadgs
+        from soknad
         join person p on soknad.ident = p.ident
         join barnetillegg b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
         where :ident IS NULL or soknad.ident = :ident 

@@ -5,9 +5,10 @@ import kotliquery.queryOf
 import no.nav.tiltakspenger.mottak.db.DataSource.session
 import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
+import org.postgresql.util.PSQLException
 
 object BarnetilleggQueries {
-    fun insertBarnetillegg(barnetillegg: Barnetillegg, journalPostId: String, dokumentInfoId: String) {
+    fun insertBarnetillegg(barnetillegg: Barnetillegg, journalPostId: Int, dokumentInfoId: Int) {
         @Language("SQL")
         val query = """
             INSERT INTO barnetillegg (dokumentinfo_id, journalpost_id, ident, fornavn, etternavn, alder, bosted) 
@@ -31,7 +32,11 @@ object BarnetilleggQueries {
 }
 
 fun Row.hasBarnetillegg(): Boolean {
-    return this.stringOrNull("barnetillegg.ident") == null
+    return try {
+        this.string("barnetillegg.ident").isNotEmpty()
+    } catch (e: PSQLException) {
+        false
+    }
 }
 
 fun Barnetillegg.Companion.fromRow(row: Row): Barnetillegg = Barnetillegg(
