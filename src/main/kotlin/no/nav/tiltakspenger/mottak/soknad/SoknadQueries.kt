@@ -1,7 +1,5 @@
 package no.nav.tiltakspenger.mottak.soknad
 
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import kotliquery.Row
 import kotliquery.param
 import kotliquery.queryOf
@@ -18,7 +16,7 @@ object SoknadQueries {
         system_slutt_dato, tiltak_arrangoer, tiltak_type
         from soknad
         join person p on soknad.ident = p.ident
-        join barnetillegg b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
+        left join barnetillegg b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
         where :ident IS NULL or soknad.ident = :ident 
         limit :pageSize 
         offset :offset
@@ -31,7 +29,7 @@ object SoknadQueries {
     private val insertQuery = """
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
         bruker_slutt_dato, system_start_dato, system_slutt_dato, deltar_kvp, deltar_introduksjonsprogrammet, 
-        opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type, barnetillegg) 
+        opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type) 
         values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
         :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltarKvp, :deltarIntroduksjonsprogrammet,
         :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type)
