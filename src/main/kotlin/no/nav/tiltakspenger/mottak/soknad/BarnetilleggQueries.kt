@@ -1,11 +1,9 @@
 package no.nav.tiltakspenger.mottak.soknad
 
-import kotliquery.Row
 import kotliquery.queryOf
 import no.nav.tiltakspenger.mottak.db.DataSource.session
 import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
-import org.postgresql.util.PSQLException
 
 object BarnetilleggQueries {
     fun insertBarnetillegg(barnetillegg: Barnetillegg, journalPostId: Int, dokumentInfoId: Int) {

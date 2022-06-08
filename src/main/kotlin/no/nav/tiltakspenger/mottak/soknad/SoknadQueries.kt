@@ -18,7 +18,8 @@ object SoknadQueries {
         b.bosted barn_bosted, b.alder barn_alder, b.ident barn_ident
         from soknad
         join person p on soknad.ident = p.ident
-        left join barnetillegg as b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
+        left join barnetillegg as b on soknad.dokumentinfo_id = b.dokumentinfo_id 
+            and soknad.journalpost_id = b.journalpost_id
         where :ident IS NULL or soknad.ident = :ident 
         limit :pageSize 
         offset :offset
@@ -106,7 +107,7 @@ fun Soknad.Companion.fromRow(row: Row): Soknad =
 fun Row.hasBarnetillegg(): Boolean {
     return try {
         this.stringOrNull("barn_ident")?.isNotEmpty() ?: false
-    } catch (e: PSQLException) {
+    } catch (_: PSQLException) {
         false
     }
 }

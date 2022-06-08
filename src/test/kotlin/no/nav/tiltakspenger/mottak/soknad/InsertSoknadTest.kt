@@ -1,6 +1,5 @@
 package no.nav.tiltakspenger.mottak.soknad
 
-import no.nav.tiltakspenger.mottak.db.DataSource
 import no.nav.tiltakspenger.mottak.db.TestPostgresqlContainer
 import no.nav.tiltakspenger.mottak.db.flywayMigrate
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
@@ -9,7 +8,6 @@ import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
