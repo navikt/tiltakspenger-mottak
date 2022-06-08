@@ -18,10 +18,10 @@ object DataSource {
     private fun getEnvOrProp(key: String) = System.getenv(key) ?: System.getProperty(key)
 
     private fun init(): HikariDataSource {
-        LOG.info { "Kobler til Postgres med databasenavn ${getEnvOrProp(DB_DATABASE_KEY)}" }
-        LOG.info { "Kobler til Postgres med brukernavn ${getEnvOrProp(DB_USERNAME_KEY)}" }
-        LOG.info { "Kobler til Postgres med host ${getEnvOrProp(DB_HOST_KEY)}" }
-        LOG.info { "Kobler til Postgres med port ${getEnvOrProp(DB_PORT_KEY)}" }
+        LOG.info {
+            "Kobler til Postgres '${getEnvOrProp(DB_USERNAME_KEY)}:xxx@" +
+                    "${getEnvOrProp(DB_HOST_KEY)}:${getEnvOrProp(DB_PORT_KEY)}/${getEnvOrProp(DB_DATABASE_KEY)}'"
+        }
 
         return HikariDataSource().apply {
             dataSourceClassName = "org.postgresql.ds.PGSimpleDataSource"
