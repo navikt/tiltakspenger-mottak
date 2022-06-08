@@ -1,9 +1,9 @@
 package no.nav.tiltakspenger.mottak.joark.models
 
+import java.time.LocalDate
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.databind.NorskBoolSerializer
 import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
-import java.time.LocalDate
 
 enum class NorskBool(val value: Boolean) {
     Ja(true),

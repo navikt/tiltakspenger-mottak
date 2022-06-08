@@ -1,6 +1,5 @@
 package no.nav.tiltakspenger.mottak.soknad
 
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotliquery.Row
@@ -8,16 +7,18 @@ import kotliquery.param
 import kotliquery.queryOf
 import no.nav.tiltakspenger.mottak.db.DataSource.session
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
 
 object SoknadQueries {
     @Language("SQL")
     val soknaderQuery = """
-        select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
-        deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
-        system_slutt_dato, tiltak_arrangoer, tiltak_type, barnetillegg
-        from soknad
+        select p.fornavn, p.etternavn, soknad.dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
+        p.ident, deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
+        system_slutt_dato, tiltak_arrangoer, tiltak_type
+        from soknadgs
         join person p on soknad.ident = p.ident
+        join barnetillegg b on soknad.dokumentinfo_id = b.dokumentinfo_id and soknad.journalpost_id = b.journalpost_id
         where :ident IS NULL or soknad.ident = :ident 
         limit :pageSize 
         offset :offset
@@ -39,7 +40,7 @@ object SoknadQueries {
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
 
     fun listSoknader(pageSize: Int, offset: Int, ident: String?): List<Soknad> {
-        return session.run(
+        val soknader = session.run(
             queryOf(
                 soknaderQuery,
                 mapOf(
@@ -47,8 +48,13 @@ object SoknadQueries {
                     "offset" to offset,
                     "ident" to ident.param<String>()
                 )
-            ).map(::fromRow).asList
+            ).map(Soknad::fromRow).asList
         )
+            .groupBy { it.id }
+            .map { (_, soknader) ->
+                soknader.reduce { acc, soknad -> soknad.copy(barnetillegg = acc.barnetillegg + soknad.barnetillegg) }
+            }
+        return soknader
     }
 
     fun insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String, soknad: Soknad) {
@@ -79,8 +85,8 @@ object SoknadQueries {
     }
 }
 
-fun fromRow(row: Row): Soknad {
-    return Soknad(
+fun Soknad.Companion.fromRow(row: Row): Soknad =
+    Soknad(
         id = row.int("dokumentinfo_id").toString(),
         fornavn = row.string("fornavn"),
         etternavn = row.string("etternavn"),
@@ -96,7 +102,5 @@ fun fromRow(row: Row): Soknad {
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
         systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
         systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
-        barnetillegg = row.array<String>("barnetillegg")
-            .map { barnetilleggJson -> Json.decodeFromString(barnetilleggJson) }
+        barnetillegg = if (row.hasBarnetillegg()) listOf(Barnetillegg.fromRow(row)) else emptyList()
     )
-}
