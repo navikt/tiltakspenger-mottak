@@ -3,7 +3,7 @@ name: Build, push, and deploy
 on: [ push ]
 
 env:
-  docker_image: ghcr.io/navikt/tpts-tiltakspenger-mottak:${{ github.sha }}
+  docker_image: ghcr.io/navikt/tiltakspenger-mottak:${{ github.sha }}
   PRINT_PAYLOAD: true
 
 jobs:
@@ -30,7 +30,11 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build with Gradle
-        run: ./gradlew build --info
+        uses: gradle/gradle-build-action@v2.2.0
+        env:
+          GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
+        with:
+          arguments: test shadowJar --continue --no-daemon --no-build-cache
 
       - name: Build and push Docker image
         if: github.ref == 'refs/heads/main'
@@ -44,7 +48,7 @@ jobs:
       - name: Notify Slack in case of build failure
         if: ${{ failure() && (github.ref == 'refs/heads/main') }}
         run: |
-          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[tpts-tiltakspenger-mottak] Build failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/navikt/tpts-tiltakspenger-mottak/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
+          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[tiltakspenger-mottak] Build failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/navikt/tiltakspenger-mottak/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
         env:
           BRANCH: ${{github.ref }}
           AUTHOR: ${{ github.event.pusher.name }}

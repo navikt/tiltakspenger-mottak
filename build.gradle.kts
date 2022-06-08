@@ -1,9 +1,11 @@
 val javaVersion = JavaVersion.VERSION_17
-val ktorVersion = "2.0.1"
+val ktorVersion = "2.0.2"
 val log4jVersion = "2.17.2"
-val kotlinxSerializationVersion = "1.3.2"
-val kotlinxCoroutinesVersion = "1.6.1"
+val kotlinxSerializationVersion = "1.3.3"
+val kotlinxCoroutinesVersion = "1.6.2"
 val prometheusVersion = "0.15.0"
+val testContainersVersion = "1.17.2"
+val kafkaClientsVersion = "3.2.0"
 
 plugins {
     application
@@ -11,8 +13,8 @@ plugins {
     kotlin("plugin.serialization") version "1.6.21"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
-    id("io.gitlab.arturbosch.detekt").version("1.20.0")
-    id("ca.cutterslade.analyze").version("1.9.0")
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
+    id("ca.cutterslade.analyze") version "1.9.0"
 }
 
 repositories {
@@ -32,7 +34,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-layout-template-json:$log4jVersion")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
-    implementation("io.github.microutils:kotlin-logging-jvm:2.1.21")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-http-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-jvm:$ktorVersion")
@@ -63,21 +65,21 @@ dependencies {
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
-    implementation("no.nav.security:token-client-core:2.0.15")
-    implementation("com.nimbusds:nimbus-jose-jwt:9.22")
-    implementation("com.auth0:java-jwt:3.19.1")
+    implementation("no.nav.security:token-client-core:2.0.21")
+    implementation("com.nimbusds:nimbus-jose-jwt:9.23")
+    implementation("com.auth0:java-jwt:3.19.2")
     implementation("com.auth0:jwks-rsa:0.21.1")
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
     // DB
-    implementation("org.flywaydb:flyway-core:8.5.10")
+    implementation("org.flywaydb:flyway-core:8.5.12")
     implementation("com.zaxxer:HikariCP:5.0.1")
-    implementation("org.postgresql:postgresql:42.3.4")
+    implementation("org.postgresql:postgresql:42.3.6")
     implementation("com.github.seratch:kotliquery:1.7.0")
     // Kafka
-    implementation("org.apache.kafka:kafka-clients:3.1.0")
+    implementation("org.apache.kafka:kafka-clients:$kafkaClientsVersion")
     implementation("org.apache.avro:avro:1.11.0")
     implementation("io.confluent:kafka-avro-serializer:7.1.1")
 
@@ -89,20 +91,32 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host:$ktorVersion") {
         exclude(group = "ch.qos.logback", module = "logback-classic")
     }
-    testImplementation("io.mockk:mockk:1.12.3")
-    testImplementation("io.mockk:mockk-dsl-jvm:1.12.3")
+    testImplementation("io.mockk:mockk:1.12.4")
+    testImplementation("io.mockk:mockk-dsl-jvm:1.12.4")
     testImplementation("org.skyscreamer:jsonassert:1.5.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
+
+    testImplementation("org.testcontainers:testcontainers:$testContainersVersion")
+    testImplementation("org.testcontainers:junit-jupiter:$testContainersVersion")
+    testImplementation("org.testcontainers:postgresql:$testContainersVersion")
+    // need quarkus-junit-4-mock because of https://github.com/testcontainers/testcontainers-java/issues/970
+    testImplementation("io.quarkus:quarkus-junit4-mock:2.9.2.Final")
 }
 
 configurations.all {
     // exclude JUnit 4
     exclude(group = "junit", module = "junit")
+    // because of https://nav-it.slack.com/archives/C73B9LC86/p1645620641779659
+    resolutionStrategy {
+        force(
+            "org.apache.kafka:kafka-clients:$kafkaClientsVersion"
+        )
+    }
 }
 
 application {
-    mainClass.set("no.nav.tpts.mottak.AppKt")
+    mainClass.set("no.nav.tiltakspenger.mottak.AppKt")
 }
 
 java {

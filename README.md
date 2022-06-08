@@ -1,7 +1,7 @@
-tpts-tiltakspenger-mottak
+tiltakspenger-mottak
 ================
 
-Håndterer søknader om [tiltakspenger](https://www.nav.no/no/person/arbeid/oppfolging-og-tiltak-for-a-komme-i-jobb/stonader-ved-tiltak). 
+Mottar søknader om [tiltakspenger](https://www.nav.no/no/person/arbeid/oppfolging-og-tiltak-for-a-komme-i-jobb/stonader-ved-tiltak). 
 
 En del av satsningen ["Flere i arbeid – P4"](https://memu.no/artikler/stor-satsing-skal-fornye-navs-utdaterte-it-losninger-og-digitale-verktoy/)
 
@@ -10,6 +10,7 @@ En del av satsningen ["Flere i arbeid – P4"](https://memu.no/artikler/stor-sat
 - [JDK](https://jdk.java.net/)
 - [Kotlin](https://kotlinlang.org/)
 - [Gradle](https://gradle.org/) brukes som byggeverktøy og er inkludert i oppsettet
+- [Docker](https://www.docker.com/) for å kjøre tester basert på [Testcontainers](https://www.testcontainers.org/)
 
 For hvilke versjoner som brukes, [se byggefilen](build.gradle.kts)
 
