@@ -44,7 +44,8 @@ internal class SoknadRoutesTest {
         brukerRegistrertStartDato = null,
         brukerRegistrertSluttDato = null,
         systemRegistrertStartDato = null,
-        systemRegistrertSluttDato = null
+        systemRegistrertSluttDato = null,
+        barnetillegg = emptyList()
     )
 
     init {

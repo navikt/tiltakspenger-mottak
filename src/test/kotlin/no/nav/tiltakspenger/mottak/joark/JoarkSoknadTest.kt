@@ -5,6 +5,7 @@ import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
 import no.nav.tiltakspenger.mottak.soknad.SoknadDetails
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -108,6 +109,17 @@ internal class JoarkSoknadTest {
         val soknad = Soknad.fromJson(File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText())
         assertEquals("Tull og tøys AS", soknad.tiltaksArrangoer)
         assertEquals("AMO", soknad.tiltaksType)
+    }
+
+    @Test
+    fun `should barnetillegg from soknad`() {
+        val soknad = Soknad.fromJson(File("src/test/resources/soknad_med_tiltak_fra_arena.json").readText())
+        val expectedBarn = Barnetillegg("SMEKKER", "STAUDE", 8, "16081376917", "NOR")
+        assertEquals(expectedBarn.fornavn, soknad.barnetillegg.first().fornavn)
+        assertEquals(expectedBarn.etternavn, soknad.barnetillegg.first().etternavn)
+        assertEquals(expectedBarn.bosted, soknad.barnetillegg.first().bosted)
+        assertEquals(expectedBarn.alder, soknad.barnetillegg.first().alder)
+        assertEquals(expectedBarn.ident, soknad.barnetillegg.first().ident)
     }
 
     @Test

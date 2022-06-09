@@ -5,16 +5,21 @@ import kotliquery.param
 import kotliquery.queryOf
 import no.nav.tiltakspenger.mottak.db.DataSource.session
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
+import org.postgresql.util.PSQLException
 
 object SoknadQueries {
     @Language("SQL")
     val soknaderQuery = """
-        select p.fornavn, p.etternavn, dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, p.ident, 
-        deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
-        system_slutt_dato, tiltak_arrangoer, tiltak_type
+        select p.fornavn, p.etternavn, soknad.dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
+        p.ident, deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
+        system_slutt_dato, tiltak_arrangoer, tiltak_type, b.fornavn barn_fornavn, b.etternavn barn_etternavn, 
+        b.bosted barn_bosted, b.alder barn_alder, b.ident barn_ident
         from soknad
         join person p on soknad.ident = p.ident
+        left join barnetillegg as b on soknad.dokumentinfo_id = b.dokumentinfo_id 
+            and soknad.journalpost_id = b.journalpost_id
         where :ident IS NULL or soknad.ident = :ident 
         limit :pageSize 
         offset :offset
@@ -36,7 +41,7 @@ object SoknadQueries {
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
 
     fun listSoknader(pageSize: Int, offset: Int, ident: String?): List<Soknad> {
-        return session.run(
+        val soknader = session.run(
             queryOf(
                 soknaderQuery,
                 mapOf(
@@ -44,8 +49,13 @@ object SoknadQueries {
                     "offset" to offset,
                     "ident" to ident.param<String>()
                 )
-            ).map(::fromRow).asList
+            ).map(Soknad::fromRow).asList
         )
+            .groupBy { it.id }
+            .map { (_, soknader) ->
+                soknader.reduce { acc, soknad -> soknad.copy(barnetillegg = acc.barnetillegg + soknad.barnetillegg) }
+            }
+        return soknader
     }
 
     fun insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String, soknad: Soknad) {
@@ -74,8 +84,8 @@ object SoknadQueries {
     }
 }
 
-fun fromRow(row: Row): Soknad {
-    return Soknad(
+fun Soknad.Companion.fromRow(row: Row): Soknad =
+    Soknad(
         id = row.int("dokumentinfo_id").toString(),
         fornavn = row.string("fornavn"),
         etternavn = row.string("etternavn"),
@@ -90,6 +100,22 @@ fun fromRow(row: Row): Soknad {
         brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
         brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
         systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
-        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato")
+        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
+        barnetillegg = if (row.hasBarnetillegg()) listOf(Barnetillegg.fromRow(row)) else emptyList()
     )
+
+fun Row.hasBarnetillegg(): Boolean {
+    return try {
+        this.stringOrNull("barn_ident")?.isNotEmpty() ?: false
+    } catch (_: PSQLException) {
+        false
+    }
 }
+
+fun Barnetillegg.Companion.fromRow(row: Row): Barnetillegg = Barnetillegg(
+    fornavn = row.string("barn_fornavn"),
+    etternavn = row.string("barn_etternavn"),
+    alder = row.int("barn_alder"),
+    bosted = row.string("barn_bosted"),
+    ident = row.string("barn_ident"),
+)
