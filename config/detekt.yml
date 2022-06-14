@@ -1,3 +1,7 @@
+formatting:
+  NoWildcardImports:
+    active: false
+
 style:
   WildcardImport:
     active: false
