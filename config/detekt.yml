@@ -1,3 +1,33 @@
 style:
   WildcardImport:
     active: false
+
+complexity:
+  TooManyFunctions:
+    thresholdInFiles: 13
+
+naming:
+  ClassNaming:
+    classPattern: '[A-ZÆØÅ][a-zæøåA-ZÆØÅ0-9]*'
+  ConstructorParameterNaming:
+    parameterPattern: '[a-zæøå][A-ZÆØÅa-zæøå0-9]*'
+    privateParameterPattern: '[a-zæøå][A-ZÆØÅa-zæøå0-9]*'
+  EnumNaming:
+    enumEntryPattern: '[A-ZÆØÅ][_a-zæøåA-ZÆØÅ0-9]*'
+  FunctionNaming:
+    functionPattern: '[a-zæøå][a-zæøåA-ZÆØÅ0-9]*'
+  FunctionParameterNaming:
+    parameterPattern: '[a-zæøå][A-ZÆØÅa-zæøå0-9]*'
+  ObjectPropertyNaming:
+    constantPattern: '[A-ZÆØÅa-zæøå][_A-ZÆØÅa-zæøå0-9]*'
+    propertyPattern: '[A-ZÆØÅa-zæøå][_A-ZÆØÅa-zæøå0-9]*'
+    privatePropertyPattern: '(_)?[A-ZÆØÅa-zæøå][_A-ZÆØÅa-zæøå0-9]*'
+  PackageNaming:
+    packagePattern: '[a-zæøå]+(\.[a-zæøå][A-ZÆØÅa-zæøå0-9]*)*'
+  TopLevelPropertyNaming:
+    constantPattern: '[A-ZÆØÅ][_A-ZÆØÅ0-9]*'
+    propertyPattern: '[A-ZÆØÅa-zæøå][_A-ZÆØÅa-zæøå0-9]*'
+    privatePropertyPattern: '_?[A-ZÆØÅa-zæøå][_A-ZÆØÅa-zæøå0-9]*'
+  VariableNaming:
+    variablePattern: '[a-zæøå][A-ZÆØÅa-zæøå0-9]*'
+    privateVariablePattern: '(_)?[a-zæøå][A-ZÆØÅa-zæøå0-9]*'
