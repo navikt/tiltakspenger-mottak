@@ -34,7 +34,7 @@ jobs:
         env:
           GRADLE_BUILD_ACTION_CACHE_DEBUG_ENABLED: true
         with:
-          arguments: test shadowJar --continue --no-daemon --no-build-cache
+          arguments: build --continue --no-daemon --no-build-cache
 
       - name: Build and push Docker image
         if: github.ref == 'refs/heads/main'
