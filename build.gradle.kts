@@ -15,7 +15,6 @@ plugins {
     id("com.github.ben-manes.versions") version "0.42.0"
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
     id("ca.cutterslade.analyze") version "1.9.0"
-    id("org.barfuin.gradle.taskinfo") version "1.4.0"
 }
 
 repositories {
