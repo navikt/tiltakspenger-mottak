@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
@@ -114,7 +115,7 @@ internal class JoarkConsumer(
             records.onEach { record ->
                 if (isCorrectTemaAndStatus(record)) {
                     LOG.info { "Mottok joark-melding: $record" }
-                    scope.launch {
+                    runBlocking {
                         LOG.debug { "retreiving soknad" }
                         handleSoknad(record.key())
                     }
