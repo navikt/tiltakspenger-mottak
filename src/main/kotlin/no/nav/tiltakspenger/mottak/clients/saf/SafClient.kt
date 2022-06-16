@@ -37,13 +37,9 @@ object SafClient {
             setBody(Graphql(journalpost(journalpostId)))
         }.body()
 
-        if (safResponse.errors != null) {
-            throw NotFoundException(
-                "Det oppsto en feil ved å hente data fra SAF graphql. Message: ${safResponse.errors[0].message}"
-            )
-        }
-        val journalPostResponse = safResponse.data?.journalpost
-        return toJournalfortDokumentMetadata(journalPostResponse)
+        if (safResponse.errors != null) throw NotFoundException("Error from SAF: ${safResponse.errors}")
+        val journalpostResponse = safResponse.data?.journalpost
+        return toJournalfortDokumentMetadata(journalpostResponse)
     }
 
     suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
