@@ -27,16 +27,16 @@ suspend fun handleSoknad(journalPostId: String) {
                 json,
                 soknad
             )
+            // Can not be inserted before soknad exists
+            soknad.barnetillegg.map {
+                BarnetilleggQueries.insertBarnetillegg(
+                    barnetillegg = it,
+                    journalPostId = journalPostId.toInt(),
+                    dokumentInfoId = dokumentInfoId
+                )
+            }
         } catch (e: org.postgresql.util.PSQLException) {
             LOG.warn(e) { "Caught exception to be able to move on with life" }
-        }
-        // Can not be inserted before soknad exists
-        soknad.barnetillegg.map {
-            BarnetilleggQueries.insertBarnetillegg(
-                barnetillegg = it,
-                journalPostId = journalPostId.toInt(),
-                dokumentInfoId = dokumentInfoId
-            )
         }
     } else {
         LOG.info { "Journalpost with ID $journalPostId was not handled" }
