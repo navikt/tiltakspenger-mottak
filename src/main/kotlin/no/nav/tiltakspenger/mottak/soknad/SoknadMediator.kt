@@ -20,13 +20,17 @@ suspend fun handleSoknad(journalPostId: String) {
         LOG.info { "Saving soknad to database with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
             ?: throw IllegalStateException("Missing dokumentInfoId for søknad")
-        SoknadQueries.insertSoknad(
-            journalPostId.toInt(),
-            dokumentInfoId,
-            json,
-            soknad
-        )
-        // Can not inserted before soknad is exist
+        try {
+            SoknadQueries.insertSoknad(
+                journalPostId.toInt(),
+                dokumentInfoId,
+                json,
+                soknad
+            )
+        } catch (e: org.postgresql.util.PSQLException) {
+            LOG.warn(e) { "Caught exception to be able to move on with life" }
+        }
+        // Can not be inserted before soknad exists
         soknad.barnetillegg.map {
             BarnetilleggQueries.insertBarnetillegg(
                 barnetillegg = it,
