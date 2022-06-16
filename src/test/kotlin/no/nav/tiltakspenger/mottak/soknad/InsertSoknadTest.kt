@@ -7,6 +7,7 @@ import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
 import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.testcontainers.junit.jupiter.Container
@@ -34,7 +35,7 @@ internal class InsertSoknadTest {
     fun `should be able to insert and retrieve søknad`() {
         val ident = "123412341"
         PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
-        SoknadQueries.insertSoknad(12317, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        SoknadQueries.insertIfNotExists(12317, dokumentInfoId, rawJson, soknad.copy(ident = ident))
 
         val soknader = SoknadQueries.listSoknader(10, 0, ident)
         val matchingSoknad = soknader.find { it.ident == ident }
@@ -43,11 +44,25 @@ internal class InsertSoknadTest {
     }
 
     @Test
+    fun `do not insert soknad if it already exists`() {
+        val ident = "123412341"
+        val journalpostId = 12318
+        PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
+        PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
+        SoknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        try {
+            SoknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        } catch (e: org.postgresql.util.PSQLException) {
+            fail("Exception thrown $e")
+        }
+    }
+
+    @Test
     fun `should handle 2 barnetillegg`() {
         val ident = "123412342"
         val journalpostId = 12318
         PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
-        SoknadQueries.insertSoknad(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        SoknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
         BarnetilleggQueries.insertBarnetillegg(
             Barnetillegg(
                 fornavn = "Sig",

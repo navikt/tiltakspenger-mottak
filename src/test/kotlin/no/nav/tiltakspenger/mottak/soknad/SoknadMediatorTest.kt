@@ -11,7 +11,7 @@ import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
 import no.nav.tiltakspenger.mottak.graphql.JournalfortDokumentMetaData
 import org.junit.jupiter.api.Test
 
-internal class SoknadMediatorKtTest {
+internal class SoknadMediatorTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -51,7 +51,7 @@ internal class SoknadMediatorKtTest {
         )
         coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
         mockkObject(SoknadQueries)
-        coEvery { SoknadQueries.insertSoknad(any(), any(), any(), any()) } returns Unit
+        coEvery { SoknadQueries.insertIfNotExists(any(), any(), any(), any()) } returns Unit
         mockkObject(PersonQueries)
         coEvery { PersonQueries.insertIfNotExists(any(), any(), any()) } returns Unit
 
@@ -64,7 +64,7 @@ internal class SoknadMediatorKtTest {
         coVerify(exactly = 1) { PersonQueries.insertIfNotExists(any(), any(), any()) }
         coVerify(exactly = 1) {
             SoknadQueries
-                .insertSoknad(journalpostId.toInt(), dokumentInfoId.toInt(), rawJson, any())
+                .insertIfNotExists(journalpostId.toInt(), dokumentInfoId.toInt(), rawJson, any())
         }
     }
 }

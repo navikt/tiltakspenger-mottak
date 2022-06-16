@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.mottak.soknad
 import kotliquery.Row
 import kotliquery.param
 import kotliquery.queryOf
+import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.db.DataSource.session
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
 import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
@@ -10,6 +11,8 @@ import org.intellij.lang.annotations.Language
 import org.postgresql.util.PSQLException
 
 object SoknadQueries {
+    private val LOG = KotlinLogging.logger {}
+
     @Language("SQL")
     val soknaderQuery = """
         select p.fornavn, p.etternavn, soknad.dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
@@ -33,10 +36,14 @@ object SoknadQueries {
         insert into soknad (ident, journalpost_id,  dokumentinfo_id, data, opprettet_dato, bruker_start_dato, 
         bruker_slutt_dato, system_start_dato, system_slutt_dato, deltar_kvp, deltar_introduksjonsprogrammet, 
         opphold_institusjon, type_institusjon, tiltak_arrangoer, tiltak_type) 
-        values (:ident, :journalPostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
+        values (:ident, :journalpostId, :dokumentInfoId, to_jsonb(:data), :opprettetDato, :brukerStartDato, 
         :brukerSluttDato, :systemStartDato, :systemSluttDato, :deltarKvp, :deltarIntroduksjonsprogrammet,
         :oppholdInstitusjon, :typeInstitusjon, :tiltak_arrangoer, :tiltak_type)
     """.trimIndent()
+
+    @Language("SQL")
+    private val existsQuery =
+        "select exists(select 1 from soknad where journalpost_id=:journalpostId and dokumentinfo_id=:dokumentInfoId)"
 
     fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
 
@@ -58,13 +65,13 @@ object SoknadQueries {
         return soknader
     }
 
-    fun insertSoknad(journalPostId: Int?, dokumentInfoId: Int?, data: String, soknad: Soknad) {
+    private fun insertSoknad(journalpostId: Int, dokumentInfoId: Int, data: String, soknad: Soknad) {
         session.run(
             queryOf(
                 insertQuery,
                 mapOf(
                     "ident" to soknad.ident,
-                    "journalPostId" to journalPostId,
+                    "journalpostId" to journalpostId,
                     "dokumentInfoId" to dokumentInfoId,
                     "opprettetDato" to soknad.opprettet,
                     "brukerStartDato" to soknad.brukerRegistrertStartDato,
@@ -82,6 +89,22 @@ object SoknadQueries {
             ).asUpdate
         )
     }
+
+    fun insertIfNotExists(journalpostId: Int, dokumentInfoId: Int, data: String, soknad: Soknad) {
+        if (exists(journalpostId, dokumentInfoId)) {
+            LOG.info { "Søknad with journalpostId $journalpostId and dokumentInfoId $dokumentInfoId already exists" }
+        } else {
+            LOG.info { "Insert søknad with journalpostId $journalpostId and dokumentInfoId $dokumentInfoId" }
+            insertSoknad(journalpostId, dokumentInfoId, data, soknad)
+        }
+    }
+
+    private fun exists(journalpostId: Int, dokumentInfoId: Int): Boolean = session.run(
+        queryOf(
+            existsQuery,
+            mapOf("journalpostId" to journalpostId, "dokumentInfoId" to dokumentInfoId)
+        ).map { row -> row.boolean("exists") }.asSingle
+    ) ?: throw InternalError("Failed to check if soknad exists")
 }
 
 fun Soknad.Companion.fromRow(row: Row): Soknad =
