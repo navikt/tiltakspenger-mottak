@@ -1,6 +1,5 @@
 val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "2.0.2"
-val log4jVersion = "2.17.2"
 val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.2"
 val prometheusVersion = "0.15.0"
@@ -29,10 +28,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$kotlinxCoroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:$kotlinxSerializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$kotlinxSerializationVersion")
-    implementation("org.apache.logging.log4j:log4j-api:$log4jVersion")
-    implementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
-    implementation("org.apache.logging.log4j:log4j-layout-template-json:$log4jVersion")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
+    implementation("ch.qos.logback:logback-classic:1.2.11")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.2")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-http-jvm:$ktorVersion")
