@@ -11,7 +11,6 @@ plugins {
     application
     kotlin("jvm") version "1.7.0"
     kotlin("plugin.serialization") version "1.7.0"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
     id("com.github.ben-manes.versions") version "0.42.0"
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
     id("ca.cutterslade.analyze") version "1.9.0"
@@ -138,6 +137,19 @@ fun isNonStable(version: String): Boolean {
     return isStable.not()
 }
 
+tasks.withType<Jar>().configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(mapOf("Main-Class" to application.mainClass.get()))
+    }
+
+    from(
+        configurations.runtimeClasspath.get().map {
+            if (it.isDirectory) it else zipTree(it)
+        }
+    )
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = javaVersion.toString()
@@ -149,10 +161,6 @@ tasks {
     test {
         // JUnit 5 support
         useJUnitPlatform()
-    }
-    shadowJar {
-        dependsOn("test")
-        transform(com.github.jengelman.gradle.plugins.shadow.transformers.Log4j2PluginsCacheFileTransformer::class.java)
     }
     // https://github.com/ben-manes/gradle-versions-plugin
     dependencyUpdates {
