@@ -30,8 +30,8 @@ const val PORT = 8080
 const val LEEWAY = 3L
 
 fun main() {
+    Thread.currentThread().setUncaughtExceptionHandler { _, e -> LOG.error("Uhåndtert feil", e) }
     LOG.info { "starting server" }
-    Thread.setDefaultUncaughtExceptionHandler { _, e -> LOG.error(e) { e.message } }
     flywayMigrate()
     val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
 
