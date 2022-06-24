@@ -17,5 +17,6 @@ object HttpClient {
             level = LogLevel.NONE
         }
         install(ContentNegotiation) { json(Json { ignoreUnknownKeys = true }) }
+        expectSuccess = true
     }
 }
