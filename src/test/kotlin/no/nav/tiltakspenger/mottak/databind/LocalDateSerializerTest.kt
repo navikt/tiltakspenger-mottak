@@ -26,7 +26,7 @@ internal class LocalDateSerializerTest {
         val json = Json.encodeToString(classForTest)
 
         // then
-        JSONAssert.assertEquals("{dato:2022-01-01}", json, JSONCompareMode.LENIENT)
+        JSONAssert.assertEquals("""{dato:"2022-01-01"}""", json, JSONCompareMode.LENIENT)
     }
 
     @Test
