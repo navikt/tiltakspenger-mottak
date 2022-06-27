@@ -23,7 +23,7 @@ fun Route.healthRoutes(healthChecks: List<HealthCheck>) {
             }
         }
     }.also { LOG.info { "setting up endpoint /metrics" } }
-    route("/isAlive") {
+    route("/isalive") {
         get {
             val failedHealthChecks = healthChecks.filter { it.status() == HealthStatus.ULYKKELIG }
             if (failedHealthChecks.isNotEmpty()) {
@@ -33,10 +33,10 @@ fun Route.healthRoutes(healthChecks: List<HealthCheck>) {
                 call.respondText(text = "ALIVE", contentType = ContentType.Text.Plain, status = OK)
             }
         }
-    }.also { LOG.info { "setting up endpoint /isAlive" } }
-    route("/isReady") {
+    }.also { LOG.info { "setting up endpoint /isalive" } }
+    route("/isready") {
         get {
             call.respondText(text = "READY", contentType = ContentType.Text.Plain)
         }
-    }.also { LOG.info { "setting up endpoint /isReady" } }
+    }.also { LOG.info { "setting up endpoint /isready" } }
 }

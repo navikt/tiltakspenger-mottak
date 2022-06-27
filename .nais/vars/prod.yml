@@ -1,0 +1,10 @@
+configmap: tpts-tiltakspenger-mottak-prod
+kafka:
+  pool: nav-prod
+sqlInstances:
+  name: tiltakspenger-mottak-prod
+  diskAutoresize: true
+  pointInTimeRecovery: true
+ingress:
+  url: https://tiltakspenger-mottak.prod.intern.nav.no
+cluster: prod-gcp

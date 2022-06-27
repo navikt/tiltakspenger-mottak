@@ -9,14 +9,14 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - https://tiltakspenger-mottak.dev.intern.nav.no
+    - {{ ingress.url }}
   azure:
     application:
       enabled: true
   liveness:
-    path: /isAlive
+    path: /isalive
   readiness:
-    path: /isReady
+    path: /isready
   prometheus:
     enabled: true
     path: /metrics
@@ -24,17 +24,17 @@ spec:
     min: 1
     max: 1
   kafka:
-    pool: nav-dev
+    pool: {{ kafka.pool }}
   tokenx:
     enabled: true
   envFrom:
-    - configmap: tpts-tiltakspenger-mottak-dev
+    - configmap: {{ configmap }}
   gcp:
     sqlInstances:
-      - name: tiltakspenger-mottak-dev
+      - name: {{ sqlInstances.name }}
         type: POSTGRES_14
-        diskAutoresize: false # prod: true
-        pointInTimeRecovery: false # prod: true
+        diskAutoresize: {{ sqlInstances.diskAutoresize }}
+        pointInTimeRecovery: {{ sqlInstances.pointInTimeRecovery }}
         databases:
           - name: mottak
             envVarPrefix: DB
@@ -43,4 +43,4 @@ spec:
       rules:
         - application: tpts-tiltakspenger-flate
           namespace: tpts
-          cluster: dev-gcp
+          cluster: {{ cluster }}
