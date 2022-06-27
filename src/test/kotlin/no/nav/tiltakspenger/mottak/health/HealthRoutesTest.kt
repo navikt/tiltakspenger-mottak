@@ -14,7 +14,7 @@ internal class HealthRoutesTest {
             routing {
                 healthRoutes(emptyList())
             }
-            val response = client.get("/isAlive")
+            val response = client.get("/isalive")
             assertEquals(HttpStatusCode.OK, response.status)
         }
     }
@@ -28,7 +28,7 @@ internal class HealthRoutesTest {
             routing {
                 healthRoutes(listOf(healthCheck))
             }
-            val response = client.get("/isAlive")
+            val response = client.get("/isalive")
             assertEquals(HttpStatusCode.OK, response.status)
         }
     }
@@ -45,7 +45,7 @@ internal class HealthRoutesTest {
             val client = createClient {
                 expectSuccess = false
             }
-            val response = client.get("/isAlive")
+            val response = client.get("/isalive")
             assertEquals(HttpStatusCode.ServiceUnavailable, response.status)
         }
     }
