@@ -1,5 +1,5 @@
 val javaVersion = JavaVersion.VERSION_17
-val ktorVersion = "2.0.2"
+val ktorVersion = "2.0.3"
 val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.3"
 val prometheusVersion = "0.16.0"
