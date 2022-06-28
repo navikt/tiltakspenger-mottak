@@ -157,18 +157,13 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
                         LOG.debug { "retreiving soknad" }
-                        val soknad = handleSoknad(record.key())
-                        // language=JSON
-                        val json = """
-                                    { 
-                                    "@event_name" : "søknad_mottatt",
-                                    "søknad": ${objectMapper.writeValueAsString(soknad)}
-                                    }"""
+                        val sokn = handleSoknad(record.key())
+                        LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                         producer.send(
                             ProducerRecord(
                                 TPTS_RAPID_NAME,
                                 record.key(),
-                                json
+                                """{"@event_name":"søknad_mottatt","søknad":${objectMapper.writeValueAsString(sokn)}}"""
                             )
                         )
                     }
