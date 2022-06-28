@@ -20,8 +20,9 @@ import no.nav.tiltakspenger.mottak.applications.applicationRoutes
 import no.nav.tiltakspenger.mottak.db.flywayMigrate
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.healthRoutes
-import no.nav.tiltakspenger.mottak.joark.JoarkConsumer
+import no.nav.tiltakspenger.mottak.joark.JoarkReplicator
 import no.nav.tiltakspenger.mottak.joark.createKafkaConsumer
+import no.nav.tiltakspenger.mottak.joark.createKafkaProducer
 import no.nav.tiltakspenger.mottak.soknad.soknadRoutes
 import java.net.URI
 
@@ -33,7 +34,7 @@ fun main() {
     Thread.currentThread().setUncaughtExceptionHandler { _, e -> LOG.error("Uhåndtert feil", e) }
     LOG.info { "starting server" }
     flywayMigrate()
-    val joarkConsumer = JoarkConsumer(createKafkaConsumer()).also { it.start() }
+    val joarkReplicator = JoarkReplicator(createKafkaConsumer(), createKafkaProducer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
         acceptJson()
@@ -45,7 +46,7 @@ fun main() {
             allowHost("127.0.0.1:3000")
             allowHost("tpts-tiltakspenger-flate.dev.intern.nav.no")
         }
-        appRoutes(listOf(joarkConsumer))
+        appRoutes(listOf(joarkReplicator))
     }.start(wait = true)
 
     Runtime.getRuntime().addShutdownHook(

@@ -7,10 +7,9 @@ import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
 
 private val LOG = KotlinLogging.logger {}
 
-suspend fun handleSoknad(journalpostId: String) {
+suspend fun handleSoknad(journalpostId: String): Soknad? {
     LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
     val journalfortDokumentMetaData = SafClient.hentMetadataForJournalpost(journalpostId)
-
     if (journalfortDokumentMetaData != null) {
         LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
@@ -33,7 +32,9 @@ suspend fun handleSoknad(journalpostId: String) {
                 dokumentInfoId = dokumentInfoId
             )
         }
+        return soknad
     } else {
         LOG.info { "Journalpost with ID $journalpostId was not handled" }
+        return null
     }
 }

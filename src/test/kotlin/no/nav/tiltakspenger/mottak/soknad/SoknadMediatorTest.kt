@@ -9,6 +9,8 @@ import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
 import no.nav.tiltakspenger.mottak.clients.saf.SafClient
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
 import no.nav.tiltakspenger.mottak.graphql.JournalfortDokumentMetaData
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
 internal class SoknadMediatorTest {
@@ -24,9 +26,10 @@ internal class SoknadMediatorTest {
         coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(null)
 
         // when
-        handleSoknad(journalpostId)
+        val soknad = handleSoknad(journalpostId)
 
         // then
+        assertNull(soknad)
         coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 0) { SafClient.hentSoknad(any()) }
     }
@@ -56,9 +59,10 @@ internal class SoknadMediatorTest {
         coEvery { PersonQueries.insertIfNotExists(any(), any(), any()) } returns Unit
 
         // when
-        handleSoknad(journalpostId)
+        val soknad = handleSoknad(journalpostId)
 
         // then
+        assertEquals("12304", soknad?.id)
         coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
         coVerify(exactly = 1) { PersonQueries.insertIfNotExists(any(), any(), any()) }

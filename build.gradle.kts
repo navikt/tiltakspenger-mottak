@@ -5,6 +5,7 @@ val kotlinxCoroutinesVersion = "1.6.3"
 val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.2"
 val kafkaClientsVersion = "3.2.0"
+val jacksonVersion = "2.13.3"
 
 plugins {
     application
@@ -79,6 +80,8 @@ dependencies {
     implementation("org.apache.kafka:kafka-clients:$kafkaClientsVersion")
     implementation("org.apache.avro:avro:1.11.0")
     implementation("io.confluent:kafka-avro-serializer:7.1.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")

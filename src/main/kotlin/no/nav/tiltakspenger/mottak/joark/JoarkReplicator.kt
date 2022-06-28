@@ -2,6 +2,11 @@
 
 package no.nav.tiltakspenger.mottak.joark
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClientConfig
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
@@ -11,10 +16,11 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
+import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
+import no.nav.tiltakspenger.mottak.joarkTopicName
 import no.nav.tiltakspenger.mottak.soknad.handleSoknad
-import no.nav.tiltakspenger.mottak.topicName
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -22,11 +28,16 @@ import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.consumer.KafkaConsumer
+import org.apache.kafka.clients.producer.KafkaProducer
+import org.apache.kafka.clients.producer.Producer
+import org.apache.kafka.clients.producer.ProducerConfig
+import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.common.config.SslConfigs
 import org.apache.kafka.common.errors.WakeupException
 import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.kafka.common.serialization.StringSerializer
 import java.time.Duration
 import java.util.Properties
 
@@ -60,14 +71,43 @@ fun createKafkaConsumer(): KafkaConsumer<String, GenericRecord> {
             it[SchemaRegistryClientConfig.USER_INFO_CONFIG] =
                 System.getenv("KAFKA_SCHEMA_REGISTRY_USER") + ":" + System.getenv("KAFKA_SCHEMA_REGISTRY_PASSWORD")
         }
-    ).also { it.subscribe(listOf(topicName())) }
+    ).also { it.subscribe(listOf(joarkTopicName())) }
 }
 
-internal class JoarkConsumer(
+fun createKafkaProducer(): KafkaProducer<String, String> {
+    return KafkaProducer(
+        Properties().also {
+            it[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = System.getenv("KAFKA_BROKERS")
+            it[CommonClientConfigs.SECURITY_PROTOCOL_CONFIG] = SecurityProtocol.SSL.name
+            it[SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG] = ""
+            it[SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG] = "jks"
+            it[SslConfigs.SSL_KEYSTORE_TYPE_CONFIG] = "PKCS12"
+            it[SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG] = System.getenv("KAFKA_TRUSTSTORE_PATH")
+            it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = System.getenv("KAFKA_CREDSTORE_PASSWORD")
+            it[SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG] = System.getenv("KAFKA_KEYSTORE_PATH")
+            it[SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG] = System.getenv("KAFKA_CREDSTORE_PASSWORD")
+            it[ProducerConfig.ACKS_CONFIG] = "all"
+            it[ProducerConfig.LINGER_MS_CONFIG] = "0"
+            it[ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION] = "1"
+        },
+        StringSerializer(),
+        StringSerializer()
+    )
+}
+
+internal class JoarkReplicator(
     private val consumer: Consumer<String, GenericRecord>,
+    private val producer: Producer<String, String>,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : HealthCheck {
     private lateinit var job: Job
+
+    companion object {
+        val objectMapper: ObjectMapper = jacksonObjectMapper()
+            .registerModule(JavaTimeModule())
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+    }
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread(::shutdownHook))
@@ -76,14 +116,14 @@ internal class JoarkConsumer(
     override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
 
     fun start() {
-        LOG.info { "starting JoarkConsumer" }
+        LOG.info { "starting JoarkReplicator" }
         job = scope.launch {
             run()
         }
     }
 
     fun stop() {
-        LOG.info { "stopping JoarkConsumer" }
+        LOG.info { "stopping JoarkReplicator" }
         consumer.wakeup()
         job.cancel()
     }
@@ -117,7 +157,20 @@ internal class JoarkConsumer(
                     LOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
                         LOG.debug { "retreiving soknad" }
-                        handleSoknad(record.key())
+                        val soknad = handleSoknad(record.key())
+                        // language=JSON
+                        val json = """
+                                    { 
+                                    "@event_name" : "søknad_mottatt",
+                                    "søknad": ${objectMapper.writeValueAsString(soknad)}
+                                    }"""
+                        producer.send(
+                            ProducerRecord(
+                                TPTS_RAPID_NAME,
+                                record.key(),
+                                json
+                            )
+                        )
                     }
                 }
                 currentPartitionOffsets[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
@@ -141,6 +194,7 @@ internal class JoarkConsumer(
 
     private fun closeResources() {
         LOG.info { "close resources" }
+        tryAndLog(producer::close)
         tryAndLog(consumer::unsubscribe)
         tryAndLog(consumer::close)
     }

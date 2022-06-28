@@ -11,8 +11,10 @@ import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.MockConsumer
 import org.apache.kafka.clients.consumer.OffsetResetStrategy
+import org.apache.kafka.clients.producer.MockProducer
 import org.apache.kafka.common.KafkaException
 import org.apache.kafka.common.TopicPartition
+import org.apache.kafka.common.serialization.StringSerializer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Disabled
@@ -20,7 +22,7 @@ import org.junit.jupiter.api.Test
 
 private val LOG = KotlinLogging.logger {}
 
-internal class JoarkConsumerTest {
+internal class JoarkReplicatorTest {
     // From https://stash.adeo.no/projects/BOAF/repos/dok-avro/browse/dok-journalfoering-hendelse-v1/src/main/avro/schema/v1/JournalfoeringHendelse.avsc
     private val joarkjournalfoeringhendelserAvroSchema = Schema.Parser().parse(
         """{ 
@@ -54,7 +56,8 @@ internal class JoarkConsumerTest {
             assign(listOf(partition))
             updateBeginningOffsets(mapOf(partition to 0L))
         }
-        val joarkConsumer = JoarkConsumer(mockConsumer)
+        val mockProducer = MockProducer(false, StringSerializer(), StringSerializer())
+        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
@@ -65,29 +68,31 @@ internal class JoarkConsumerTest {
             )
         }
         runBlocking {
-            joarkConsumer.start()
+            joarkReplicator.start()
             // ikke optimalt med delay, men prod-koden har foreløpig ingen sideeffekter. Vil ha det når
             // SAF-integrasjonen er klar. Da kan vi sjekke for sideeffekten isteden
             delay(1000L)
             assertEquals(offsets.toLong(), mockConsumer.committed(setOf(partition))[partition]?.offset())
-            joarkConsumer.stop()
+            joarkReplicator.stop()
         }
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `exception i handteringen lukker konsumenten`() {
+    fun `exception i handteringen lukker konsument og produsent`() {
         val mockConsumer = MockConsumer<String, GenericRecord>(OffsetResetStrategy.EARLIEST).apply {
             setPollException(KafkaException())
         }
+        val mockProducer = MockProducer(false, StringSerializer(), StringSerializer())
         try {
             runTest {
-                JoarkConsumer(mockConsumer, this).start()
+                JoarkReplicator(mockConsumer, mockProducer, this).start()
             }
         } catch (e: KafkaException) {
             LOG.debug(e) { "Fanget exception" }
         } finally {
             assertTrue(mockConsumer.closed())
+            assertTrue(mockProducer.closed())
         }
     }
 }
