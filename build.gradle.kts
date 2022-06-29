@@ -18,6 +18,7 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
     maven("https://packages.confluent.io/maven/")
 }
 
@@ -82,6 +83,7 @@ dependencies {
     implementation("io.confluent:kafka-avro-serializer:7.1.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation("com.github.navikt:rapids-and-rivers:2022061809451655538329.d6deccc62862")
 
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")

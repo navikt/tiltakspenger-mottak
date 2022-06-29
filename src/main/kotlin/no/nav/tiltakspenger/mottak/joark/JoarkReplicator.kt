@@ -16,11 +16,13 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
+import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.joarkTopicName
 import no.nav.tiltakspenger.mottak.soknad.handleSoknad
+import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -160,12 +162,11 @@ internal class JoarkReplicator(
                         val soknad = handleSoknad(record.key())
                         LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                         if (soknad != null) {
-                            val json = objectMapper.writeValueAsString(soknad)
                             producer.send(
                                 ProducerRecord(
                                     TPTS_RAPID_NAME,
                                     record.key(),
-                                    """{"@event_name":"søknad_mottatt","søknad":$json"""
+                                    createJsonMessage(soknad)
                                 )
                             )
                         }
@@ -185,6 +186,9 @@ internal class JoarkReplicator(
             consumer.commitSync()
         }
     }
+
+    private fun createJsonMessage(soknad: Soknad) =
+        JsonMessage.newMessage(eventName = "søknad_mottat", mapOf("søknad" to soknad)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
