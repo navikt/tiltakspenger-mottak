@@ -1,10 +1,14 @@
 package no.nav.tiltakspenger.mottak.joark
 
+import io.mockk.coEvery
+import io.mockk.mockkStatic
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
+import no.nav.tiltakspenger.mottak.soknad.handleSoknad
+import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -93,6 +97,68 @@ internal class JoarkReplicatorTest {
         } finally {
             assertTrue(mockConsumer.closed())
             assertTrue(mockProducer.closed())
+        }
+    }
+
+    @Test
+    fun `søknad funnet gir en publisert melding`() {
+        val topicName = "topic"
+        val partition = TopicPartition(topicName, 0)
+        val journalpostId = 1L
+        val mockConsumer = MockConsumer<String, GenericRecord>(OffsetResetStrategy.EARLIEST).apply {
+            assign(listOf(partition))
+            updateBeginningOffsets(mapOf(partition to 0L))
+        }
+        val soknad = Soknad(
+            "id", null, null, "ident", false, false,
+            false, null, null, null, null, null, null, null, null, emptyList()
+        )
+        val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
+        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
+        mockkStatic("no.nav.tiltakspenger.mottak.soknad.SoknadMediatorKt")
+        coEvery { handleSoknad(journalpostId.toString()) } returns soknad
+        val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
+            put("journalpostId", journalpostId)
+            put("temaNytt", "IND")
+            put("journalpostStatus", "MOTTATT")
+        }
+        mockConsumer.addRecord(
+            ConsumerRecord(topicName, partition.partition(), 1L, "$journalpostId", record)
+        )
+        runBlocking {
+            joarkReplicator.start()
+            delay(500L)
+            assertEquals(1, mockProducer.history().size)
+            joarkReplicator.stop()
+        }
+    }
+
+    @Test
+    fun `ingen søknad funnet gir ingen feil`() {
+        val topicName = "topic"
+        val partition = TopicPartition(topicName, 0)
+        val journalpostId = 1L
+        val mockConsumer = MockConsumer<String, GenericRecord>(OffsetResetStrategy.EARLIEST).apply {
+            assign(listOf(partition))
+            updateBeginningOffsets(mapOf(partition to 0L))
+        }
+        val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
+        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
+        mockkStatic("no.nav.tiltakspenger.mottak.soknad.SoknadMediatorKt")
+        coEvery { handleSoknad(journalpostId.toString()) } returns null
+        val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
+            put("journalpostId", journalpostId)
+            put("temaNytt", "IND")
+            put("journalpostStatus", "MOTTATT")
+        }
+        mockConsumer.addRecord(
+            ConsumerRecord(topicName, partition.partition(), 1L, "$journalpostId", record)
+        )
+        runBlocking {
+            joarkReplicator.start()
+            delay(500L)
+            assertEquals(0, mockProducer.history().size)
+            joarkReplicator.stop()
         }
     }
 }

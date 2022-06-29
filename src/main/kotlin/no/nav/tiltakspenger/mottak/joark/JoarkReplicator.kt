@@ -157,15 +157,18 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
                         LOG.debug { "retreiving soknad" }
-                        val sokn = handleSoknad(record.key())
+                        val soknad = handleSoknad(record.key())
                         LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
-                        producer.send(
-                            ProducerRecord(
-                                TPTS_RAPID_NAME,
-                                record.key(),
-                                """{"@event_name":"søknad_mottatt","søknad":${objectMapper.writeValueAsString(sokn)}}"""
+                        if (soknad != null) {
+                            val json = objectMapper.writeValueAsString(soknad)
+                            producer.send(
+                                ProducerRecord(
+                                    TPTS_RAPID_NAME,
+                                    record.key(),
+                                    """{"@event_name":"søknad_mottatt","søknad":$json"""
+                                )
                             )
-                        )
+                        }
                     }
                 }
                 currentPartitionOffsets[TopicPartition(record.topic(), record.partition())] = record.offset() + 1
