@@ -188,7 +188,7 @@ internal class JoarkReplicator(
     }
 
     private fun createJsonMessage(soknad: Soknad) =
-        JsonMessage.newMessage(eventName = "søknad_mottat", mapOf("søknad" to soknad)).toJson()
+        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to soknad)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
