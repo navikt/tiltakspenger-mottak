@@ -3,7 +3,7 @@ val ktorVersion = "2.0.3"
 val kotlinxSerializationVersion = "1.3.3"
 val kotlinxCoroutinesVersion = "1.6.3"
 val prometheusVersion = "0.16.0"
-val testContainersVersion = "1.17.2"
+val testContainersVersion = "1.17.3"
 val kafkaClientsVersion = "3.2.0"
 val jacksonVersion = "2.13.3"
 
