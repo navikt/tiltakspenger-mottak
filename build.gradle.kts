@@ -79,7 +79,7 @@ dependencies {
     implementation("com.github.seratch:kotliquery:1.8.0")
     // Kafka
     implementation("org.apache.kafka:kafka-clients:$kafkaClientsVersion")
-    implementation("org.apache.avro:avro:1.11.0")
+    implementation("org.apache.avro:avro:1.11.1")
     implementation("io.confluent:kafka-avro-serializer:7.2.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
