@@ -64,7 +64,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
     implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
-    implementation("no.nav.security:token-client-core:2.1.2")
+    implementation("no.nav.security:token-client-core:2.1.3")
     implementation("com.nimbusds:nimbus-jose-jwt:9.23")
     implementation("com.auth0:java-jwt:4.0.0")
     implementation("com.auth0:jwks-rsa:0.21.1")
