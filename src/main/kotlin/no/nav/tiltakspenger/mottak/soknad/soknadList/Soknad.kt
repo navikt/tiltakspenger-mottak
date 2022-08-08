@@ -6,7 +6,6 @@ import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
 import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
-import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import java.time.LocalDate
 import java.time.LocalDateTime
 

@@ -4,8 +4,8 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
 import no.nav.tiltakspenger.mottak.soknad.SoknadDetails
+import no.nav.tiltakspenger.mottak.soknad.soknadList.Barnetillegg
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
-import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

@@ -5,8 +5,8 @@ import kotliquery.param
 import kotliquery.queryOf
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.db.DataSource.session
+import no.nav.tiltakspenger.mottak.soknad.soknadList.Barnetillegg
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
-import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
 import org.postgresql.util.PSQLException
 

@@ -17,7 +17,7 @@ suspend fun handleSoknad(journalpostId: String): Soknad? {
         val soknad = Soknad.fromJson(json)
         PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
-            ?: throw IllegalStateException("Missing dokumentInfoId for søknad")
+        checkNotNull(dokumentInfoId) { "Missing dokumentInfoId for søknad" }
         SoknadQueries.insertIfNotExists(
             journalpostId.toInt(),
             dokumentInfoId,

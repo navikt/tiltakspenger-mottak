@@ -11,8 +11,7 @@ import no.nav.tiltakspenger.mottak.joark.models.NorskBool
 object NorskBoolSerializer : KSerializer<NorskBool> {
     override fun deserialize(decoder: Decoder): NorskBool {
         val decoded = decoder.decodeString()
-        if (decoded != "nei" && decoded != "ja")
-            throw IllegalArgumentException("Failed to deserilaize field, expected 'ja' or 'nei'")
+        require(decoded == "nei" || decoded == "ja") { "Failed to deserilaize field, expected 'ja' or 'nei'" }
         return when (decoded) {
             "ja" -> NorskBool.Ja
             else -> NorskBool.Nei

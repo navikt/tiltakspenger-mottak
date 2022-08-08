@@ -1,4 +1,4 @@
-package no.nav.tpts.mottak.soknad.soknadList
+package no.nav.tiltakspenger.mottak.soknad.soknadList
 
 import kotlinx.serialization.Serializable
 

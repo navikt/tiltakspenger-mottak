@@ -3,8 +3,8 @@ package no.nav.tiltakspenger.mottak.soknad
 import no.nav.tiltakspenger.mottak.db.TestPostgresqlContainer
 import no.nav.tiltakspenger.mottak.db.flywayMigrate
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
+import no.nav.tiltakspenger.mottak.soknad.soknadList.Barnetillegg
 import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
-import no.nav.tpts.mottak.soknad.soknadList.Barnetillegg
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.fail
