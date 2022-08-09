@@ -1,9 +1,7 @@
-formatting:
-  NoWildcardImports:
-    active: false
-
 style:
   WildcardImport:
+    active: false
+  ForbiddenComment:
     active: false
 
 complexity:
