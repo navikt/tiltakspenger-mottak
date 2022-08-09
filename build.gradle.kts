@@ -23,7 +23,6 @@ repositories {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0")
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation(kotlin("stdlib"))
@@ -127,7 +126,6 @@ java {
 }
 
 detekt {
-    autoCorrect = true
     buildUponDefaultConfig = true
     allRules = false
     config = files("$projectDir/config/detekt.yml")
