@@ -1,8 +1,8 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import kotliquery.queryOf
 import no.nav.tiltakspenger.mottak.db.DataSource.session
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Barnetillegg
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
 import org.intellij.lang.annotations.Language
 
 object BarnetilleggQueries {

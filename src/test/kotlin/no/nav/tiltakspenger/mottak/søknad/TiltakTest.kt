@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull

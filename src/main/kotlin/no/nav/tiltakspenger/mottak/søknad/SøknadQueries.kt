@@ -1,20 +1,20 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import kotliquery.Row
 import kotliquery.param
 import kotliquery.queryOf
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.db.DataSource.session
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Barnetillegg
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.intellij.lang.annotations.Language
 import org.postgresql.util.PSQLException
 
-object SoknadQueries {
+object SøknadQueries {
     private val LOG = KotlinLogging.logger {}
 
     @Language("SQL")
-    val soknaderQuery = """
+    val søknaderQuery = """
         select p.fornavn, p.etternavn, soknad.dokumentinfo_id, opprettet_dato, bruker_start_dato, bruker_slutt_dato, 
         p.ident, deltar_kvp, deltar_introduksjonsprogrammet, opphold_institusjon, type_institusjon, system_start_dato, 
         system_slutt_dato, tiltak_arrangoer, tiltak_type, b.fornavn barn_fornavn, b.etternavn barn_etternavn, 
@@ -45,57 +45,57 @@ object SoknadQueries {
     private val existsQuery =
         "select exists(select 1 from soknad where journalpost_id=:journalpostId and dokumentinfo_id=:dokumentInfoId)"
 
-    fun countSoknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
+    fun countSøknader() = session.run(queryOf(totalQuery).map { row -> row.int("total") }.asSingle)
 
-    fun listSoknader(pageSize: Int, offset: Int, ident: String?): List<Soknad> {
-        val soknader = session.run(
+    fun listSøknader(pageSize: Int, offset: Int, ident: String?): List<Søknad> {
+        val søknader = session.run(
             queryOf(
-                soknaderQuery,
+                søknaderQuery,
                 mapOf(
                     "pageSize" to pageSize,
                     "offset" to offset,
                     "ident" to ident.param<String>()
                 )
-            ).map(Soknad::fromRow).asList
+            ).map(Søknad::fromRow).asList
         )
             .groupBy { it.id }
-            .map { (_, soknader) ->
-                soknader.reduce { acc, soknad -> soknad.copy(barnetillegg = acc.barnetillegg + soknad.barnetillegg) }
+            .map { (_, søknader) ->
+                søknader.reduce { acc, soknad -> soknad.copy(barnetillegg = acc.barnetillegg + soknad.barnetillegg) }
             }
-        return soknader
+        return søknader
     }
 
-    private fun insertSoknad(journalpostId: Int, dokumentInfoId: Int, data: String, soknad: Soknad) {
+    private fun insertSøknad(journalpostId: Int, dokumentInfoId: Int, data: String, søknad: Søknad) {
         session.run(
             queryOf(
                 insertQuery,
                 mapOf(
-                    "ident" to soknad.ident,
+                    "ident" to søknad.ident,
                     "journalpostId" to journalpostId,
                     "dokumentInfoId" to dokumentInfoId,
-                    "opprettetDato" to soknad.opprettet,
-                    "brukerStartDato" to soknad.brukerRegistrertStartDato,
-                    "brukerSluttDato" to soknad.brukerRegistrertSluttDato,
-                    "systemStartDato" to soknad.systemRegistrertStartDato,
-                    "systemSluttDato" to soknad.systemRegistrertSluttDato,
+                    "opprettetDato" to søknad.opprettet,
+                    "brukerStartDato" to søknad.brukerRegistrertStartDato,
+                    "brukerSluttDato" to søknad.brukerRegistrertSluttDato,
+                    "systemStartDato" to søknad.systemRegistrertStartDato,
+                    "systemSluttDato" to søknad.systemRegistrertSluttDato,
                     "data" to data,
-                    "deltarKvp" to soknad.deltarKvp,
-                    "deltarIntroduksjonsprogrammet" to soknad.deltarIntroduksjonsprogrammet,
-                    "oppholdInstitusjon" to soknad.oppholdInstitusjon,
-                    "type_institusjon" to soknad.typeInstitusjon,
-                    "tiltak_arrangoer" to soknad.tiltaksArrangoer,
-                    "tiltak_type" to soknad.tiltaksType
+                    "deltarKvp" to søknad.deltarKvp,
+                    "deltarIntroduksjonsprogrammet" to søknad.deltarIntroduksjonsprogrammet,
+                    "oppholdInstitusjon" to søknad.oppholdInstitusjon,
+                    "type_institusjon" to søknad.typeInstitusjon,
+                    "tiltak_arrangoer" to søknad.tiltaksArrangoer,
+                    "tiltak_type" to søknad.tiltaksType
                 )
             ).asUpdate
         )
     }
 
-    fun insertIfNotExists(journalpostId: Int, dokumentInfoId: Int, data: String, soknad: Soknad) {
+    fun insertIfNotExists(journalpostId: Int, dokumentInfoId: Int, data: String, søknad: Søknad) {
         if (exists(journalpostId, dokumentInfoId)) {
             LOG.info { "Søknad with journalpostId $journalpostId and dokumentInfoId $dokumentInfoId already exists" }
         } else {
             LOG.info { "Insert søknad with journalpostId $journalpostId and dokumentInfoId $dokumentInfoId" }
-            insertSoknad(journalpostId, dokumentInfoId, data, soknad)
+            insertSøknad(journalpostId, dokumentInfoId, data, søknad)
         }
     }
 
@@ -107,8 +107,8 @@ object SoknadQueries {
     ) ?: throw InternalError("Failed to check if soknad exists")
 }
 
-fun Soknad.Companion.fromRow(row: Row): Soknad =
-    Soknad(
+fun Søknad.Companion.fromRow(row: Row): Søknad =
+    Søknad(
         id = row.int("dokumentinfo_id").toString(),
         fornavn = row.string("fornavn"),
         etternavn = row.string("etternavn"),

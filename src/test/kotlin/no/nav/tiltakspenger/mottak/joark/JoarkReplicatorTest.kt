@@ -7,8 +7,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
-import no.nav.tiltakspenger.mottak.soknad.handleSoknad
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tiltakspenger.mottak.søknad.handleSøknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -110,14 +110,14 @@ internal class JoarkReplicatorTest {
             assign(listOf(partition))
             updateBeginningOffsets(mapOf(partition to 0L))
         }
-        val soknad = Soknad(
+        val søknad = Søknad(
             "id", null, null, "ident", false, false,
             false, null, null, null, null, null, null, null, null, emptyList()
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
         mockkStatic("no.nav.tiltakspenger.mottak.soknad.SoknadMediatorKt")
-        coEvery { handleSoknad(journalpostId.toString()) } returns soknad
+        coEvery { handleSøknad(journalpostId.toString()) } returns søknad
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
@@ -145,8 +145,8 @@ internal class JoarkReplicatorTest {
         }
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
-        mockkStatic("no.nav.tiltakspenger.mottak.soknad.SoknadMediatorKt")
-        coEvery { handleSoknad(journalpostId.toString()) } returns null
+        mockkStatic("no.nav.tiltakspenger.mottak.søknad.SøknadMediatorKt")
+        coEvery { handleSøknad(journalpostId.toString()) } returns null
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")

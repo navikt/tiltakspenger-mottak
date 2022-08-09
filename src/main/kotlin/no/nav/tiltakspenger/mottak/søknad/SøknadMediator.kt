@@ -1,38 +1,38 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.clients.saf.SafClient
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 
 private val LOG = KotlinLogging.logger {}
 
-suspend fun handleSoknad(journalpostId: String): Soknad? {
+suspend fun handleSøknad(journalpostId: String): Søknad? {
     LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
     val journalfortDokumentMetaData = SafClient.hentMetadataForJournalpost(journalpostId)
     if (journalfortDokumentMetaData != null) {
         LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
         LOG.info { "Retrieved søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
-        val soknad = Soknad.fromJson(json)
-        PersonQueries.insertIfNotExists(soknad.ident, soknad.fornavn, soknad.etternavn)
+        val søknad = Søknad.fromJson(json)
+        PersonQueries.insertIfNotExists(søknad.ident, søknad.fornavn, søknad.etternavn)
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
         checkNotNull(dokumentInfoId) { "Missing dokumentInfoId for søknad" }
-        SoknadQueries.insertIfNotExists(
+        SøknadQueries.insertIfNotExists(
             journalpostId.toInt(),
             dokumentInfoId,
             json,
-            soknad
+            søknad
         )
         // Can not be inserted before soknad exists
-        soknad.barnetillegg.map {
+        søknad.barnetillegg.map {
             BarnetilleggQueries.insertBarnetillegg(
                 barnetillegg = it,
                 journalpostId = journalpostId.toInt(),
                 dokumentInfoId = dokumentInfoId
             )
         }
-        return soknad
+        return søknad
     } else {
         LOG.info { "Journalpost with ID $journalpostId was not handled" }
         return null

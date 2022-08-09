@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import com.auth0.jwk.UrlJwkProvider
 import io.ktor.client.request.get
@@ -18,7 +18,7 @@ import no.nav.tiltakspenger.mottak.acceptJson
 import no.nav.tiltakspenger.mottak.appRoutes
 import no.nav.tiltakspenger.mottak.db.DataSource
 import no.nav.tiltakspenger.mottak.installAuth
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -26,10 +26,10 @@ import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import java.time.LocalDateTime
 
-internal class SoknadRoutesTest {
+internal class SøknadRoutesTest {
 
     private val mockSession = mockk<Session>(relaxed = false)
-    private val mockSoknad = Soknad(
+    private val mockSøknad = Søknad(
         id = "12312",
         fornavn = "Sigurd",
         etternavn = "Grøneng",
@@ -61,8 +61,8 @@ internal class SoknadRoutesTest {
 
     @Test
     fun `should get soknad list`() {
-        every { mockSession.run(any<ListResultQueryAction<Soknad>>()) } returns listOf(
-            mockSoknad
+        every { mockSession.run(any<ListResultQueryAction<Søknad>>()) } returns listOf(
+            mockSøknad
         )
         every { mockSession.run(any<NullableResultQueryAction<Int>>()) } returns 1
 
@@ -81,14 +81,14 @@ internal class SoknadRoutesTest {
     @Test
     fun `should paginate using query params`() {
         every {
-            mockSession.run(match<ListResultQueryAction<Soknad>> { it.query.paramMap["offset"] == 0 })
+            mockSession.run(match<ListResultQueryAction<Søknad>> { it.query.paramMap["offset"] == 0 })
         } returns listOf(
-            mockSoknad
+            mockSøknad
         )
         every {
-            mockSession.run(match<ListResultQueryAction<Soknad>> { it.query.paramMap["offset"] == 1 })
+            mockSession.run(match<ListResultQueryAction<Søknad>> { it.query.paramMap["offset"] == 1 })
         } returns listOf(
-            mockSoknad.copy(id = "12313", fornavn = "Martin")
+            mockSøknad.copy(id = "12313", fornavn = "Martin")
         )
         every { mockSession.run(any<NullableResultQueryAction<Int>>()) } returns 2
 
@@ -110,7 +110,7 @@ internal class SoknadRoutesTest {
     @Test
     fun `should tolerate offset bigger than total in pagination`() {
         every {
-            mockSession.run(any<ListResultQueryAction<Soknad>>())
+            mockSession.run(any<ListResultQueryAction<Søknad>>())
         } returns emptyList()
         every { mockSession.run(any<NullableResultQueryAction<Int>>()) } returns 0
 
@@ -128,7 +128,7 @@ internal class SoknadRoutesTest {
 
     @Test
     fun `should return 404 when soknad not found`() {
-        every { mockSession.run(any<NullableResultQueryAction<Soknad>>()) } returns null
+        every { mockSession.run(any<NullableResultQueryAction<Søknad>>()) } returns null
 
         testApplication {
             soknadTestRoutes()
@@ -163,6 +163,6 @@ internal class SoknadRoutesTest {
 fun ApplicationTestBuilder.soknadTestRoutes() {
     application { acceptJson() }
     routing {
-        soknadRoutes()
+        søknadRoutes()
     }
 }

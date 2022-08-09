@@ -21,8 +21,8 @@ import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.joarkTopicName
-import no.nav.tiltakspenger.mottak.soknad.handleSoknad
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tiltakspenger.mottak.søknad.handleSøknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -159,7 +159,7 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
                         LOG.debug { "retreiving soknad" }
-                        val soknad = handleSoknad(record.key())
+                        val soknad = handleSøknad(record.key())
                         LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                         if (soknad != null) {
                             producer.send(
@@ -187,8 +187,8 @@ internal class JoarkReplicator(
         }
     }
 
-    private fun createJsonMessage(soknad: Soknad) =
-        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to soknad)).toJson()
+    private fun createJsonMessage(søknad: Søknad) =
+        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&

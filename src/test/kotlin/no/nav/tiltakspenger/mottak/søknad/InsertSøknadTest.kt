@@ -1,10 +1,10 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import no.nav.tiltakspenger.mottak.db.TestPostgresqlContainer
 import no.nav.tiltakspenger.mottak.db.flywayMigrate
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Barnetillegg
-import no.nav.tiltakspenger.mottak.soknad.soknadList.Soknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
+import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.fail
@@ -14,7 +14,7 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 
 @Testcontainers
-internal class InsertSoknadTest {
+internal class InsertSøknadTest {
 
     companion object {
         @Container
@@ -24,7 +24,7 @@ internal class InsertSoknadTest {
 
     val rawJson = this::class.java.classLoader.getResource("soknad_med_tiltak_fra_arena.json")!!.readText()
     val dokumentInfoId = 321313
-    val soknad = Soknad.fromJson(rawJson)
+    val søknad = Søknad.fromJson(rawJson)
 
     @BeforeAll
     fun setup() {
@@ -34,11 +34,11 @@ internal class InsertSoknadTest {
     @Test
     fun `should be able to insert and retrieve søknad`() {
         val ident = "123412341"
-        PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
-        SoknadQueries.insertIfNotExists(12317, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        PersonQueries.insertIfNotExists(ident, søknad.fornavn, søknad.etternavn)
+        SøknadQueries.insertIfNotExists(12317, dokumentInfoId, rawJson, søknad.copy(ident = ident))
 
-        val soknader = SoknadQueries.listSoknader(10, 0, ident)
-        val matchingSoknad = soknader.find { it.ident == ident }
+        val søknader = SøknadQueries.listSøknader(10, 0, ident)
+        val matchingSoknad = søknader.find { it.ident == ident }
         assertNotNull(matchingSoknad)
         assertEquals(0, matchingSoknad?.barnetillegg?.size)
     }
@@ -47,11 +47,11 @@ internal class InsertSoknadTest {
     fun `do not insert soknad if it already exists`() {
         val ident = "123412341"
         val journalpostId = 12318
-        PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
-        PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
-        SoknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        PersonQueries.insertIfNotExists(ident, søknad.fornavn, søknad.etternavn)
+        PersonQueries.insertIfNotExists(ident, søknad.fornavn, søknad.etternavn)
+        SøknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, søknad.copy(ident = ident))
         try {
-            SoknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+            SøknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, søknad.copy(ident = ident))
         } catch (e: org.postgresql.util.PSQLException) {
             fail("Exception thrown $e")
         }
@@ -61,8 +61,8 @@ internal class InsertSoknadTest {
     fun `should handle 2 barnetillegg`() {
         val ident = "123412342"
         val journalpostId = 12318
-        PersonQueries.insertIfNotExists(ident, soknad.fornavn, soknad.etternavn)
-        SoknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, soknad.copy(ident = ident))
+        PersonQueries.insertIfNotExists(ident, søknad.fornavn, søknad.etternavn)
+        SøknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, søknad.copy(ident = ident))
         BarnetilleggQueries.insertBarnetillegg(
             Barnetillegg(
                 fornavn = "Sig",
@@ -86,7 +86,7 @@ internal class InsertSoknadTest {
             dokumentInfoId
         )
 
-        val soknader = SoknadQueries.listSoknader(10, 0, null)
+        val soknader = SøknadQueries.listSøknader(10, 0, null)
         val matchingSoknad = soknader.find { it.ident == ident }
         assertNotNull(matchingSoknad)
         assertEquals(2, matchingSoknad?.barnetillegg?.size)

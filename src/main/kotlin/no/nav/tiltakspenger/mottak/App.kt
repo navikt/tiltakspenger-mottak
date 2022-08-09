@@ -23,7 +23,7 @@ import no.nav.tiltakspenger.mottak.health.healthRoutes
 import no.nav.tiltakspenger.mottak.joark.JoarkReplicator
 import no.nav.tiltakspenger.mottak.joark.createKafkaConsumer
 import no.nav.tiltakspenger.mottak.joark.createKafkaProducer
-import no.nav.tiltakspenger.mottak.soknad.soknadRoutes
+import no.nav.tiltakspenger.mottak.søknad.søknadRoutes
 import java.net.URI
 
 private val LOG = KotlinLogging.logger {}
@@ -74,7 +74,7 @@ fun Application.appRoutes(healthChecks: List<HealthCheck>) {
         healthRoutes(healthChecks)
         applicationRoutes()
         authenticate("auth-jwt") {
-            soknadRoutes()
+            søknadRoutes()
         }
     }
 }

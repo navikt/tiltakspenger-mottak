@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString

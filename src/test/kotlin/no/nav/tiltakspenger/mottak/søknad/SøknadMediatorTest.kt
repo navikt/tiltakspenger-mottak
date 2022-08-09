@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.soknad
+package no.nav.tiltakspenger.mottak.søknad
 
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
-internal class SoknadMediatorTest {
+internal class SøknadMediatorTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -26,7 +26,7 @@ internal class SoknadMediatorTest {
         coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(null)
 
         // when
-        val soknad = handleSoknad(journalpostId)
+        val soknad = handleSøknad(journalpostId)
 
         // then
         assertNull(soknad)
@@ -53,13 +53,13 @@ internal class SoknadMediatorTest {
             journalfortDokumentMetaData
         )
         coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
-        mockkObject(SoknadQueries)
-        coEvery { SoknadQueries.insertIfNotExists(any(), any(), any(), any()) } returns Unit
+        mockkObject(SøknadQueries)
+        coEvery { SøknadQueries.insertIfNotExists(any(), any(), any(), any()) } returns Unit
         mockkObject(PersonQueries)
         coEvery { PersonQueries.insertIfNotExists(any(), any(), any()) } returns Unit
 
         // when
-        val soknad = handleSoknad(journalpostId)
+        val soknad = handleSøknad(journalpostId)
 
         // then
         assertEquals("12304", soknad?.id)
@@ -67,7 +67,7 @@ internal class SoknadMediatorTest {
         coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
         coVerify(exactly = 1) { PersonQueries.insertIfNotExists(any(), any(), any()) }
         coVerify(exactly = 1) {
-            SoknadQueries
+            SøknadQueries
                 .insertIfNotExists(journalpostId.toInt(), dokumentInfoId.toInt(), rawJson, any())
         }
     }

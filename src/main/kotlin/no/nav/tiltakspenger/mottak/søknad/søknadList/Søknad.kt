@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.soknad.soknadList
+package no.nav.tiltakspenger.mottak.søknad.søknadList
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -10,7 +10,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Serializable
-data class Soknad(
+data class Søknad(
     val id: String,
     val fornavn: String?,
     val etternavn: String?,
@@ -38,7 +38,7 @@ data class Soknad(
             ignoreUnknownKeys = true
         }
 
-        fun fromJson(json: String): Soknad {
+        fun fromJson(json: String): Søknad {
             val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
             val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
@@ -75,7 +75,7 @@ data class Soknad(
                     )
                 }
 
-            return Soknad(
+            return Søknad(
                 id = joarkSoknad.soknadId.toString(),
                 fornavn = personalia.properties.fornavn,
                 etternavn = personalia.properties.etternavn,
