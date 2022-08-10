@@ -1,11 +1,10 @@
 package no.nav.tiltakspenger.mottak.søknad
 
 import com.auth0.jwk.UrlJwkProvider
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
-import io.ktor.http.HttpStatusCode
-import io.ktor.server.testing.ApplicationTestBuilder
-import io.ktor.server.testing.testApplication
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.server.testing.*
 import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
@@ -31,8 +30,8 @@ internal class SøknadRoutesTest {
     private val mockSession = mockk<Session>(relaxed = false)
     private val mockSøknad = Søknad(
         id = "12312",
-        fornavn = "Sigurd",
-        etternavn = "Grøneng",
+        fornavn = "Gøyal",
+        etternavn = "Maskin",
         ident = "123",
         deltarKvp = false,
         deltarIntroduksjonsprogrammet = false,
@@ -88,7 +87,7 @@ internal class SøknadRoutesTest {
         every {
             mockSession.run(match<ListResultQueryAction<Søknad>> { it.query.paramMap["offset"] == 1 })
         } returns listOf(
-            mockSøknad.copy(id = "12313", fornavn = "Martin")
+            mockSøknad.copy(id = "12313", fornavn = "Liten")
         )
         every { mockSession.run(any<NullableResultQueryAction<Int>>()) } returns 2
 
