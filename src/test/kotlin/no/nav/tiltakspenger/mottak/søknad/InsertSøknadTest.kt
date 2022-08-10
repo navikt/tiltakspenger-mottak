@@ -65,22 +65,22 @@ internal class InsertSøknadTest {
         SøknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, søknad.copy(ident = ident))
         BarnetilleggQueries.insertBarnetillegg(
             Barnetillegg(
-                fornavn = "Sig",
-                etternavn = "Grø",
+                fornavn = "Gøyal",
+                etternavn = "Maskin",
                 alder = 15,
                 ident = "123412345",
-                bosted = "Førde"
+                bosted = "Asker"
             ),
             journalpostId,
             dokumentInfoId
         )
         BarnetilleggQueries.insertBarnetillegg(
             Barnetillegg(
-                fornavn = "Sig",
-                etternavn = "Grø",
+                fornavn = "Gøyal",
+                etternavn = "Maskin",
                 alder = 15,
                 ident = "123412346",
-                bosted = "Førde"
+                bosted = "Asker"
             ),
             journalpostId,
             dokumentInfoId
