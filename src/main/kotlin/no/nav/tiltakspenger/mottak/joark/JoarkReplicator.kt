@@ -44,6 +44,7 @@ import java.time.Duration
 import java.util.Properties
 
 private val LOG = KotlinLogging.logger {}
+private val SECURELOG = KotlinLogging.logger( "tjenestekall")
 
 const val MAX_POLL_RECORDS = 50
 const val MAX_POLL_INTERVAL_MS = 5000
@@ -105,6 +106,7 @@ internal class JoarkReplicator(
     private lateinit var job: Job
 
     companion object {
+        //TODO: Denne er grå, ser ikke ut som den brukes?
         val objectMapper: ObjectMapper = jacksonObjectMapper()
             .registerModule(JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
@@ -156,7 +158,8 @@ internal class JoarkReplicator(
                 .toMutableMap()
             records.onEach { record ->
                 if (isCorrectTemaAndStatus(record)) {
-                    LOG.info { "Mottok joark-melding: $record" }
+                    LOG.info { "Mottok joark-melding" }
+                    SECURELOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
                         LOG.debug { "retreiving soknad" }
                         val soknad = handleSøknad(record.key())

@@ -27,11 +27,15 @@ import no.nav.tiltakspenger.mottak.søknad.søknadRoutes
 import java.net.URI
 
 private val LOG = KotlinLogging.logger {}
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
 const val PORT = 8080
 const val LEEWAY = 3L
 
 fun main() {
-    Thread.currentThread().setUncaughtExceptionHandler { _, e -> LOG.error("Uhåndtert feil", e) }
+    Thread.currentThread().setUncaughtExceptionHandler { _, e ->
+        LOG.error { "Uncaught exception logget i securelog" }
+        SECURELOG.error(e) { e.message }
+    }
     LOG.info { "starting server" }
     flywayMigrate()
     val joarkReplicator = JoarkReplicator(createKafkaConsumer(), createKafkaProducer()).also { it.start() }

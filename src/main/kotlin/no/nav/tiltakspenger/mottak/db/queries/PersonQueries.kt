@@ -5,8 +5,10 @@ import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.db.DataSource.session
 import org.intellij.lang.annotations.Language
 
+private val LOG = KotlinLogging.logger {}
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
+
 object PersonQueries {
-    private val LOG = KotlinLogging.logger {}
 
     @Language("SQL")
     private val insert = "insert into person (ident, fornavn, etternavn) values (:ident, :fornavn, :etternavn)"
@@ -24,10 +26,12 @@ object PersonQueries {
 
     fun insertIfNotExists(ident: String, fornavn: String?, etternavn: String?) {
         if (exists(ident)) {
-            LOG.info { "User $etternavn already exists" }
+            LOG.info { "User already exists" }
+            SECURELOG.info { "User $etternavn already exists" }
             return
         } else {
-            LOG.info { "Insert user $etternavn" }
+            LOG.info { "Insert user" }
+            SECURELOG.info { "Insert user $etternavn" }
             insert(ident, fornavn ?: "", etternavn ?: "")
         }
     }

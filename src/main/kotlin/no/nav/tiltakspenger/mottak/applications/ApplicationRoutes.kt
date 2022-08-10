@@ -13,6 +13,7 @@ import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
 
 private val LOG = KotlinLogging.logger {}
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 val JWTPrincipal.userId: String
     get() = this.subject ?: throw NoUserFound("No user subject claim found on token")
@@ -25,8 +26,8 @@ fun Route.applicationRoutes() {
             call.respondText("OK")
             LOG.info("Test endpoint")
             val headers = call.request.headers.toMap()
-            LOG.info(headers.toString())
-            LOG.info("Auth: ${headers["Authorization"]}")
+            SECURELOG.info(headers.toString())
+            SECURELOG.info("Auth: ${headers["Authorization"]}")
 
             kotlin.runCatching {
                 AzureOauthClient.getToken()
@@ -41,8 +42,8 @@ fun Route.applicationRoutes() {
             get {
                 call.respondText("OK")
                 val principal = call.principal<JWTPrincipal>()
-                LOG.info(principal!!.payload.claims.toString())
-                LOG.info(principal.userId)
+                SECURELOG.info(principal!!.payload.claims.toString())
+                SECURELOG.info(principal.userId)
             }
         }
 
@@ -51,8 +52,7 @@ fun Route.applicationRoutes() {
                 /*    try {
                         val token = AzureOauthClient.getToken()
                     } catch (e: AuthenticationException) {
-                        val log = KotlinLogging.logger {}
-                        log.error(e) { e.message }
+                        SECURELOG.error(e) { e.message }
                         call.respondText("Invalid token", ContentType.Text.Plain, HttpStatusCode.BadRequest)
                         return@get
                     }
