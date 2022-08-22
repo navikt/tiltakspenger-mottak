@@ -93,7 +93,7 @@ dependencies {
         exclude(group = "ch.qos.logback", module = "logback-classic")
     }
     testImplementation("io.mockk:mockk:1.12.5")
-    testImplementation("io.mockk:mockk-dsl-jvm:1.12.5")
+    testImplementation("io.mockk:mockk-dsl-jvm:1.12.6")
     testImplementation("org.skyscreamer:jsonassert:1.5.1")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinxCoroutinesVersion")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
