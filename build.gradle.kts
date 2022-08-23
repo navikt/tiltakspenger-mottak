@@ -4,7 +4,7 @@ val kotlinxSerializationVersion = "1.4.0"
 val kotlinxCoroutinesVersion = "1.6.4"
 val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.3"
-val kafkaClientsVersion = "3.2.0"
+val kafkaClientsVersion = "3.2.1"
 val jacksonVersion = "2.13.3"
 val mockkVersion = "1.12.5"
 
