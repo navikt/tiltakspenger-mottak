@@ -15,7 +15,11 @@ internal class StringBooleanSerializerTest {
     @Test
     fun deserialize() {
         assertTrue(Json.decodeFromString<ClassForTest>("""{"bar":"true"}""").bar)
+        assertTrue(Json.decodeFromString<ClassForTest>("""{"bar":"True"}""").bar)
+        assertTrue(Json.decodeFromString<ClassForTest>("""{"bar":"ja"}""").bar)
+        assertTrue(Json.decodeFromString<ClassForTest>("""{"bar":"Ja"}""").bar)
         assertFalse(Json.decodeFromString<ClassForTest>("""{"bar":"false"}""").bar)
+        assertFalse(Json.decodeFromString<ClassForTest>("""{"bar":"nei"}""").bar)
         assertFalse(Json.decodeFromString<ClassForTest>("""{"bar":"hei"}""").bar)
         assertFalse(Json.decodeFromString<ClassForTest>("""{"bar":null}""").bar)
     }

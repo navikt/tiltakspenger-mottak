@@ -73,7 +73,7 @@ data class Søknad(
                 antallDager = brukerregistrertTiltakJson.properties.antallDager?.substringBefore(' ')?.toInt()!!
             )
             val barneTillegg = barneFakta
-                .filter { it.properties?.sokerbarnetillegg?.value == true }
+                .filter { it.properties?.sokerbarnetillegg ?: false }
                 .filter { it.properties?.fnr?.isNotEmpty() ?: false }
                 .map {
                     Barnetillegg(

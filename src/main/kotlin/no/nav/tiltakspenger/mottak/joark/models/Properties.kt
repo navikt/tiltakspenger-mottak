@@ -2,14 +2,8 @@ package no.nav.tiltakspenger.mottak.joark.models
 
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
-import no.nav.tiltakspenger.mottak.databind.NorskBoolSerializer
 import no.nav.tiltakspenger.mottak.databind.StringBooleanSerializer
 import java.time.LocalDate
-
-enum class NorskBool(val value: Boolean) {
-    Ja(true),
-    Nei(false)
-}
 
 @Serializable
 data class Properties(
@@ -51,7 +45,7 @@ data class Properties(
     val statsborgerskap: String? = null,
     @Serializable(with = LocalDateSerializer::class) val startdato: LocalDate? = null,
     @Serializable(with = LocalDateSerializer::class) val sluttdato: LocalDate? = null,
-    @Serializable(with = NorskBoolSerializer::class) val sokerbarnetillegg: NorskBool? = null,
+    @Serializable(with = StringBooleanSerializer::class) val sokerbarnetillegg: Boolean? = null,
     val statsborgerskapType: String? = null,
     val tilleggsopplysninger: String? = null,
     val tiltaksliste: String? = null,
