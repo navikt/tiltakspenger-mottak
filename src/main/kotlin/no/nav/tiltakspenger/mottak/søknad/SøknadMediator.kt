@@ -7,7 +7,7 @@ import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 
 private val LOG = KotlinLogging.logger {}
 
-suspend fun handleSøknad(journalpostId: String): Søknad? {
+suspend fun handleSøknad(journalpostId: String): SøknadDetails? {
     LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
     val journalfortDokumentMetaData = SafClient.hentMetadataForJournalpost(journalpostId)
     if (journalfortDokumentMetaData != null) {
@@ -32,7 +32,7 @@ suspend fun handleSøknad(journalpostId: String): Søknad? {
                 dokumentInfoId = dokumentInfoId
             )
         }
-        return søknad
+        return SøknadDetails(søknad, Tiltak.fromJson(json))
     } else {
         LOG.info { "Journalpost with ID $journalpostId was not handled" }
         return null

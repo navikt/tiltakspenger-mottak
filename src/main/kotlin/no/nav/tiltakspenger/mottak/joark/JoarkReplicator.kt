@@ -21,8 +21,8 @@ import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.joarkTopicName
+import no.nav.tiltakspenger.mottak.søknad.SøknadDetails
 import no.nav.tiltakspenger.mottak.søknad.handleSøknad
-import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -41,10 +41,10 @@ import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import java.time.Duration
-import java.util.Properties
+import java.util.*
 
 private val LOG = KotlinLogging.logger {}
-private val SECURELOG = KotlinLogging.logger( "tjenestekall")
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 const val MAX_POLL_RECORDS = 50
 const val MAX_POLL_INTERVAL_MS = 5000
@@ -162,14 +162,14 @@ internal class JoarkReplicator(
                     SECURELOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
                         LOG.debug { "retreiving soknad" }
-                        val soknad = handleSøknad(record.key())
+                        val søknadDetails = handleSøknad(record.key())
                         LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
-                        if (soknad != null) {
+                        if (søknadDetails != null) {
                             producer.send(
                                 ProducerRecord(
                                     TPTS_RAPID_NAME,
                                     record.key(),
-                                    createJsonMessage(soknad)
+                                    createJsonMessage(søknadDetails)
                                 )
                             )
                         }
@@ -190,12 +190,15 @@ internal class JoarkReplicator(
         }
     }
 
-    private fun createJsonMessage(søknad: Søknad) =
-        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
+    private fun createJsonMessage(søknadDetails: SøknadDetails) =
+        JsonMessage.newMessage(
+            eventName = "søknad_mottatt",
+            mapOf("søknad" to søknadDetails.søknad, "tiltak" to søknadDetails.tiltak as Any)
+        ).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
-            (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
+                (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
 
     private fun closeResources() {
         LOG.info { "close resources" }

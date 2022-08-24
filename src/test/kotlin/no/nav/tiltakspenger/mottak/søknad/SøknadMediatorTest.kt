@@ -10,6 +10,7 @@ import no.nav.tiltakspenger.mottak.clients.saf.SafClient
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
 import no.nav.tiltakspenger.mottak.graphql.JournalfortDokumentMetaData
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
@@ -59,10 +60,52 @@ internal class SøknadMediatorTest {
         coEvery { PersonQueries.insertIfNotExists(any(), any(), any()) } returns Unit
 
         // when
-        val soknad = handleSøknad(journalpostId)
+        val søknadDetails = handleSøknad(journalpostId)
 
         // then
-        assertEquals("12304", soknad?.id)
+        assertEquals("12304", søknadDetails?.søknad?.id)
+        coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
+        coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
+        coVerify(exactly = 1) { PersonQueries.insertIfNotExists(any(), any(), any()) }
+        coVerify(exactly = 1) {
+            SøknadQueries
+                .insertIfNotExists(journalpostId.toInt(), dokumentInfoId.toInt(), rawJson, any())
+        }
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `when søknad contains tiltak is found, a document is retreived and a tiltak is instantiated`() = runTest {
+        // given
+        val journalpostId = "42"
+        val dokumentInfoId = "43"
+        val rawJson = this::class.java.classLoader.getResource("soknad_med_tiltak_fra_arena.json")!!.readText()
+        mockkObject(AzureOauthClient)
+        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
+        mockkObject(SafClient)
+        val journalfortDokumentMetaData = JournalfortDokumentMetaData(
+            journalpostId = journalpostId,
+            dokumentInfoId = dokumentInfoId,
+            filnavn = "filnavn"
+        )
+        coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(
+            journalfortDokumentMetaData
+        )
+        coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
+        mockkObject(SøknadQueries)
+        coEvery { SøknadQueries.insertIfNotExists(any(), any(), any(), any()) } returns Unit
+        mockkObject(PersonQueries)
+        coEvery { PersonQueries.insertIfNotExists(any(), any(), any()) } returns Unit
+        mockkObject(BarnetilleggQueries)
+        coEvery { BarnetilleggQueries.insertBarnetillegg(any(), any(), any()) } returns Unit
+
+        // when
+        val søknadDetails = handleSøknad(journalpostId)
+
+        // then
+        assertEquals("12008", søknadDetails?.søknad?.id)
+        assertNotNull(søknadDetails?.tiltak)
+        assertEquals("136347592", søknadDetails?.tiltak?.arenaId)
         coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
         coVerify(exactly = 1) { PersonQueries.insertIfNotExists(any(), any(), any()) }
