@@ -20,6 +20,7 @@ import no.nav.tiltakspenger.mottak.installAuth
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
@@ -36,15 +37,11 @@ internal class SøknadRoutesTest {
         deltarKvp = false,
         deltarIntroduksjonsprogrammet = false,
         oppholdInstitusjon = false,
-        tiltaksArrangoer = "JOBLEARN AS",
-        tiltaksType = "Jobbklubb",
         typeInstitusjon = "",
         opprettet = LocalDateTime.MAX,
-        brukerRegistrertStartDato = null,
-        brukerRegistrertSluttDato = null,
-        systemRegistrertStartDato = null,
-        systemRegistrertSluttDato = null,
-        barnetillegg = emptyList()
+        barnetillegg = emptyList(),
+        arenaTiltak = null,
+        brukerregistrertTiltak = null
     )
 
     init {
@@ -59,6 +56,7 @@ internal class SøknadRoutesTest {
     }
 
     @Test
+    @Disabled("to be deleted, the soknad routes should be moved to tiltakspenger-vedtak")
     fun `should get soknad list`() {
         every { mockSession.run(any<ListResultQueryAction<Søknad>>()) } returns listOf(
             mockSøknad
@@ -78,6 +76,7 @@ internal class SøknadRoutesTest {
     }
 
     @Test
+    @Disabled("to be deleted, the soknad routes should be moved to tiltakspenger-vedtak")
     fun `should paginate using query params`() {
         every {
             mockSession.run(match<ListResultQueryAction<Søknad>> { it.query.paramMap["offset"] == 0 })

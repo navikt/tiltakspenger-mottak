@@ -112,7 +112,7 @@ internal class JoarkReplicatorTest {
         }
         val søknad = Søknad(
             "id", null, null, "ident", false, false,
-            false, null, null, null, null, null, null, null, null, emptyList()
+            false, null, null, emptyList(), null, null
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)

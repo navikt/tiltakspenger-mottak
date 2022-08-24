@@ -74,17 +74,17 @@ object SøknadQueries {
                     "journalpostId" to journalpostId,
                     "dokumentInfoId" to dokumentInfoId,
                     "opprettetDato" to søknad.opprettet,
-                    "brukerStartDato" to søknad.brukerRegistrertStartDato,
-                    "brukerSluttDato" to søknad.brukerRegistrertSluttDato,
-                    "systemStartDato" to søknad.systemRegistrertStartDato,
-                    "systemSluttDato" to søknad.systemRegistrertSluttDato,
+                    "brukerStartDato" to søknad.brukerregistrertTiltak?.fom,
+                    "brukerSluttDato" to søknad.brukerregistrertTiltak?.tom,
+                    "systemStartDato" to søknad.arenaTiltak?.opprinneligStartdato,
+                    "systemSluttDato" to søknad.arenaTiltak?.opprinneligSluttdato,
                     "data" to data,
                     "deltarKvp" to søknad.deltarKvp,
                     "deltarIntroduksjonsprogrammet" to søknad.deltarIntroduksjonsprogrammet,
                     "oppholdInstitusjon" to søknad.oppholdInstitusjon,
                     "type_institusjon" to søknad.typeInstitusjon,
-                    "tiltak_arrangoer" to søknad.tiltaksArrangoer,
-                    "tiltak_type" to søknad.tiltaksType
+                    "tiltak_arrangoer" to søknad.arenaTiltak?.arrangoer,
+                    "tiltak_type" to søknad.arenaTiltak?.navn
                 )
             ).asUpdate
         )
@@ -117,14 +117,16 @@ fun Søknad.Companion.fromRow(row: Row): Søknad =
         deltarIntroduksjonsprogrammet = row.boolean("deltar_introduksjonsprogrammet"),
         oppholdInstitusjon = row.boolean("opphold_institusjon"),
         typeInstitusjon = row.stringOrNull("type_institusjon"),
-        tiltaksArrangoer = row.stringOrNull("tiltak_arrangoer"),
-        tiltaksType = row.stringOrNull("tiltak_type"),
+//        tiltaksArrangoer = row.stringOrNull("tiltak_arrangoer"),
+//        tiltaksType = row.stringOrNull("tiltak_type"),
         opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
-        brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
-        brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
-        systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
-        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
-        barnetillegg = if (row.hasBarnetillegg()) listOf(Barnetillegg.fromRow(row)) else emptyList()
+//        brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
+//        brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
+//        systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
+//        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
+        barnetillegg = if (row.hasBarnetillegg()) listOf(Barnetillegg.fromRow(row)) else emptyList(),
+        arenaTiltak = null,
+        brukerregistrertTiltak = null
     )
 
 fun Row.hasBarnetillegg(): Boolean {

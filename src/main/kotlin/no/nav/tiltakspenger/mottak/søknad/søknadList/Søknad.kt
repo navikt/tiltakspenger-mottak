@@ -3,10 +3,10 @@ package no.nav.tiltakspenger.mottak.søknad.søknadList
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
 import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
-import java.time.LocalDate
+import no.nav.tiltakspenger.mottak.søknad.ArenaTiltak
+import no.nav.tiltakspenger.mottak.søknad.BrukerregistrertTiltak
 import java.time.LocalDateTime
 
 @Serializable
@@ -19,33 +19,26 @@ data class Søknad(
     val deltarIntroduksjonsprogrammet: Boolean?,
     val oppholdInstitusjon: Boolean?,
     val typeInstitusjon: String?,
-    @Serializable val tiltaksArrangoer: String?,
-    @Serializable val tiltaksType: String?,
     @Serializable(with = LocalDateTimeSerializer::class)
     val opprettet: LocalDateTime?,
-    @Serializable(with = LocalDateSerializer::class)
-    val brukerRegistrertStartDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class)
-    val brukerRegistrertSluttDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class)
-    val systemRegistrertStartDato: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class)
-    val systemRegistrertSluttDato: LocalDate?,
-    val barnetillegg: List<Barnetillegg>
+    val barnetillegg: List<Barnetillegg>,
+    val arenaTiltak: ArenaTiltak?,
+    val brukerregistrertTiltak: BrukerregistrertTiltak?
 ) {
     companion object {
         private val json = Json {
             ignoreUnknownKeys = true
         }
 
+        @Suppress("LongMethod")
         fun fromJson(json: String): Søknad {
             val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
             val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
             requireNotNull(fnr) { "No fnr, cannot handle soknad with id ${joarkSoknad.soknadId}" }
             val valgtTiltak = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }
-            val tiltaksInfoBruker = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
-            val tiltaksInfoSystem = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
+            val brukerregistrertTiltakJson = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
+            val arenaTiltakJson = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
             val deltarKvp =
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
             /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
@@ -57,11 +50,28 @@ data class Søknad(
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon" }?.value == "ja"
             val typeInstitusjon = if (oppholdInstitusjon)
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value else null
-            val tiltaksArrangoer =
-                tiltaksInfoBruker?.properties?.arrangoernavn ?: tiltaksInfoSystem?.properties?.arrangoer
-            val tiltaksType = tiltaksInfoBruker?.value ?: tiltaksInfoSystem?.properties?.navn
             val barneFakta = joarkSoknad.fakta
                 .filter { it.key == "barn" }
+            val arenaTiltak = if (arenaTiltakJson == null) null else ArenaTiltak(
+                arenaId = arenaTiltakJson.properties?.arenaId,
+                arrangoer = arenaTiltakJson.properties?.arrangoer,
+                harSluttdatoFraArena = arenaTiltakJson.properties?.harSluttdatoFraArena,
+                navn = arenaTiltakJson.properties?.navn,
+                erIEndreStatus = arenaTiltakJson.properties?.erIEndreStatus,
+                opprinneligSluttdato = arenaTiltakJson.properties?.opprinneligsluttdato,
+                opprinneligStartdato = arenaTiltakJson.properties?.opprinneligstartdato,
+                sluttdato = arenaTiltakJson.properties?.sluttdato,
+                startdato = arenaTiltakJson.properties?.startdato
+            )
+            val brukerregistrertTiltak = if (brukerregistrertTiltakJson == null) null else BrukerregistrertTiltak(
+                tiltakstype = brukerregistrertTiltakJson.value!!,
+                tom = brukerregistrertTiltakJson.properties?.tom,
+                postnummer = brukerregistrertTiltakJson.properties?.postnummer,
+                fom = brukerregistrertTiltakJson.properties?.fom,
+                adresse = brukerregistrertTiltakJson.properties?.adresse,
+                arrangoernavn = brukerregistrertTiltakJson.properties?.arrangoernavn!!,
+                antallDager = brukerregistrertTiltakJson.properties.antallDager?.substringBefore(' ')?.toInt()!!
+            )
             val barneTillegg = barneFakta
                 .filter { it.properties?.sokerbarnetillegg?.value == true }
                 .filter { it.properties?.fnr?.isNotEmpty() ?: false }
@@ -83,15 +93,11 @@ data class Søknad(
                 deltarKvp = deltarKvp,
                 deltarIntroduksjonsprogrammet = deltarIntroduksjonsprogrammet,
                 oppholdInstitusjon = oppholdInstitusjon,
-                tiltaksArrangoer = tiltaksArrangoer,
-                tiltaksType = tiltaksType,
                 typeInstitusjon = typeInstitusjon,
                 opprettet = joarkSoknad.opprettetDato,
-                brukerRegistrertStartDato = tiltaksInfoBruker?.properties?.fom,
-                brukerRegistrertSluttDato = tiltaksInfoBruker?.properties?.tom,
-                systemRegistrertStartDato = tiltaksInfoSystem?.properties?.startdato,
-                systemRegistrertSluttDato = tiltaksInfoSystem?.properties?.sluttdato,
-                barnetillegg = barneTillegg
+                barnetillegg = barneTillegg,
+                arenaTiltak = arenaTiltak,
+                brukerregistrertTiltak = brukerregistrertTiltak
             )
         }
     }

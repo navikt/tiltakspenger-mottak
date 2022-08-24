@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.mottak.joark.models
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
 import no.nav.tiltakspenger.mottak.databind.NorskBoolSerializer
+import no.nav.tiltakspenger.mottak.databind.StringBooleanSerializer
 import java.time.LocalDate
 
 enum class NorskBool(val value: Boolean) {
@@ -22,7 +23,7 @@ data class Properties(
     val diskresjonskode: String? = null,
     val epost: String? = null,
     val erUtenlandskBankkonto: String? = null,
-    val erIEndreStatus: String? = null,
+    @Serializable(with = StringBooleanSerializer::class) val erIEndreStatus: Boolean? = null,
     val etternavn: String? = null,
     val fnr: String? = null,
     @Serializable(with = LocalDateSerializer::class) val fom: LocalDate? = null,
@@ -32,7 +33,7 @@ data class Properties(
     val gjeldendeAdresseGyldigTil: String? = null,
     val gjeldendeAdresseLandkode: String? = null,
     val gjeldendeAdresseType: String? = null,
-    val harSluttdatoFraArena: String? = null,
+    @Serializable(with = StringBooleanSerializer::class) val harSluttdatoFraArena: Boolean? = null,
     val kjonn: String? = null,
     val kommune: String? = null,
     val kontonummer: String? = null,

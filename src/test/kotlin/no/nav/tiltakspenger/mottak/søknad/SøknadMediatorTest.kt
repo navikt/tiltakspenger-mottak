@@ -7,7 +7,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
 import no.nav.tiltakspenger.mottak.clients.saf.SafClient
-import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
 import no.nav.tiltakspenger.mottak.graphql.JournalfortDokumentMetaData
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -53,10 +52,6 @@ internal class SøknadMediatorTest {
             journalfortDokumentMetaData
         )
         coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
-        mockkObject(SøknadQueries)
-        coEvery { SøknadQueries.insertIfNotExists(any(), any(), any(), any()) } returns Unit
-        mockkObject(PersonQueries)
-        coEvery { PersonQueries.insertIfNotExists(any(), any(), any()) } returns Unit
 
         // when
         val soknad = handleSøknad(journalpostId)
@@ -65,10 +60,5 @@ internal class SøknadMediatorTest {
         assertEquals("12304", soknad?.id)
         coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
-        coVerify(exactly = 1) { PersonQueries.insertIfNotExists(any(), any(), any()) }
-        coVerify(exactly = 1) {
-            SøknadQueries
-                .insertIfNotExists(journalpostId.toInt(), dokumentInfoId.toInt(), rawJson, any())
-        }
     }
 }

@@ -31,11 +31,11 @@ internal class JoarkSøknadTest {
             assertEquals("BLYANT", it.søknad.etternavn)
             assertEquals("14038205537", it.søknad.ident)
             assertEquals("2022-03-10T11:03:35.365", it.søknad.opprettet.toString())
-            assertEquals("136950219", it.tiltak?.id)
-            assertEquals("Arbeidsrettet rehabilitering (dag)", it.tiltak?.navn)
-            assertEquals("AVONOVA HELSE AS", it.tiltak?.arrangoer)
-            assertEquals("2022-03-10", it.tiltak?.opprinneligStartdato.toString())
-            assertEquals(null, it.tiltak?.opprinneligSluttdato?.toString())
+            assertEquals("136950219", it.arenaTiltak?.arenaId)
+            assertEquals("Arbeidsrettet rehabilitering (dag)", it.arenaTiltak?.navn)
+            assertEquals("AVONOVA HELSE AS", it.arenaTiltak?.arrangoer)
+            assertEquals("2022-03-10", it.arenaTiltak?.opprinneligStartdato.toString())
+            assertEquals(null, it.arenaTiltak?.opprinneligSluttdato?.toString())
         }
     }
 
@@ -43,10 +43,9 @@ internal class JoarkSøknadTest {
     fun `should put brukerregistrert start and sluttdato in soknad`() {
         val soknad = this::class.java.classLoader.getResource("soknad_uten_tiltak_fra_arena.json")!!.readText()
         Søknad.fromJson(soknad).also {
-            assertEquals(LocalDate.parse("2022-03-01"), it.brukerRegistrertStartDato)
-            assertEquals(LocalDate.parse("2022-03-31"), it.brukerRegistrertSluttDato)
-            assertNull(it.systemRegistrertStartDato)
-            assertNull(it.systemRegistrertSluttDato)
+            assertEquals(LocalDate.parse("2022-03-01"), it.brukerregistrertTiltak?.fom)
+            assertEquals(LocalDate.parse("2022-03-31"), it.brukerregistrertTiltak?.tom)
+            assertNull(it.arenaTiltak)
         }
     }
 
@@ -100,15 +99,15 @@ internal class JoarkSøknadTest {
     @Test
     fun `should get tiltaks-info from soknad with tiltak from Arena`() {
         val søknad = Søknad.fromJson(File("src/test/resources/soknad_med_tiltak_fra_arena.json").readText())
-        assertEquals("JOBLEARN AS", søknad.tiltaksArrangoer)
-        assertEquals("Jobbklubb", søknad.tiltaksType)
+        assertEquals("JOBLEARN AS", søknad.arenaTiltak?.arrangoer)
+        assertEquals("Jobbklubb", søknad.arenaTiltak?.navn)
     }
 
     @Test
     fun `should get tiltaks-info from soknad with tiltak from user`() {
         val søknad = Søknad.fromJson(File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText())
-        assertEquals("Tull og tøys AS", søknad.tiltaksArrangoer)
-        assertEquals("AMO", søknad.tiltaksType)
+        assertEquals("Tull og tøys AS", søknad.brukerregistrertTiltak?.arrangoernavn)
+        assertEquals("AMO", søknad.brukerregistrertTiltak?.tiltakstype)
     }
 
     @Test

@@ -2,7 +2,6 @@ package no.nav.tiltakspenger.mottak.søknad
 
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.clients.saf.SafClient
-import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 
 private val LOG = KotlinLogging.logger {}
@@ -15,23 +14,23 @@ suspend fun handleSøknad(journalpostId: String): Søknad? {
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
         LOG.info { "Retrieved søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val søknad = Søknad.fromJson(json)
-        PersonQueries.insertIfNotExists(søknad.ident, søknad.fornavn, søknad.etternavn)
+//        PersonQueries.insertIfNotExists(søknad.ident, søknad.fornavn, søknad.etternavn)
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
         checkNotNull(dokumentInfoId) { "Missing dokumentInfoId for søknad" }
-        SøknadQueries.insertIfNotExists(
-            journalpostId.toInt(),
-            dokumentInfoId,
-            json,
-            søknad
-        )
+//        SøknadQueries.insertIfNotExists(
+//            journalpostId.toInt(),
+//            dokumentInfoId,
+//            json,
+//            søknad
+//        )
         // Can not be inserted before soknad exists
-        søknad.barnetillegg.map {
-            BarnetilleggQueries.insertBarnetillegg(
-                barnetillegg = it,
-                journalpostId = journalpostId.toInt(),
-                dokumentInfoId = dokumentInfoId
-            )
-        }
+//        søknad.barnetillegg.map {
+//            BarnetilleggQueries.insertBarnetillegg(
+//                barnetillegg = it,
+//                journalpostId = journalpostId.toInt(),
+//                dokumentInfoId = dokumentInfoId
+//            )
+//        }
         return søknad
     } else {
         LOG.info { "Journalpost with ID $journalpostId was not handled" }
