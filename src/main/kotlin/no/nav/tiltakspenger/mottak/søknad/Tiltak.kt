@@ -9,6 +9,7 @@ import java.time.LocalDate
 
 @Serializable
 data class Tiltak(
+    val id: String? = null,
     val arenaId: String? = null,
     val arrangoer: String? = null,
     val harSluttdatoFraArena: Boolean? = null,
@@ -28,11 +29,11 @@ data class Tiltak(
                 it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId
             } ?: return null
             return Tiltak(
-                arenaId = valgtArenaTiltak.properties?.arenaId,
-                arrangoer = valgtArenaTiltak.properties?.arrangoer,
+                id = valgtArenaTiltak.properties?.arenaId,
                 navn = valgtArenaTiltak.properties?.navn,
-                opprinneligSluttdato = valgtArenaTiltak.properties?.opprinneligsluttdato,
-                opprinneligStartdato = valgtArenaTiltak.properties?.opprinneligstartdato
+                arrangoer = valgtArenaTiltak.properties?.arrangoer,
+                opprinneligStartdato = valgtArenaTiltak.properties?.opprinneligstartdato,
+                opprinneligSluttdato = valgtArenaTiltak.properties?.opprinneligsluttdato
             )
         }
     }
