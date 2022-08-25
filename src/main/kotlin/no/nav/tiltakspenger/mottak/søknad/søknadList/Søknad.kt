@@ -30,15 +30,11 @@ data class Søknad(
             ignoreUnknownKeys = true
         }
 
-        @Suppress("LongMethod")
         fun fromJson(json: String): Søknad {
             val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
             val personalia = joarkSoknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
             requireNotNull(fnr) { "No fnr, cannot handle soknad with id ${joarkSoknad.soknadId}" }
-            val valgtTiltak = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }
-            val brukerregistrertTiltakJson = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" }
-            val arenaTiltakJson = joarkSoknad.fakta.firstOrNull { it.faktumId.toString() == valgtTiltak?.value }
             val deltarKvp =
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
             /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
@@ -52,26 +48,8 @@ data class Søknad(
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value else null
             val barneFakta = joarkSoknad.fakta
                 .filter { it.key == "barn" }
-            val arenaTiltak = if (arenaTiltakJson == null) null else ArenaTiltak(
-                arenaId = arenaTiltakJson.properties?.arenaId,
-                arrangoer = arenaTiltakJson.properties?.arrangoer,
-                harSluttdatoFraArena = arenaTiltakJson.properties?.harSluttdatoFraArena,
-                navn = arenaTiltakJson.properties?.navn,
-                erIEndreStatus = arenaTiltakJson.properties?.erIEndreStatus,
-                opprinneligSluttdato = arenaTiltakJson.properties?.opprinneligsluttdato,
-                opprinneligStartdato = arenaTiltakJson.properties?.opprinneligstartdato,
-                sluttdato = arenaTiltakJson.properties?.sluttdato,
-                startdato = arenaTiltakJson.properties?.startdato
-            )
-            val brukerregistrertTiltak = if (brukerregistrertTiltakJson == null) null else BrukerregistrertTiltak(
-                tiltakstype = brukerregistrertTiltakJson.value!!,
-                tom = brukerregistrertTiltakJson.properties?.tom,
-                postnummer = brukerregistrertTiltakJson.properties?.postnummer,
-                fom = brukerregistrertTiltakJson.properties?.fom,
-                adresse = brukerregistrertTiltakJson.properties?.adresse,
-                arrangoernavn = brukerregistrertTiltakJson.properties?.arrangoernavn!!,
-                antallDager = brukerregistrertTiltakJson.properties.antallDager?.substringBefore(' ')?.toInt()!!
-            )
+            val arenaTiltak = ArenaTiltak.fromJoarkSoknad(joarkSoknad)
+            val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
             val barneTillegg = barneFakta
                 .filter { it.properties?.sokerbarnetillegg ?: false }
                 .filter { it.properties?.fnr?.isNotEmpty() ?: false }

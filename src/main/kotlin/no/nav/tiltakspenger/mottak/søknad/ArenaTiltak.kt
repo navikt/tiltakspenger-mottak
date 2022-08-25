@@ -24,8 +24,9 @@ data class ArenaTiltak(
             ignoreUnknownKeys = true
         }
 
-        fun fromJson(json: String): ArenaTiltak? {
-            val joarkSoknad = this.json.decodeFromString<JoarkSoknad>(json)
+        fun fromJson(json: String): ArenaTiltak? = fromJoarkSoknad(this.json.decodeFromString(json))
+
+        fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): ArenaTiltak? {
             val valgtTiltakId = joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.valgtTiltak" }?.value
             val valgtArenaTiltak = joarkSoknad.fakta.firstOrNull {
                 it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId

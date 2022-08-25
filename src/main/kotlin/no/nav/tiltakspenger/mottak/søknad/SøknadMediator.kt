@@ -13,10 +13,9 @@ suspend fun handleSøknad(journalpostId: String): Søknad? {
         LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
         LOG.info { "Retrieved søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
-        val søknad = Søknad.fromJson(json)
-//        PersonQueries.insertIfNotExists(søknad.ident, søknad.fornavn, søknad.etternavn)
-        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
-        checkNotNull(dokumentInfoId) { "Missing dokumentInfoId for søknad" }
+        //        PersonQueries.insertIfNotExists(søknad.ident, søknad.fornavn, søknad.etternavn)
+//        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
+//        checkNotNull(dokumentInfoId) { "Missing dokumentInfoId for søknad" }
 //        SøknadQueries.insertIfNotExists(
 //            journalpostId.toInt(),
 //            dokumentInfoId,
@@ -31,7 +30,7 @@ suspend fun handleSøknad(journalpostId: String): Søknad? {
 //                dokumentInfoId = dokumentInfoId
 //            )
 //        }
-        return søknad
+        return Søknad.fromJson(json)
     } else {
         LOG.info { "Journalpost with ID $journalpostId was not handled" }
         return null
