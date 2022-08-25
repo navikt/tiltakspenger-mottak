@@ -13,13 +13,7 @@ object StringBooleanSerializer : KSerializer<Boolean> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("StringBoolean", PrimitiveKind.STRING)
 
     @OptIn(ExperimentalSerializationApi::class)
-    override fun deserialize(decoder: Decoder): Boolean {
-        return if (decoder.decodeNotNullMark()) {
-            decoder.decodeString().matches(sant)
-        } else {
-            false
-        }
-    }
+    override fun deserialize(decoder: Decoder) = decoder.decodeNotNullMark() && decoder.decodeString().matches(sant)
 
     override fun serialize(encoder: Encoder, value: Boolean) {
         TODO("Not yet implemented")
