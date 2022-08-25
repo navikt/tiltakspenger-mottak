@@ -1,0 +1,1 @@
+For å lytte på Joark-kafka topic: https://confluence.adeo.no/pages/viewpage.action?pageId=432217859
