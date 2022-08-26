@@ -27,5 +27,6 @@ internal class StringBooleanSerializerTest {
         assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":42}""") }
         assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":true}""") }
         assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":false}""") }
+        assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("ikke json") }
     }
 }
