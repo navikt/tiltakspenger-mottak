@@ -22,11 +22,8 @@ data class BrukerregistrertTiltak(
                 joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" } ?: return null
             return BrukerregistrertTiltak(
                 tiltakstype = brukerregistrertTiltakJson.value,
-                // TODO: I soknad_deltar_intro.json er beskrivelse feltet brukt!
-                // Ref også https://nav-it.slack.com/archives/C02BBKL9SGM/p1661434113014189?thread_ts=1661327854.713069&cid=C02BBKL9SGM
-                // beskrivelse = brukerregistrertTiltakJson.properties?.beskrivelse,
                 arrangoernavn = brukerregistrertTiltakJson.properties?.arrangoernavn,
-                beskrivelse = null,
+                beskrivelse = brukerregistrertTiltakJson.properties?.beskrivelse,
                 fom = brukerregistrertTiltakJson.properties?.fom,
                 tom = brukerregistrertTiltakJson.properties?.tom,
                 adresse = brukerregistrertTiltakJson.properties?.adresse,

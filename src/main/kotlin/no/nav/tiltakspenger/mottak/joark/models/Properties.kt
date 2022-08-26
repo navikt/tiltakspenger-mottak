@@ -14,6 +14,7 @@ data class Properties(
     val antallDager: String? = null,
     val arrangoernavn: String? = null,
     val barnetillegg: String? = null,
+    val beskrivelse: String? = null,
     val diskresjonskode: String? = null,
     val epost: String? = null,
     val erUtenlandskBankkonto: String? = null,

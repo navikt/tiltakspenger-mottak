@@ -18,19 +18,19 @@ internal class BrukerregistrertTiltakTest {
 
     @Test
     fun `søknad med brukerregistrert tiltak`() {
-        val jsonFromFile = File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText()
+        val jsonFromFile = File("src/test/resources/soknad_deltar_intro.json").readText()
         val joarkSoknad = json.decodeFromString<JoarkSoknad>(jsonFromFile)
 
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
 
         assertNotNull(tiltak)
-        assertEquals("AMO", tiltak?.tiltakstype)
-//        assertEquals("beskrivelse", tiltak?.beskrivelse)
-        assertEquals(LocalDate.of(2022, Month.MARCH, 1), tiltak?.fom)
-        assertEquals(LocalDate.of(2022, Month.MARCH, 31), tiltak?.tom)
+        assertEquals("Annet", tiltak?.tiltakstype)
+        assertEquals("Intro", tiltak?.beskrivelse)
+        assertEquals(LocalDate.of(2022, Month.APRIL, 1), tiltak?.fom)
+        assertEquals(LocalDate.of(2022, Month.APRIL, 22), tiltak?.tom)
         assertEquals("Storgata 1", tiltak?.adresse)
         assertEquals("0318", tiltak?.postnummer)
-        assertEquals("Tull og tøys AS", tiltak?.arrangoernavn)
+        assertEquals("test as", tiltak?.arrangoernavn)
         assertEquals(5, tiltak?.antallDager)
     }
 

@@ -178,9 +178,9 @@
       "value": "Annet",
       "properties": {
         "tom": "2022-04-22",
-        "postnummer": null,
+        "postnummer": "0318",
         "fom": "2022-04-01",
-        "adresse": null,
+        "adresse": "Storgata 1",
         "arrangoernavn": "test as",
         "beskrivelse": "Intro",
         "antallDager": "5 dager "
