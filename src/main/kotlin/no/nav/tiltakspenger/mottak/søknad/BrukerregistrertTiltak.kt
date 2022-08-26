@@ -28,7 +28,7 @@ data class BrukerregistrertTiltak(
                 tom = brukerregistrertTiltakJson.properties?.tom,
                 adresse = brukerregistrertTiltakJson.properties?.adresse,
                 postnummer = brukerregistrertTiltakJson.properties?.postnummer,
-                antallDager = brukerregistrertTiltakJson.properties?.antallDager?.substringBefore(' ')?.toInt()!!
+                antallDager = brukerregistrertTiltakJson.properties?.antallDager?.substringBefore(' ')?.toInt() ?: 0
             )
         }
     }

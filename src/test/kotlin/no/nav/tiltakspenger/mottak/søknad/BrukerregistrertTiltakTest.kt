@@ -4,6 +4,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.joark.models.Faktum
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
+import no.nav.tiltakspenger.mottak.joark.models.Properties
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
@@ -42,5 +43,15 @@ internal class BrukerregistrertTiltakTest {
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
 
         assertNull(tiltak)
+    }
+
+    @Test
+    fun `ingen dager angitt gir 0 dager`() {
+        val faktum = Faktum(key = "tiltaksliste.annetTiltak", properties = Properties(antallDager = null))
+        val joarkSoknad = JoarkSoknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
+
+        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
+
+        assertEquals(0, tiltak?.antallDager)
     }
 }
