@@ -1,6 +1,7 @@
 package no.nav.tiltakspenger.mottak.databind
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -21,10 +22,10 @@ internal class StringBooleanSerializerTest {
         assertTrue(Json.decodeFromString<ClassForTest>("""{"bar":"Ja"}""").bar)
         assertFalse(Json.decodeFromString<ClassForTest>("""{"bar":"false"}""").bar)
         assertFalse(Json.decodeFromString<ClassForTest>("""{"bar":"nei"}""").bar)
-        assertThrows<IllegalArgumentException> { Json.decodeFromString<ClassForTest>("""{"bar":"hei"}""").bar }
-        assertThrows<IllegalArgumentException> { Json.decodeFromString<ClassForTest>("""{"bar":null}""").bar }
-        assertThrows<IllegalArgumentException> { Json.decodeFromString<ClassForTest>("""{"bar":42}""").bar }
-        assertThrows<IllegalArgumentException> { Json.decodeFromString<ClassForTest>("""{"bar":true}""").bar }
-        assertThrows<IllegalArgumentException> { Json.decodeFromString<ClassForTest>("""{"bar":false}""").bar }
+        assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":"hei"}""") }
+        assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":null}""") }
+        assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":42}""") }
+        assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":true}""") }
+        assertThrows<SerializationException> { Json.decodeFromString<ClassForTest>("""{"bar":false}""") }
     }
 }

@@ -1,6 +1,7 @@
 package no.nav.tiltakspenger.mottak.databind
 
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -17,7 +18,7 @@ object StringBooleanSerializer : KSerializer<Boolean> {
         return when {
             verdi.matches(sant) -> true
             verdi.matches(usant) -> false
-            else -> throw IllegalArgumentException("kun lov med true/ja/false/nei")
+            else -> throw SerializationException("kun lov med true/ja/false/nei")
         }
     }
 
