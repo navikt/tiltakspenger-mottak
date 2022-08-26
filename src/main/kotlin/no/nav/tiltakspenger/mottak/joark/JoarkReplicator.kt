@@ -41,10 +41,10 @@ import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import java.time.Duration
-import java.util.Properties
+import java.util.*
 
 private val LOG = KotlinLogging.logger {}
-private val SECURELOG = KotlinLogging.logger( "tjenestekall")
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 const val MAX_POLL_RECORDS = 50
 const val MAX_POLL_INTERVAL_MS = 5000
@@ -190,12 +190,15 @@ internal class JoarkReplicator(
         }
     }
 
-    private fun createJsonMessage(søknad: Søknad) =
-        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
+    private fun createJsonMessage(søknad: Søknad): String {
+        val msg = JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
+        LOG.info { "Sender søknad fra mottak: $msg" }
+        return msg
+    }
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
-            (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
+                (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
 
     private fun closeResources() {
         LOG.info { "close resources" }
