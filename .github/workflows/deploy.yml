@@ -54,15 +54,20 @@ jobs:
           BRANCH: ${{ github.ref }}
           AUTHOR: ${{ github.event.pusher.name }}
           WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+        uses: mxschmitt/action-tmate@8b4e4ac71822ed7e0ad5fb3d1c33483e9e8fb270
 
   dependabot:
     name: Automatically merge a Dependabot PR
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    # if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}
     steps:
       - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --rebase "$PR_URL"
+        run: |
+          echo "actor: ${{ github.actor }}"
+          echo "event_name: ${{ github.event_name }}"
+          echo "sjekk: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request' }}"
+        # gh pr merge --auto --rebase "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
