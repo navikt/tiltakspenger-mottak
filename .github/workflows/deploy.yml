@@ -55,6 +55,18 @@ jobs:
           AUTHOR: ${{ github.event.pusher.name }}
           WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
 
+  dependabot:
+    name: Automatically merge a Dependabot PR
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' && github.event_name == 'pull_request'}}
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   deploy-dev:
     name: Deploy to NAIS dev
     needs: build
