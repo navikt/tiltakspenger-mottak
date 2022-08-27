@@ -1,16 +1,16 @@
 version: 2
 updates:
-- package-ecosystem: gradle
-  directory: "/"
-  schedule:
-    interval: "daily"
-    time: "09:00"
-  assignees:
-    - "@navikt/tpts"
-- package-ecosystem: github-actions
-  directory: "/"
-  schedule:
-    interval: "daily"
-    time: "09:00"
-  assignees:
-    - "@navikt/tpts"
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+    assignees:
+      - "@navikt/tpts"
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+    assignees:
+      - "@navikt/tpts"
