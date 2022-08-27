@@ -1,6 +1,10 @@
 name: Build, push, and deploy
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 env:
   IMAGE: ghcr.io/${{ github.repository }}:${{ github.sha }}
