@@ -191,9 +191,10 @@ internal class JoarkReplicator(
     }
 
     private fun createJsonMessage(søknad: Søknad): String {
-        val msg = JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
-        LOG.info { "Sender søknad fra mottak: $msg" }
-        return msg
+        val json = JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
+        LOG.info { "Sender søknad fra mottak" }
+        SECURELOG.info { "Sender søknad fra mottak: $json" }
+        return json
     }
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
