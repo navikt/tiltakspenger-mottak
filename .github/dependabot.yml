@@ -3,14 +3,12 @@ updates:
   - package-ecosystem: gradle
     directory: "/"
     schedule:
-      interval: "daily"
-      time: "09:00"
+      interval: daily
     assignees:
       - "@navikt/tpts"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: "daily"
-      time: "09:00"
+      interval: daily
     assignees:
       - "@navikt/tpts"
