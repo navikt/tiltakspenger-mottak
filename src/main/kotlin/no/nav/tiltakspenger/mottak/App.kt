@@ -26,17 +26,19 @@ import no.nav.tiltakspenger.mottak.joark.createKafkaProducer
 import no.nav.tiltakspenger.mottak.søknad.søknadRoutes
 import java.net.URI
 
-private val LOG = KotlinLogging.logger {}
-private val SECURELOG = KotlinLogging.logger("tjenestekall")
 const val PORT = 8080
 const val LEEWAY = 3L
 
 fun main() {
+    System.setProperty("logback.configurationFile", "egenLogback.xml")
+    val log = KotlinLogging.logger {}
+    val securelog = KotlinLogging.logger("tjenestekall")
+
     Thread.currentThread().setUncaughtExceptionHandler { _, e ->
-        LOG.error { "Uncaught exception logget i securelog" }
-        SECURELOG.error(e) { e.message }
+        log.error { "Uncaught exception logget i securelog" }
+        securelog.error(e) { e.message }
     }
-    LOG.info { "starting server" }
+    log.info { "starting server" }
     flywayMigrate()
     val joarkReplicator = JoarkReplicator(createKafkaConsumer(), createKafkaProducer()).also { it.start() }
 
@@ -55,7 +57,7 @@ fun main() {
 
     Runtime.getRuntime().addShutdownHook(
         Thread {
-            LOG.info { "stopping server" }
+            log.info { "stopping server" }
             server.stop(gracePeriodMillis = 3000, timeoutMillis = 3000)
         }
     )
