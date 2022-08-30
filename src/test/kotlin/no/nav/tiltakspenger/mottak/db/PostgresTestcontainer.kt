@@ -6,28 +6,16 @@ import no.nav.tiltakspenger.mottak.db.DataSource.DB_PASSWORD_KEY
 import no.nav.tiltakspenger.mottak.db.DataSource.DB_PORT_KEY
 import no.nav.tiltakspenger.mottak.db.DataSource.DB_USERNAME_KEY
 import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy
 
-class PostgresTestcontainer private constructor() : PostgreSQLContainer<PostgresTestcontainer?>(IMAGE_VERSION) {
-
-    companion object {
-        private const val IMAGE_VERSION = "postgres:14.2"
-
-        private val CONTAINER: PostgresTestcontainer = PostgresTestcontainer().waitingFor(HostPortWaitStrategy())!!
-
-        val instance: PostgresTestcontainer
-            get() {
-                return CONTAINER
-            }
-    }
+object PostgresTestcontainer : PostgreSQLContainer<PostgresTestcontainer?>("postgres:14.4") {
 
     override fun start() {
         super.start()
-        System.setProperty(DB_HOST_KEY, CONTAINER.host)
-        System.setProperty(DB_PORT_KEY, CONTAINER.getMappedPort(POSTGRESQL_PORT).toString())
-        System.setProperty(DB_DATABASE_KEY, CONTAINER.databaseName)
-        System.setProperty(DB_USERNAME_KEY, CONTAINER.username)
-        System.setProperty(DB_PASSWORD_KEY, CONTAINER.password)
+        System.setProperty(DB_HOST_KEY, host)
+        System.setProperty(DB_PORT_KEY, getMappedPort(POSTGRESQL_PORT).toString())
+        System.setProperty(DB_DATABASE_KEY, databaseName)
+        System.setProperty(DB_USERNAME_KEY, username)
+        System.setProperty(DB_PASSWORD_KEY, password)
     }
 
     override fun stop() {

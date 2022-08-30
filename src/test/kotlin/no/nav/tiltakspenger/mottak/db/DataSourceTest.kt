@@ -9,8 +9,7 @@ class DataSourceTest {
 
     companion object {
         @Container
-        @JvmField
-        val postgreSQLContainer: PostgresTestcontainer = PostgresTestcontainer.instance
+        val postgreSQLContainer = PostgresTestcontainer
     }
 
     @Test

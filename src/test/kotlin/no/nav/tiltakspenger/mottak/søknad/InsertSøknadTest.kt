@@ -18,8 +18,7 @@ internal class InsertSøknadTest {
 
     companion object {
         @Container
-        @JvmField
-        val postgreSQLContainer: PostgresTestcontainer = PostgresTestcontainer.instance
+        val postgreSQLContainer = PostgresTestcontainer
     }
 
     val rawJson = this::class.java.classLoader.getResource("soknad_med_tiltak_fra_arena.json")!!.readText()
