@@ -8,14 +8,14 @@ import no.nav.tiltakspenger.mottak.db.DataSource.DB_USERNAME_KEY
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.containers.wait.strategy.HostPortWaitStrategy
 
-class TestPostgresqlContainer private constructor() : PostgreSQLContainer<TestPostgresqlContainer?>(IMAGE_VERSION) {
+class PostgresTestcontainer private constructor() : PostgreSQLContainer<PostgresTestcontainer?>(IMAGE_VERSION) {
 
     companion object {
         private const val IMAGE_VERSION = "postgres:14.2"
 
-        private val CONTAINER: TestPostgresqlContainer = TestPostgresqlContainer().waitingFor(HostPortWaitStrategy())!!
+        private val CONTAINER: PostgresTestcontainer = PostgresTestcontainer().waitingFor(HostPortWaitStrategy())!!
 
-        val instance: TestPostgresqlContainer
+        val instance: PostgresTestcontainer
             get() {
                 return CONTAINER
             }
