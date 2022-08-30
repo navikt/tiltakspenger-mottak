@@ -1,6 +1,6 @@
 package no.nav.tiltakspenger.mottak.søknad
 
-import no.nav.tiltakspenger.mottak.db.TestPostgresqlContainer
+import no.nav.tiltakspenger.mottak.db.PostgresTestcontainer
 import no.nav.tiltakspenger.mottak.db.flywayMigrate
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
@@ -18,8 +18,7 @@ internal class InsertSøknadTest {
 
     companion object {
         @Container
-        @JvmField
-        val postgreSQLContainer: TestPostgresqlContainer = TestPostgresqlContainer.instance
+        val postgreSQLContainer = PostgresTestcontainer
     }
 
     val rawJson = this::class.java.classLoader.getResource("soknad_med_tiltak_fra_arena.json")!!.readText()
