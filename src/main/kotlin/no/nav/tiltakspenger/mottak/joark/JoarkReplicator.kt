@@ -165,12 +165,10 @@ internal class JoarkReplicator(
                         val soknad = handleSøknad(record.key())
                         LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                         if (soknad != null) {
+                            val json = createJsonMessage(soknad)
+                            SECURELOG.info("Sender melding $json")
                             producer.send(
-                                ProducerRecord(
-                                    TPTS_RAPID_NAME,
-                                    record.key(),
-                                    createJsonMessage(soknad)
-                                )
+                                ProducerRecord(TPTS_RAPID_NAME, record.key(), json)
                             )
                         }
                     }
