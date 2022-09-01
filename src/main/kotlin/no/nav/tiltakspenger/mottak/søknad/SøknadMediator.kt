@@ -5,6 +5,7 @@ import no.nav.tiltakspenger.mottak.clients.saf.SafClient
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 
 private val LOG = KotlinLogging.logger {}
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 suspend fun handleSøknad(journalpostId: String): Søknad? {
     LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
@@ -12,7 +13,11 @@ suspend fun handleSøknad(journalpostId: String): Søknad? {
     if (journalfortDokumentMetaData != null) {
         LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
         val json = SafClient.hentSoknad(journalfortDokumentMetaData)
-        LOG.info { "Retrieved søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}" }
+        LOG.info {
+            "Retrieved søknad with dokumentInfoId ${journalfortDokumentMetaData.dokumentInfoId}, " +
+                    "se secure-log for details"
+        }
+        SECURELOG.info { "Retrieved søknad $json" }
         //        PersonQueries.insertIfNotExists(søknad.ident, søknad.fornavn, søknad.etternavn)
 //        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId?.toInt()
 //        checkNotNull(dokumentInfoId) { "Missing dokumentInfoId for søknad" }
