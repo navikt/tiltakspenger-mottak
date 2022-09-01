@@ -1,0 +1,248 @@
+{
+  "soknadId": 13441,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "3a479a78-78e7-4ff9-9ff2-b5e998d936f4",
+  "brukerBehandlingId": "1001AN8o4",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 715924,
+      "soknadId": 13441,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715925,
+      "soknadId": 13441,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "k",
+        "epost": "test@nav.no",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "HAVREVEIEN 10, 3474 ÅROS",
+        "fnr": "05906398291",
+        "fornavn": "DYPSINDIG",
+        "alder": "58",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "IDÉ",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "DYPSINDIG IDÉ",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 715926,
+      "soknadId": 13441,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715927,
+      "soknadId": 13441,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715928,
+      "soknadId": 13441,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715929,
+      "soknadId": 13441,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715930,
+      "soknadId": 13441,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715931,
+      "soknadId": 13441,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715932,
+      "soknadId": 13441,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715933,
+      "soknadId": 13441,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715934,
+      "soknadId": 13441,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715935,
+      "soknadId": 13441,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715936,
+      "soknadId": 13441,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "715946",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715937,
+      "soknadId": 13441,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715938,
+      "soknadId": 13441,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715939,
+      "soknadId": 13441,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": "test fra tpts",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715946,
+      "soknadId": 13441,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "ARBTREN",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2022-08-31",
+        "arenaId": "138377101",
+        "startdato": "2022-07-04",
+        "navn": "Arbeidstrening",
+        "erIEndreStatus": "false",
+        "arrangoer": "STENDI SENIOR AS",
+        "sluttdato": "2022-08-31",
+        "opprinneligstartdato": "2022-07-04"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715947,
+      "soknadId": 13441,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715948,
+      "soknadId": 13441,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 715949,
+      "soknadId": 13441,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "fodselsdato": "2019-01-01",
+        "etternavn": "Ring",
+        "land": "NOR",
+        "fornavn": "Kjell T",
+        "sokerbarnetillegg": "ja",
+        "alder": "3"
+      },
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "05906398291",
+  "opprettetDato": "2022-09-01T11:54:59.763Z",
+  "sistLagret": "2022-09-01T11:57:09.362Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [
+    {
+      "vedleggId": 49157,
+      "soknadId": 13441,
+      "faktumId": 715949,
+      "skjemaNummer": "X8",
+      "skjemanummerTillegg": null,
+      "innsendingsvalg": "VedleggSendesIkke",
+      "opprinneligInnsendingsvalg": null,
+      "navn": null,
+      "storrelse": 0,
+      "opprettetDato": 1662033405000,
+      "fillagerReferanse": "87eede5b-57aa-414f-baba-aeb379b71092",
+      "urls": {},
+      "tittel": null,
+      "aarsak": "vil ikke",
+      "filnavn": null,
+      "mimetype": null
+    }
+  ],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
