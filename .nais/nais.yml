@@ -17,6 +17,8 @@ spec:
     path: /isalive
   readiness:
     path: /isready
+  secureLogs:
+    enabled: true
   prometheus:
     enabled: true
     path: /metrics
