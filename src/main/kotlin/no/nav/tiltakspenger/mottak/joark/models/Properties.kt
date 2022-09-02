@@ -38,6 +38,7 @@ data class Properties(
     val navn: String? = null,
     val personalia: String? = null,
     val postnummer: String? = null,
+    val prosent: Int? = null,
     @Serializable(with = LocalDateSerializer::class) val opprinneligstartdato: LocalDate? = null,
     @Serializable(with = LocalDateSerializer::class) val opprinneligsluttdato: LocalDate? = null,
     val sekundarAdresse: String? = null,
@@ -53,6 +54,7 @@ data class Properties(
     val tiltaksliste: String? = null,
     @Serializable(with = LocalDateSerializer::class) val tom: LocalDate? = null,
     val trygdogpensjon: String? = null,
+    val utbetaler: String? = null,
     val utenlandskKontoBanknavn: String? = null,
     val utenlandskKontoLand: String? = null,
 )

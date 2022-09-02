@@ -23,8 +23,10 @@ data class Søknad(
     val opprettet: LocalDateTime?,
     val barnetillegg: List<Barnetillegg>,
     val arenaTiltak: ArenaTiltak?,
-    val brukerregistrertTiltak: BrukerregistrertTiltak?
+    val brukerregistrertTiltak: BrukerregistrertTiltak?,
+    val trygdOgPensjon: List<TrygdOgPensjon>? = null,
 ) {
+
     companion object {
         private val json = Json {
             ignoreUnknownKeys = true
@@ -60,6 +62,16 @@ data class Søknad(
                         land = it.properties.land!!
                     )
                 }
+            val trygdOgPensjon = joarkSoknad.fakta.filter {
+                it.key == "trygdogpensjon.utbetalere" && it.properties?.utbetaler != null
+            }.map {
+                TrygdOgPensjon(
+                    utbetaler = it.properties?.utbetaler!!,
+                    prosent = it.properties.prosent,
+                    fom = it.properties.fom!!,
+                    tom = it.properties.tom
+                )
+            }
 
             return Søknad(
                 id = joarkSoknad.soknadId.toString(),
@@ -73,7 +85,8 @@ data class Søknad(
                 opprettet = joarkSoknad.opprettetDato,
                 barnetillegg = barneTillegg,
                 arenaTiltak = arenaTiltak,
-                brukerregistrertTiltak = brukerregistrertTiltak
+                brukerregistrertTiltak = brukerregistrertTiltak,
+                trygdOgPensjon = trygdOgPensjon
             )
         }
     }

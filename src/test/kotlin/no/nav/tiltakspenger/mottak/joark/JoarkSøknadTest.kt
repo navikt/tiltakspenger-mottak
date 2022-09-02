@@ -6,8 +6,10 @@ import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
 import no.nav.tiltakspenger.mottak.søknad.SøknadDetails
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
+import no.nav.tiltakspenger.mottak.søknad.søknadList.TrygdOgPensjon
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -129,6 +131,26 @@ internal class JoarkSøknadTest {
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
         assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
+    }
+
+    @Test
+    fun `trygd og pensjon kommer med`() {
+        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_trygd_og_pensjon.json").readText())
+        val expected1 = TrygdOgPensjon(
+            utbetaler = "Manchester United",
+            prosent = 42,
+            fom = LocalDate.of(2021, Month.FEBRUARY, 9),
+            tom = LocalDate.of(2022, Month.AUGUST, 2)
+        )
+        val expected2 = TrygdOgPensjon(
+            utbetaler = "Bayern München",
+            prosent = 30,
+            fom = LocalDate.of(2022, Month.AUGUST, 10)
+        )
+
+        assertTrue(søknad.trygdOgPensjon?.size == 2)
+        assertTrue(søknad.trygdOgPensjon!!.contains(expected1))
+        assertTrue(søknad.trygdOgPensjon!!.contains(expected2))
     }
 
     @Test
