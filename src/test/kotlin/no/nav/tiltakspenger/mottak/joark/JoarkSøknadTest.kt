@@ -159,6 +159,18 @@ internal class JoarkSøknadTest {
     }
 
     @Test
+    fun `fritekst kommer med`() {
+        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_trygd_og_pensjon.json").readText())
+        assertEquals("en tilleggsopplysning", søknad.fritekst)
+    }
+
+    @Test
+    fun `søknad med null i fritekst`() {
+        val søknad = Søknad.fromJson(File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText())
+        assertTrue(søknad.fritekst.isNullOrEmpty())
+    }
+
+    @Test
     fun `missing fnr throws exception`() {
         val json = """
             {

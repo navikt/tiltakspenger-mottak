@@ -25,6 +25,7 @@ data class Søknad(
     val arenaTiltak: ArenaTiltak?,
     val brukerregistrertTiltak: BrukerregistrertTiltak?,
     val trygdOgPensjon: List<TrygdOgPensjon>? = null,
+    val fritekst: String? = null,
 ) {
 
     companion object {
@@ -71,6 +72,7 @@ data class Søknad(
                         tom = it.properties.tom
                     )
                 }.ifEmpty { null }
+            val fritekst = joarkSoknad.fakta.firstOrNull { it.key == "tilleggsopplysninger.fritekst" }?.value
 
             return Søknad(
                 id = joarkSoknad.soknadId.toString(),
@@ -85,7 +87,8 @@ data class Søknad(
                 barnetillegg = barneTillegg,
                 arenaTiltak = arenaTiltak,
                 brukerregistrertTiltak = brukerregistrertTiltak,
-                trygdOgPensjon = trygdOgPensjon
+                trygdOgPensjon = trygdOgPensjon,
+                fritekst = fritekst,
             )
         }
     }
