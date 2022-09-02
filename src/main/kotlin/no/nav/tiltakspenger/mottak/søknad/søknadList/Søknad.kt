@@ -52,14 +52,12 @@ data class Søknad(
             val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
             val barneTillegg = barneFakta
                 .filter { it.properties?.sokerbarnetillegg ?: false }
-                .filter { it.properties?.fnr?.isNotEmpty() ?: false }
                 .map {
                     Barnetillegg(
-                        ident = it.properties?.fnr!!,
-                        fornavn = it.properties.fornavn,
-                        etternavn = it.properties.etternavn,
-                        alder = it.properties.alder!!.toInt(),
-                        bosted = it.properties.land!!
+                        ident = it.properties?.fnr,
+                        fødselsdato = it.properties?.fodselsdato,
+                        alder = it.properties?.alder!!.toInt(),
+                        land = it.properties.land!!
                     )
                 }
 

@@ -1,12 +1,15 @@
 package no.nav.tiltakspenger.mottak.søknad.søknadList
 
 import kotlinx.serialization.Serializable
+import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
+import java.time.LocalDate
 
 @Serializable
 data class Barnetillegg(
-    val fornavn: String?,
-    val etternavn: String?,
+    // fra søknaden kommer enten ident (om barn er forhåndsutfylt) eller fødselsdato (om barn er manuelt lagt til)
+    val ident: String? = null,
+    @Serializable(with = LocalDateSerializer::class)
+    val fødselsdato: LocalDate? = null,
     val alder: Int,
-    val ident: String,
-    val bosted: String
+    val land: String
 )

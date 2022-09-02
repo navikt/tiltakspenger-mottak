@@ -13,6 +13,7 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.time.LocalDate
+import java.time.Month
 
 internal class JoarkSøknadTest {
     private val json = Json { ignoreUnknownKeys = true }
@@ -111,14 +112,23 @@ internal class JoarkSøknadTest {
     }
 
     @Test
-    fun `should barnetillegg from soknad`() {
+    fun `barnetillegg med forhåndsregistrert barn`() {
         val søknad = Søknad.fromJson(File("src/test/resources/soknad_med_tiltak_fra_arena.json").readText())
-        val expectedBarn = Barnetillegg("SMEKKER", "STAUDE", 8, "16081376917", "NOR")
-        assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
-        assertEquals(expectedBarn.etternavn, søknad.barnetillegg.first().etternavn)
-        assertEquals(expectedBarn.bosted, søknad.barnetillegg.first().bosted)
+        val expectedBarn = Barnetillegg("16081376917", alder = 8, land = "NOR")
+        assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
+        assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
+    }
+
+    @Test
+    fun `barnetillegg med manuelt registrert barn`() {
+        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_manuelt_lagt_til_barn.json").readText())
+        val expectedBarn = Barnetillegg(fødselsdato = LocalDate.of(2019, Month.JANUARY, 1), alder = 3, land = "NOR")
+        assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
+        assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
+        assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
+        assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
     }
 
     @Test

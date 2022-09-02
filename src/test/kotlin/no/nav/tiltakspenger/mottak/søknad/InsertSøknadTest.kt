@@ -3,7 +3,6 @@ package no.nav.tiltakspenger.mottak.søknad
 import no.nav.tiltakspenger.mottak.db.PostgresTestcontainer
 import no.nav.tiltakspenger.mottak.db.flywayMigrate
 import no.nav.tiltakspenger.mottak.db.queries.PersonQueries
-import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -54,40 +53,5 @@ internal class InsertSøknadTest {
         } catch (e: org.postgresql.util.PSQLException) {
             fail("Exception thrown $e")
         }
-    }
-
-    @Test
-    fun `should handle 2 barnetillegg`() {
-        val ident = "123412342"
-        val journalpostId = 12318
-        PersonQueries.insertIfNotExists(ident, søknad.fornavn, søknad.etternavn)
-        SøknadQueries.insertIfNotExists(journalpostId, dokumentInfoId, rawJson, søknad.copy(ident = ident))
-        BarnetilleggQueries.insertBarnetillegg(
-            Barnetillegg(
-                fornavn = "Gøyal",
-                etternavn = "Maskin",
-                alder = 15,
-                ident = "123412345",
-                bosted = "Asker"
-            ),
-            journalpostId,
-            dokumentInfoId
-        )
-        BarnetilleggQueries.insertBarnetillegg(
-            Barnetillegg(
-                fornavn = "Gøyal",
-                etternavn = "Maskin",
-                alder = 15,
-                ident = "123412346",
-                bosted = "Asker"
-            ),
-            journalpostId,
-            dokumentInfoId
-        )
-
-        val soknader = SøknadQueries.listSøknader(10, 0, null)
-        val matchingSoknad = soknader.find { it.ident == ident }
-        assertNotNull(matchingSoknad)
-        assertEquals(2, matchingSoknad?.barnetillegg?.size)
     }
 }

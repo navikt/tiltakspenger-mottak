@@ -23,6 +23,7 @@ data class Properties(
     val fnr: String? = null,
     @Serializable(with = LocalDateSerializer::class) val fom: LocalDate? = null,
     val fornavn: String? = null,
+    @Serializable(with = LocalDateSerializer::class) val fodselsdato: LocalDate? = null,
     val gjeldendeAdresse: String? = null,
     val gjeldendeAdresseGyldigFra: String? = null,
     val gjeldendeAdresseGyldigTil: String? = null,

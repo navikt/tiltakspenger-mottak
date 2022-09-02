@@ -138,9 +138,7 @@ fun Row.hasBarnetillegg(): Boolean {
 }
 
 fun Barnetillegg.Companion.fromRow(row: Row): Barnetillegg = Barnetillegg(
-    fornavn = row.string("barn_fornavn"),
-    etternavn = row.string("barn_etternavn"),
-    alder = row.int("barn_alder"),
-    bosted = row.string("barn_bosted"),
     ident = row.string("barn_ident"),
+    alder = row.int("barn_alder"),
+    land = row.string("barn_bosted"),
 )

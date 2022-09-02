@@ -19,9 +19,7 @@ object BarnetilleggQueries {
                     "dokumentinfo_id" to dokumentInfoId,
                     "journalpost_id" to journalpostId,
                     "ident" to barnetillegg.ident,
-                    "bosted" to barnetillegg.bosted,
-                    "fornavn" to barnetillegg.fornavn,
-                    "etternavn" to barnetillegg.etternavn,
+                    "bosted" to barnetillegg.land,
                     "alder" to barnetillegg.alder,
                 )
             ).asUpdate
