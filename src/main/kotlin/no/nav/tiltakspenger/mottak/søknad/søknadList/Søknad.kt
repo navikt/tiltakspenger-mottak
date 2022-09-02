@@ -48,11 +48,10 @@ data class Søknad(
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon" }?.value == "ja"
             val typeInstitusjon = if (oppholdInstitusjon)
                 joarkSoknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value else null
-            val barneFakta = joarkSoknad.fakta
-                .filter { it.key == "barn" }
             val arenaTiltak = ArenaTiltak.fromJoarkSoknad(joarkSoknad)
             val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
-            val barneTillegg = barneFakta
+            val barneTillegg = joarkSoknad.fakta
+                .filter { it.key == "barn" }
                 .filter { it.properties?.sokerbarnetillegg ?: false }
                 .map {
                     Barnetillegg(
@@ -62,16 +61,16 @@ data class Søknad(
                         land = it.properties.land!!
                     )
                 }
-            val trygdOgPensjon = joarkSoknad.fakta.filter {
-                it.key == "trygdogpensjon.utbetalere" && it.properties?.utbetaler != null
-            }.map {
-                TrygdOgPensjon(
-                    utbetaler = it.properties?.utbetaler!!,
-                    prosent = it.properties.prosent,
-                    fom = it.properties.fom!!,
-                    tom = it.properties.tom
-                )
-            }
+            val trygdOgPensjon = joarkSoknad.fakta
+                .filter { it.key == "trygdogpensjon.utbetalere" && it.properties?.utbetaler != null }
+                .map {
+                    TrygdOgPensjon(
+                        utbetaler = it.properties?.utbetaler!!,
+                        prosent = it.properties.prosent,
+                        fom = it.properties.fom!!,
+                        tom = it.properties.tom
+                    )
+                }.ifEmpty { null }
 
             return Søknad(
                 id = joarkSoknad.soknadId.toString(),

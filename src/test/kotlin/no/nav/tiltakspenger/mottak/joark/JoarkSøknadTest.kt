@@ -147,10 +147,15 @@ internal class JoarkSøknadTest {
             prosent = 30,
             fom = LocalDate.of(2022, Month.AUGUST, 10)
         )
-
         assertTrue(søknad.trygdOgPensjon?.size == 2)
         assertTrue(søknad.trygdOgPensjon!!.contains(expected1))
         assertTrue(søknad.trygdOgPensjon!!.contains(expected2))
+    }
+
+    @Test
+    fun `trygd og pensjon er null om det ikke eksisterer`() {
+        val søknad = Søknad.fromJson(File("src/test/resources/mockSoknad.json").readText())
+        assertNull(søknad.trygdOgPensjon)
     }
 
     @Test
