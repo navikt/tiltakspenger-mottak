@@ -7,9 +7,7 @@ import no.nav.tiltakspenger.mottak.søknad.SøknadDetails
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
 import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import no.nav.tiltakspenger.mottak.søknad.søknadList.TrygdOgPensjon
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNull
-import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
@@ -154,7 +152,7 @@ internal class JoarkSøknadTest {
 
     @Test
     fun `trygd og pensjon er null om det ikke eksisterer`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/mockSoknad.json").readText())
+        val søknad = Søknad.fromJson(File("src/test/resources/mocksoknad.json").readText())
         assertNull(søknad.trygdOgPensjon)
     }
 
