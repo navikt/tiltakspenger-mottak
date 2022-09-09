@@ -40,9 +40,3 @@ spec:
         databases:
           - name: mottak
             envVarPrefix: DB
-  accessPolicy:
-    inbound:
-      rules:
-        - application: tpts-tiltakspenger-flate
-          namespace: tpts
-          cluster: {{ cluster }}
