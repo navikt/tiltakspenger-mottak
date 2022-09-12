@@ -9,8 +9,6 @@ env:
 jobs:
   build:
     name: Test, build and push
-    # dependabot has its own workflow to be able to auto-merge
-    # if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -58,7 +56,7 @@ jobs:
           WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
 
   dependabot:
-    name: Merge dependabot
+    name: Merge dependabot automatically
     needs: build
     runs-on: ubuntu-latest
     # Only allow dependabot from this repo and not via forks
@@ -66,8 +64,8 @@ jobs:
     steps:
       - run: gh pr merge --auto --rebase "$PR_URL"
         env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy-dev:
     name: Deploy to NAIS dev
