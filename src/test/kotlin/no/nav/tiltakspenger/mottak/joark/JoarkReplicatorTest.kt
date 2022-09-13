@@ -111,8 +111,8 @@ internal class JoarkReplicatorTest {
             updateBeginningOffsets(mapOf(partition to 0L))
         }
         val søknad = Søknad(
-            "id", null, null, "ident", false, false,
-            false, null, null, emptyList(), null, null
+            "søknadid", "journalpostId", "dokumentInfoId", null, null, "ident",
+            false, false, false, null, null, emptyList(), null, null
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)

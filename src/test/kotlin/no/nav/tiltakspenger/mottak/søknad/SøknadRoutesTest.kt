@@ -30,7 +30,9 @@ internal class SøknadRoutesTest {
 
     private val mockSession = mockk<Session>(relaxed = false)
     private val mockSøknad = Søknad(
-        id = "12312",
+        søknadId = "12312",
+        journalpostId = "23",
+        dokumentInfoId = "45",
         fornavn = "Gøyal",
         etternavn = "Maskin",
         ident = "123",
@@ -86,7 +88,7 @@ internal class SøknadRoutesTest {
         every {
             mockSession.run(match<ListResultQueryAction<Søknad>> { it.query.paramMap["offset"] == 1 })
         } returns listOf(
-            mockSøknad.copy(id = "12313", fornavn = "Liten")
+            mockSøknad.copy(søknadId = "12313", fornavn = "Liten")
         )
         every { mockSession.run(any<NullableResultQueryAction<Int>>()) } returns 2
 

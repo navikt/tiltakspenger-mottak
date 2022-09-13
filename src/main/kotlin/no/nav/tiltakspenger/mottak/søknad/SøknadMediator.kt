@@ -35,7 +35,7 @@ suspend fun handleSøknad(journalpostId: String): Søknad? {
 //                dokumentInfoId = dokumentInfoId
 //            )
 //        }
-        return Søknad.fromJson(json)
+        return Søknad.fromJson(json, journalpostId, journalfortDokumentMetaData.dokumentInfoId)
     } else {
         LOG.info { "Journalpost with ID $journalpostId was not handled" }
         return null

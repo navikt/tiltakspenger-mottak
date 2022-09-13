@@ -57,7 +57,7 @@ internal class SøknadMediatorTest {
         val soknad = handleSøknad(journalpostId)
 
         // then
-        assertEquals("12304", soknad?.id)
+        assertEquals("12304", soknad?.søknadId)
         coVerify(exactly = 1) { SafClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { SafClient.hentSoknad(journalfortDokumentMetaData) }
     }

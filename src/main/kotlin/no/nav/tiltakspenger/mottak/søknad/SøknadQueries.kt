@@ -58,7 +58,7 @@ object SøknadQueries {
                 )
             ).map(Søknad::fromRow).asList
         )
-            .groupBy { it.id }
+            .groupBy { it.søknadId }
             .map { (_, søknader) ->
                 søknader.reduce { acc, soknad -> soknad.copy(barnetillegg = acc.barnetillegg + soknad.barnetillegg) }
             }
@@ -84,7 +84,7 @@ object SøknadQueries {
                     "oppholdInstitusjon" to søknad.oppholdInstitusjon,
                     "type_institusjon" to søknad.typeInstitusjon,
                     "tiltak_arrangoer" to søknad.arenaTiltak?.arrangoer,
-                    "tiltak_type" to søknad.arenaTiltak?.navn
+                    "tiltak_type" to søknad.arenaTiltak?.tiltakskode
                 )
             ).asUpdate
         )
@@ -109,21 +109,23 @@ object SøknadQueries {
 
 fun Søknad.Companion.fromRow(row: Row): Søknad =
     Søknad(
-        id = row.int("dokumentinfo_id").toString(),
+        søknadId = row.int("dokumentinfo_id").toString(),
+        journalpostId = "",
+        dokumentInfoId = "",
         fornavn = row.string("fornavn"),
         etternavn = row.string("etternavn"),
         ident = row.string("ident"),
         deltarKvp = row.boolean("deltar_kvp"),
         deltarIntroduksjonsprogrammet = row.boolean("deltar_introduksjonsprogrammet"),
-        oppholdInstitusjon = row.boolean("opphold_institusjon"),
-        typeInstitusjon = row.stringOrNull("type_institusjon"),
 //        tiltaksArrangoer = row.stringOrNull("tiltak_arrangoer"),
 //        tiltaksType = row.stringOrNull("tiltak_type"),
-        opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
+        oppholdInstitusjon = row.boolean("opphold_institusjon"),
 //        brukerRegistrertStartDato = row.localDateOrNull("bruker_start_dato"),
 //        brukerRegistrertSluttDato = row.localDateOrNull("bruker_slutt_dato"),
 //        systemRegistrertStartDato = row.localDateOrNull("system_start_dato"),
 //        systemRegistrertSluttDato = row.localDateOrNull("system_slutt_dato"),
+        typeInstitusjon = row.stringOrNull("type_institusjon"),
+        opprettet = row.zonedDateTime("opprettet_dato").toLocalDateTime(),
         barnetillegg = if (row.hasBarnetillegg()) listOf(Barnetillegg.fromRow(row)) else emptyList(),
         arenaTiltak = null,
         brukerregistrertTiltak = null

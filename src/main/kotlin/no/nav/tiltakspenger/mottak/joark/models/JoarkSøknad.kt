@@ -6,7 +6,7 @@ import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
 import java.time.LocalDateTime
 
 @Serializable
-data class JoarkSoknad(
+data class JoarkSøknad(
     @SerialName("soknadId") val soknadId: Int? = null,
     @SerialName("skjemaNummer") val skjemaNummer: String? = null,
     @SerialName("versjon") val versjon: String? = null,

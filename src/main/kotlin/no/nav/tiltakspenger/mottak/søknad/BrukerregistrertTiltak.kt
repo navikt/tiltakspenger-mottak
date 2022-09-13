@@ -2,12 +2,12 @@ package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
-import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
+import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
 import java.time.LocalDate
 
 @Serializable
 data class BrukerregistrertTiltak(
-    val tiltakstype: String?,
+    val tiltakskode: String?,
     val arrangoernavn: String?,
     val beskrivelse: String?,
     @Serializable(with = LocalDateSerializer::class) val fom: LocalDate?,
@@ -17,11 +17,11 @@ data class BrukerregistrertTiltak(
     val antallDager: Int
 ) {
     companion object {
-        fun fromJoarkSoknad(joarkSoknad: JoarkSoknad): BrukerregistrertTiltak? {
+        fun fromJoarkSoknad(joarkSøknad: JoarkSøknad): BrukerregistrertTiltak? {
             val brukerregistrertTiltakJson =
-                joarkSoknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" } ?: return null
+                joarkSøknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" } ?: return null
             return BrukerregistrertTiltak(
-                tiltakstype = brukerregistrertTiltakJson.value,
+                tiltakskode = brukerregistrertTiltakJson.value,
                 arrangoernavn = brukerregistrertTiltakJson.properties?.arrangoernavn,
                 beskrivelse = brukerregistrertTiltakJson.properties?.beskrivelse,
                 fom = brukerregistrertTiltakJson.properties?.fom,

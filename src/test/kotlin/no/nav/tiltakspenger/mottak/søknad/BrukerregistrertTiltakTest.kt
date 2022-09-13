@@ -3,7 +3,7 @@ package no.nav.tiltakspenger.mottak.søknad
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.joark.models.Faktum
-import no.nav.tiltakspenger.mottak.joark.models.JoarkSoknad
+import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
 import no.nav.tiltakspenger.mottak.joark.models.Properties
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
@@ -20,12 +20,12 @@ internal class BrukerregistrertTiltakTest {
     @Test
     fun `søknad med brukerregistrert tiltak`() {
         val jsonFromFile = File("src/test/resources/soknad_deltar_intro.json").readText()
-        val joarkSoknad = json.decodeFromString<JoarkSoknad>(jsonFromFile)
+        val joarkSøknad = json.decodeFromString<JoarkSøknad>(jsonFromFile)
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
+        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
 
         assertNotNull(tiltak)
-        assertEquals("Annet", tiltak?.tiltakstype)
+        assertEquals("Annet", tiltak?.tiltakskode)
         assertEquals("Intro", tiltak?.beskrivelse)
         assertEquals(LocalDate.of(2022, Month.APRIL, 1), tiltak?.fom)
         assertEquals(LocalDate.of(2022, Month.APRIL, 22), tiltak?.tom)
@@ -38,9 +38,9 @@ internal class BrukerregistrertTiltakTest {
     @Test
     fun `søknad uten brukerregistrert tiltak`() {
         val faktum = Faktum(key = "en faktumnøkkel vi ikke har noe forhold til")
-        val joarkSoknad = JoarkSoknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
+        val joarkSøknad = JoarkSøknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
+        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
 
         assertNull(tiltak)
     }
@@ -48,9 +48,9 @@ internal class BrukerregistrertTiltakTest {
     @Test
     fun `ingen dager angitt gir 0 dager`() {
         val faktum = Faktum(key = "tiltaksliste.annetTiltak", properties = Properties(antallDager = null))
-        val joarkSoknad = JoarkSoknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
+        val joarkSøknad = JoarkSøknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSoknad)
+        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
 
         assertEquals(0, tiltak?.antallDager)
     }

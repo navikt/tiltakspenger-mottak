@@ -22,7 +22,7 @@ internal class InsertSøknadTest {
 
     val rawJson = this::class.java.classLoader.getResource("soknad_med_tiltak_fra_arena.json")!!.readText()
     val dokumentInfoId = 321313
-    val søknad = Søknad.fromJson(rawJson)
+    val søknad = Søknad.fromJson(rawJson, "1", "$dokumentInfoId")
 
     @BeforeAll
     fun setup() {
