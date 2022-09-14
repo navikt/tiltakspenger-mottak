@@ -24,7 +24,5 @@ spec:
     max: 1
   kafka:
     pool: {{ kafka.pool }}
-  tokenx:
-    enabled: true
   envFrom:
     - configmap: {{ configmap }}
