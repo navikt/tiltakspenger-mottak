@@ -1,6 +1,5 @@
 package no.nav.tiltakspenger.mottak.joark
 
-import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.søknad.Barnetillegg
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.søknad.TrygdOgPensjon
@@ -15,7 +14,6 @@ import java.time.LocalDate
 import java.time.Month
 
 internal class JoarkSøknadTest {
-    private val json = Json { ignoreUnknownKeys = true }
 
     @Test
     fun `from json to Søknad with ArenaTiltak`() {

@@ -19,9 +19,3 @@ fun joarkTopicName(): String = getPropertyValueByEnvironment(
     devValue = "teamdokumenthandtering.aapen-dok-journalfoering-q1",
     prodValue = "teamdokumenthandtering.aapen-dok-journalfoering"
 )
-
-object AuthConfig {
-    val issuer = System.getenv("AZURE_ISSUER")
-    val jwksUri = System.getenv("AZURE_JWKS_URI")
-    val clientId = System.getenv("AZURE_APP_CLIENT_ID")
-}
