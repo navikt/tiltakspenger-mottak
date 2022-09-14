@@ -2,11 +2,6 @@
 
 package no.nav.tiltakspenger.mottak.joark
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClientConfig
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
@@ -104,14 +99,6 @@ internal class JoarkReplicator(
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : HealthCheck {
     private lateinit var job: Job
-
-    companion object {
-        //TODO: Denne er grå, ser ikke ut som den brukes?
-        val objectMapper: ObjectMapper = jacksonObjectMapper()
-            .registerModule(JavaTimeModule())
-            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-    }
 
     init {
         Runtime.getRuntime().addShutdownHook(Thread(::shutdownHook))
