@@ -1,24 +1,14 @@
-package no.nav.tiltakspenger.mottak.clients.saf
+package no.nav.tiltakspenger.mottak.saf
 
-import io.ktor.client.call.body
-import io.ktor.client.request.accept
-import io.ktor.client.request.bearerAuth
-import io.ktor.client.request.get
-import io.ktor.client.request.header
-import io.ktor.client.request.post
-import io.ktor.client.request.setBody
-import io.ktor.client.statement.bodyAsText
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
-import io.ktor.server.plugins.NotFoundException
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.server.plugins.*
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient.getToken
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
 import no.nav.tiltakspenger.mottak.getSafUrl
-import no.nav.tiltakspenger.mottak.graphql.Graphql
-import no.nav.tiltakspenger.mottak.graphql.JournalfortDokumentMetaData
-import no.nav.tiltakspenger.mottak.graphql.SafQuery
-import no.nav.tiltakspenger.mottak.graphql.SafQuery.Variantformat.ORIGINAL
-import no.nav.tiltakspenger.mottak.graphql.journalpost
+import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
 object SafClient {
     private const val FILNAVN = "tiltakspenger.json"

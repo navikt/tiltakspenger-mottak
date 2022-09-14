@@ -10,7 +10,7 @@ import java.time.LocalDate
 internal class ArenaTiltakTest {
     @Test
     fun `soknad med tiltak fra arena`() {
-        val json = File("src/test/resources/soknad_med_tiltak_fra_arena.json").readText()
+        val json = File("src/test/resources/søknad_med_tiltak_fra_arena.json").readText()
         val arenaTiltak = ArenaTiltak.fromJson(json)
         assertNotNull(arenaTiltak)
         assertEquals("JOBBK", arenaTiltak?.tiltakskode)
@@ -22,7 +22,7 @@ internal class ArenaTiltakTest {
 
     @Test
     fun `soknad uten tiltak fra arena`() {
-        val json = File("src/test/resources/soknad_uten_tiltak_fra_arena.json").readText()
+        val json = File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText()
         val arenaTiltak = ArenaTiltak.fromJson(json)
         assertNull(arenaTiltak)
     }

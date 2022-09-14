@@ -19,7 +19,7 @@ internal class BrukerregistrertTiltakTest {
 
     @Test
     fun `søknad med brukerregistrert tiltak`() {
-        val jsonFromFile = File("src/test/resources/soknad_deltar_intro.json").readText()
+        val jsonFromFile = File("src/test/resources/søknad_deltar_intro.json").readText()
         val joarkSøknad = json.decodeFromString<JoarkSøknad>(jsonFromFile)
 
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)

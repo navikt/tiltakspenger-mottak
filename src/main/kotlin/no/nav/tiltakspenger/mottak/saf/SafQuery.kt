@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.graphql
+package no.nav.tiltakspenger.mottak.saf
 
 import kotlinx.serialization.Serializable
 

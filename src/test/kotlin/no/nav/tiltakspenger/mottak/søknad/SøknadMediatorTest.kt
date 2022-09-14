@@ -6,8 +6,8 @@ import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
-import no.nav.tiltakspenger.mottak.clients.saf.SafClient
-import no.nav.tiltakspenger.mottak.graphql.JournalfortDokumentMetaData
+import no.nav.tiltakspenger.mottak.saf.JournalfortDokumentMetaData
+import no.nav.tiltakspenger.mottak.saf.SafClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -39,7 +39,7 @@ internal class SøknadMediatorTest {
         // given
         val journalpostId = "42"
         val dokumentInfoId = "43"
-        val rawJson = this::class.java.classLoader.getResource("mocksoknad.json")!!.readText()
+        val rawJson = this::class.java.classLoader.getResource("søknad.json")!!.readText()
         mockkObject(AzureOauthClient)
         coEvery { AzureOauthClient.getToken() } returns "TOKEN"
         mockkObject(SafClient)
