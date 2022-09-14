@@ -2,7 +2,6 @@ package no.nav.tiltakspenger.mottak.søknad
 
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.clients.saf.SafClient
-import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")

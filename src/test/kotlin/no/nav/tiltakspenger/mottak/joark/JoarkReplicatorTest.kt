@@ -7,8 +7,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
+import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.søknad.handleSøknad
-import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord

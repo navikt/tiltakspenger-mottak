@@ -3,10 +3,10 @@ package no.nav.tiltakspenger.mottak.joark
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
+import no.nav.tiltakspenger.mottak.søknad.Barnetillegg
+import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.søknad.SøknadDetails
-import no.nav.tiltakspenger.mottak.søknad.søknadList.Barnetillegg
-import no.nav.tiltakspenger.mottak.søknad.søknadList.Søknad
-import no.nav.tiltakspenger.mottak.søknad.søknadList.TrygdOgPensjon
+import no.nav.tiltakspenger.mottak.søknad.TrygdOgPensjon
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue

@@ -1,12 +1,10 @@
-package no.nav.tiltakspenger.mottak.søknad.søknadList
+package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
-import no.nav.tiltakspenger.mottak.søknad.ArenaTiltak
-import no.nav.tiltakspenger.mottak.søknad.BrukerregistrertTiltak
 import java.time.LocalDateTime
 
 @Serializable
@@ -36,7 +34,7 @@ data class Søknad(
         }
 
         fun fromJson(json: String, journalpostId: String, dokumentInfoId: String): Søknad {
-            val joarkSøknad = this.json.decodeFromString<JoarkSøknad>(json)
+            val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
             requireNotNull(fnr) { "No fnr, cannot handle soknad with id ${joarkSøknad.soknadId}" }

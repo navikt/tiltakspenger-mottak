@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.søknad.søknadList
+package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
