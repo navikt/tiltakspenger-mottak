@@ -7,9 +7,6 @@ metadata:
     team: tpts
 spec:
   image: {{ image }}
-  port: 8080
-  ingresses:
-    - {{ ingress.url }}
   azure:
     application:
       enabled: true
@@ -31,12 +28,3 @@ spec:
     enabled: true
   envFrom:
     - configmap: {{ configmap }}
-  gcp:
-    sqlInstances:
-      - name: {{ sqlInstances.name }}
-        type: POSTGRES_14
-        diskAutoresize: {{ sqlInstances.diskAutoresize }}
-        pointInTimeRecovery: {{ sqlInstances.pointInTimeRecovery }}
-        databases:
-          - name: mottak
-            envVarPrefix: DB

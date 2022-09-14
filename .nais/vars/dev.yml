@@ -1,11 +1,4 @@
 configmap: tpts-tiltakspenger-mottak-dev
 kafka:
   pool: nav-dev
-sqlInstances:
-  name: tiltakspenger-mottak-dev
-  diskAutoresize: false
-  pointInTimeRecovery: false
-ingress:
-  url: https://tiltakspenger-mottak.dev.intern.nav.no
 cluster: dev-gcp
-
