@@ -30,7 +30,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$kotlinxCoroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:$kotlinxSerializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$kotlinxSerializationVersion")
-    implementation("ch.qos.logback:logback-classic:1.4.0")
+    implementation("ch.qos.logback:logback-classic:1.4.1")
     implementation("net.logstash.logback:logstash-logback-encoder:7.2")
     implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
     implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
