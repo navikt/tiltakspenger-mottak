@@ -22,7 +22,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: build installDist
+          arguments: build --info installDist
 
       - name: Set up Docker Buildx
         if: github.ref == 'refs/heads/main'
