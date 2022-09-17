@@ -1,15 +1,12 @@
 package no.nav.tiltakspenger.mottak.clients
 
-import io.ktor.client.call.body
-import io.ktor.client.request.forms.submitForm
-import io.ktor.client.request.get
-import io.ktor.http.Parameters
-import io.ktor.http.ParametersBuilder
+import io.ktor.client.call.*
+import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
+import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import no.nav.security.token.support.client.core.OAuth2GrantType
-import no.nav.security.token.support.client.core.OAuth2ParameterNames
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
 
 private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
@@ -31,7 +28,10 @@ object AzureOauthClient {
         return client.submitForm(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
-                appendToken()
+                append("grant_type", "client_credentials")
+                append("client_id", clientId)
+                append("client_secret", clientSecret)
+                append("scope", scope)
             }
         ).body<OAuth2AccessTokenResponse>().let {
             tokenCache.update(
@@ -41,31 +41,6 @@ object AzureOauthClient {
             return@let it.accessToken
         }
     }
-
-    suspend fun onBehalfOfExchange(accessToken: String): OAuth2AccessTokenResponse {
-        return client.submitForm(
-            url = wellknown.tokenEndpoint,
-            formParameters = Parameters.build {
-                appendTokenExchangeParams(accessToken)
-            }
-        ).body()
-    }
-}
-
-fun ParametersBuilder.appendToken() {
-    append("grant_type", "client_credentials")
-    append(OAuth2ParameterNames.CLIENT_ID, clientId)
-    append(OAuth2ParameterNames.CLIENT_SECRET, clientSecret)
-    append(OAuth2ParameterNames.SCOPE, scope)
-}
-
-fun ParametersBuilder.appendTokenExchangeParams(accessToken: String) {
-    append("grant_type", OAuth2GrantType.JWT_BEARER.value)
-    append(OAuth2ParameterNames.CLIENT_ID, clientId)
-    append(OAuth2ParameterNames.CLIENT_SECRET, clientSecret)
-    append(OAuth2ParameterNames.SCOPE, scope)
-    append(OAuth2ParameterNames.ASSERTION, accessToken)
-    append(OAuth2ParameterNames.REQUESTED_TOKEN_USE, "on_behalf_of")
 }
 
 @Serializable
