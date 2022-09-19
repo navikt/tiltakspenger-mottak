@@ -37,8 +37,27 @@ internal class BrukerregistrertTiltakTest {
 
     @Test
     fun `søknad uten brukerregistrert tiltak`() {
-        val faktum = Faktum(key = "en faktumnøkkel vi ikke har noe forhold til")
-        val joarkSøknad = JoarkSøknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
+        val faktum = Faktum(
+            key = "en faktumnøkkel vi ikke har noe forhold til",
+            faktumId = 1,
+            soknadId = 2,
+            type = "BRUKERREGISTRERT"
+        )
+        val joarkSøknad = JoarkSøknad(
+            fakta = listOf(faktum),
+            opprettetDato = LocalDateTime.MIN,
+            skjemaNummer = "123",
+            aktoerId = "aktørId",
+            delstegStatus = "VEDLEGG_VALIDERT",
+            erEttersending = false,
+            fortsettSoknadUrl = "/soknadtiltakspenger/app",
+            sistLagret = LocalDateTime.now(),
+            soknadId = 1,
+            soknadUrl = "/soknadtiltakspenger/app",
+            soknadPrefix = "tiltakspenger",
+            status = "UNDER_ARBEID",
+            uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4"
+        )
 
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
 
@@ -47,8 +66,28 @@ internal class BrukerregistrertTiltakTest {
 
     @Test
     fun `ingen dager angitt gir 0 dager`() {
-        val faktum = Faktum(key = "tiltaksliste.annetTiltak", properties = Properties(antallDager = null))
-        val joarkSøknad = JoarkSøknad(fakta = listOf(faktum), opprettetDato = LocalDateTime.MIN)
+        val faktum = Faktum(
+            key = "tiltaksliste.annetTiltak",
+            properties = Properties(antallDager = null),
+            faktumId = 1,
+            soknadId = 2,
+            type = "BRUKERREGISTRERT"
+        )
+        val joarkSøknad = JoarkSøknad(
+            fakta = listOf(faktum),
+            opprettetDato = LocalDateTime.MIN,
+            skjemaNummer = "123",
+            aktoerId = "aktørId",
+            delstegStatus = "VEDLEGG_VALIDERT",
+            erEttersending = false,
+            fortsettSoknadUrl = "/soknadtiltakspenger/app",
+            sistLagret = LocalDateTime.now(),
+            soknadId = 1,
+            soknadUrl = "/soknadtiltakspenger/app",
+            soknadPrefix = "tiltakspenger",
+            status = "UNDER_ARBEID",
+            uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4"
+        )
 
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
 

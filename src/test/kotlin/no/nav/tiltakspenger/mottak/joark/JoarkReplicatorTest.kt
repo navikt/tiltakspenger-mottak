@@ -2,6 +2,7 @@ package no.nav.tiltakspenger.mottak.joark
 
 import io.mockk.coEvery
 import io.mockk.mockkStatic
+import java.time.LocalDateTime
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -111,8 +112,21 @@ internal class JoarkReplicatorTest {
             updateBeginningOffsets(mapOf(partition to 0L))
         }
         val søknad = Søknad(
-            "søknadid", "journalpostId", "dokumentInfoId", null, null, "ident",
-            false, false, false, null, null, emptyList(), null, null
+            søknadId = "søknadid",
+            journalpostId = "journalpostId",
+            dokumentInfoId = "dokumentInfoId",
+            fornavn = null,
+            etternavn = null,
+            ident = "ident",
+            deltarKvp = false,
+            deltarIntroduksjonsprogrammet = false,
+            oppholdInstitusjon = false,
+            typeInstitusjon = null,
+            opprettet = LocalDateTime.now(),
+            barnetillegg = emptyList(),
+            arenaTiltak = null,
+            brukerregistrertTiltak = null,
+            trygdOgPensjon = emptyList(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)

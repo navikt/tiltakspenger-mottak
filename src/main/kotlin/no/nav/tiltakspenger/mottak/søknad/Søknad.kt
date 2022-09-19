@@ -17,14 +17,14 @@ data class Søknad(
     val ident: String,
     val deltarKvp: Boolean,
     val deltarIntroduksjonsprogrammet: Boolean?,
-    val oppholdInstitusjon: Boolean?,
+    val oppholdInstitusjon: Boolean,
     val typeInstitusjon: String?,
     @Serializable(with = LocalDateTimeSerializer::class)
-    val opprettet: LocalDateTime?,
+    val opprettet: LocalDateTime,
     val barnetillegg: List<Barnetillegg>,
     val arenaTiltak: ArenaTiltak?,
     val brukerregistrertTiltak: BrukerregistrertTiltak?,
-    val trygdOgPensjon: List<TrygdOgPensjon>? = null,
+    val trygdOgPensjon: List<TrygdOgPensjon>,
     val fritekst: String? = null,
 ) {
 
@@ -46,9 +46,9 @@ data class Søknad(
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
                     ?.properties?.kommune?.isNotEmpty() ?: false
             val oppholdInstitusjon =
-                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon" }?.value == "ja"
-            val typeInstitusjon = if (oppholdInstitusjon)
-                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value else null
+                joarkSøknad.fakta.first { it.key == "informasjonsside.institusjon" }.value == "ja"
+            val typeInstitusjon = joarkSøknad.fakta
+                .firstOrNull { it.key == "informasjonsside.institusjon.ja.hvaslags" }?.value
             val arenaTiltak = ArenaTiltak.fromJoarkSoknad(joarkSøknad)
             val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
             val barneTillegg = joarkSøknad.fakta
@@ -71,7 +71,7 @@ data class Søknad(
                         fom = it.properties.fom!!,
                         tom = it.properties.tom
                     )
-                }.ifEmpty { null }
+                }
             val fritekst = joarkSøknad.fakta.firstOrNull { it.key == "tilleggsopplysninger.fritekst" }?.value
 
             return Søknad(
