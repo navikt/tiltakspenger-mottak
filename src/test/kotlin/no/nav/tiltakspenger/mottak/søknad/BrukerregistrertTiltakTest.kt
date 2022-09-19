@@ -68,7 +68,8 @@ internal class BrukerregistrertTiltakTest {
     fun `ingen dager angitt gir 0 dager`() {
         val faktum = Faktum(
             key = "tiltaksliste.annetTiltak",
-            properties = Properties(antallDager = null),
+            value = "foo",
+            properties = Properties(antallDager = null, arrangoernavn = "arr"),
             faktumId = 1,
             soknadId = 2,
             type = "BRUKERREGISTRERT"
