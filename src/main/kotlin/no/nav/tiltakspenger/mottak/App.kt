@@ -16,7 +16,7 @@ fun main() {
     val log = KotlinLogging.logger {}
     val securelog = KotlinLogging.logger("tjenestekall")
 
-    Thread.currentThread().setUncaughtExceptionHandler { _, e ->
+    Thread.setDefaultUncaughtExceptionHandler { _, e ->
         log.error { "Uncaught exception logget i securelog" }
         securelog.error(e) { e.message }
     }
