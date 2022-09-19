@@ -148,11 +148,10 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding" }
                     SECURELOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
-                        LOG.debug { "retreiving soknad" }
                         val soknad = handleSøknad(record.key())
-                        LOG.info { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
+                            LOG.debug { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                             SECURELOG.info("Sender melding $json")
                             producer.send(
                                 ProducerRecord(TPTS_RAPID_NAME, record.key(), json)
