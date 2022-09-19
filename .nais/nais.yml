@@ -7,6 +7,9 @@ metadata:
     team: tpts
 spec:
   image: {{ image }}
+  azure:
+    application:
+      enabled: true
   liveness:
     path: /isalive
   readiness:
