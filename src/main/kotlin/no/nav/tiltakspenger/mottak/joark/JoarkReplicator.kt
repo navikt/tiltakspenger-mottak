@@ -41,8 +41,8 @@ import java.util.*
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
-const val MAX_POLL_RECORDS = 50
-const val MAX_POLL_INTERVAL_MS = 5000
+const val MAX_POLL_RECORDS = 5
+const val MAX_POLL_INTERVAL_MS = 300_000
 private val POLL_TIMEOUT = Duration.ofSeconds(4)
 
 fun createKafkaConsumer(): KafkaConsumer<String, GenericRecord> {
