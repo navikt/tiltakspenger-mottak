@@ -1,6 +1,7 @@
 package no.nav.tiltakspenger.mottak
 
 import io.getunleash.DefaultUnleash
+import io.getunleash.strategy.Strategy
 import io.getunleash.util.UnleashConfig
 
 const val TPTS_RAPID_NAME = "tpts.rapid.v1"
@@ -30,6 +31,16 @@ val unleash by lazy {
             .instanceId(requireNotNull(System.getenv("HOSTNAME")) { "Expected HOSTNAME" })
             .environment(requireNotNull(System.getenv("NAIS_CLUSTER_NAME")) { "Expected NAIS_CLUSTER_NAME" })
             .unleashAPI("https://unleash.nais.io/api/")
-            .build()
+            .build(), ByClusterStrategy(System.getenv("NAIS_CLUSTER_NAME"))
     )
+}
+
+class ByClusterStrategy(private val cluster: String) : Strategy {
+    override fun getName(): String = "byCluster"
+
+    override fun isEnabled(parameters: Map<String, String>): Boolean {
+        val clustersParameter = parameters["cluster"] ?: return false
+        val alleClustere = clustersParameter.split(",").map { it.trim() }.map { it.lowercase() }.toList()
+        return alleClustere.contains(cluster)
+    }
 }
