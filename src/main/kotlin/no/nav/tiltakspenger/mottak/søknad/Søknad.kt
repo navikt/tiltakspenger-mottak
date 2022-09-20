@@ -59,7 +59,9 @@ data class Søknad(
                         ident = it.properties.fnr,
                         fødselsdato = it.properties.fodselsdato,
                         alder = it.properties.alder!!.toInt(),
-                        land = it.properties.land!!
+                        land = it.properties.land!!,
+                        fornavn = it.properties.fornavn,
+                        etternavn = it.properties.etternavn,
                     )
                 }
             val trygdOgPensjon = joarkSøknad.fakta
