@@ -153,11 +153,11 @@ internal class JoarkReplicator(
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
                             LOG.debug { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
-                            SECURELOG.info("Sender kanskje (pga unleash) melding $json")
                             if (unleash.isEnabled("tiltakspenger.soknad.mottak")) {
+                                SECURELOG.info("Sender melding $json")
                                 producer.send(ProducerRecord(TPTS_RAPID_NAME, record.key(), json))
                             } else {
-                                LOG.info { "Did not send message - stopped by unleash" }
+                                SECURELOG.info("Sender ikke melding (stoppet av unleash) $json")
                             }
                         }
                     }
