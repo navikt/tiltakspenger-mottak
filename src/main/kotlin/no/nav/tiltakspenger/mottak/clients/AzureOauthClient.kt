@@ -8,13 +8,14 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
+import no.nav.tiltakspenger.mottak.getSafAuthURI
 
 private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
 private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
 private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 
 // Change this to whats needed
-private val scope = System.getenv("SCOPE") ?: "api://dev-fss.teamdokumenthandtering.saf/.default"
+private val scope = System.getenv("SCOPE") ?: getSafAuthURI()
 
 object AzureOauthClient {
     private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl).body() } }
