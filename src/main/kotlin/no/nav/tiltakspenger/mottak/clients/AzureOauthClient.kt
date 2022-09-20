@@ -43,8 +43,6 @@ object AzureOauthClient {
     }
 }
 
+@JvmInline
 @Serializable
-data class WellKnown(
-    @SerialName("token_endpoint")
-    val tokenEndpoint: String
-)
+value class WellKnown(@SerialName("token_endpoint") val tokenEndpoint: String)
