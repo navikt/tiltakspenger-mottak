@@ -55,7 +55,7 @@ dependencies {
     implementation("com.github.navikt:rapids-and-rivers:2022082414021661342533.46a423f6c163")
     implementation("io.getunleash:unleash-client-java:6.0.1")
 
-    testImplementation(platform("org.junit:junit-bom:5.9.0"))
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.ktor:ktor-client-mock-jvm:$ktorVersion")
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktorVersion")
