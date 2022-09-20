@@ -24,5 +24,3 @@ spec:
     max: 1
   kafka:
     pool: {{ kafka.pool }}
-  envFrom:
-    - configmap: {{ configmap }}
