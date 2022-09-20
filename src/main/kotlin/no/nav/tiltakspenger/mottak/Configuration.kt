@@ -20,7 +20,7 @@ fun getSafUrl(): String = getPropertyValueByEnvironment(
     prodValue = "https://saf.prod-fss-pub.nais.io"
 )
 
-fun getSafAuthURI(): String = getPropertyValueByEnvironment(
+fun getSafScope(): String = getPropertyValueByEnvironment(
     devValue = "api://dev-fss.teamdokumenthandtering.saf/.default",
     prodValue = "api://prod-fss.teamdokumenthandtering.saf/.default"
 )
