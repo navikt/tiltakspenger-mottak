@@ -1,4 +1,3 @@
-configmap: tpts-tiltakspenger-mottak-dev
 kafka:
   pool: nav-dev
 cluster: dev-gcp

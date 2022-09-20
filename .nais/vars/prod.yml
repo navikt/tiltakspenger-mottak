@@ -1,4 +1,3 @@
-configmap: tpts-tiltakspenger-mottak-prod
 kafka:
   pool: nav-prod
 cluster: prod-gcp
