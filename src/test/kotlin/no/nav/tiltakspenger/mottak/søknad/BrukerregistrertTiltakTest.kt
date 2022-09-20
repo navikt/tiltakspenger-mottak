@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -65,11 +66,16 @@ internal class BrukerregistrertTiltakTest {
     }
 
     @Test
-    fun `ingen dager angitt gir 0 dager`() {
+    fun `ingen dager angitt gir IllegalArgumentException`() {
         val faktum = Faktum(
             key = "tiltaksliste.annetTiltak",
             value = "foo",
-            properties = Properties(antallDager = null, arrangoernavn = "arr"),
+            properties = Properties(
+                antallDager = null,
+                arrangoernavn = "arr",
+                fom = LocalDate.now(),
+                tom = LocalDate.now()
+            ),
             faktumId = 1,
             soknadId = 2,
             type = "BRUKERREGISTRERT"
@@ -90,8 +96,8 @@ internal class BrukerregistrertTiltakTest {
             uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4"
         )
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
-
-        assertEquals(0, tiltak?.antallDager)
+        assertThrows<IllegalArgumentException> {
+            BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
+        }
     }
 }

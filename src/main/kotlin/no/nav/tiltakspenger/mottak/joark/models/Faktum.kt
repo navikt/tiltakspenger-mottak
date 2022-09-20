@@ -11,6 +11,6 @@ data class Faktum(
     @SerialName("key") val key: String,
     @SerialName("value") val value: String? = null,
     @SerialName("faktumEgenskaper") val faktumEgenskaper: List<FaktumEgenskaper> = arrayListOf(),
-    @SerialName("properties") val properties: Properties? = Properties(),
+    @SerialName("properties") val properties: Properties = Properties(),
     @SerialName("type") val type: String
 )

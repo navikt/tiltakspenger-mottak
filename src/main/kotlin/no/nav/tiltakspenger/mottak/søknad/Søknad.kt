@@ -53,20 +53,20 @@ data class Søknad(
             val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
             val barneTillegg = joarkSøknad.fakta
                 .filter { it.key == "barn" }
-                .filter { it.properties?.sokerbarnetillegg ?: false }
+                .filter { it.properties.sokerbarnetillegg ?: false }
                 .map {
                     Barnetillegg(
-                        ident = it.properties?.fnr,
-                        fødselsdato = it.properties?.fodselsdato,
-                        alder = it.properties?.alder!!.toInt(),
+                        ident = it.properties.fnr,
+                        fødselsdato = it.properties.fodselsdato,
+                        alder = it.properties.alder!!.toInt(),
                         land = it.properties.land!!
                     )
                 }
             val trygdOgPensjon = joarkSøknad.fakta
-                .filter { it.key == "trygdogpensjon.utbetalere" && it.properties?.utbetaler != null }
+                .filter { it.key == "trygdogpensjon.utbetalere" && it.properties.utbetaler != null }
                 .map {
                     TrygdOgPensjon(
-                        utbetaler = it.properties?.utbetaler!!,
+                        utbetaler = it.properties.utbetaler!!,
                         prosent = it.properties.prosent,
                         fom = it.properties.fom!!,
                         tom = it.properties.tom

@@ -32,7 +32,7 @@ data class ArenaTiltak(
                 it.key == "tiltaksliste.tiltakFraArena" && it.faktumId.toString() == valgtTiltakId
             } ?: return null
             return ArenaTiltak(
-                arenaId = valgtArenaTiltak.properties?.arenaId!!,
+                arenaId = valgtArenaTiltak.properties.arenaId!!,
                 arrangoer = valgtArenaTiltak.properties.arrangoer!!,
                 harSluttdatoFraArena = valgtArenaTiltak.properties.harSluttdatoFraArena!!,
                 tiltakskode = valgtArenaTiltak.value!!,
