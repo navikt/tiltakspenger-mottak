@@ -5,12 +5,14 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.plugins.*
+import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient.getToken
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
 import no.nav.tiltakspenger.mottak.getSafUrl
 import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
 object SafClient {
+    private val SECURELOG = KotlinLogging.logger("tjenestekall")
     private const val FILNAVN = "tiltakspenger.json"
     private const val INDIVIDSTONAD = "IND"
     private val safUrl = getSafUrl()
@@ -48,6 +50,7 @@ object SafClient {
     }
 
     private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData? {
+        SECURELOG.info { "Metadata fra SAF: $response" }
         val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->
             dokument.dokumentvarianter.any { it.filnavn == FILNAVN && it.variantformat == ORIGINAL }
         }?.dokumentInfoId
