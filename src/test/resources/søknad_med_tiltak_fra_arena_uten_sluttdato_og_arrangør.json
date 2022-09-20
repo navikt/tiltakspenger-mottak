@@ -1,0 +1,249 @@
+{
+  "soknadId": 13538,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "1dd33a7c-a378-4828-9035-e17211397a0f",
+  "brukerBehandlingId": "1001AN8QT",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 721071,
+      "soknadId": 13538,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721072,
+      "soknadId": 13538,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": "test@nav.no",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "FJORDVEIEN 57, 3490 KLOKKARSTUA",
+        "fnr": "02816899519",
+        "fornavn": "SLAKK",
+        "alder": "54",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "GJERDE",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "SLAKK GJERDE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 721073,
+      "soknadId": 13538,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721074,
+      "soknadId": 13538,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721075,
+      "soknadId": 13538,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721076,
+      "soknadId": 13538,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721077,
+      "soknadId": 13538,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721078,
+      "soknadId": 13538,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721079,
+      "soknadId": 13538,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721080,
+      "soknadId": 13538,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721081,
+      "soknadId": 13538,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721082,
+      "soknadId": 13538,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721083,
+      "soknadId": 13538,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "721095",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721084,
+      "soknadId": 13538,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721085,
+      "soknadId": 13538,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721086,
+      "soknadId": 13538,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721093,
+      "soknadId": 13538,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "ARBTREN",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2022-08-15",
+        "arenaId": "138377097",
+        "startdato": "2022-08-01",
+        "navn": "Arbeidstrening",
+        "erIEndreStatus": "false",
+        "arrangoer": "CONSOLVO AS",
+        "sluttdato": "2022-08-15",
+        "opprinneligstartdato": "2022-08-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721094,
+      "soknadId": 13538,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "ARBFORB",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2022-09-30",
+        "arenaId": "138377356",
+        "startdato": "2022-09-01",
+        "navn": "Arbeidsforberedende trening (AFT)",
+        "erIEndreStatus": "false",
+        "arrangoer": "FUNKWEB - SUKSESS FOR ALLE AS",
+        "sluttdato": "2022-09-30",
+        "opprinneligstartdato": "2022-09-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721095,
+      "soknadId": 13538,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "UTVAOONAV",
+      "properties": {
+        "harSluttdatoFraArena": "false",
+        "opprinneligsluttdato": null,
+        "arenaId": "138377366",
+        "startdato": "2022-09-01",
+        "navn": "Utvidet oppfølging i NAV",
+        "erIEndreStatus": "false",
+        "arrangoer": null,
+        "sluttdato": "2022-09-21",
+        "opprinneligstartdato": "2022-09-01"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721096,
+      "soknadId": 13538,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721097,
+      "soknadId": 13538,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "02816899519",
+  "opprettetDato": "2022-09-20T10:36:40.192Z",
+  "sistLagret": "2022-09-20T10:39:54.543Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}

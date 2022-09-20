@@ -10,7 +10,7 @@ import java.time.LocalDate
 @Serializable
 data class ArenaTiltak(
     val arenaId: String,
-    val arrangoer: String,
+    val arrangoer: String?, // kan være null, f.eks. "Utvidet oppfølging i NAV"
     val harSluttdatoFraArena: Boolean,
     val tiltakskode: String,
     val erIEndreStatus: Boolean,
@@ -33,7 +33,7 @@ data class ArenaTiltak(
             } ?: return null
             return ArenaTiltak(
                 arenaId = valgtArenaTiltak.properties.arenaId!!,
-                arrangoer = valgtArenaTiltak.properties.arrangoer!!,
+                arrangoer = valgtArenaTiltak.properties.arrangoer,
                 harSluttdatoFraArena = valgtArenaTiltak.properties.harSluttdatoFraArena!!,
                 tiltakskode = valgtArenaTiltak.value!!,
                 erIEndreStatus = valgtArenaTiltak.properties.erIEndreStatus!!,
