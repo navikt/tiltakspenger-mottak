@@ -1,0 +1,208 @@
+{
+  "soknadId": 13552,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "32dccbe3-fc16-47b4-8949-a077f6096e28",
+  "brukerBehandlingId": "1001AN8R7",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 721444,
+      "soknadId": 13552,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721445,
+      "soknadId": 13552,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": "test@nav.no",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": null,
+        "fnr": "13837999396",
+        "fornavn": "HENSIKTSMESSIG",
+        "alder": "43",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "RINGDUE",
+        "gjeldendeAdresseType": null,
+        "diskresjonskode": "6",
+        "navn": "HENSIKTSMESSIG RINGDUE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 721446,
+      "soknadId": 13552,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721447,
+      "soknadId": 13552,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721448,
+      "soknadId": 13552,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721449,
+      "soknadId": 13552,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721450,
+      "soknadId": 13552,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721451,
+      "soknadId": 13552,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721452,
+      "soknadId": 13552,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721453,
+      "soknadId": 13552,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721454,
+      "soknadId": 13552,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721455,
+      "soknadId": 13552,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721456,
+      "soknadId": 13552,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721457,
+      "soknadId": 13552,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721458,
+      "soknadId": 13552,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721459,
+      "soknadId": 13552,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721460,
+      "soknadId": 13552,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "JOBSOK",
+      "properties": {
+        "tom": "2022-09-30",
+        "fom": "2022-09-01",
+        "antallDager": "1 dag"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721466,
+      "soknadId": 13552,
+      "key": "arenakall.har.feilet",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 721467,
+      "soknadId": 13552,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "13837999396",
+  "opprettetDato": "2022-09-20T13:09:57.746Z",
+  "sistLagret": "2022-09-20T13:10:39.497Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}

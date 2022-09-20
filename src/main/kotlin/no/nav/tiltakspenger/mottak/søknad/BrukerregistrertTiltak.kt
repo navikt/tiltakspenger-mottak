@@ -8,7 +8,7 @@ import java.time.LocalDate
 @Serializable
 data class BrukerregistrertTiltak(
     val tiltakskode: String,
-    val arrangoernavn: String,
+    val arrangoernavn: String?,
     val beskrivelse: String?, // kun om det er 'Annet' tiltak
     @Serializable(with = LocalDateSerializer::class) val fom: LocalDate,
     @Serializable(with = LocalDateSerializer::class) val tom: LocalDate,
@@ -22,7 +22,7 @@ data class BrukerregistrertTiltak(
                 joarkSøknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" } ?: return null
             return BrukerregistrertTiltak(
                 tiltakskode = brukerregistrertTiltakJson.value!!,
-                arrangoernavn = brukerregistrertTiltakJson.properties.arrangoernavn!!,
+                arrangoernavn = brukerregistrertTiltakJson.properties.arrangoernavn,
                 beskrivelse = brukerregistrertTiltakJson.properties.beskrivelse,
                 fom = brukerregistrertTiltakJson.properties.fom!!,
                 tom = brukerregistrertTiltakJson.properties.tom!!,

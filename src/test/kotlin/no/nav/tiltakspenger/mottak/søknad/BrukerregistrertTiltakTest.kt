@@ -5,6 +5,7 @@ import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.joark.models.Faktum
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
 import no.nav.tiltakspenger.mottak.joark.models.Properties
+import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
@@ -34,6 +35,13 @@ internal class BrukerregistrertTiltakTest {
         assertEquals("0318", tiltak?.postnummer)
         assertEquals("test as", tiltak?.arrangoernavn)
         assertEquals(5, tiltak?.antallDager)
+    }
+
+    @Test
+    fun `søknad med brukerregistrert tiltak som mangler arrangørnavn`() {
+        val jsonFromFile = File("src/test/resources/søknad_med_brukerregistrert_tiltak_uten_arrangør.json").readText()
+        val joarkSøknad = json.decodeFromString<JoarkSøknad>(jsonFromFile)
+        assertDoesNotThrow { BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad) }
     }
 
     @Test
