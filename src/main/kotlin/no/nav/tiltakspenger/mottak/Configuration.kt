@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.mottak
 import io.getunleash.DefaultUnleash
 import io.getunleash.strategy.Strategy
 import io.getunleash.util.UnleashConfig
+import mu.KotlinLogging
 
 const val TPTS_RAPID_NAME = "tpts.rapid.v1"
 
@@ -36,11 +37,14 @@ val unleash by lazy {
 }
 
 class ByClusterStrategy(private val cluster: String) : Strategy {
+    private val log = KotlinLogging.logger {}
     override fun getName(): String = "byCluster"
 
     override fun isEnabled(parameters: Map<String, String>): Boolean {
+        log.info { "par: $parameters" }
         val clustersParameter = parameters["cluster"] ?: return false
         val alleClustere = clustersParameter.split(",").map { it.trim() }.map { it.lowercase() }.toList()
+        log.info { "clustere: $alleClustere" }
         return alleClustere.contains(cluster)
     }
 }
