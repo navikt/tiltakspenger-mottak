@@ -7,9 +7,9 @@ import java.time.LocalDate
 @Serializable
 data class TrygdOgPensjon(
     val utbetaler: String,
-    val prosent: Int? = null,
+    val prosent: Int?,
     @Serializable(with = LocalDateSerializer::class)
-    val fom: LocalDate,
+    val fom: LocalDate?,
     @Serializable(with = LocalDateSerializer::class)
-    val tom: LocalDate? = null
+    val tom: LocalDate?
 )

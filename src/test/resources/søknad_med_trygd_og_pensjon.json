@@ -211,8 +211,7 @@
       "value": null,
       "properties": {
         "prosent": "30",
-        "utbetaler": "Bayern München",
-        "fom": "2022-08-10"
+        "utbetaler": "Bayern München"
       },
       "type": "BRUKERREGISTRERT"
     }

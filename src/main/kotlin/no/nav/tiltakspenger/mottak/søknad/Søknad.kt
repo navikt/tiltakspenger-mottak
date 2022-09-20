@@ -70,7 +70,7 @@ data class Søknad(
                     TrygdOgPensjon(
                         utbetaler = it.properties.utbetaler!!,
                         prosent = it.properties.prosent,
-                        fom = it.properties.fom!!,
+                        fom = it.properties.fom,
                         tom = it.properties.tom
                     )
                 }

@@ -138,7 +138,8 @@ internal class JoarkSøknadTest {
         val expected2 = TrygdOgPensjon(
             utbetaler = "Bayern München",
             prosent = 30,
-            fom = LocalDate.of(2022, Month.AUGUST, 10)
+            fom = null,
+            tom = null
         )
         assertTrue(søknad.trygdOgPensjon.size == 2)
         assertTrue(søknad.trygdOgPensjon.contains(expected1))
