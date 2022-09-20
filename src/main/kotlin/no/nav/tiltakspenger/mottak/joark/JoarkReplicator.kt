@@ -18,6 +18,7 @@ import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.joarkTopicName
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.søknad.handleSøknad
+import no.nav.tiltakspenger.mottak.unleash
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -153,9 +154,11 @@ internal class JoarkReplicator(
                             val json = createJsonMessage(soknad)
                             LOG.debug { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
                             SECURELOG.info("Sender melding $json")
-                            producer.send(
-                                ProducerRecord(TPTS_RAPID_NAME, record.key(), json)
-                            )
+                            if (unleash.isEnabled("tiltakspenger.soknad.mottak")) {
+                                producer.send(ProducerRecord(TPTS_RAPID_NAME, record.key(), json))
+                            } else {
+                                LOG.info { "Did not send message - stopped by unleash" }
+                            }
                         }
                     }
                 }
