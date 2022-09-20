@@ -21,6 +21,7 @@ fun main() {
         securelog.error(e) { e.message }
     }
     log.info { "starting server" }
+    unleash // init
     val joarkReplicator = JoarkReplicator(createKafkaConsumer(), createKafkaProducer()).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
