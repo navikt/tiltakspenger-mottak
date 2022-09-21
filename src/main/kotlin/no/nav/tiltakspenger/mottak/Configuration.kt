@@ -3,7 +3,6 @@ package no.nav.tiltakspenger.mottak
 import io.getunleash.DefaultUnleash
 import io.getunleash.strategy.Strategy
 import io.getunleash.util.UnleashConfig
-import mu.KotlinLogging
 
 const val TPTS_RAPID_NAME = "tpts.rapid.v1"
 
@@ -16,8 +15,7 @@ private fun getPropertyValueByEnvironment(devValue: String, prodValue: String): 
 }
 
 fun getSafUrl(): String = getPropertyValueByEnvironment(
-    devValue = "https://saf.dev-fss-pub.nais.io",
-    prodValue = "https://saf.prod-fss-pub.nais.io"
+    devValue = "https://saf.dev-fss-pub.nais.io", prodValue = "https://saf.prod-fss-pub.nais.io"
 )
 
 fun getSafScope(): String = getPropertyValueByEnvironment(
@@ -42,13 +40,8 @@ val unleash by lazy {
 }
 
 class ByClusterStrategy(private val cluster: String) : Strategy {
-    private val log = KotlinLogging.logger {}
     override fun getName(): String = "byCluster"
 
-    override fun isEnabled(parameters: Map<String, String>): Boolean {
-        val clustersParameter = parameters["cluster"] ?: return false
-        val alleClustere = clustersParameter.split(",").map { it.trim() }.map { it.lowercase() }.toList()
-        log.info { "Er i cluster '$cluster', toggle enablet for: $alleClustere, parametre: '$parameters'" }
-        return alleClustere.contains(cluster)
-    }
+    override fun isEnabled(parameters: Map<String, String>) =
+        if (parameters["cluster"] == null) false else parameters["cluster"]!!.contains(cluster, ignoreCase = true)
 }

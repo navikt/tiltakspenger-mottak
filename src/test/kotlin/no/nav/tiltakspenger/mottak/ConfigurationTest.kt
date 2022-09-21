@@ -16,6 +16,12 @@ internal class ConfigurationTest {
         val strategy = ByClusterStrategy("foo")
 
         assertTrue(strategy.isEnabled(mapOf("cluster" to "foo")))
+        assertTrue(strategy.isEnabled(mapOf("cluster" to "FOO")))
+        assertTrue(strategy.isEnabled(mapOf("cluster" to "foo,bar")))
         assertFalse(strategy.isEnabled(mapOf("cluster" to "bar")))
+        assertFalse(strategy.isEnabled(mapOf("cluster" to "")))
+        assertFalse(strategy.isEnabled(mapOf("qux" to "foo")))
+        assertTrue(strategy.isEnabled(mapOf("qux" to "foo", "cluster" to "foo")))
+        assertFalse(strategy.isEnabled(emptyMap()))
     }
 }
