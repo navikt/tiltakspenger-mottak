@@ -48,7 +48,7 @@ class ByClusterStrategy(private val cluster: String) : Strategy {
     override fun isEnabled(parameters: Map<String, String>): Boolean {
         val clustersParameter = parameters["cluster"] ?: return false
         val alleClustere = clustersParameter.split(",").map { it.trim() }.map { it.lowercase() }.toList()
-        log.info { "Er i cluster '$cluster', feature-toggle er enablet for: $alleClustere" }
+        log.info { "Er i cluster '$cluster', toggle enablet for: $alleClustere, parametre: '$parameters'" }
         return alleClustere.contains(cluster)
     }
 }
