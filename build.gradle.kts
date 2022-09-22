@@ -6,7 +6,7 @@ val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.3"
 val kafkaClientsVersion = "3.2.2"
 val jacksonVersion = "2.13.4"
-val mockkVersion = "1.12.8"
+val mockkVersion = "1.13.1"
 
 plugins {
     application
