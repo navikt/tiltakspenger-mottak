@@ -52,7 +52,7 @@ dependencies {
     implementation("io.confluent:kafka-avro-serializer:7.2.1")
 //    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 //    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
-    implementation("com.github.navikt:rapids-and-rivers:2022082414021661342533.46a423f6c163")
+    implementation("com.github.navikt:rapids-and-rivers:2022092314391663936769.9d5d33074875")
     implementation("io.getunleash:unleash-client-java:6.0.1")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
