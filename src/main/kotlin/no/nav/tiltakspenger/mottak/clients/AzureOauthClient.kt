@@ -11,8 +11,7 @@ import no.nav.tiltakspenger.mottak.clients.HttpClient.client
 import no.nav.tiltakspenger.mottak.getSafScope
 
 private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
-
-//private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
+private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
 private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
 
 // Change this to whats needed
@@ -31,7 +30,7 @@ object AzureOauthClient {
             formParameters = Parameters.build {
                 append("grant_type", "client_credentials")
                 append("client_id", clientId)
-//                append("client_secret", clientSecret)
+                append("client_secret", clientSecret)
                 append("scope", scope)
             }
         ).body<OAuth2AccessTokenResponse>().let {
