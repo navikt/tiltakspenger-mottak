@@ -49,7 +49,7 @@ dependencies {
     implementation("org.jetbrains:annotations:23.0.0")
     implementation("org.apache.kafka:kafka-clients:$kafkaClientsVersion")
     implementation("org.apache.avro:avro:1.11.1")
-    implementation("io.confluent:kafka-avro-serializer:7.2.1")
+    implementation("io.confluent:kafka-avro-serializer:7.2.2")
 //    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 //    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("com.github.navikt:rapids-and-rivers:2022092314391663936769.9d5d33074875")
