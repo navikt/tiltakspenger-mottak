@@ -33,6 +33,18 @@ internal class ArenaTiltakTest {
     }
 
     @Test
+    fun `soknad med tiltak fra arena som mangler sluttdato`() {
+        val json = File("src/test/resources/søknad_med_tiltak_fra_arena_null_sluttdato.json").readText()
+        val arenaTiltak = ArenaTiltak.fromJson(json)
+        assertNotNull(arenaTiltak)
+        assertEquals("INDOPPFAG", arenaTiltak?.tiltakskode)
+        assertEquals("FOOBAR UTVIKLING", arenaTiltak?.arrangoer)
+        assertEquals("138651086", arenaTiltak?.arenaId)
+        assertEquals(LocalDate.parse("2022-09-12"), arenaTiltak?.startdato)
+        assertNull(arenaTiltak?.sluttdato)
+    }
+
+    @Test
     fun `soknad uten tiltak fra arena`() {
         val json = File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText()
         val arenaTiltak = ArenaTiltak.fromJson(json)
