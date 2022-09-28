@@ -1,0 +1,251 @@
+{
+  "soknadId": 1234567,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "c48e9c-2fdd-4bce-9706-b94ebcbb5",
+  "brukerBehandlingId": "1001BLABLA",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 303801441,
+      "soknadId": 1234567,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801442,
+      "soknadId": 1234567,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "k",
+        "epost": "foobar@mail.com",
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": "foo",
+        "fnr": "123",
+        "fornavn": "bar",
+        "alder": "34",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": "1",
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "qux",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "bar qux",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 303801443,
+      "soknadId": 1234567,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801444,
+      "soknadId": 1234567,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801445,
+      "soknadId": 1234567,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801446,
+      "soknadId": 1234567,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801447,
+      "soknadId": 1234567,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801448,
+      "soknadId": 1234567,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801449,
+      "soknadId": 1234567,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801450,
+      "soknadId": 1234567,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801451,
+      "soknadId": 1234567,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801452,
+      "soknadId": 1234567,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801453,
+      "soknadId": 1234567,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "303801463",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801454,
+      "soknadId": 1234567,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801455,
+      "soknadId": 1234567,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801456,
+      "soknadId": 1234567,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801463,
+      "soknadId": 1234567,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "INDOPPFAG",
+      "properties": {
+        "harSluttdatoFraArena": "false",
+        "opprinneligsluttdato": null,
+        "arenaId": "138651086",
+        "startdato": "2022-09-12",
+        "navn": "Oppfølging",
+        "erIEndreStatus": "true",
+        "arrangoer": "FOOBAR UTVIKLING",
+        "sluttdato": null,
+        "opprinneligstartdato": "2022-09-12"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801464,
+      "soknadId": 1234567,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "ARBRRHDAG",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2022-08-12",
+        "arenaId": "137805959",
+        "startdato": "2022-05-23",
+        "navn": "Arbeidsrettet rehabilitering (dag)",
+        "erIEndreStatus": "false",
+        "arrangoer": "FOOBAR KOMPETANSE",
+        "sluttdato": "2022-08-12",
+        "opprinneligstartdato": "2022-05-23"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801465,
+      "soknadId": 1234567,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 303801466,
+      "soknadId": 1234567,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "etternavn": "bar",
+        "mellomnavn": "foo",
+        "kjonn": "m",
+        "sammensattnavn": "foo bar",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "123",
+        "fornavn": "foo",
+        "sokerbarnetillegg": "ja",
+        "alder": "1"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 303801471,
+      "soknadId": 1234567,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "123",
+  "opprettetDato": "2022-09-28T12:35:40.096Z",
+  "sistLagret": "2022-09-28T12:38:49.286Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
