@@ -24,7 +24,7 @@ object SafQuery {
     @Serializable
     data class DokumentInfo(
         val dokumentInfoId: String,
-        val tittel: String,
+        val tittel: String?,
         val dokumentvarianter: List<Dokumentvariant> = arrayListOf()
     )
 
