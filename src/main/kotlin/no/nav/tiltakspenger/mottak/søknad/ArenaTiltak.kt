@@ -15,9 +15,9 @@ data class ArenaTiltak(
     val tiltakskode: String,
     val erIEndreStatus: Boolean,
     @Serializable(with = LocalDateSerializer::class) val opprinneligSluttdato: LocalDate? = null,
-    @Serializable(with = LocalDateSerializer::class) val opprinneligStartdato: LocalDate? = null,
+    @Serializable(with = LocalDateSerializer::class) val opprinneligStartdato: LocalDate,
     @Serializable(with = LocalDateSerializer::class) val sluttdato: LocalDate? = null,
-    @Serializable(with = LocalDateSerializer::class) val startdato: LocalDate? = null
+    @Serializable(with = LocalDateSerializer::class) val startdato: LocalDate
 ) {
     companion object {
         private val json = Json {
@@ -37,10 +37,10 @@ data class ArenaTiltak(
                 harSluttdatoFraArena = valgtArenaTiltak.properties.harSluttdatoFraArena!!,
                 tiltakskode = valgtArenaTiltak.value!!,
                 erIEndreStatus = valgtArenaTiltak.properties.erIEndreStatus!!,
-                opprinneligStartdato = valgtArenaTiltak.properties.opprinneligstartdato,
+                opprinneligStartdato = valgtArenaTiltak.properties.opprinneligstartdato!!,
                 opprinneligSluttdato = valgtArenaTiltak.properties.opprinneligsluttdato,
                 sluttdato = valgtArenaTiltak.properties.sluttdato,
-                startdato = valgtArenaTiltak.properties.startdato
+                startdato = valgtArenaTiltak.properties.startdato!!
             )
         }
     }
