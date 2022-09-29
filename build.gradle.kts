@@ -4,7 +4,6 @@ val kotlinxSerializationVersion = "1.4.0"
 val kotlinxCoroutinesVersion = "1.6.4"
 val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.3"
-val kafkaClientsVersion = "3.2.3"
 val jacksonVersion = "2.13.4"
 val mockkVersion = "1.13.2"
 
@@ -47,9 +46,11 @@ dependencies {
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
-    implementation("org.apache.kafka:kafka-clients:$kafkaClientsVersion")
     implementation("org.apache.avro:avro:1.11.1")
-    implementation("io.confluent:kafka-avro-serializer:7.2.2")
+    implementation("io.confluent:kafka-avro-serializer:7.2.2") {
+        // we want to use the one provided by R&R, not the Confluent-specific one
+        exclude(group = "org.apache.kafka", module = "kafka-clients")
+    }
 //    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 //    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("com.github.navikt:rapids-and-rivers:2022092314391663936769.9d5d33074875")
@@ -69,11 +70,6 @@ configurations.all {
     // exclude JUnit 4
     exclude(group = "junit", module = "junit")
     // because of https://nav-it.slack.com/archives/C73B9LC86/p1645620641779659
-    resolutionStrategy {
-        force(
-            "org.apache.kafka:kafka-clients:$kafkaClientsVersion"
-        )
-    }
 }
 
 application {
