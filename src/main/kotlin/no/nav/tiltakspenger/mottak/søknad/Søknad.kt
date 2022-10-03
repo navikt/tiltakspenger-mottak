@@ -5,6 +5,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Serializable
@@ -17,6 +18,7 @@ data class Søknad(
     val ident: String,
     val deltarKvp: Boolean,
     val deltarIntroduksjonsprogrammet: Boolean?,
+    val introduksjonsprogrammetDetaljer: IntroduksjonsprogrammetDetaljer?,
     val oppholdInstitusjon: Boolean,
     val typeInstitusjon: String?,
     @Serializable(with = LocalDateTimeSerializer::class)
@@ -33,6 +35,9 @@ data class Søknad(
             ignoreUnknownKeys = true
         }
 
+        fun introduksjonsprogrammetDetaljer(fom: LocalDate?, tom: LocalDate?): IntroduksjonsprogrammetDetaljer? =
+            fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
+
         fun fromJson(json: String, journalpostId: String, dokumentInfoId: String): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
@@ -45,6 +50,12 @@ data class Søknad(
             val deltarIntroduksjonsprogrammet =
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
                     ?.properties?.kommune?.isNotEmpty() ?: false
+            val introduksjonsprogrammetFom =
+                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
+                    ?.properties?.fom
+            val introduksjonsprogrammetTom =
+                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
+                    ?.properties?.tom
             val oppholdInstitusjon =
                 joarkSøknad.fakta.first { it.key == "informasjonsside.institusjon" }.value == "ja"
             val typeInstitusjon = joarkSøknad.fakta
@@ -85,6 +96,10 @@ data class Søknad(
                 ident = fnr,
                 deltarKvp = deltarKvp,
                 deltarIntroduksjonsprogrammet = deltarIntroduksjonsprogrammet,
+                introduksjonsprogrammetDetaljer = introduksjonsprogrammetDetaljer(
+                    introduksjonsprogrammetFom,
+                    introduksjonsprogrammetTom
+                ),
                 oppholdInstitusjon = oppholdInstitusjon,
                 typeInstitusjon = typeInstitusjon,
                 opprettet = joarkSøknad.opprettetDato,
