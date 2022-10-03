@@ -5,6 +5,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Serializable
@@ -17,6 +18,7 @@ data class Søknad(
     val ident: String,
     val deltarKvp: Boolean,
     val deltarIntroduksjonsprogrammet: Boolean?,
+    val introduksjonsprogrammetDetaljer: IntroduksjonsprogrammetDetaljer?,
     val oppholdInstitusjon: Boolean,
     val typeInstitusjon: String?,
     @Serializable(with = LocalDateTimeSerializer::class)
@@ -33,6 +35,10 @@ data class Søknad(
             ignoreUnknownKeys = true
         }
 
+        fun introduksjonsprogrammetDetaljer(fom: LocalDate?, tom: LocalDate?): IntroduksjonsprogrammetDetaljer? =
+            fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
+
+        @Suppress("LongMethod")
         fun fromJson(json: String, journalpostId: String, dokumentInfoId: String): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
@@ -42,9 +48,11 @@ data class Søknad(
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
             /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
             * og null når søker svarer nei, sjekker derfor kommune istedet for å unngå (mer) forvirring */
-            val deltarIntroduksjonsprogrammet =
-                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
-                    ?.properties?.kommune?.isNotEmpty() ?: false
+            val introduksjonsprogrammetProperties =
+                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }?.properties
+            val deltarIntroduksjonsprogrammet = introduksjonsprogrammetProperties?.kommune?.isNotEmpty() ?: false
+            val introduksjonsprogrammetFom = introduksjonsprogrammetProperties?.fom
+            val introduksjonsprogrammetTom = introduksjonsprogrammetProperties?.tom
             val oppholdInstitusjon =
                 joarkSøknad.fakta.first { it.key == "informasjonsside.institusjon" }.value == "ja"
             val typeInstitusjon = joarkSøknad.fakta
@@ -53,7 +61,6 @@ data class Søknad(
             val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
             val barneTillegg = joarkSøknad.fakta
                 .filter { it.key == "barn" }
-                .filter { it.properties.sokerbarnetillegg ?: false }
                 .map {
                     Barnetillegg(
                         ident = it.properties.fnr,
@@ -62,6 +69,7 @@ data class Søknad(
                         land = it.properties.land!!,
                         fornavn = it.properties.fornavn,
                         etternavn = it.properties.etternavn,
+                        søktBarnetillegg = it.properties.sokerbarnetillegg ?: false,
                     )
                 }
             val trygdOgPensjon = joarkSøknad.fakta
@@ -85,6 +93,10 @@ data class Søknad(
                 ident = fnr,
                 deltarKvp = deltarKvp,
                 deltarIntroduksjonsprogrammet = deltarIntroduksjonsprogrammet,
+                introduksjonsprogrammetDetaljer = introduksjonsprogrammetDetaljer(
+                    introduksjonsprogrammetFom,
+                    introduksjonsprogrammetTom
+                ),
                 oppholdInstitusjon = oppholdInstitusjon,
                 typeInstitusjon = typeInstitusjon,
                 opprettet = joarkSøknad.opprettetDato,

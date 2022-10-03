@@ -2,7 +2,6 @@ package no.nav.tiltakspenger.mottak.joark
 
 import io.mockk.coEvery
 import io.mockk.mockkStatic
-import java.time.LocalDateTime
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -24,6 +23,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 
 private val LOG = KotlinLogging.logger {}
 
@@ -120,6 +120,7 @@ internal class JoarkReplicatorTest {
             ident = "ident",
             deltarKvp = false,
             deltarIntroduksjonsprogrammet = false,
+            introduksjonsprogrammetDetaljer = null,
             oppholdInstitusjon = false,
             typeInstitusjon = null,
             opprettet = LocalDateTime.now(),
