@@ -61,4 +61,6 @@ object SafClient {
             filnavn = FILNAVN
         )
     }
+
+    data class SafClientConfig(val baseUrl: String)
 }

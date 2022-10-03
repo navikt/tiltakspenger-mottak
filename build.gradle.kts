@@ -56,6 +56,7 @@ dependencies {
 //    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("com.github.navikt:rapids-and-rivers:2022092314391663936769.9d5d33074875")
     implementation("io.getunleash:unleash-client-java:6.0.1")
+    implementation("com.natpryce:konfig:1.6.10.0")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
