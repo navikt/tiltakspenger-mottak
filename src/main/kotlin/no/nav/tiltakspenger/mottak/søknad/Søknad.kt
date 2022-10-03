@@ -38,6 +38,7 @@ data class Søknad(
         fun introduksjonsprogrammetDetaljer(fom: LocalDate?, tom: LocalDate?): IntroduksjonsprogrammetDetaljer? =
             fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
 
+        @Suppress("LongMethod")
         fun fromJson(json: String, journalpostId: String, dokumentInfoId: String): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
@@ -47,15 +48,11 @@ data class Søknad(
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
             /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
             * og null når søker svarer nei, sjekker derfor kommune istedet for å unngå (mer) forvirring */
-            val deltarIntroduksjonsprogrammet =
-                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
-                    ?.properties?.kommune?.isNotEmpty() ?: false
-            val introduksjonsprogrammetFom =
-                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
-                    ?.properties?.fom
-            val introduksjonsprogrammetTom =
-                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }
-                    ?.properties?.tom
+            val introduksjonsprogrammetProperties =
+                joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }?.properties
+            val deltarIntroduksjonsprogrammet = introduksjonsprogrammetProperties?.kommune?.isNotEmpty() ?: false
+            val introduksjonsprogrammetFom = introduksjonsprogrammetProperties?.fom
+            val introduksjonsprogrammetTom = introduksjonsprogrammetProperties?.tom
             val oppholdInstitusjon =
                 joarkSøknad.fakta.first { it.key == "informasjonsside.institusjon" }.value == "ja"
             val typeInstitusjon = joarkSøknad.fakta
