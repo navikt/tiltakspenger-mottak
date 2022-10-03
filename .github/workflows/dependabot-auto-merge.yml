@@ -23,10 +23,10 @@ jobs:
       - name: Notify Slack in case of build failure
         if: failure()
         run: |
-          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[${{ github.event.repository.name }}] Build failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/${{ github.repository }}/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
+          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[${{ github.event.repository.name }}] Build failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Branch\", \"value\": \"$BRANCH\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/${{ github.repository }}/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
         env:
           BRANCH: ${{ github.ref }}
-          AUTHOR: ${{ github.event.pusher.name }}
+          AUTHOR: ${{ github.actor }}
           WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
 
   dependabot:
