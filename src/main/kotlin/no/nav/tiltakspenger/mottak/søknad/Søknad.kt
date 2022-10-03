@@ -61,7 +61,6 @@ data class Søknad(
             val brukerregistrertTiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
             val barneTillegg = joarkSøknad.fakta
                 .filter { it.key == "barn" }
-                .filter { it.properties.sokerbarnetillegg ?: false }
                 .map {
                     Barnetillegg(
                         ident = it.properties.fnr,
@@ -70,6 +69,7 @@ data class Søknad(
                         land = it.properties.land!!,
                         fornavn = it.properties.fornavn,
                         etternavn = it.properties.etternavn,
+                        søktBarnetillegg = it.properties.sokerbarnetillegg ?: false,
                     )
                 }
             val trygdOgPensjon = joarkSøknad.fakta

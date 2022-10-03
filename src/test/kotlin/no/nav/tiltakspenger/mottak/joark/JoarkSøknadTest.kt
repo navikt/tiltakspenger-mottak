@@ -114,7 +114,16 @@ internal class JoarkSøknadTest {
     @Test
     fun `barnetillegg med forhåndsregistrert barn`() {
         val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_tiltak_fra_arena.json").readText(), "", "")
-        val expectedBarn = Barnetillegg("16081376917", alder = 8, land = "NOR")
+        val expectedBarn = Barnetillegg(
+            "26011579360",
+            fornavn = "KORRUPT",
+            etternavn = "STAUDE",
+            alder = 6,
+            land = "NOR",
+            søktBarnetillegg = false
+        )
+        assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
+        assertEquals(expectedBarn.etternavn, søknad.barnetillegg.first().etternavn)
         assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
@@ -128,7 +137,12 @@ internal class JoarkSøknadTest {
             "",
             ""
         )
-        val expectedBarn = Barnetillegg(fødselsdato = LocalDate.of(2019, Month.JANUARY, 1), alder = 3, land = "NOR")
+        val expectedBarn = Barnetillegg(
+            fødselsdato = LocalDate.of(2019, Month.JANUARY, 1),
+            alder = 3,
+            land = "NOR",
+            søktBarnetillegg = true
+        )
         assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
