@@ -21,7 +21,6 @@ object Configuration {
     val kafka = mapOf(
         "KAFKA_RAPID_TOPIC" to "tpts.rapid.v1",
         "KAFKA_RESET_POLICY" to "latest",  // earliest?
-        "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
         "KAFKA_BROKERS" to System.getenv("KAFKA_BROKERS"),
         "KAFKA_KEYSTORE_PATH" to System.getenv("KAFKA_KEYSTORE_PATH"),
         "KAFKA_TRUSTSTORE_PATH" to System.getenv("KAFKA_TRUSTSTORE_PATH"),
@@ -45,6 +44,7 @@ object Configuration {
     )
     private val devProperties = ConfigurationMap(
         mapOf(
+            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.DEV.toString(),
             "safUrl" to "https://saf.dev-fss-pub.nais.io",
             "safScope" to "api://dev-fss.teamdokumenthandtering.saf/.default",
@@ -53,6 +53,7 @@ object Configuration {
     )
     private val prodProperties = ConfigurationMap(
         mapOf(
+            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.PROD.toString(),
             "safUrl" to "https://saf.prod-fss-pub.nais.io",
             "safScope" to "api://prod-fss.teamdokumenthandtering.saf/.default",
@@ -78,6 +79,19 @@ object Configuration {
         val issuer: String = config()[Key("AZURE_OPENID_CONFIG_ISSUER", stringType)],
         val clientId: String = config()[Key("AZURE_APP_CLIENT_ID", stringType)],
         val leeway: Long = 1000
+    )
+
+    data class KafkaConfig(
+        val rapidTopic: String = config()[Key("", stringType)],
+        val resetPolicy: String = config()[Key("", stringType)],
+        val consumerGroupId: String = config()[Key("", stringType)],
+        val brokers: String = config()[Key("", stringType)],
+        val keystorePath: String = config()[Key("", stringType)],
+        val truststorePath: String = config()[Key("", stringType)],
+        val schemaRegistry: String = config()[Key("", stringType)],
+        val schemaRegistryUser: String = config()[Key("", stringType)],
+        val schemaRegistryPassword: String = config()[Key("", stringType)],
+        val credstorePassword: String = config()[Key("", stringType)],
     )
 }
 

@@ -4,6 +4,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.routing.*
 import mu.KotlinLogging
+import no.nav.tiltakspenger.mottak.Configuration.KafkaConfig
 import no.nav.tiltakspenger.mottak.health.healthRoutes
 import no.nav.tiltakspenger.mottak.joark.JoarkReplicator
 import no.nav.tiltakspenger.mottak.joark.createKafkaConsumer
@@ -22,7 +23,9 @@ fun main() {
     }
     log.info { "starting server" }
     unleash // init
-    val joarkReplicator = JoarkReplicator(createKafkaConsumer(), createKafkaProducer()).also { it.start() }
+    val kafkaConfig = KafkaConfig()
+    val joarkReplicator =
+        JoarkReplicator(createKafkaConsumer(kafkaConfig), createKafkaProducer(kafkaConfig)).also { it.start() }
 
     val server = embeddedServer(Netty, PORT) {
         routing {
