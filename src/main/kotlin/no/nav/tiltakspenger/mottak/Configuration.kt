@@ -4,6 +4,7 @@ import com.natpryce.konfig.ConfigurationMap
 import com.natpryce.konfig.ConfigurationProperties.Companion.systemProperties
 import com.natpryce.konfig.EnvironmentVariables
 import com.natpryce.konfig.Key
+import com.natpryce.konfig.intType
 import com.natpryce.konfig.overriding
 import com.natpryce.konfig.stringType
 import io.getunleash.DefaultUnleash
@@ -31,6 +32,7 @@ object Configuration {
     )
 
     private val otherDefaultProperties = mapOf(
+        "application.httpPort" to 8080.toString(),
         "AZURE_APP_CLIENT_ID" to System.getenv("AZURE_APP_CLIENT_ID"),
         "AZURE_APP_CLIENT_SECRET" to System.getenv("AZURE_APP_CLIENT_SECRET"),
         "AZURE_APP_WELL_KNOWN_URL" to System.getenv("AZURE_APP_WELL_KNOWN_URL"),
@@ -112,25 +114,17 @@ object Configuration {
         val baseUrl: String = config()[Key("safBaseUrl", stringType)],
         val scope: String = config()[Key("safScope", stringType)]
     )
+
+    fun applicationPort(): Int = config()[Key("application.httpPort", intType)]
 }
 
 
-private fun getPropertyValueByEnvironment(devValue: String, prodValue: String): String {
-    return when (System.getenv("NAIS_CLUSTER_NAME")) {
-        "dev-gcp" -> devValue
-        "prod-gcp" -> prodValue
-        else -> devValue
-    }
+// TODO: replace with config
+fun getSafScope(): String = when (System.getenv("NAIS_CLUSTER_NAME")) {
+    "dev-gcp" -> "api://dev-fss.teamdokumenthandtering.saf/.default"
+    "prod-gcp" -> "api://prod-fss.teamdokumenthandtering.saf/.default"
+    else -> "api://localhost:/.default"
 }
-
-fun getSafUrl(): String = getPropertyValueByEnvironment(
-    devValue = "https://saf.dev-fss-pub.nais.io", prodValue = "https://saf.prod-fss-pub.nais.io"
-)
-
-fun getSafScope(): String = getPropertyValueByEnvironment(
-    devValue = "api://dev-fss.teamdokumenthandtering.saf/.default",
-    prodValue = "api://prod-fss.teamdokumenthandtering.saf/.default"
-)
 
 val unleash by lazy {
     DefaultUnleash(

@@ -1,14 +1,12 @@
 package no.nav.tiltakspenger.mottak.saf
 
 import mu.KotlinLogging
-import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
-object SafService {
-    private val safClient = SafClient(Configuration.SafConfig())
+class SafService(private val safClient: SafClient) {
     suspend fun hentSøknad(journalpostId: String): Søknad? {
         LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
         val journalfortDokMetadata = safClient.hentMetadataForJournalpost(journalpostId)

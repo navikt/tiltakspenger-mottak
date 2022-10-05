@@ -1,7 +1,7 @@
 package no.nav.tiltakspenger.mottak.joark
 
 import io.mockk.coEvery
-import io.mockk.mockkObject
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -62,7 +62,7 @@ internal class JoarkReplicatorTest {
             updateBeginningOffsets(mapOf(partition to 0L))
         }
         val mockProducer = MockProducer(false, StringSerializer(), StringSerializer())
-        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
+        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer, mockk())
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
@@ -91,7 +91,7 @@ internal class JoarkReplicatorTest {
         val mockProducer = MockProducer(false, StringSerializer(), StringSerializer())
         try {
             runTest {
-                JoarkReplicator(mockConsumer, mockProducer, this).start()
+                JoarkReplicator(mockConsumer, mockProducer, mockk(), this).start()
             }
         } catch (e: KafkaException) {
             LOG.debug(e) { "Fanget exception" }
@@ -130,9 +130,9 @@ internal class JoarkReplicatorTest {
             trygdOgPensjon = emptyList(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
-        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
-        mockkObject(SafService)
-        coEvery { SafService.hentSøknad(journalpostId.toString()) } returns søknad
+        val safService = mockk<SafService>()
+        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer, safService)
+        coEvery { safService.hentSøknad(journalpostId.toString()) } returns søknad
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
@@ -159,9 +159,9 @@ internal class JoarkReplicatorTest {
             updateBeginningOffsets(mapOf(partition to 0L))
         }
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
-        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
-        mockkObject(SafService)
-        coEvery { SafService.hentSøknad(journalpostId.toString()) } returns null
+        val safService = mockk<SafService>()
+        val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer, safService)
+        coEvery { safService.hentSøknad(journalpostId.toString()) } returns null
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")

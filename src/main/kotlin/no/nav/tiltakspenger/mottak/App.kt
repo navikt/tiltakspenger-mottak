@@ -9,8 +9,8 @@ import no.nav.tiltakspenger.mottak.health.healthRoutes
 import no.nav.tiltakspenger.mottak.joark.JoarkReplicator
 import no.nav.tiltakspenger.mottak.joark.createKafkaConsumer
 import no.nav.tiltakspenger.mottak.joark.createKafkaProducer
-
-const val PORT = 8080
+import no.nav.tiltakspenger.mottak.saf.SafClient
+import no.nav.tiltakspenger.mottak.saf.SafService
 
 fun main() {
     System.setProperty("logback.configurationFile", "egenLogback.xml")
@@ -25,9 +25,13 @@ fun main() {
     unleash // init
     val kafkaConfig = KafkaConfig()
     val joarkReplicator =
-        JoarkReplicator(createKafkaConsumer(kafkaConfig), createKafkaProducer(kafkaConfig)).also { it.start() }
+        JoarkReplicator(
+            consumer = createKafkaConsumer(config = kafkaConfig),
+            producer = createKafkaProducer(config = kafkaConfig),
+            safService = SafService(safClient = SafClient(config = Configuration.SafConfig()))
+        ).also { it.start() }
 
-    val server = embeddedServer(Netty, PORT) {
+    val server = embeddedServer(Netty, Configuration.applicationPort()) {
         routing {
             healthRoutes(listOf(joarkReplicator))
         }

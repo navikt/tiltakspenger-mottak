@@ -41,7 +41,6 @@ import java.util.*
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
-
 private val POLL_TIMEOUT = Duration.ofSeconds(4)
 
 fun createKafkaConsumer(config: Configuration.KafkaConfig): KafkaConsumer<String, GenericRecord> {
@@ -95,6 +94,7 @@ fun createKafkaProducer(config: Configuration.KafkaConfig): KafkaProducer<String
 internal class JoarkReplicator(
     private val consumer: Consumer<String, GenericRecord>,
     private val producer: Producer<String, String>,
+    private val safService: SafService,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 ) : HealthCheck {
     private lateinit var job: Job
@@ -147,7 +147,7 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding" }
                     SECURELOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
-                        val soknad = SafService.hentSøknad(record.key())
+                        val soknad = safService.hentSøknad(record.key())
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
                             LOG.debug { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }

@@ -1,5 +1,6 @@
 package no.nav.tiltakspenger.mottak.saf
 
+import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -7,26 +8,34 @@ import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
-import no.nav.tiltakspenger.mottak.saf.SafService.hentSøknad
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class SafServiceTest {
     private val safClient = mockk<SafClient>()
+    private val safService = SafService(safClient)
+
+    init {
+        mockkObject(AzureOauthClient)
+    }
+
+    @BeforeEach
+    fun setup() {
+        clearAllMocks()
+        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
+    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun `when no metadata is found, no document is retreived`() = runTest {
         // given
         val journalpostId = "42"
-        mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
         coEvery { safClient.hentMetadataForJournalpost(journalpostId) }.returns(null)
 
         // when
-        // TODO: må mocke bort safClient i SafService
-        val soknad = hentSøknad(journalpostId)
+        val soknad = safService.hentSøknad(journalpostId)
 
         // then
         assertNull(soknad)
@@ -41,8 +50,6 @@ internal class SafServiceTest {
         val journalpostId = "42"
         val dokumentInfoId = "43"
         val rawJson = this::class.java.classLoader.getResource("søknad.json")!!.readText()
-        mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
         val journalfortDokumentMetaData = JournalfortDokumentMetaData(
             journalpostId = journalpostId,
             dokumentInfoId = dokumentInfoId,
@@ -54,7 +61,7 @@ internal class SafServiceTest {
         coEvery { safClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
 
         // when
-        val soknad = hentSøknad(journalpostId)
+        val soknad = safService.hentSøknad(journalpostId)
 
         // then
         assertEquals("12304", soknad?.søknadId)
