@@ -11,8 +11,6 @@ import io.getunleash.DefaultUnleash
 import io.getunleash.strategy.Strategy
 import io.getunleash.util.UnleashConfig
 
-const val TPTS_RAPID_NAME = "tpts.rapid.v1"
-
 enum class Profile {
     LOCAL, DEV, PROD
 }
@@ -41,6 +39,7 @@ object Configuration {
 
     private val localProperties = ConfigurationMap(
         mapOf(
+            "tptsRapidName" to "tpts.rapid.v1",
             "KAFKA_CONSUMER_GROUP_ID" to "consumer-v1",
             "application.profile" to Profile.LOCAL.toString(),
             "joarkTopicName" to "joark.local",
@@ -57,6 +56,7 @@ object Configuration {
     )
     private val devProperties = ConfigurationMap(
         mapOf(
+            "tptsRapidName" to "tpts.rapid.v1",
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.DEV.toString(),
             "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
@@ -66,6 +66,7 @@ object Configuration {
     )
     private val prodProperties = ConfigurationMap(
         mapOf(
+            "tptsRapidName" to "tpts.rapid.v1",
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.PROD.toString(),
             "safBaseUrl" to "https://saf.prod-fss-pub.nais.io",
@@ -85,7 +86,6 @@ object Configuration {
             systemProperties() overriding EnvironmentVariables overriding localProperties overriding defaultProperties
         }
     }
-
 
     data class TokenVerificationConfig(
         val jwksUri: String = config()[Key("AZURE_OPENID_CONFIG_JWKS_URI", stringType)],
@@ -114,6 +114,8 @@ object Configuration {
         val baseUrl: String = config()[Key("safBaseUrl", stringType)],
         val scope: String = config()[Key("safScope", stringType)]
     )
+
+    fun tptsRapidName(): String = config()[Key("tptsRapidName", stringType)]
 
     fun applicationPort(): Int = config()[Key("application.httpPort", intType)]
 }

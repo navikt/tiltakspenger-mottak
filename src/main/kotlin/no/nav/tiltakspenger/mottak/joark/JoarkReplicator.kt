@@ -13,7 +13,6 @@ import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.tiltakspenger.mottak.Configuration
-import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.saf.SafService
@@ -95,7 +94,8 @@ internal class JoarkReplicator(
     private val consumer: Consumer<String, GenericRecord>,
     private val producer: Producer<String, String>,
     private val safService: SafService,
-    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
+    private val tptsRapidName: String,
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO),
 ) : HealthCheck {
     private lateinit var job: Job
 
@@ -150,10 +150,10 @@ internal class JoarkReplicator(
                         val soknad = safService.hentSøknad(record.key())
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
-                            LOG.debug { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
+                            LOG.debug { "Sending event on $tptsRapidName with key ${record.key()}" }
                             if (unleash.isEnabled("tiltakspenger.soknad.mottak")) {
                                 SECURELOG.info("Sender melding $json")
-                                producer.send(ProducerRecord(TPTS_RAPID_NAME, record.key(), json))
+                                producer.send(ProducerRecord(tptsRapidName, record.key(), json))
                             } else {
                                 SECURELOG.info("Sender ikke melding (stoppet av unleash) $json")
                             }

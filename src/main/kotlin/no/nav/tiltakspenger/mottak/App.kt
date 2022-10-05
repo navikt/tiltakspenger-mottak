@@ -28,7 +28,8 @@ fun main() {
         JoarkReplicator(
             consumer = createKafkaConsumer(config = kafkaConfig),
             producer = createKafkaProducer(config = kafkaConfig),
-            safService = SafService(safClient = SafClient(config = Configuration.SafConfig()))
+            safService = SafService(safClient = SafClient(config = Configuration.SafConfig())),
+            tptsRapidName = Configuration.tptsRapidName()
         ).also { it.start() }
 
     val server = embeddedServer(Netty, Configuration.applicationPort()) {
