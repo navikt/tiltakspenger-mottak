@@ -18,8 +18,7 @@ class AzureTokenProvider(private val config: Configuration.OauthConfig) {
     suspend fun getToken(): String {
         val currentToken = tokenCache.token
         if (currentToken != null && !tokenCache.isExpired()) return currentToken
-
-        return client.submitForm(
+        val response: OAuth2AccessTokenResponse = client.submitForm(
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 append("grant_type", "client_credentials")
@@ -27,13 +26,9 @@ class AzureTokenProvider(private val config: Configuration.OauthConfig) {
                 append("client_secret", config.clientSecret)
                 append("scope", config.scope)
             }
-        ).body<OAuth2AccessTokenResponse>().let {
-            tokenCache.update(
-                it.accessToken,
-                it.expiresIn.toLong()
-            )
-            return@let it.accessToken
-        }
+        ).body()
+        tokenCache.update(response.accessToken, response.expiresIn.toLong())
+        return response.accessToken
     }
 
     @Serializable
