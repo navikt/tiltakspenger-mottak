@@ -7,13 +7,12 @@ import io.ktor.http.*
 import io.ktor.server.plugins.*
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration
-import no.nav.tiltakspenger.mottak.clients.AzureOauthClient.getToken
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
 import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
-class SafClient(private val config: Configuration.SafConfig) {
+class SafClient(private val config: Configuration.SafConfig, private val getToken: suspend () -> String) {
     companion object {
         private const val FILNAVN = "tiltakspenger.json"
         private const val INDIVIDSTONAD = "IND"

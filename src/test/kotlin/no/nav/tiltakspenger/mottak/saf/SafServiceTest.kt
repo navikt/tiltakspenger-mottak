@@ -4,10 +4,8 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
@@ -17,14 +15,9 @@ internal class SafServiceTest {
     private val safClient = mockk<SafClient>()
     private val safService = SafService(safClient)
 
-    init {
-        mockkObject(AzureOauthClient)
-    }
-
     @BeforeEach
     fun setup() {
         clearAllMocks()
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -16,7 +16,6 @@ enum class Profile {
 }
 
 object Configuration {
-
     private val kafka = mapOf(
         "KAFKA_RAPID_TOPIC" to "tpts.rapid.v1",
         "KAFKA_RESET_POLICY" to "earliest",  // latest?
@@ -28,7 +27,6 @@ object Configuration {
         "KAFKA_SCHEMA_REGISTRY_PASSWORD" to System.getenv("KAFKA_SCHEMA_REGISTRY_PASSWORD"),
         "KAFKA_CREDSTORE_PASSWORD" to System.getenv("KAFKA_CREDSTORE_PASSWORD"),
     )
-
     private val otherDefaultProperties = mapOf(
         "application.httpPort" to 8080.toString(),
         "AZURE_APP_CLIENT_ID" to System.getenv("AZURE_APP_CLIENT_ID"),
@@ -36,7 +34,6 @@ object Configuration {
         "AZURE_APP_WELL_KNOWN_URL" to System.getenv("AZURE_APP_WELL_KNOWN_URL"),
     )
     private val defaultProperties = ConfigurationMap(kafka + otherDefaultProperties)
-
     private val localProperties = ConfigurationMap(
         mapOf(
             "tptsRapidName" to "tpts.rapid.v1",
@@ -87,11 +84,11 @@ object Configuration {
         }
     }
 
-    data class TokenVerificationConfig(
-        val jwksUri: String = config()[Key("AZURE_OPENID_CONFIG_JWKS_URI", stringType)],
-        val issuer: String = config()[Key("AZURE_OPENID_CONFIG_ISSUER", stringType)],
+    data class OauthConfig(
+        val scope: String = config()[Key("safScope", stringType)],
         val clientId: String = config()[Key("AZURE_APP_CLIENT_ID", stringType)],
-        val leeway: Long = 1000
+        val clientSecret: String = config()[Key("AZURE_APP_CLIENT_SECRET", stringType)],
+        val wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)]
     )
 
     data class KafkaConfig(
@@ -111,21 +108,12 @@ object Configuration {
     )
 
     data class SafConfig(
-        val baseUrl: String = config()[Key("safBaseUrl", stringType)],
-        val scope: String = config()[Key("safScope", stringType)]
+        val baseUrl: String = config()[Key("safBaseUrl", stringType)]
     )
 
     fun tptsRapidName(): String = config()[Key("tptsRapidName", stringType)]
 
     fun applicationPort(): Int = config()[Key("application.httpPort", intType)]
-}
-
-
-// TODO: replace with config
-fun getSafScope(): String = when (System.getenv("NAIS_CLUSTER_NAME")) {
-    "dev-gcp" -> "api://dev-fss.teamdokumenthandtering.saf/.default"
-    "prod-gcp" -> "api://prod-fss.teamdokumenthandtering.saf/.default"
-    else -> "api://localhost:/.default"
 }
 
 val unleash by lazy {

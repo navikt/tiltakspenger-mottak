@@ -4,21 +4,15 @@ import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.http.*
+import io.ktor.serialization.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
-import no.nav.tiltakspenger.mottak.getSafScope
 
-private val wellknownUrl = System.getenv("AZURE_APP_WELL_KNOWN_URL")
-private val clientSecret = System.getenv("AZURE_APP_CLIENT_SECRET")
-private val clientId = System.getenv("AZURE_APP_CLIENT_ID")
-
-// Change this to whats needed
-private val scope = System.getenv("SCOPE") ?: getSafScope()
-
-object AzureOauthClient {
-    private val wellknown: WellKnown by lazy { runBlocking { client.get(wellknownUrl).body() } }
+class AzureOauthClient(private val config: Configuration.OauthConfig) {
+    private val wellknown: WellKnown by lazy { runBlocking { client.get(config.wellknownUrl).body() } }
     private val tokenCache = TokenCache()
 
     suspend fun getToken(): String {
@@ -29,9 +23,9 @@ object AzureOauthClient {
             url = wellknown.tokenEndpoint,
             formParameters = Parameters.build {
                 append("grant_type", "client_credentials")
-                append("client_id", clientId)
-                append("client_secret", clientSecret)
-                append("scope", scope)
+                append("client_id", config.clientId)
+                append("client_secret", config.clientSecret)
+                append("scope", config.scope)
             }
         ).body<OAuth2AccessTokenResponse>().let {
             tokenCache.update(
@@ -41,10 +35,10 @@ object AzureOauthClient {
             return@let it.accessToken
         }
     }
-}
 
-@Serializable
-data class WellKnown(
-    @SerialName("token_endpoint")
-    val tokenEndpoint: String
-)
+    @Serializable
+    data class WellKnown(
+        @SerialName("token_endpoint")
+        val tokenEndpoint: String
+    )
+}

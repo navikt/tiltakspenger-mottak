@@ -4,13 +4,11 @@ import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockkObject
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.Configuration
-import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
 import no.nav.tiltakspenger.mottak.clients.HttpClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -63,12 +61,9 @@ internal class SafClientTest {
         """.trimIndent()
     }
 
-    private val safClient = SafClient(Configuration.SafConfig())
+    private val safClient = SafClient(Configuration.SafConfig()) { "TOKEN" }
 
     private fun mockSafRequest(mockJsonString: String) {
-        mockkObject(AzureOauthClient)
-        coEvery { AzureOauthClient.getToken() } returns "TOKEN"
-
         val mockEngine = MockEngine {
             respond(
                 content = mockJsonString,
