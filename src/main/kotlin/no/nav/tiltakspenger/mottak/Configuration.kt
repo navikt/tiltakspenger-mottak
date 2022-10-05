@@ -93,7 +93,7 @@ object Configuration {
         val schemaRegistryPassword: String = config()[Key("KAFKA_SCHEMA_REGISTRY_PASSWORD", stringType)],
         val credstorePassword: String = config()[Key("KAFKA_CREDSTORE_PASSWORD", stringType)],
         val maxPollRecords: Int = 5,
-        val maxPollIntervalMs: Long = 300_000
+        val maxPollIntervalMs: Int = 300_000
     )
 }
 
