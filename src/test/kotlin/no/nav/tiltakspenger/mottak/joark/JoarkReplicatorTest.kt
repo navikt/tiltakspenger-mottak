@@ -7,8 +7,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
+import no.nav.tiltakspenger.mottak.saf.hentSøknad
 import no.nav.tiltakspenger.mottak.søknad.Søknad
-import no.nav.tiltakspenger.mottak.søknad.handleSøknad
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -132,7 +132,7 @@ internal class JoarkReplicatorTest {
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
         mockkStatic("no.nav.tiltakspenger.mottak.soknad.SoknadMediatorKt")
-        coEvery { handleSøknad(journalpostId.toString()) } returns søknad
+        coEvery { hentSøknad(journalpostId.toString()) } returns søknad
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")
@@ -161,7 +161,7 @@ internal class JoarkReplicatorTest {
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
         mockkStatic("no.nav.tiltakspenger.mottak.søknad.SøknadMediatorKt")
-        coEvery { handleSøknad(journalpostId.toString()) } returns null
+        coEvery { hentSøknad(journalpostId.toString()) } returns null
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")

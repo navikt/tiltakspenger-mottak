@@ -1,12 +1,12 @@
-package no.nav.tiltakspenger.mottak.søknad
+package no.nav.tiltakspenger.mottak.saf
 
 import mu.KotlinLogging
-import no.nav.tiltakspenger.mottak.saf.SafClient
+import no.nav.tiltakspenger.mottak.søknad.Søknad
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
-suspend fun handleSøknad(journalpostId: String): Søknad? {
+suspend fun hentSøknad(journalpostId: String): Søknad? {
     LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
     val journalfortDokumentMetaData = SafClient.hentMetadataForJournalpost(journalpostId)
     if (journalfortDokumentMetaData == null) {

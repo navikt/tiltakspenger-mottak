@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.søknad
+package no.nav.tiltakspenger.mottak.saf
 
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -6,13 +6,11 @@ import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
-import no.nav.tiltakspenger.mottak.saf.JournalfortDokumentMetaData
-import no.nav.tiltakspenger.mottak.saf.SafClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
-internal class SøknadMediatorTest {
+internal class SafServiceTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
@@ -25,7 +23,7 @@ internal class SøknadMediatorTest {
         coEvery { SafClient.hentMetadataForJournalpost(journalpostId) }.returns(null)
 
         // when
-        val soknad = handleSøknad(journalpostId)
+        val soknad = hentSøknad(journalpostId)
 
         // then
         assertNull(soknad)
@@ -54,7 +52,7 @@ internal class SøknadMediatorTest {
         coEvery { SafClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
 
         // when
-        val soknad = handleSøknad(journalpostId)
+        val soknad = hentSøknad(journalpostId)
 
         // then
         assertEquals("12304", soknad?.søknadId)

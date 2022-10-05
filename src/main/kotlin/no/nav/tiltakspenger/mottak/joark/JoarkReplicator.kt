@@ -17,8 +17,8 @@ import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.joarkTopicName
+import no.nav.tiltakspenger.mottak.saf.hentSøknad
 import no.nav.tiltakspenger.mottak.søknad.Søknad
-import no.nav.tiltakspenger.mottak.søknad.handleSøknad
 import no.nav.tiltakspenger.mottak.unleash
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
@@ -148,7 +148,7 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding" }
                     SECURELOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
-                        val soknad = handleSøknad(record.key())
+                        val soknad = hentSøknad(record.key())
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
                             LOG.debug { "Sending event on $TPTS_RAPID_NAME with key ${record.key()}" }
