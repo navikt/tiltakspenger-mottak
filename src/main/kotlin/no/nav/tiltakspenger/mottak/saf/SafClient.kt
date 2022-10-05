@@ -6,21 +6,23 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.server.plugins.*
 import mu.KotlinLogging
+import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.clients.AzureOauthClient.getToken
 import no.nav.tiltakspenger.mottak.clients.HttpClient.client
-import no.nav.tiltakspenger.mottak.getSafUrl
 import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
-object SafClient {
-    private val SECURELOG = KotlinLogging.logger("tjenestekall")
-    private const val FILNAVN = "tiltakspenger.json"
-    private const val INDIVIDSTONAD = "IND"
-    private val safUrl = getSafUrl()
+private val SECURELOG = KotlinLogging.logger("tjenestekall")
+
+class SafClient(private val config: Configuration.SafConfig) {
+    companion object {
+        private const val FILNAVN = "tiltakspenger.json"
+        private const val INDIVIDSTONAD = "IND"
+    }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {
         val token = getToken()
         val safResponse: SafQuery.Response = client.post(
-            urlString = "$safUrl/graphql"
+            urlString = "${config.baseUrl}/graphql"
         ) {
             bearerAuth(token)
             accept(ContentType.Application.Json)
@@ -39,7 +41,7 @@ object SafClient {
         val journalpostId = journalfortDokumentMetaData.journalpostId
         val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
         val safResponse: String = client.get(
-            urlString = "$safUrl/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
+            urlString = "${config.baseUrl}/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
             bearerAuth(token)
             contentType(ContentType.Application.Json)
@@ -61,6 +63,4 @@ object SafClient {
             filnavn = FILNAVN
         )
     }
-
-    data class SafClientConfig(val baseUrl: String)
 }

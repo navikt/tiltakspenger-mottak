@@ -49,13 +49,15 @@ object Configuration {
             "KAFKA_SCHEMA_REGISTRY_USER" to "KAFKA_SCHEMA_REGISTRY_USER",
             "KAFKA_SCHEMA_REGISTRY_PASSWORD" to "KAFKA_SCHEMA_REGISTRY_PASSWORD",
             "KAFKA_CREDSTORE_PASSWORD" to "KAFKA_CREDSTORE_PASSWORD",
+            "safBaseUrl" to "https://localhost:",
+            "safScope" to "api://localhost:/.default",
         )
     )
     private val devProperties = ConfigurationMap(
         mapOf(
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.DEV.toString(),
-            "safUrl" to "https://saf.dev-fss-pub.nais.io",
+            "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
             "safScope" to "api://dev-fss.teamdokumenthandtering.saf/.default",
             "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering-q1"
         )
@@ -64,7 +66,7 @@ object Configuration {
         mapOf(
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.PROD.toString(),
-            "safUrl" to "https://saf.prod-fss-pub.nais.io",
+            "safBaseUrl" to "https://saf.prod-fss-pub.nais.io",
             "safScope" to "api://prod-fss.teamdokumenthandtering.saf/.default",
             "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering"
         )
@@ -104,6 +106,11 @@ object Configuration {
         val credstorePassword: String = config()[Key("KAFKA_CREDSTORE_PASSWORD", stringType)],
         val maxPollRecords: Int = 5,
         val maxPollIntervalMs: Int = 300_000
+    )
+
+    data class SafConfig(
+        val baseUrl: String = config()[Key("safBaseUrl", stringType)],
+        val scope: String = config()[Key("safScope", stringType)]
     )
 }
 
