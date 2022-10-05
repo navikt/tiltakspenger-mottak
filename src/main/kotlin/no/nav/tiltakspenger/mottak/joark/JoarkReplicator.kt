@@ -43,49 +43,47 @@ import java.util.*
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
-const val MAX_POLL_RECORDS = 5
-const val MAX_POLL_INTERVAL_MS = 300_000
 private val POLL_TIMEOUT = Duration.ofSeconds(4)
 
-fun createKafkaConsumer(kafkaConfig: Configuration.KafkaConfig): KafkaConsumer<String, GenericRecord> {
+fun createKafkaConsumer(config: Configuration.KafkaConfig): KafkaConsumer<String, GenericRecord> {
     return KafkaConsumer<String, GenericRecord>(
         Properties().also {
-            it[ConsumerConfig.GROUP_ID_CONFIG] = kafkaConfig.consumerGroupId
-            it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = kafkaConfig.resetPolicy
+            it[ConsumerConfig.GROUP_ID_CONFIG] = config.consumerGroupId
+            it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = config.resetPolicy
             it[ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG] = StringDeserializer::class.java
             it[ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG] = KafkaAvroDeserializer::class.java
             it[ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG] = "false"
-            it[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = MAX_POLL_RECORDS
-            it[ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG] = MAX_POLL_INTERVAL_MS
+            it[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = config.maxPollRecords
+            it[ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG] = config.maxPollIntervalMs
             it[CommonClientConfigs.SECURITY_PROTOCOL_CONFIG] = SecurityProtocol.SSL.name
             it[SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG] = ""
             it[SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG] = "jks"
             it[SslConfigs.SSL_KEYSTORE_TYPE_CONFIG] = "PKCS12"
             it[SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG] = "/var/run/secrets/nais.io/kafka/client.truststore.jks"
-            it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = kafkaConfig.credstorePassword
+            it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = config.credstorePassword
             it[SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG] = "/var/run/secrets/nais.io/kafka/client.keystore.p12"
-            it[SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG] = kafkaConfig.credstorePassword
-            it[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = kafkaConfig.brokers
-            it[AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG] = kafkaConfig.schemaRegistry
+            it[SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG] = config.credstorePassword
+            it[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = config.brokers
+            it[AbstractKafkaSchemaSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG] = config.schemaRegistry
             it[SchemaRegistryClientConfig.BASIC_AUTH_CREDENTIALS_SOURCE] = "USER_INFO"
             it[SchemaRegistryClientConfig.USER_INFO_CONFIG] =
-                "${kafkaConfig.schemaRegistryUser}:${kafkaConfig.schemaRegistryPassword}"
+                "${config.schemaRegistryUser}:${config.schemaRegistryPassword}"
         }
     ).also { it.subscribe(listOf(joarkTopicName())) }
 }
 
-fun createKafkaProducer(kafkaConfig: Configuration.KafkaConfig): KafkaProducer<String, String> {
+fun createKafkaProducer(config: Configuration.KafkaConfig): KafkaProducer<String, String> {
     return KafkaProducer(
         Properties().also {
-            it[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = kafkaConfig.brokers
+            it[CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG] = config.brokers
             it[CommonClientConfigs.SECURITY_PROTOCOL_CONFIG] = SecurityProtocol.SSL.name
             it[SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG] = ""
             it[SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG] = "jks"
             it[SslConfigs.SSL_KEYSTORE_TYPE_CONFIG] = "PKCS12"
-            it[SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG] = kafkaConfig.truststorePath
-            it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = kafkaConfig.credstorePassword
-            it[SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG] = kafkaConfig.keystorePath
-            it[SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG] = kafkaConfig.credstorePassword
+            it[SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG] = config.truststorePath
+            it[SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG] = config.credstorePassword
+            it[SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG] = config.keystorePath
+            it[SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG] = config.credstorePassword
             it[ProducerConfig.ACKS_CONFIG] = "all"
             it[ProducerConfig.LINGER_MS_CONFIG] = "0"
             it[ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION] = "1"

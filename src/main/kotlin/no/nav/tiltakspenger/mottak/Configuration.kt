@@ -18,9 +18,9 @@ enum class Profile {
 
 object Configuration {
 
-    val kafka = mapOf(
+    private val kafka = mapOf(
         "KAFKA_RAPID_TOPIC" to "tpts.rapid.v1",
-        "KAFKA_RESET_POLICY" to "latest",  // earliest?
+        "KAFKA_RESET_POLICY" to "earliest",  // latest?
         "KAFKA_BROKERS" to System.getenv("KAFKA_BROKERS"),
         "KAFKA_KEYSTORE_PATH" to System.getenv("KAFKA_KEYSTORE_PATH"),
         "KAFKA_TRUSTSTORE_PATH" to System.getenv("KAFKA_TRUSTSTORE_PATH"),
@@ -82,16 +82,18 @@ object Configuration {
     )
 
     data class KafkaConfig(
-        val rapidTopic: String = config()[Key("", stringType)],
-        val resetPolicy: String = config()[Key("", stringType)],
-        val consumerGroupId: String = config()[Key("", stringType)],
-        val brokers: String = config()[Key("", stringType)],
-        val keystorePath: String = config()[Key("", stringType)],
-        val truststorePath: String = config()[Key("", stringType)],
-        val schemaRegistry: String = config()[Key("", stringType)],
-        val schemaRegistryUser: String = config()[Key("", stringType)],
-        val schemaRegistryPassword: String = config()[Key("", stringType)],
-        val credstorePassword: String = config()[Key("", stringType)],
+        val rapidTopic: String = config()[Key("KAFKA_RAPID_TOPIC", stringType)],
+        val resetPolicy: String = config()[Key("KAFKA_RESET_POLICY", stringType)],
+        val consumerGroupId: String = config()[Key("KAFKA_CONSUMER_GROUP_ID", stringType)],
+        val brokers: String = config()[Key("KAFKA_BROKERS", stringType)],
+        val keystorePath: String = config()[Key("KAFKA_KEYSTORE_PATH", stringType)],
+        val truststorePath: String = config()[Key("KAFKA_TRUSTSTORE_PATH", stringType)],
+        val schemaRegistry: String = config()[Key("KAFKA_SCHEMA_REGISTRY", stringType)],
+        val schemaRegistryUser: String = config()[Key("KAFKA_SCHEMA_REGISTRY_USER", stringType)],
+        val schemaRegistryPassword: String = config()[Key("KAFKA_SCHEMA_REGISTRY_PASSWORD", stringType)],
+        val credstorePassword: String = config()[Key("KAFKA_CREDSTORE_PASSWORD", stringType)],
+        val maxPollRecords: Int = 5,
+        val maxPollIntervalMs: Long = 300_000
     )
 }
 
