@@ -160,7 +160,7 @@ internal class JoarkReplicatorTest {
         }
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val joarkReplicator = JoarkReplicator(mockConsumer, mockProducer)
-        mockkStatic("no.nav.tiltakspenger.mottak.søknad.SøknadMediatorKt")
+        mockkStatic("no.nav.tiltakspenger.mottak.saf.SafServiceKt")
         coEvery { hentSøknad(journalpostId.toString()) } returns null
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)

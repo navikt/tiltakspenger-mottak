@@ -16,7 +16,6 @@ import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.TPTS_RAPID_NAME
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
-import no.nav.tiltakspenger.mottak.joarkTopicName
 import no.nav.tiltakspenger.mottak.saf.hentSøknad
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.unleash
@@ -69,7 +68,7 @@ fun createKafkaConsumer(config: Configuration.KafkaConfig): KafkaConsumer<String
             it[SchemaRegistryClientConfig.USER_INFO_CONFIG] =
                 "${config.schemaRegistryUser}:${config.schemaRegistryPassword}"
         }
-    ).also { it.subscribe(listOf(joarkTopicName())) }
+    ).also { it.subscribe(listOf(config.joarkTopic)) }
 }
 
 fun createKafkaProducer(config: Configuration.KafkaConfig): KafkaProducer<String, String> {

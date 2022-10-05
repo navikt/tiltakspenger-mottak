@@ -39,7 +39,16 @@ object Configuration {
 
     private val localProperties = ConfigurationMap(
         mapOf(
+            "KAFKA_CONSUMER_GROUP_ID" to "consumer-v1",
             "application.profile" to Profile.LOCAL.toString(),
+            "joarkTopicName" to "joark.local",
+            "KAFKA_BROKERS" to "KAFKA_BROKERS",
+            "KAFKA_KEYSTORE_PATH" to "KAFKA_KEYSTORE_PATH",
+            "KAFKA_TRUSTSTORE_PATH" to "KAFKA_TRUSTSTORE_PATH",
+            "KAFKA_SCHEMA_REGISTRY" to "KAFKA_SCHEMA_REGISTRY",
+            "KAFKA_SCHEMA_REGISTRY_USER" to "KAFKA_SCHEMA_REGISTRY_USER",
+            "KAFKA_SCHEMA_REGISTRY_PASSWORD" to "KAFKA_SCHEMA_REGISTRY_PASSWORD",
+            "KAFKA_CREDSTORE_PASSWORD" to "KAFKA_CREDSTORE_PASSWORD",
         )
     )
     private val devProperties = ConfigurationMap(
@@ -82,6 +91,7 @@ object Configuration {
     )
 
     data class KafkaConfig(
+        val joarkTopic: String = config()[Key("joarkTopicName", stringType)],
         val rapidTopic: String = config()[Key("KAFKA_RAPID_TOPIC", stringType)],
         val resetPolicy: String = config()[Key("KAFKA_RESET_POLICY", stringType)],
         val consumerGroupId: String = config()[Key("KAFKA_CONSUMER_GROUP_ID", stringType)],
@@ -113,11 +123,6 @@ fun getSafUrl(): String = getPropertyValueByEnvironment(
 fun getSafScope(): String = getPropertyValueByEnvironment(
     devValue = "api://dev-fss.teamdokumenthandtering.saf/.default",
     prodValue = "api://prod-fss.teamdokumenthandtering.saf/.default"
-)
-
-fun joarkTopicName(): String = getPropertyValueByEnvironment(
-    devValue = "teamdokumenthandtering.aapen-dok-journalfoering-q1",
-    prodValue = "teamdokumenthandtering.aapen-dok-journalfoering"
 )
 
 val unleash by lazy {
