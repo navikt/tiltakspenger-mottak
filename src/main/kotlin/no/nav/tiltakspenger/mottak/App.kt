@@ -5,7 +5,7 @@ import io.ktor.server.netty.*
 import io.ktor.server.routing.*
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration.KafkaConfig
-import no.nav.tiltakspenger.mottak.clients.AzureOauthClient
+import no.nav.tiltakspenger.mottak.auth.AzureTokenProvider
 import no.nav.tiltakspenger.mottak.health.healthRoutes
 import no.nav.tiltakspenger.mottak.joark.JoarkReplicator
 import no.nav.tiltakspenger.mottak.joark.createKafkaConsumer
@@ -25,7 +25,7 @@ fun main() {
     log.info { "starting server" }
     unleash // init
     val kafkaConfig = KafkaConfig()
-    val tokenProvider = AzureOauthClient(Configuration.OauthConfig())
+    val tokenProvider = AzureTokenProvider(Configuration.OauthConfig())
     val safService = SafService(safClient = SafClient(Configuration.SafConfig(), getToken = tokenProvider::getToken))
     val joarkReplicator = JoarkReplicator(
         consumer = createKafkaConsumer(config = kafkaConfig),

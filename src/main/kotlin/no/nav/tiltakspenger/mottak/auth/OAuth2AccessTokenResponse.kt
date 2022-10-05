@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.clients
+package no.nav.tiltakspenger.mottak.auth
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

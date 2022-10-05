@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.clients
+package no.nav.tiltakspenger.mottak.auth
 
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -9,9 +9,9 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.Configuration
-import no.nav.tiltakspenger.mottak.clients.HttpClient.client
+import no.nav.tiltakspenger.mottak.HttpClient.client
 
-class AzureOauthClient(private val config: Configuration.OauthConfig) {
+class AzureTokenProvider(private val config: Configuration.OauthConfig) {
     private val wellknown: WellKnown by lazy { runBlocking { client.get(config.wellknownUrl).body() } }
     private val tokenCache = TokenCache()
 

@@ -9,7 +9,7 @@ import io.mockk.mockkObject
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.Configuration
-import no.nav.tiltakspenger.mottak.clients.HttpClient
+import no.nav.tiltakspenger.mottak.HttpClient
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test

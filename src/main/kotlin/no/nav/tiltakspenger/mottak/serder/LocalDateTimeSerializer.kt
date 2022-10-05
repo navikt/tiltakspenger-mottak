@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.databind
+package no.nav.tiltakspenger.mottak.serder
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -13,6 +13,7 @@ import java.time.ZonedDateTime
 object LocalDateTimeSerializer : KSerializer<LocalDateTime> {
     override fun deserialize(decoder: Decoder): LocalDateTime =
         ZonedDateTime.parse(decoder.decodeString()).withZoneSameInstant(ZoneId.of("Europe/Oslo")).toLocalDateTime()
+
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDateTime", PrimitiveKind.STRING)
     override fun serialize(encoder: Encoder, value: LocalDateTime) = encoder.encodeString(value.toString())
 }

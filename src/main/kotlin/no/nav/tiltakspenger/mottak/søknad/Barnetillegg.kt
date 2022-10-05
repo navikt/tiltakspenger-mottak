@@ -1,7 +1,7 @@
 package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.databind.LocalDateSerializer
+import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer
 import java.time.LocalDate
 
 @Serializable

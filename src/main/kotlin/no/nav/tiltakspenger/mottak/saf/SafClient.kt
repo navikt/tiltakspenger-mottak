@@ -7,7 +7,7 @@ import io.ktor.http.*
 import io.ktor.server.plugins.*
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration
-import no.nav.tiltakspenger.mottak.clients.HttpClient.client
+import no.nav.tiltakspenger.mottak.HttpClient.client
 import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
@@ -24,9 +24,9 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
             urlString = "${config.baseUrl}/graphql"
         ) {
             bearerAuth(token)
+            contentType(ContentType.Application.Json)
             accept(ContentType.Application.Json)
             header("Tema", INDIVIDSTONAD)
-            contentType(ContentType.Application.Json)
             setBody(Graphql(journalpost(journalpostId)))
         }.body()
 

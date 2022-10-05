@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.databind
+package no.nav.tiltakspenger.mottak.serder
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
@@ -23,6 +23,6 @@ object StringBooleanSerializer : KSerializer<Boolean> {
     }
 
     override fun serialize(encoder: Encoder, value: Boolean) {
-        TODO("Not yet implemented")
+        TODO("YAGNI")
     }
 }

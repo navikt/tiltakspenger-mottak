@@ -2,7 +2,7 @@ package no.nav.tiltakspenger.mottak.joark.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.databind.LocalDateTimeSerializer
+import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
 import java.time.LocalDateTime
 
 @Serializable

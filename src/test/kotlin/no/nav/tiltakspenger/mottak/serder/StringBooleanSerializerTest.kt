@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.databind
+package no.nav.tiltakspenger.mottak.serder
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
