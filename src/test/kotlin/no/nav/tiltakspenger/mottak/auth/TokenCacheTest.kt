@@ -1,6 +1,8 @@
 package no.nav.tiltakspenger.mottak.auth
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class TokenCacheTest {
@@ -12,7 +14,7 @@ internal class TokenCacheTest {
             accessToken = "token",
             expiresIn = -1
         )
-        assertEquals(true, tokenCache.isExpired())
+        assertTrue(tokenCache.isExpired())
     }
 
     @Test
@@ -22,7 +24,7 @@ internal class TokenCacheTest {
             accessToken = "token",
             expiresIn = 100
         )
-        assertEquals(false, tokenCache.isExpired())
+        assertFalse(tokenCache.isExpired())
     }
 
     @Test

@@ -7,9 +7,9 @@ class TokenCache {
         private set
     private var expires: LocalDateTime? = null
 
-    fun isExpired(): Boolean = expires?.isBefore(LocalDateTime.now()) ?: true
+    internal fun isExpired(): Boolean = expires?.isBefore(LocalDateTime.now()) ?: true
 
-    fun update(accessToken: String, expiresIn: Long) {
+    internal fun update(accessToken: String, expiresIn: Long) {
         token = accessToken
         expires = LocalDateTime.now().plusSeconds(expiresIn)
     }
