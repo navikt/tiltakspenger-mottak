@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -74,7 +73,7 @@ internal class BrukerregistrertTiltakTest {
     }
 
     @Test
-    fun `ingen dager angitt gir IllegalArgumentException`() {
+    fun `ingen dager angitt gir 0 dager`() {
         val faktum = Faktum(
             key = "tiltaksliste.annetTiltak",
             value = "foo",
@@ -104,8 +103,8 @@ internal class BrukerregistrertTiltakTest {
             uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4"
         )
 
-        assertThrows<IllegalArgumentException> {
-            BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
-        }
+        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
+
+        assertEquals(0, tiltak?.antallDager)
     }
 }
