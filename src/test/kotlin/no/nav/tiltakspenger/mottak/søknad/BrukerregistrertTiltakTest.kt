@@ -2,9 +2,9 @@ package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import no.nav.tiltakspenger.mottak.joark.models.Faktum
-import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
-import no.nav.tiltakspenger.mottak.joark.models.Properties
+import no.nav.tiltakspenger.mottak.søknad.externalmodels.Faktum
+import no.nav.tiltakspenger.mottak.søknad.externalmodels.JoarkSøknad
+import no.nav.tiltakspenger.mottak.søknad.externalmodels.Properties
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull

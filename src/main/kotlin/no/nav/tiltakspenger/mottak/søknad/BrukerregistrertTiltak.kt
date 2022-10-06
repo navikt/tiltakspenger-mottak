@@ -1,8 +1,8 @@
 package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
 import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer
+import no.nav.tiltakspenger.mottak.søknad.externalmodels.JoarkSøknad
 import java.time.LocalDate
 
 @Serializable

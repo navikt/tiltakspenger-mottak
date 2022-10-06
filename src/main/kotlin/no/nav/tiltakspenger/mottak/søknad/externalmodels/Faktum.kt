@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.joark.models
+package no.nav.tiltakspenger.mottak.søknad.externalmodels
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

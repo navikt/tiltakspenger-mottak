@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.joark
+package no.nav.tiltakspenger.mottak.søknad.externalmodels
 
 import no.nav.tiltakspenger.mottak.søknad.Barnetillegg
 import no.nav.tiltakspenger.mottak.søknad.Søknad

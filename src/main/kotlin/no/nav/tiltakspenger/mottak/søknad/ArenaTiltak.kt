@@ -3,7 +3,7 @@ package no.nav.tiltakspenger.mottak.søknad
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import no.nav.tiltakspenger.mottak.joark.models.JoarkSøknad
+import no.nav.tiltakspenger.mottak.søknad.externalmodels.JoarkSøknad
 import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer
 import java.time.LocalDate
 
