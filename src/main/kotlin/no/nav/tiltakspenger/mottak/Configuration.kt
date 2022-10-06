@@ -47,7 +47,7 @@ object Configuration {
             "KAFKA_SCHEMA_REGISTRY_USER" to "KAFKA_SCHEMA_REGISTRY_USER",
             "KAFKA_SCHEMA_REGISTRY_PASSWORD" to "KAFKA_SCHEMA_REGISTRY_PASSWORD",
             "KAFKA_CREDSTORE_PASSWORD" to "KAFKA_CREDSTORE_PASSWORD",
-            "safBaseUrl" to "https://localhost:",
+            "safBaseUrl" to "https://localhost:8080",
             "safScope" to "api://localhost:/.default",
         )
     )
@@ -107,9 +107,8 @@ object Configuration {
         val maxPollIntervalMs: Int = 300_000
     )
 
-    data class SafConfig(
-        val baseUrl: String = config()[Key("safBaseUrl", stringType)]
-    )
+    @JvmInline
+    value class SafConfig(val baseUrl: String = config()[Key("safBaseUrl", stringType)])
 
     fun tptsRapidName(): String = config()[Key("tptsRapidName", stringType)]
 

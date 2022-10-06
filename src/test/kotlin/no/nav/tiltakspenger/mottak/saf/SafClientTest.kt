@@ -61,7 +61,7 @@ internal class SafClientTest {
         """.trimIndent()
     }
 
-    private val safClient = SafClient(Configuration.SafConfig()) { "TOKEN" }
+    private val safClient = SafClient(Configuration.SafConfig()) { "a token to be used for tests" }
 
     private fun mockSafRequest(mockJsonString: String) {
         val mockEngine = MockEngine {
