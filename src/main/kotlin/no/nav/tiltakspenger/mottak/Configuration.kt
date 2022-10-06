@@ -111,7 +111,7 @@ object Configuration {
     @JvmInline
     value class SafConfig(val baseUrl: String = config()[Key("safBaseUrl", stringType)]) {
         init {
-            require(URL(baseUrl).toString() == baseUrl)
+            check(URL(baseUrl).toString() == baseUrl)
         }
     }
 
