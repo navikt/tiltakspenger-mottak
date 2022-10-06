@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
+import org.junit.jupiter.api.assertThrows
+import java.net.MalformedURLException
 
 internal class ConfigurationTest {
     @Test
@@ -23,5 +26,17 @@ internal class ConfigurationTest {
         assertFalse(strategy.isEnabled(mapOf("qux" to "foo")))
         assertTrue(strategy.isEnabled(mapOf("qux" to "foo", "cluster" to "foo")))
         assertFalse(strategy.isEnabled(emptyMap()))
+    }
+
+    @Test
+    fun `gir ikke feil når URL er gyldig`() {
+        assertDoesNotThrow { Configuration.SafConfig(baseUrl = "https://example.org") }
+    }
+
+    @Test
+    fun `gir feil når URL ikke er gyldig`() {
+        assertThrows<MalformedURLException> {
+            Configuration.SafConfig(baseUrl = "ikke en url")
+        }
     }
 }

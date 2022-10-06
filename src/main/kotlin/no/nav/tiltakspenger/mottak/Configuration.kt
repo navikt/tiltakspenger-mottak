@@ -10,6 +10,7 @@ import com.natpryce.konfig.stringType
 import io.getunleash.DefaultUnleash
 import io.getunleash.strategy.Strategy
 import io.getunleash.util.UnleashConfig
+import java.net.URL
 
 enum class Profile {
     LOCAL, DEV, PROD
@@ -108,7 +109,11 @@ object Configuration {
     )
 
     @JvmInline
-    value class SafConfig(val baseUrl: String = config()[Key("safBaseUrl", stringType)])
+    value class SafConfig(val baseUrl: String = config()[Key("safBaseUrl", stringType)]) {
+        init {
+            require(URL(baseUrl).toString() == baseUrl)
+        }
+    }
 
     fun tptsRapidName(): String = config()[Key("tptsRapidName", stringType)]
 
