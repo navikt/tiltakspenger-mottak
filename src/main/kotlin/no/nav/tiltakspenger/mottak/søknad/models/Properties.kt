@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.søknad.externalmodels
+package no.nav.tiltakspenger.mottak.søknad.models
 
 import kotlinx.serialization.Serializable
 import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer

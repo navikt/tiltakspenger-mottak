@@ -8,18 +8,16 @@ private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 class SafService(private val safClient: SafClient) {
     suspend fun hentSøknad(journalpostId: String): Søknad? {
-        LOG.info { "Retrieving journalpost metadata with journalpostId $journalpostId" }
-        val journalfortDokMetadata = safClient.hentMetadataForJournalpost(journalpostId)
-        if (journalfortDokMetadata == null) {
-            LOG.info { "Journalpost with ID $journalpostId was not handled" }
+        LOG.info { "Henter metadata for journalpost med journalpostId $journalpostId" }
+        val metadata = safClient.hentMetadataForJournalpost(journalpostId)
+        if (metadata == null) {
+            LOG.info { "Journalpost med id $journalpostId ble ikke håndtert" }
             return null
         }
-        LOG.info { "Retrieving søknad with dokumentInfoId ${journalfortDokMetadata.dokumentInfoId}" }
-        val json = safClient.hentSoknad(journalfortDokMetadata)
-        LOG.info {
-            "Retrieved søknad with dokumentInfoId ${journalfortDokMetadata.dokumentInfoId}, see secure-log for details"
-        }
-        SECURELOG.info { "Retrieved søknad $json" }
-        return Søknad.fromJson(json, journalpostId, journalfortDokMetadata.dokumentInfoId)
+        LOG.info { "Henter søknad med dokumentInfoId ${metadata.dokumentInfoId}" }
+        val json = safClient.hentSoknad(metadata)
+        LOG.info { "Hentet søknad med dokumentInfoId ${metadata.dokumentInfoId}, se secure-log for detaljer" }
+        SECURELOG.info { "Hentet søknad $json" }
+        return Søknad.fromJson(json, journalpostId, metadata.dokumentInfoId)
     }
 }

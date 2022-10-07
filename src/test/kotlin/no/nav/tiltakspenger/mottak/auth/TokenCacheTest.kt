@@ -28,7 +28,7 @@ internal class TokenCacheTest {
     }
 
     @Test
-    fun `should return cached token`() {
+    fun `Should return cached token`() {
         val tokenCache = TokenCache()
         tokenCache.update(
             accessToken = "token",

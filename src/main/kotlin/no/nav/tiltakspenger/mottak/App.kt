@@ -22,7 +22,7 @@ fun main() {
         log.error { "Uncaught exception logget i securelog" }
         securelog.error(e) { e.message }
     }
-    log.info { "starting server" }
+    log.info { "Starter server" }
     unleash // init
     val kafkaConfig = KafkaConfig()
     val tokenProvider = AzureTokenProvider(Configuration.OauthConfig())
@@ -41,7 +41,7 @@ fun main() {
     }.start(wait = true)
 
     Runtime.getRuntime().addShutdownHook(Thread {
-        log.info { "stopping server" }
+        log.info { "Stopper server" }
         server.stop(gracePeriodMillis = 3000, timeoutMillis = 3000)
     })
 }

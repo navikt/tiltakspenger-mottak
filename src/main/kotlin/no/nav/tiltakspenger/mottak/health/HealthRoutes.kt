@@ -1,11 +1,10 @@
 package no.nav.tiltakspenger.mottak.health
 
-import io.ktor.http.ContentType
+import io.ktor.http.*
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.http.HttpStatusCode.Companion.ServiceUnavailable
-import io.ktor.server.application.call
-import io.ktor.server.response.respondText
-import io.ktor.server.response.respondTextWriter
+import io.ktor.server.application.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
@@ -22,7 +21,7 @@ fun Route.healthRoutes(healthChecks: List<HealthCheck>) {
                 TextFormat.write004(this, CollectorRegistry.defaultRegistry.metricFamilySamples())
             }
         }
-    }.also { LOG.info { "setting up endpoint /metrics" } }
+    }.also { LOG.info { "satt opp endepunkt /metrics" } }
     route("/isalive") {
         get {
             val failedHealthChecks = healthChecks.filter { it.status() == HealthStatus.ULYKKELIG }
@@ -33,10 +32,10 @@ fun Route.healthRoutes(healthChecks: List<HealthCheck>) {
                 call.respondText(text = "ALIVE", contentType = ContentType.Text.Plain, status = OK)
             }
         }
-    }.also { LOG.info { "setting up endpoint /isalive" } }
+    }.also { LOG.info { "satt opp endepunkt /isalive" } }
     route("/isready") {
         get {
             call.respondText(text = "READY", contentType = ContentType.Text.Plain)
         }
-    }.also { LOG.info { "setting up endpoint /isready" } }
+    }.also { LOG.info { "satt opp endepunkt /isready" } }
 }

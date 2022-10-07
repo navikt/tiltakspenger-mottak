@@ -106,14 +106,14 @@ internal class JoarkReplicator(
     override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
 
     fun start() {
-        LOG.info { "starting JoarkReplicator" }
+        LOG.info { "Starter JoarkReplicator" }
         job = scope.launch {
             run()
         }
     }
 
     fun stop() {
-        LOG.info { "stopping JoarkReplicator" }
+        LOG.info { "Stopper JoarkReplicator" }
         consumer.wakeup()
         job.cancel()
     }
@@ -134,7 +134,7 @@ internal class JoarkReplicator(
     }
 
     private fun onRecords(records: ConsumerRecords<String, GenericRecord>) {
-        LOG.debug { "records received: ${records.count()}" }
+        LOG.debug { "Records mottatt: ${records.count()}" }
         if (records.isEmpty) return // poll returns an empty collection in case of rebalancing
         var currentPartitionOffsets: MutableMap<TopicPartition, Long> = mutableMapOf()
         try {
@@ -150,7 +150,7 @@ internal class JoarkReplicator(
                         val soknad = safService.hentSøknad(record.key())
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
-                            LOG.debug { "Sending event on $tptsRapidName with key ${record.key()}" }
+                            LOG.debug { "Sender event på $tptsRapidName med key ${record.key()}" }
                             if (unleash.isEnabled("tiltakspenger.soknad.mottak")) {
                                 SECURELOG.info("Sender melding $json")
                                 producer.send(ProducerRecord(tptsRapidName, record.key(), json))
@@ -183,7 +183,7 @@ internal class JoarkReplicator(
                 (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
 
     private fun closeResources() {
-        LOG.info { "close resources" }
+        LOG.info { "Lukker ressurser" }
         tryAndLog(producer::close)
         tryAndLog(consumer::unsubscribe)
         tryAndLog(consumer::close)
@@ -198,7 +198,7 @@ internal class JoarkReplicator(
     }
 
     private fun shutdownHook() {
-        LOG.info("received shutdown signal, stopping app")
+        LOG.info("Mottok shutdown signal, stopper app")
         stop()
     }
 }

@@ -30,7 +30,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
             setBody(Graphql(journalpost(journalpostId)))
         }.body()
 
-        if (safResponse.errors != null) throw NotFoundException("Error from SAF: ${safResponse.errors}")
+        if (safResponse.errors != null) throw NotFoundException("Feil fra SAF: ${safResponse.errors}")
         val journalpostResponse = safResponse.data?.journalpost
         return toJournalfortDokumentMetadata(journalpostResponse)
     }

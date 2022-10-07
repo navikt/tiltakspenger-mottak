@@ -18,7 +18,7 @@ object StringBooleanSerializer : KSerializer<Boolean> {
         return when {
             verdi.matches(sant) -> true
             verdi.matches(usant) -> false
-            else -> throw SerializationException("kun lov med true/ja/false/nei")
+            else -> throw SerializationException("Kun lov med true/ja/false/nei")
         }
     }
 

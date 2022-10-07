@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
-import no.nav.tiltakspenger.mottak.søknad.externalmodels.JoarkSøknad
+import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -35,7 +35,7 @@ data class Søknad(
             ignoreUnknownKeys = true
         }
 
-        fun introduksjonsprogrammetDetaljer(fom: LocalDate?, tom: LocalDate?): IntroduksjonsprogrammetDetaljer? =
+        private fun introduksjonsprogrammetDetaljer(fom: LocalDate?, tom: LocalDate?) =
             fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
 
         @Suppress("LongMethod")
@@ -43,7 +43,7 @@ data class Søknad(
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
-            requireNotNull(fnr) { "No fnr, cannot handle soknad with id ${joarkSøknad.soknadId}" }
+            requireNotNull(fnr) { "Mangler fnr, kan ikke behandle søknad med id ${joarkSøknad.soknadId}" }
             val deltarKvp =
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
             /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse

@@ -1,4 +1,4 @@
-package no.nav.tiltakspenger.mottak.søknad.externalmodels
+package no.nav.tiltakspenger.mottak.søknad.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
