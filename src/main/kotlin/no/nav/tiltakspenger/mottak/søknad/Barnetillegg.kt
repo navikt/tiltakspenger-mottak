@@ -11,6 +11,7 @@ data class Barnetillegg(
     @Serializable(with = LocalDateSerializer::class)
     val fødselsdato: LocalDate? = null,
     val fornavn: String? = null,
+    val mellomnavn: String? = null,
     val etternavn: String? = null,
     val alder: Int,
     val land: String,

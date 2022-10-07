@@ -3,8 +3,8 @@ package no.nav.tiltakspenger.mottak.søknad
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import no.nav.tiltakspenger.mottak.søknad.externalmodels.JoarkSøknad
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
+import no.nav.tiltakspenger.mottak.søknad.externalmodels.JoarkSøknad
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -68,6 +68,7 @@ data class Søknad(
                         alder = it.properties.alder!!.toInt(),
                         land = it.properties.land!!,
                         fornavn = it.properties.fornavn,
+                        mellomnavn = it.properties.mellomnavn,
                         etternavn = it.properties.etternavn,
                         søktBarnetillegg = it.properties.sokerbarnetillegg ?: false,
                     )
