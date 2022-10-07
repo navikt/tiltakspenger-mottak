@@ -54,7 +54,7 @@ dependencies {
     }
 //    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 //    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
-    implementation("com.github.navikt:rapids-and-rivers:2022092314391663936769.9d5d33074875")
+    implementation("com.github.navikt:rapids-and-rivers:2022100711511665136276.49acbaae4ed4")
     implementation("io.getunleash:unleash-client-java:6.1.0")
     implementation("com.natpryce:konfig:1.6.10.0")
 
