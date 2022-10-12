@@ -66,7 +66,7 @@ data class Søknad(
                         ident = it.properties.fnr,
                         fødselsdato = it.properties.fodselsdato,
                         alder = it.properties.alder!!.toInt(),
-                        land = it.properties.land!!,
+                        oppholdsland = it.properties.land!!,
                         fornavn = it.properties.fornavn,
                         mellomnavn = it.properties.mellomnavn,
                         etternavn = it.properties.etternavn,

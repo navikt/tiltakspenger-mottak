@@ -14,6 +14,6 @@ data class Barnetillegg(
     val mellomnavn: String? = null,
     val etternavn: String? = null,
     val alder: Int,
-    val land: String,
+    val oppholdsland: String,
     val søktBarnetillegg: Boolean,
 )

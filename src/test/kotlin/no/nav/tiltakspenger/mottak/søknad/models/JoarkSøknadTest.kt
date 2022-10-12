@@ -120,13 +120,13 @@ internal class JoarkSøknadTest {
             mellomnavn = null,
             etternavn = "STAUDE",
             alder = 6,
-            land = "NOR",
+            oppholdsland = "NOR",
             søktBarnetillegg = false
         )
         assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
         assertEquals(expectedBarn.mellomnavn, søknad.barnetillegg.first().mellomnavn)
         assertEquals(expectedBarn.etternavn, søknad.barnetillegg.first().etternavn)
-        assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
+        assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
         assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
@@ -145,13 +145,13 @@ internal class JoarkSøknadTest {
             mellomnavn = "foo",
             etternavn = "bar",
             alder = 1,
-            land = "NOR",
+            oppholdsland = "NOR",
             søktBarnetillegg = true
         )
         assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
         assertEquals(expectedBarn.mellomnavn, søknad.barnetillegg.first().mellomnavn)
         assertEquals(expectedBarn.etternavn, søknad.barnetillegg.first().etternavn)
-        assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
+        assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
         assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
@@ -167,10 +167,10 @@ internal class JoarkSøknadTest {
         val expectedBarn = Barnetillegg(
             fødselsdato = LocalDate.of(2019, Month.JANUARY, 1),
             alder = 3,
-            land = "NOR",
+            oppholdsland = "NOR",
             søktBarnetillegg = true
         )
-        assertEquals(expectedBarn.land, søknad.barnetillegg.first().land)
+        assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
         assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
         assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
