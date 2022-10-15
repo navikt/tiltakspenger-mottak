@@ -41,7 +41,12 @@ data class Søknad(
             fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
 
         @Suppress("LongMethod")
-        fun fromJson(json: String, journalpostId: String, dokumentInfoId: String, vedleggMetaData: List<VedleggMetaData> = emptyList()): Søknad {
+        fun fromJson(
+            json: String,
+            journalpostId: String,
+            dokumentInfoId: String,
+            vedleggMetaData: List<VedleggMetaData> = emptyList()
+        ): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
