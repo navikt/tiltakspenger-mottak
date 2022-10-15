@@ -1,0 +1,49 @@
+{
+  "errors": null,
+  "data": {
+    "journalpost": {
+      "journalpostId": "524272526",
+      "dokumenter": [
+        {
+          "dokumentInfoId": "548464748",
+          "tittel": "en eller annen tittel",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ORIGINAL",
+              "filnavn": "tiltakspenger.json",
+              "filtype": "JSON"
+            },
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "NAV 76-13.45.pdfa",
+              "filtype": "PDF"
+            }
+          ]
+        },
+        {
+          "dokumentInfoId": "549168778",
+          "tittel": "Vedlegg 2",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "Vedlegg 2",
+              "filtype": "PDF",
+              "saksbehandlerHarTilgang": true
+            }
+          ]
+        },
+        {
+          "dokumentInfoId": "548464747",
+          "tittel": "Kvitteringsside for dokumentinnsending",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "L7",
+              "filtype": "PDF"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

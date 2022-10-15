@@ -56,10 +56,21 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
             dokument.dokumentvarianter.any { it.filnavn == FILNAVN && it.variantformat == ORIGINAL }
         }?.dokumentInfoId
 
+        val vedlegg = response?.dokumenter?.filterNot { dokument ->
+            dokument.dokumentvarianter.any { it.filnavn == FILNAVN || it.filnavn == "L7" }
+        }?.map {
+            VedleggMetaData(
+                journalpostId = response.journalpostId,
+                dokumentInfoId = it.dokumentInfoId,
+                filnavn = it.dokumentvarianter.firstOrNull()?.filnavn
+            )
+        } ?: emptyList()
+
         return if (dokumentInfoId == null) null else JournalfortDokumentMetaData(
             journalpostId = response.journalpostId,
             dokumentInfoId = dokumentInfoId,
-            filnavn = FILNAVN
+            filnavn = FILNAVN,
+            vedlegg = vedlegg
         )
     }
 }

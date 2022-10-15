@@ -18,6 +18,6 @@ class SafService(private val safClient: SafClient) {
         val json = safClient.hentSoknad(metadata)
         LOG.info { "Hentet søknad med dokumentInfoId ${metadata.dokumentInfoId}, se secure-log for detaljer" }
         SECURELOG.info { "Hentet søknad $json" }
-        return Søknad.fromJson(json, journalpostId, metadata.dokumentInfoId)
+        return Søknad.fromJson(json, journalpostId, metadata.dokumentInfoId, metadata.vedlegg)
     }
 }

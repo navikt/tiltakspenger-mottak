@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.mottak.søknad
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import no.nav.tiltakspenger.mottak.saf.VedleggMetaData
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
 import java.time.LocalDate
@@ -28,6 +29,7 @@ data class Søknad(
     val brukerregistrertTiltak: BrukerregistrertTiltak?,
     val trygdOgPensjon: List<TrygdOgPensjon>,
     val fritekst: String? = null,
+    val vedlegg: List<Vedlegg>
 ) {
 
     companion object {
@@ -39,7 +41,7 @@ data class Søknad(
             fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
 
         @Suppress("LongMethod")
-        fun fromJson(json: String, journalpostId: String, dokumentInfoId: String): Søknad {
+        fun fromJson(json: String, journalpostId: String, dokumentInfoId: String, vedleggMetaData: List<VedleggMetaData> = emptyList()): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
             val fnr = personalia?.properties?.fnr
@@ -83,6 +85,14 @@ data class Søknad(
                         tom = it.properties.tom
                     )
                 }
+
+            val vedlegg = vedleggMetaData.map {
+                Vedlegg(
+                    journalpostId = it.journalpostId,
+                    dokumentInfoId = it.dokumentInfoId,
+                    filnavn = it.filnavn,
+                )
+            }
             val fritekst = joarkSøknad.fakta.firstOrNull { it.key == "tilleggsopplysninger.fritekst" }?.value
 
             return Søknad(
@@ -106,6 +116,7 @@ data class Søknad(
                 brukerregistrertTiltak = brukerregistrertTiltak,
                 trygdOgPensjon = trygdOgPensjon,
                 fritekst = fritekst,
+                vedlegg = vedlegg,
             )
         }
     }

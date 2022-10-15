@@ -129,6 +129,7 @@ internal class JoarkReplicatorTest {
             arenaTiltak = null,
             brukerregistrertTiltak = null,
             trygdOgPensjon = emptyList(),
+            vedlegg = emptyList()
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val safService = mockk<SafService>()

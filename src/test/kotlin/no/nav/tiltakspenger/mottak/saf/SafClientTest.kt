@@ -85,4 +85,19 @@ internal class SafClientTest {
 
         JSONAssert.assertEquals(jsonSoknad, safResponse, JSONCompareMode.LENIENT)
     }
+
+    @Test
+    fun `hente vedlegg fra Metadata`() {
+        mockSafRequest("/journalpost_med_vedlegg.json")
+        val safResponse = runBlocking {
+            safClient.hentMetadataForJournalpost("524272526")
+        }
+
+        val vedlegg = safResponse?.vedlegg!!
+
+        assertEquals(vedlegg.size, 1)
+        assertEquals(vedlegg.first().dokumentInfoId, "549168778")
+        assertEquals(vedlegg.first().filnavn, "Vedlegg 2")
+        assertEquals(vedlegg.first().journalpostId, "524272526")
+    }
 }

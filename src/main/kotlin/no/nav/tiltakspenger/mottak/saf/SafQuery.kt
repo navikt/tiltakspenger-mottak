@@ -65,4 +65,11 @@ data class JournalfortDokumentMetaData(
     val journalpostId: String,
     val dokumentInfoId: String,
     val filnavn: String?,
+    val vedlegg: List<VedleggMetaData> = emptyList(),
+)
+
+data class VedleggMetaData(
+    val journalpostId: String,
+    val dokumentInfoId: String,
+    val filnavn: String?,
 )
