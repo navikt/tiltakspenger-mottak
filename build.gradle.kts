@@ -71,7 +71,6 @@ dependencies {
 configurations.all {
     // exclude JUnit 4
     exclude(group = "junit", module = "junit")
-    // because of https://nav-it.slack.com/archives/C73B9LC86/p1645620641779659
 }
 
 application {
