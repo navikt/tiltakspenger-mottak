@@ -183,7 +183,7 @@ internal class JoarkSøknadTest {
             utbetaler = "Manchester United",
             prosent = 42,
             fom = LocalDate.of(2021, Month.FEBRUARY, 9),
-            tom = LocalDate.of(2022, Month.AUGUST, 2)
+            tom = null
         )
         val expected2 = TrygdOgPensjon(
             utbetaler = "Bayern München",
