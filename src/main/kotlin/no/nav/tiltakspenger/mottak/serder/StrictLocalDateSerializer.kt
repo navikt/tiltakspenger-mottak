@@ -13,7 +13,5 @@ object StrictLocalDateSerializer : KSerializer<LocalDate> {
 
     override fun deserialize(decoder: Decoder): LocalDate = LocalDate.parse(decoder.decodeString())
 
-    override fun serialize(encoder: Encoder, value: LocalDate) {
-        TODO("YAGNI")
-    }
+    override fun serialize(encoder: Encoder, value: LocalDate) = encoder.encodeString(value.toString())
 }

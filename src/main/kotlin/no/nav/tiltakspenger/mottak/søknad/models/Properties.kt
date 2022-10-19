@@ -1,6 +1,7 @@
 package no.nav.tiltakspenger.mottak.søknad.models
 
 import kotlinx.serialization.Serializable
+import no.nav.tiltakspenger.mottak.serder.LenientLocalDateSerializer
 import no.nav.tiltakspenger.mottak.serder.StrictLocalDateSerializer
 import no.nav.tiltakspenger.mottak.serder.StringBooleanSerializer
 import java.time.LocalDate
@@ -21,7 +22,7 @@ data class Properties(
     @Serializable(with = StringBooleanSerializer::class) val erIEndreStatus: Boolean? = null,
     val etternavn: String? = null,
     val fnr: String? = null,
-    @Serializable(with = StrictLocalDateSerializer::class) val fom: LocalDate? = null,
+    @Serializable(with = LenientLocalDateSerializer::class) val fom: LocalDate? = null,
     val fornavn: String? = null,
     @Serializable(with = StrictLocalDateSerializer::class) val fodselsdato: LocalDate? = null,
     val gjeldendeAdresse: String? = null,
@@ -52,7 +53,7 @@ data class Properties(
     val statsborgerskapType: String? = null,
     val tilleggsopplysninger: String? = null,
     val tiltaksliste: String? = null,
-    @Serializable(with = StrictLocalDateSerializer::class) val tom: LocalDate? = null,
+    @Serializable(with = LenientLocalDateSerializer::class) val tom: LocalDate? = null,
     val trygdogpensjon: String? = null,
     val utbetaler: String? = null,
     val utenlandskKontoBanknavn: String? = null,
