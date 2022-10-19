@@ -11,9 +11,10 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 
 object LocalDateTimeSerializer : KSerializer<LocalDateTime> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDateTime", PrimitiveKind.STRING)
+    
     override fun deserialize(decoder: Decoder): LocalDateTime =
         ZonedDateTime.parse(decoder.decodeString()).withZoneSameInstant(ZoneId.of("Europe/Oslo")).toLocalDateTime()
 
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalDateTime", PrimitiveKind.STRING)
     override fun serialize(encoder: Encoder, value: LocalDateTime) = encoder.encodeString(value.toString())
 }

@@ -1,7 +1,7 @@
 package no.nav.tiltakspenger.mottak.søknad.models
 
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer
+import no.nav.tiltakspenger.mottak.serder.StrictLocalDateSerializer
 import no.nav.tiltakspenger.mottak.serder.StringBooleanSerializer
 import java.time.LocalDate
 
@@ -21,9 +21,9 @@ data class Properties(
     @Serializable(with = StringBooleanSerializer::class) val erIEndreStatus: Boolean? = null,
     val etternavn: String? = null,
     val fnr: String? = null,
-    @Serializable(with = LocalDateSerializer::class) val fom: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val fom: LocalDate? = null,
     val fornavn: String? = null,
-    @Serializable(with = LocalDateSerializer::class) val fodselsdato: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val fodselsdato: LocalDate? = null,
     val gjeldendeAdresse: String? = null,
     val gjeldendeAdresseGyldigFra: String? = null,
     val gjeldendeAdresseGyldigTil: String? = null,
@@ -39,20 +39,20 @@ data class Properties(
     val personalia: String? = null,
     val postnummer: String? = null,
     val prosent: Int? = null,
-    @Serializable(with = LocalDateSerializer::class) val opprinneligstartdato: LocalDate? = null,
-    @Serializable(with = LocalDateSerializer::class) val opprinneligsluttdato: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val opprinneligstartdato: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val opprinneligsluttdato: LocalDate? = null,
     val sekundarAdresse: String? = null,
     val sekundarAdresseGyldigFra: String? = null,
     val sekundarAdresseGyldigTil: String? = null,
     val sekundarAdresseType: String? = null,
     val statsborgerskap: String? = null,
-    @Serializable(with = LocalDateSerializer::class) val startdato: LocalDate? = null,
-    @Serializable(with = LocalDateSerializer::class) val sluttdato: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val startdato: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val sluttdato: LocalDate? = null,
     @Serializable(with = StringBooleanSerializer::class) val sokerbarnetillegg: Boolean? = null,
     val statsborgerskapType: String? = null,
     val tilleggsopplysninger: String? = null,
     val tiltaksliste: String? = null,
-    @Serializable(with = LocalDateSerializer::class) val tom: LocalDate? = null,
+    @Serializable(with = StrictLocalDateSerializer::class) val tom: LocalDate? = null,
     val trygdogpensjon: String? = null,
     val utbetaler: String? = null,
     val utenlandskKontoBanknavn: String? = null,

@@ -1,7 +1,7 @@
 package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer
+import no.nav.tiltakspenger.mottak.serder.StrictLocalDateSerializer
 import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
 import java.time.LocalDate
 
@@ -10,8 +10,8 @@ data class BrukerregistrertTiltak(
     val tiltakskode: String,
     val arrangoernavn: String?,
     val beskrivelse: String?, // kun om det er 'Annet' tiltak
-    @Serializable(with = LocalDateSerializer::class) val fom: LocalDate,
-    @Serializable(with = LocalDateSerializer::class) val tom: LocalDate,
+    @Serializable(with = StrictLocalDateSerializer::class) val fom: LocalDate,
+    @Serializable(with = StrictLocalDateSerializer::class) val tom: LocalDate,
     val adresse: String? = null,
     val postnummer: String? = null,
     val antallDager: Int

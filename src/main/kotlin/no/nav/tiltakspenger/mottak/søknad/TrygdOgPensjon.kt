@@ -1,15 +1,15 @@
 package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.serder.LocalDateSerializer
+import no.nav.tiltakspenger.mottak.serder.LenientLocalDateSerializer
 import java.time.LocalDate
 
 @Serializable
 data class TrygdOgPensjon(
     val utbetaler: String,
     val prosent: Int?,
-    @Serializable(with = LocalDateSerializer::class)
+    @Serializable(with = LenientLocalDateSerializer::class)
     val fom: LocalDate?,
-    @Serializable(with = LocalDateSerializer::class)
+    @Serializable(with = LenientLocalDateSerializer::class)
     val tom: LocalDate?
 )
