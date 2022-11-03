@@ -105,7 +105,8 @@ internal class JoarkReplicator(
     }
 
     companion object {
-        val søknadCounter: Counter = Counter.build().name("soknader_total").help("Antall soknader").register()
+        val søknadCounter: Counter =
+            Counter.build().name("tiltakspenger_soknader_total").help("Antall soknader").register()
     }
 
     override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
