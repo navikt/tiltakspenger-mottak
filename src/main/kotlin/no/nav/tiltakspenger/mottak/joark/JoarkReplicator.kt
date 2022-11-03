@@ -205,7 +205,7 @@ internal class JoarkReplicator(
     }
 
     private fun shutdownHook() {
-        LOG.info("Mottok shutdown signal, stopper app.")
+        LOG.info("Mottok shutdown signal, stopper app")
         stop()
     }
 }
