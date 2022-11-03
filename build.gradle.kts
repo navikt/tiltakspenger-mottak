@@ -46,14 +46,13 @@ dependencies {
 //    implementation("io.micrometer:micrometer-registry-prometheus:1.8.1")
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
+    implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
     implementation("org.jetbrains:annotations:23.0.0")
     implementation("org.apache.avro:avro:1.11.1")
     implementation("io.confluent:kafka-avro-serializer:7.2.2") {
         // we want to use the one provided by R&R, not the Confluent-specific one
         exclude(group = "org.apache.kafka", module = "kafka-clients")
     }
-//    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-//    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
     implementation("com.github.navikt:rapids-and-rivers:2022100711511665136276.49acbaae4ed4")
     implementation("io.getunleash:unleash-client-java:6.1.0")
     implementation("com.natpryce:konfig:1.6.10.0")

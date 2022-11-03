@@ -3,6 +3,7 @@ package no.nav.tiltakspenger.mottak
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.routing.*
+import io.prometheus.client.hotspot.DefaultExports
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration.KafkaConfig
 import no.nav.tiltakspenger.mottak.auth.AzureTokenProvider
@@ -22,6 +23,7 @@ fun main() {
         log.error { "Uncaught exception logget i securelog" }
         securelog.error(e) { e.message }
     }
+    DefaultExports.initialize()
     log.info { "Starter server" }
     unleash // init
     val kafkaConfig = KafkaConfig()
