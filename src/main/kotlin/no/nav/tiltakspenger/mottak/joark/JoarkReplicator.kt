@@ -5,6 +5,7 @@ package no.nav.tiltakspenger.mottak.joark
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClientConfig
 import io.confluent.kafka.serializers.AbstractKafkaSchemaSerDeConfig
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
+import io.prometheus.client.Counter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -103,6 +104,10 @@ internal class JoarkReplicator(
         Runtime.getRuntime().addShutdownHook(Thread(::shutdownHook))
     }
 
+    companion object {
+        val søknadCounter: Counter = Counter.build().name("soknader_total").help("Antall soknader").register()
+    }
+
     override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
 
     fun start() {
@@ -153,6 +158,7 @@ internal class JoarkReplicator(
                             LOG.debug { "Sender event på $tptsRapidName med key ${record.key()}" }
                             if (unleash.isEnabled("tiltakspenger.soknad.mottak")) {
                                 SECURELOG.info("Sender melding $json")
+                                søknadCounter.inc()
                                 producer.send(ProducerRecord(tptsRapidName, record.key(), json))
                             } else {
                                 SECURELOG.info("Sender ikke melding (stoppet av unleash) $json")
