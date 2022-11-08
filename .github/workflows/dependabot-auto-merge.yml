@@ -44,8 +44,9 @@ jobs:
       - name: Notify Slack in case of merge failure
         if: failure()
         run: |
-          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[${{ github.event.repository.name }}] Merge failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Branch\", \"value\": \"$BRANCH\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/${{ github.repository }}/commit/$GITHUB_SHA|$GITHUB_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
+          curl -X POST --data-urlencode "payload={ \"attachments\": [{ \"pretext\": \"[${{ github.event.repository.name }}] Merge failed :cry:\", \"color\": \"danger\", \"fields\": [ { \"title\": \"Author\", \"value\": \"$AUTHOR\", \"short\": false }, { \"title\": \"Branch\", \"value\": \"$BRANCH\", \"short\": false }, { \"title\": \"Commit\", \"value\": \"<https://github.com/${{ github.repository }}/commit/$PR_SHA|$PR_SHA>\", \"short\": false } ] }] }" $WEBHOOK_URL
         env:
-          BRANCH: ${{ github.ref }}
+          PR_SHA: ${{ github.event.pull_request.head.sha }}
+          BRANCH: ${{ github.head_ref }}
           AUTHOR: ${{ github.actor }}
           WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
