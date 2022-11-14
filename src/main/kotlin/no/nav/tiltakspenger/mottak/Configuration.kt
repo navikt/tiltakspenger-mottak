@@ -58,7 +58,7 @@ object Configuration {
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
             "application.profile" to Profile.DEV.toString(),
             "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
-            "safScope" to "api://dev-fss.teamdokumenthandtering.saf/.default",
+            "safScope" to "api://dev-fss.teamdokumenthandtering.saf-q1/.default",
             "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering-q1"
         )
     )
