@@ -11,11 +11,13 @@ import no.nav.tiltakspenger.mottak.HttpClient.client
 import no.nav.tiltakspenger.mottak.INDIVIDSTONAD
 import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
+private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 class SafClient(private val config: Configuration.SafConfig, private val getToken: suspend () -> String) {
     companion object {
-        private const val FILNAVN = "tiltakspenger.json"
+        private const val FILNAVN_SØKNAD = "tiltakspenger.json"
+        private const val FILNAVN_VEDLEGG = "L7"
     }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetadata? {
@@ -52,12 +54,19 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
 
     private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetadata? {
         SECURELOG.info { "Metadata fra SAF: $response" }
+        LOG.info {
+            "Dokumenter fra SAF: ${
+                response?.dokumenter?.joinToString {
+                    "${it.tittel}: [${it.dokumentvarianter.map { v -> v.filnavn }.joinToString()}]"
+                }
+            }"
+        }
         val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->
-            dokument.dokumentvarianter.any { it.filnavn == FILNAVN && it.variantformat == ORIGINAL }
+            dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD && it.variantformat == ORIGINAL }
         }?.dokumentInfoId
 
         val vedlegg = response?.dokumenter?.filterNot { dokument ->
-            dokument.dokumentvarianter.any { it.filnavn == FILNAVN || it.filnavn == "L7" }
+            dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_VEDLEGG }
         }?.map {
             VedleggMetadata(
                 journalpostId = response.journalpostId,
@@ -69,7 +78,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         return if (dokumentInfoId == null) null else JournalfortDokumentMetadata(
             journalpostId = response.journalpostId,
             dokumentInfoId = dokumentInfoId,
-            filnavn = FILNAVN,
+            filnavn = FILNAVN_SØKNAD,
             vedlegg = vedlegg
         )
     }
