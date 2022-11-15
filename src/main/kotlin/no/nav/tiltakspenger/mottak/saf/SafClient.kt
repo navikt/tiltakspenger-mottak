@@ -18,7 +18,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         private const val FILNAVN = "tiltakspenger.json"
     }
 
-    suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {
+    suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetadata? {
         val token = getToken()
         val safResponse: SafQuery.Response = client.post(
             urlString = "${config.baseUrl}/graphql"
@@ -35,10 +35,10 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         return toJournalfortDokumentMetadata(journalpostResponse)
     }
 
-    suspend fun hentSoknad(journalfortDokumentMetaData: JournalfortDokumentMetaData): String {
+    suspend fun hentSoknad(journalfortDokumentMetadata: JournalfortDokumentMetadata): String {
         val token = getToken()
-        val journalpostId = journalfortDokumentMetaData.journalpostId
-        val dokumentInfoId = journalfortDokumentMetaData.dokumentInfoId
+        val journalpostId = journalfortDokumentMetadata.journalpostId
+        val dokumentInfoId = journalfortDokumentMetadata.dokumentInfoId
         val safResponse: String = client.get(
             urlString = "${config.baseUrl}/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
         ) {
@@ -50,7 +50,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         return safResponse
     }
 
-    private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetaData? {
+    private fun toJournalfortDokumentMetadata(response: SafQuery.Journalpost?): JournalfortDokumentMetadata? {
         SECURELOG.info { "Metadata fra SAF: $response" }
         val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->
             dokument.dokumentvarianter.any { it.filnavn == FILNAVN && it.variantformat == ORIGINAL }
@@ -59,14 +59,14 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         val vedlegg = response?.dokumenter?.filterNot { dokument ->
             dokument.dokumentvarianter.any { it.filnavn == FILNAVN || it.filnavn == "L7" }
         }?.map {
-            VedleggMetaData(
+            VedleggMetadata(
                 journalpostId = response.journalpostId,
                 dokumentInfoId = it.dokumentInfoId,
                 filnavn = it.dokumentvarianter.firstOrNull()?.filnavn
             )
         } ?: emptyList()
 
-        return if (dokumentInfoId == null) null else JournalfortDokumentMetaData(
+        return if (dokumentInfoId == null) null else JournalfortDokumentMetadata(
             journalpostId = response.journalpostId,
             dokumentInfoId = dokumentInfoId,
             filnavn = FILNAVN,

@@ -61,14 +61,14 @@ fun journalpost(journalpostId: String): String {
     """.trimIndent()
 }
 
-data class JournalfortDokumentMetaData(
+data class JournalfortDokumentMetadata(
     val journalpostId: String,
     val dokumentInfoId: String,
     val filnavn: String?,
-    val vedlegg: List<VedleggMetaData> = emptyList(),
+    val vedlegg: List<VedleggMetadata> = emptyList(),
 )
 
-data class VedleggMetaData(
+data class VedleggMetadata(
     val journalpostId: String,
     val dokumentInfoId: String,
     val filnavn: String?,

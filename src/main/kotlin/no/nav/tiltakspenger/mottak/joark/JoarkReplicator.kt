@@ -14,6 +14,7 @@ import kotlinx.coroutines.runBlocking
 import mu.KotlinLogging
 import no.nav.helse.rapids_rivers.JsonMessage
 import no.nav.tiltakspenger.mottak.Configuration
+import no.nav.tiltakspenger.mottak.INDIVIDSTONAD
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.saf.SafService
@@ -186,8 +187,7 @@ internal class JoarkReplicator(
         JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
-        (record.value().get("temaNytt")?.toString() ?: "") == "IND" &&
-                (record.value().get("journalpostStatus")?.toString() ?: "") == "MOTTATT"
+        INDIVIDSTONAD == (record.value().get("temaNytt")) && "MOTTATT" == (record.value().get("journalpostStatus"))
 
     private fun closeResources() {
         LOG.info { "Lukker ressurser" }

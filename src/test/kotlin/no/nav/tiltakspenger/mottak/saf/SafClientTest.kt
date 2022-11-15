@@ -77,10 +77,10 @@ internal class SafClientTest {
     fun `hente dokument fra SAF`() {
         mockSafRequest("/søknad.json")
         val jsonSoknad = javaClass.getResource("/søknad.json")?.readText(Charsets.UTF_8)!!
-        val journalfortDokumentMetaData = JournalfortDokumentMetaData("524272526", "2", "tittel")
+        val journalfortDokumentMetadata = JournalfortDokumentMetadata("524272526", "2", "tittel")
 
         val safResponse = runBlocking {
-            safClient.hentSoknad(journalfortDokumentMetaData)
+            safClient.hentSoknad(journalfortDokumentMetadata)
         }
 
         JSONAssert.assertEquals(jsonSoknad, safResponse, JSONCompareMode.LENIENT)

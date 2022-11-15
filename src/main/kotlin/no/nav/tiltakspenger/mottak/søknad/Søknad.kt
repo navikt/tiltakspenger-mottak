@@ -3,7 +3,7 @@ package no.nav.tiltakspenger.mottak.søknad
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import no.nav.tiltakspenger.mottak.saf.VedleggMetaData
+import no.nav.tiltakspenger.mottak.saf.VedleggMetadata
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
 import java.time.LocalDate
@@ -45,7 +45,7 @@ data class Søknad(
             json: String,
             journalpostId: String,
             dokumentInfoId: String,
-            vedleggMetaData: List<VedleggMetaData> = emptyList()
+            vedleggMetadata: List<VedleggMetadata> = emptyList()
         ): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
@@ -91,7 +91,7 @@ data class Søknad(
                     )
                 }
 
-            val vedlegg = vedleggMetaData.map {
+            val vedlegg = vedleggMetadata.map {
                 Vedlegg(
                     journalpostId = it.journalpostId,
                     dokumentInfoId = it.dokumentInfoId,

@@ -43,15 +43,15 @@ internal class SafServiceTest {
         val journalpostId = "42"
         val dokumentInfoId = "43"
         val rawJson = this::class.java.classLoader.getResource("søknad.json")!!.readText()
-        val journalfortDokumentMetaData = JournalfortDokumentMetaData(
+        val journalfortDokumentMetadata = JournalfortDokumentMetadata(
             journalpostId = journalpostId,
             dokumentInfoId = dokumentInfoId,
             filnavn = "filnavn"
         )
         coEvery { safClient.hentMetadataForJournalpost(journalpostId) }.returns(
-            journalfortDokumentMetaData
+            journalfortDokumentMetadata
         )
-        coEvery { safClient.hentSoknad(journalfortDokumentMetaData) }.returns(rawJson)
+        coEvery { safClient.hentSoknad(journalfortDokumentMetadata) }.returns(rawJson)
 
         // when
         val soknad = safService.hentSøknad(journalpostId)
@@ -59,6 +59,6 @@ internal class SafServiceTest {
         // then
         assertEquals("12304", soknad?.søknadId)
         coVerify(exactly = 1) { safClient.hentMetadataForJournalpost(journalpostId) }
-        coVerify(exactly = 1) { safClient.hentSoknad(journalfortDokumentMetaData) }
+        coVerify(exactly = 1) { safClient.hentSoknad(journalfortDokumentMetadata) }
     }
 }
