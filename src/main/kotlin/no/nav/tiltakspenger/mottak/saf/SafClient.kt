@@ -17,7 +17,7 @@ private val SECURELOG = KotlinLogging.logger("tjenestekall")
 class SafClient(private val config: Configuration.SafConfig, private val getToken: suspend () -> String) {
     companion object {
         private const val FILNAVN_SØKNAD = "tiltakspenger.json"
-        private const val FILNAVN_VEDLEGG = "L7"
+        private const val FILNAVN_KVITTERINGSSIDE = "L7"
     }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetadata? {
@@ -66,7 +66,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         }?.dokumentInfoId
 
         val vedlegg = response?.dokumenter?.filterNot { dokument ->
-            dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_VEDLEGG }
+            dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_KVITTERINGSSIDE }
         }?.map {
             VedleggMetadata(
                 journalpostId = response.journalpostId,
