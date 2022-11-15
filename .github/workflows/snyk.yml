@@ -13,8 +13,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor
-          args: |
-            --configuration-attributes=usage:java-runtime
-            --project-name=${{ github.repository }}
-            --remote-repo-url=https://github.com/${{ github.repository }}.git
-            --org=tpts
+          args: --configuration-attributes=usage:java-runtime --project-name=${{ github.repository }} --remote-repo-url=https://github.com/${{ github.repository }}.git --org=tpts
