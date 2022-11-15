@@ -12,6 +12,8 @@ import io.getunleash.strategy.Strategy
 import io.getunleash.util.UnleashConfig
 import java.net.URL
 
+const val INDIVIDSTONAD = "IND"
+
 enum class Profile {
     LOCAL, DEV, PROD
 }

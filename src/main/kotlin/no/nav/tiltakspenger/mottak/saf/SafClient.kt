@@ -8,6 +8,7 @@ import io.ktor.server.plugins.*
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.HttpClient.client
+import no.nav.tiltakspenger.mottak.INDIVIDSTONAD
 import no.nav.tiltakspenger.mottak.saf.SafQuery.Variantformat.ORIGINAL
 
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
@@ -15,7 +16,6 @@ private val SECURELOG = KotlinLogging.logger("tjenestekall")
 class SafClient(private val config: Configuration.SafConfig, private val getToken: suspend () -> String) {
     companion object {
         private const val FILNAVN = "tiltakspenger.json"
-        private const val INDIVIDSTONAD = "IND"
     }
 
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetaData? {
