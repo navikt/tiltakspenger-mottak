@@ -108,6 +108,7 @@ internal class JoarkReplicator(
     companion object {
         val søknadCounter: Counter =
             Counter.build().name("tiltakspenger_soknader_total").help("Antall soknader").register()
+        private val poisonJournalposts = setOf("592543909")
     }
 
     override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
@@ -187,7 +188,9 @@ internal class JoarkReplicator(
         JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
-        INDIVIDSTONAD == (record.value().get("temaNytt")) && "MOTTATT" == (record.value().get("journalpostStatus"))
+        INDIVIDSTONAD == (record.value().get("temaNytt"))
+                && "MOTTATT" == (record.value().get("journalpostStatus"))
+                && !poisonJournalposts.contains(record.key())
 
     private fun closeResources() {
         LOG.info { "Lukker ressurser" }
