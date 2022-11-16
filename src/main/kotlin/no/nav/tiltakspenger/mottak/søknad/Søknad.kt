@@ -53,11 +53,15 @@ data class Søknad(
             requireNotNull(fnr) { "Mangler fnr, kan ikke behandle søknad med id ${joarkSøknad.soknadId}" }
             val deltarKvp =
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.kvalifiseringsprogram" }?.value == "ja"
-            /* Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse
-            * og null når søker svarer nei, sjekker derfor kommune istedet for å unngå (mer) forvirring */
+            // Faktum "informasjonsside.deltarIIntroprogram" gir strengen "false" når deltaker svarer ja på deltakelse,
+            // "true" når deltaker svarer nei på deltakelse og null når søker ikke får spørsmålet, sjekker derfor
+            // kommune istedet for å unngå (mer) forvirring
             val introduksjonsprogrammetProperties =
                 joarkSøknad.fakta.firstOrNull { it.key == "informasjonsside.deltarIIntroprogram.info" }?.properties
-            val deltarIntroduksjonsprogrammet = introduksjonsprogrammetProperties?.kommune?.isNotEmpty() ?: false
+            val deltarIntroduksjonsprogrammet =
+                if (joarkSøknad.fakta.first { it.key == "informasjonsside.deltarIIntroprogram" }.value == null) {
+                    null
+                } else introduksjonsprogrammetProperties?.kommune?.isNotEmpty() ?: false
             val introduksjonsprogrammetFom = introduksjonsprogrammetProperties?.fom
             val introduksjonsprogrammetTom = introduksjonsprogrammetProperties?.tom
             val oppholdInstitusjon =

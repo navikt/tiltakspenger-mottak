@@ -57,13 +57,23 @@ internal class JoarkSøknadTest {
     @Test
     fun `soker som deltar på intro should have detaljer`() {
         val søknad = Søknad.fromJson(File("src/test/resources/søknad_deltar_intro.json").readText(), "", "")
+        assertTrue(søknad.deltarIntroduksjonsprogrammet!!)
         assertEquals(LocalDate.of(2022, 4, 1), søknad.introduksjonsprogrammetDetaljer?.fom)
         assertEquals(LocalDate.of(2022, 4, 30), søknad.introduksjonsprogrammetDetaljer?.tom)
     }
 
     @Test
-    fun `soker som IKKE deltar på intro should have false in deltarIntroduksjonsprogrammet field`() {
+    fun `soker som ikke får spørsmål om introduksjonsprogrammet vet vi ingenting om`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
+        val søknad = Søknad.fromJson(soknadJson, "", "")
+        assertNull(søknad.deltarIntroduksjonsprogrammet)
+        assertNull(søknad.introduksjonsprogrammetDetaljer?.fom)
+        assertNull(søknad.introduksjonsprogrammetDetaljer?.tom)
+    }
+
+    @Test
+    fun `soker som IKKE deltar på intro should have false in deltarIntroduksjonsprogrammet field`() {
+        val soknadJson = this::class.java.classLoader.getResource("søknad_deltar_ikke_intro.json")!!.readText()
         val søknad = Søknad.fromJson(soknadJson, "", "")
         assertFalse(søknad.deltarIntroduksjonsprogrammet!!)
         assertNull(søknad.introduksjonsprogrammetDetaljer?.fom)

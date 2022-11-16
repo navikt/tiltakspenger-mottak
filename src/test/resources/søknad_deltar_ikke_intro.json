@@ -1,0 +1,211 @@
+{
+  "soknadId": 13982,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "bd83520c-27b7-4277-aa7f-dd2b7674a80d",
+  "brukerBehandlingId": "4b3d5d78-f870-473a-a2b0-65ce06abdb79",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 743401,
+      "soknadId": 13982,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743402,
+      "soknadId": 13982,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "ikkeEos",
+        "statsborgerskap": "AFG",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "epost": null,
+        "sekundarAdresseType": null,
+        "gjeldendeAdresse": null,
+        "fnr": "42888600331",
+        "fornavn": "TØFF",
+        "alder": "36",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "kontonummer": null,
+        "sekundarAdresse": null,
+        "sekundarAdresseGyldigFra": null,
+        "etternavn": "TØFFELHELT",
+        "gjeldendeAdresseType": null,
+        "diskresjonskode": null,
+        "navn": "TØFF TØFFELHELT",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 743403,
+      "soknadId": 13982,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743404,
+      "soknadId": 13982,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743405,
+      "soknadId": 13982,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743406,
+      "soknadId": 13982,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743407,
+      "soknadId": 13982,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743408,
+      "soknadId": 13982,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743409,
+      "soknadId": 13982,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743410,
+      "soknadId": 13982,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743411,
+      "soknadId": 13982,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743412,
+      "soknadId": 13982,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743413,
+      "soknadId": 13982,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "annetTiltak",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743414,
+      "soknadId": 13982,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "true",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743415,
+      "soknadId": 13982,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743416,
+      "soknadId": 13982,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743417,
+      "soknadId": 13982,
+      "key": "tiltaksliste.annetTiltak",
+      "value": "JOBSOK",
+      "properties": {
+        "tom": "2022-11-19",
+        "postnummer": null,
+        "fom": "2022-11-04",
+        "adresse": null,
+        "arrangoernavn": "Jobbintro",
+        "antallDager": "1 dag"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743423,
+      "soknadId": 13982,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 743424,
+      "soknadId": 13982,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "42888600331",
+  "opprettetDato": "2022-11-16T11:24:31.557Z",
+  "sistLagret": "2022-11-16T11:25:09.365Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
