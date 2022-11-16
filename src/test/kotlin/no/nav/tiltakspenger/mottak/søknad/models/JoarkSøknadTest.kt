@@ -4,6 +4,7 @@ import no.nav.tiltakspenger.mottak.søknad.Barnetillegg
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.søknad.TrygdOgPensjon
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -50,7 +51,7 @@ internal class JoarkSøknadTest {
     @Test
     fun `soker som deltar på intro should have true in deltarIntroduksjonsprogrammet field`() {
         val søknad = Søknad.fromJson(File("src/test/resources/søknad_deltar_intro.json").readText(), "", "")
-        assertEquals(true, søknad.deltarIntroduksjonsprogrammet)
+        assertTrue(søknad.deltarIntroduksjonsprogrammet!!)
     }
 
     @Test
@@ -64,7 +65,7 @@ internal class JoarkSøknadTest {
     fun `soker som IKKE deltar på intro should have false in deltarIntroduksjonsprogrammet field`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
         val søknad = Søknad.fromJson(soknadJson, "", "")
-        assertEquals(false, søknad.deltarIntroduksjonsprogrammet)
+        assertFalse(søknad.deltarIntroduksjonsprogrammet!!)
         assertNull(søknad.introduksjonsprogrammetDetaljer?.fom)
         assertNull(søknad.introduksjonsprogrammetDetaljer?.tom)
     }
@@ -72,28 +73,28 @@ internal class JoarkSøknadTest {
     @Test
     fun `soker som deltar på kvp should have true in deltarKvp field`() {
         val søknad = Søknad.fromJson(File("src/test/resources/søknad_deltar_kvp.json").readText(), "", "")
-        assertEquals(true, søknad.deltarKvp)
+        assertTrue(søknad.deltarKvp)
     }
 
     @Test
     fun `soker som IKKE deltar på kvp should have false in deltarKvp field`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
         val søknad = Søknad.fromJson(soknadJson, "", "")
-        assertEquals(false, søknad.deltarKvp)
+        assertFalse(søknad.deltarKvp)
     }
 
     @Test
     fun `soker på insitusjon should have true in oppholdInstitusjon field`() {
         val søknad =
             Søknad.fromJson(File("src/test/resources/søknad_barn_med_manglende_navn_pga_kode6.json").readText(), "", "")
-        assertEquals(true, søknad.oppholdInstitusjon)
+        assertTrue(søknad.oppholdInstitusjon)
         assertEquals("annet", søknad.typeInstitusjon)
     }
 
     @Test
     fun `soker utenfor insitusjon should have false in oppholdInstitusjon field`() {
         val søknad = Søknad.fromJson(File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText(), "", "")
-        assertEquals(false, søknad.oppholdInstitusjon)
+        assertFalse(søknad.oppholdInstitusjon)
         assertNull(søknad.typeInstitusjon)
     }
 
