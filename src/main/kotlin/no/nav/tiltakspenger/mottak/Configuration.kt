@@ -57,7 +57,7 @@ object Configuration {
     private val devProperties = ConfigurationMap(
         mapOf(
             "tptsRapidName" to "tpts.rapid.v1",
-            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
+            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v3",
             "application.profile" to Profile.DEV.toString(),
             "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
             "safScope" to "api://dev-fss.teamdokumenthandtering.saf-q1/.default",
@@ -67,7 +67,7 @@ object Configuration {
     private val prodProperties = ConfigurationMap(
         mapOf(
             "tptsRapidName" to "tpts.rapid.v1",
-            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v2",
+            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v3",
             "application.profile" to Profile.PROD.toString(),
             "safBaseUrl" to "https://saf.prod-fss-pub.nais.io",
             "safScope" to "api://prod-fss.teamdokumenthandtering.saf/.default",
