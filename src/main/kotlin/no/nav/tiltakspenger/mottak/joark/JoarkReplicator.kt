@@ -108,7 +108,7 @@ internal class JoarkReplicator(
     companion object {
         val søknadCounter: Counter =
             Counter.build().name("tiltakspenger_soknader_total").help("Antall soknader").register()
-        private val poisonJournalposts = setOf("592543909")
+        private val poisonJournalposts = setOf("592543909", "594081377")
     }
 
     override fun status(): HealthStatus = if (job.isActive) HealthStatus.TILFREDS else HealthStatus.ULYKKELIG
