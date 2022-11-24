@@ -53,7 +53,7 @@ dependencies {
         // we want to use the one provided by R&R, not the Confluent-specific one
         exclude(group = "org.apache.kafka", module = "kafka-clients")
     }
-    implementation("com.github.navikt:rapids-and-rivers:2022100711511665136276.49acbaae4ed4")
+    implementation("com.github.navikt:rapids-and-rivers:2022112407251669271100.df879df951cf")
     implementation("io.getunleash:unleash-client-java:6.1.0")
     implementation("com.natpryce:konfig:1.6.10.0")
 
