@@ -4,6 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    # set limit to 1 as auto-merge seems to fail if more than 1
+    open-pull-requests-limit: 1
     assignees:
       - "@navikt/tpts"
   - package-ecosystem: github-actions
