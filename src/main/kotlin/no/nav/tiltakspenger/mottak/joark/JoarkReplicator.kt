@@ -19,7 +19,6 @@ import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.saf.SafService
 import no.nav.tiltakspenger.mottak.søknad.Søknad
-import no.nav.tiltakspenger.mottak.unleash
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -159,13 +158,9 @@ internal class JoarkReplicator(
                         if (soknad != null) {
                             val json = createJsonMessage(soknad)
                             LOG.debug { "Sender event på $tptsRapidName med key ${record.key()}" }
-                            if (unleash.isEnabled("tiltakspenger.soknad.mottak")) {
-                                SECURELOG.info("Sender melding $json")
-                                søknadCounter.inc()
-                                producer.send(ProducerRecord(tptsRapidName, record.key(), json))
-                            } else {
-                                SECURELOG.info("Sender ikke melding (stoppet av unleash) $json")
-                            }
+                            SECURELOG.info("Sender melding $json")
+                            søknadCounter.inc()
+                            producer.send(ProducerRecord(tptsRapidName, record.key(), json))
                         }
                     }
                 }

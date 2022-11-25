@@ -54,7 +54,6 @@ dependencies {
         exclude(group = "org.apache.kafka", module = "kafka-clients")
     }
     implementation("com.github.navikt:rapids-and-rivers:2022112407251669271100.df879df951cf")
-    implementation("io.getunleash:unleash-client-java:7.0.0")
     implementation("com.natpryce:konfig:1.6.10.0")
 
     testImplementation(platform("org.junit:junit-bom:5.9.1"))

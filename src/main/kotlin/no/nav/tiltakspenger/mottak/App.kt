@@ -25,7 +25,6 @@ fun main() {
     }
     DefaultExports.initialize()
     log.info { "Starter server" }
-    unleash // init
     val kafkaConfig = KafkaConfig()
     val tokenProvider = AzureTokenProvider(Configuration.OauthConfig())
     val safService = SafService(safClient = SafClient(Configuration.SafConfig(), getToken = tokenProvider::getToken))

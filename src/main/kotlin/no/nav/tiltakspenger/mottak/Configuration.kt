@@ -7,9 +7,6 @@ import com.natpryce.konfig.Key
 import com.natpryce.konfig.intType
 import com.natpryce.konfig.overriding
 import com.natpryce.konfig.stringType
-import io.getunleash.DefaultUnleash
-import io.getunleash.strategy.Strategy
-import io.getunleash.util.UnleashConfig
 import java.net.URL
 
 const val INDIVIDSTONAD = "IND"
@@ -120,22 +117,4 @@ object Configuration {
     fun tptsRapidName(): String = config()[Key("tptsRapidName", stringType)]
 
     fun applicationPort(): Int = config()[Key("application.httpPort", intType)]
-}
-
-val unleash by lazy {
-    DefaultUnleash(
-        UnleashConfig.builder()
-            .appName(requireNotNull(System.getenv("NAIS_APP_NAME")) { "Expected NAIS_APP_NAME" })
-            .instanceId(requireNotNull(System.getenv("HOSTNAME")) { "Expected HOSTNAME" })
-            .environment(requireNotNull(System.getenv("NAIS_CLUSTER_NAME")) { "Expected NAIS_CLUSTER_NAME" })
-            .unleashAPI("https://unleash.nais.io/api/")
-            .build(), ByClusterStrategy(System.getenv("NAIS_CLUSTER_NAME"))
-    )
-}
-
-class ByClusterStrategy(private val cluster: String) : Strategy {
-    override fun getName(): String = "byCluster"
-
-    override fun isEnabled(parameters: Map<String, String>) =
-        if (parameters["cluster"] == null) false else parameters["cluster"]!!.contains(cluster, ignoreCase = true)
 }
