@@ -18,7 +18,7 @@ jobs:
 
       - uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
+          arguments: build --info
 
       - name: Notify Slack in case of build failure
         if: failure()
