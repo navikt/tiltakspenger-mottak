@@ -16,15 +16,6 @@ class SafService(private val safClient: SafClient) {
         }
         LOG.info { "Henter søknad med dokumentInfoId ${metadata.dokumentInfoId}" }
         val json = safClient.hentSoknad(metadata)
-        val temp =
-            safClient.hentSoknad(
-                JournalfortDokumentMetadata(
-                    journalpostId = "596846709",
-                    dokumentInfoId = "623533502",
-                    filnavn = null
-                )
-            )
-        SECURELOG.info { "Temp: $temp" }
         LOG.info { "Hentet søknad med dokumentInfoId ${metadata.dokumentInfoId}, se secure-log for detaljer" }
         SECURELOG.info { "Hentet søknad $json" }
         return Søknad.fromJson(json, journalpostId, metadata.dokumentInfoId, metadata.vedlegg)
