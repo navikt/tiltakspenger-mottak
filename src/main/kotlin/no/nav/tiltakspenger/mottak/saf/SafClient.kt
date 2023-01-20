@@ -1,10 +1,16 @@
 package no.nav.tiltakspenger.mottak.saf
 
-import io.ktor.client.call.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
-import io.ktor.server.plugins.*
+import io.ktor.client.call.body
+import io.ktor.client.request.accept
+import io.ktor.client.request.bearerAuth
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.server.plugins.NotFoundException
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.HttpClient.client
@@ -56,9 +62,9 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         SECURELOG.info { "Metadata fra SAF: $response" }
         LOG.info {
             "Dokumenter fra SAF: ${
-                response?.dokumenter?.joinToString {
-                    "${it.tittel}: [${it.dokumentvarianter.map { v -> v.filnavn }.joinToString()}]"
-                }
+            response?.dokumenter?.joinToString {
+                "${it.tittel}: [${it.dokumentvarianter.map { v -> v.filnavn }.joinToString()}]"
+            }
             }"
         }
         val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->

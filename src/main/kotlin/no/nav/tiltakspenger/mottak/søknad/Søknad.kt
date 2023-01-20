@@ -40,7 +40,6 @@ data class Søknad(
         private fun introduksjonsprogrammetDetaljer(fom: LocalDate?, tom: LocalDate?) =
             fom?.let { IntroduksjonsprogrammetDetaljer(fom, tom) }
 
-        @Suppress("LongMethod")
         fun fromJson(
             json: String,
             journalpostId: String,

@@ -13,7 +13,7 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("com.github.ben-manes.versions") version "0.44.0"
-    id("io.gitlab.arturbosch.detekt") version "1.22.0"
+    id("com.diffplug.spotless") version "5.0.0"
     id("ca.cutterslade.analyze") version "1.9.0"
 }
 
@@ -80,10 +80,10 @@ java {
     targetCompatibility = javaVersion
 }
 
-detekt {
-    buildUponDefaultConfig = true
-    allRules = false
-    config = files("$projectDir/config/detekt.yml")
+spotless {
+    kotlin {
+        ktlint("0.45.2")
+    }
 }
 
 // https://github.com/ben-manes/gradle-versions-plugin

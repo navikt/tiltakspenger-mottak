@@ -37,7 +37,7 @@ import org.apache.kafka.common.security.auth.SecurityProtocol
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import java.time.Duration
-import java.util.*
+import java.util.Properties
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
@@ -183,9 +183,9 @@ internal class JoarkReplicator(
         JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
-        INDIVIDSTONAD == (record.value().get("temaNytt"))
-                && "MOTTATT" == (record.value().get("journalpostStatus"))
-                && !poisonJournalposts.contains(record.key())
+        INDIVIDSTONAD == (record.value().get("temaNytt")) &&
+            "MOTTATT" == (record.value().get("journalpostStatus")) &&
+            !poisonJournalposts.contains(record.key())
 
     private fun closeResources() {
         LOG.info { "Lukker ressurser" }

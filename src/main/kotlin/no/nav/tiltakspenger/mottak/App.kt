@@ -1,8 +1,8 @@
 package no.nav.tiltakspenger.mottak
 
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import io.ktor.server.routing.*
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.routing.routing
 import io.prometheus.client.hotspot.DefaultExports
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration.KafkaConfig
@@ -41,8 +41,10 @@ fun main() {
         }
     }.start(wait = true)
 
-    Runtime.getRuntime().addShutdownHook(Thread {
-        log.info { "Stopper server" }
-        server.stop(gracePeriodMillis = 3000, timeoutMillis = 3000)
-    })
+    Runtime.getRuntime().addShutdownHook(
+        Thread {
+            log.info { "Stopper server" }
+            server.stop(gracePeriodMillis = 3000, timeoutMillis = 3000)
+        }
+    )
 }

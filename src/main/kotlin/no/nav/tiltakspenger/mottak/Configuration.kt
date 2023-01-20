@@ -18,7 +18,7 @@ enum class Profile {
 object Configuration {
     private val kafka = mapOf(
         "KAFKA_RAPID_TOPIC" to "tpts.rapid.v1",
-        "KAFKA_RESET_POLICY" to "earliest",  // latest?
+        "KAFKA_RESET_POLICY" to "earliest", // latest?
         "KAFKA_BROKERS" to System.getenv("KAFKA_BROKERS"),
         "KAFKA_KEYSTORE_PATH" to System.getenv("KAFKA_KEYSTORE_PATH"),
         "KAFKA_TRUSTSTORE_PATH" to System.getenv("KAFKA_TRUSTSTORE_PATH"),
