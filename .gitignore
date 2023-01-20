@@ -99,3 +99,5 @@ gradle-app.setting
 # Ignore Gradle build output directory
 build
 /.env
+!.idea/codeStyles/codeStyleConfig.xml
+!.idea/codeStyles/Project.xml
