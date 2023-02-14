@@ -48,7 +48,7 @@ internal class JoarkReplicatorTest {
                 {"name": "behandlingstema", "type": "string", "default": ""}
               ]
             }
-        """.trimIndent()
+        """.trimIndent(),
     )
 
     @Disabled("konsumenten rekker å lukke før vi får sjekket offset. Kan øke delay, men kanskje ikke så lurt?")
@@ -70,7 +70,7 @@ internal class JoarkReplicatorTest {
         }
         repeat(offsets) {
             mockConsumer.addRecord(
-                ConsumerRecord(topicName, partition.partition(), it.toLong(), "$journalpostId", record)
+                ConsumerRecord(topicName, partition.partition(), it.toLong(), "$journalpostId", record),
             )
         }
         runBlocking {
@@ -129,7 +129,7 @@ internal class JoarkReplicatorTest {
             arenaTiltak = null,
             brukerregistrertTiltak = null,
             trygdOgPensjon = emptyList(),
-            vedlegg = emptyList()
+            vedlegg = emptyList(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val safService = mockk<SafService>()
@@ -141,7 +141,7 @@ internal class JoarkReplicatorTest {
             put("journalpostStatus", "MOTTATT")
         }
         mockConsumer.addRecord(
-            ConsumerRecord(topicName, partition.partition(), 1L, "$journalpostId", record)
+            ConsumerRecord(topicName, partition.partition(), 1L, "$journalpostId", record),
         )
         runBlocking {
             joarkReplicator.start()
@@ -170,7 +170,7 @@ internal class JoarkReplicatorTest {
             put("journalpostStatus", "MOTTATT")
         }
         mockConsumer.addRecord(
-            ConsumerRecord(topicName, partition.partition(), 1L, "$journalpostId", record)
+            ConsumerRecord(topicName, partition.partition(), 1L, "$journalpostId", record),
         )
         runBlocking {
             joarkReplicator.start()

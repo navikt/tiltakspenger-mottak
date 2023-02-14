@@ -30,7 +30,7 @@ internal class SafClientTest {
             respond(
                 content = javaClass.getResource(filnavn)?.readText(Charsets.UTF_8)!!,
                 status = HttpStatusCode.OK,
-                headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString()),
             )
         }
 

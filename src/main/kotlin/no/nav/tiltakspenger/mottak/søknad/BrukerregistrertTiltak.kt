@@ -14,7 +14,7 @@ data class BrukerregistrertTiltak(
     @Serializable(with = StrictLocalDateSerializer::class) val tom: LocalDate,
     val adresse: String? = null,
     val postnummer: String? = null,
-    val antallDager: Int
+    val antallDager: Int,
 ) {
     companion object {
         fun fromJoarkSoknad(joarkSøknad: JoarkSøknad): BrukerregistrertTiltak? {
@@ -28,7 +28,7 @@ data class BrukerregistrertTiltak(
                 tom = brukerregistrertTiltakJson.properties.tom!!,
                 adresse = brukerregistrertTiltakJson.properties.adresse,
                 postnummer = brukerregistrertTiltakJson.properties.postnummer,
-                antallDager = brukerregistrertTiltakJson.properties.antallDager?.substringBefore(' ')?.toInt() ?: 0
+                antallDager = brukerregistrertTiltakJson.properties.antallDager?.substringBefore(' ')?.toInt() ?: 0,
             )
         }
     }

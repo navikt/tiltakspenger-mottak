@@ -16,8 +16,12 @@ data class JoarkSøknad(
     @SerialName("fakta") val fakta: List<Faktum> = arrayListOf(),
     @SerialName("status") val status: String,
     @SerialName("aktoerId") val aktoerId: String,
-    @SerialName("opprettetDato") @Serializable(with = LocalDateTimeSerializer::class) val opprettetDato: LocalDateTime,
-    @SerialName("sistLagret") @Serializable(with = LocalDateTimeSerializer::class) val sistLagret: LocalDateTime,
+    @SerialName("opprettetDato")
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val opprettetDato: LocalDateTime,
+    @SerialName("sistLagret")
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val sistLagret: LocalDateTime,
     @SerialName("delstegStatus") val delstegStatus: String,
     // @SerialName("vedlegg") val vedlegg: List<Vedlegg> = emptyList(),
     @SerialName("journalforendeEnhet") val journalforendeEnhet: String? = null,

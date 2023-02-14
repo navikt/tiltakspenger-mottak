@@ -29,7 +29,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
     suspend fun hentMetadataForJournalpost(journalpostId: String): JournalfortDokumentMetadata? {
         val token = getToken()
         val safResponse: SafQuery.Response = client.post(
-            urlString = "${config.baseUrl}/graphql"
+            urlString = "${config.baseUrl}/graphql",
         ) {
             bearerAuth(token)
             contentType(ContentType.Application.Json)
@@ -48,7 +48,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         val journalpostId = journalfortDokumentMetadata.journalpostId
         val dokumentInfoId = journalfortDokumentMetadata.dokumentInfoId
         val safResponse: String = client.get(
-            urlString = "${config.baseUrl}/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL"
+            urlString = "${config.baseUrl}/rest/hentdokument/$journalpostId/$dokumentInfoId/$ORIGINAL",
         ) {
             bearerAuth(token)
             contentType(ContentType.Application.Json)
@@ -62,9 +62,9 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         SECURELOG.info { "Metadata fra SAF: $response" }
         LOG.info {
             "Dokumenter fra SAF: ${
-            response?.dokumenter?.joinToString {
-                "${it.tittel}: [${it.dokumentvarianter.map { v -> v.filnavn }.joinToString()}]"
-            }
+                response?.dokumenter?.joinToString {
+                    "${it.tittel}: [${it.dokumentvarianter.map { v -> v.filnavn }.joinToString()}]"
+                }
             }"
         }
         val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->
@@ -77,15 +77,19 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
             VedleggMetadata(
                 journalpostId = response.journalpostId,
                 dokumentInfoId = it.dokumentInfoId,
-                filnavn = it.dokumentvarianter.firstOrNull()?.filnavn
+                filnavn = it.dokumentvarianter.firstOrNull()?.filnavn,
             )
         } ?: emptyList()
 
-        return if (dokumentInfoId == null) null else JournalfortDokumentMetadata(
-            journalpostId = response.journalpostId,
-            dokumentInfoId = dokumentInfoId,
-            filnavn = FILNAVN_SØKNAD,
-            vedlegg = vedlegg
-        )
+        return if (dokumentInfoId == null) {
+            null
+        } else {
+            JournalfortDokumentMetadata(
+                journalpostId = response.journalpostId,
+                dokumentInfoId = dokumentInfoId,
+                filnavn = FILNAVN_SØKNAD,
+                vedlegg = vedlegg,
+            )
+        }
     }
 }

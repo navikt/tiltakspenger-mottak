@@ -9,5 +9,5 @@ data class FaktumEgenskaper(
     @SerialName("soknadId") val soknadId: Int? = null,
     @SerialName("key") val key: String? = null,
     @SerialName("value") val value: String? = null,
-    @SerialName("systemEgenskap") val systemEgenskap: Int? = null
+    @SerialName("systemEgenskap") val systemEgenskap: Int? = null,
 )

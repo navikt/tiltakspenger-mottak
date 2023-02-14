@@ -49,7 +49,7 @@ internal class BrukerregistrertTiltakTest {
             key = "en faktumnøkkel vi ikke har noe forhold til",
             faktumId = 1,
             soknadId = 2,
-            type = "BRUKERREGISTRERT"
+            type = "BRUKERREGISTRERT",
         )
         val joarkSøknad = JoarkSøknad(
             fakta = listOf(faktum),
@@ -64,7 +64,7 @@ internal class BrukerregistrertTiltakTest {
             soknadUrl = "/soknadtiltakspenger/app",
             soknadPrefix = "tiltakspenger",
             status = "UNDER_ARBEID",
-            uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4"
+            uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4",
         )
 
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
@@ -81,11 +81,11 @@ internal class BrukerregistrertTiltakTest {
                 antallDager = null,
                 arrangoernavn = "arr",
                 fom = LocalDate.now(),
-                tom = LocalDate.now()
+                tom = LocalDate.now(),
             ),
             faktumId = 1,
             soknadId = 2,
-            type = "BRUKERREGISTRERT"
+            type = "BRUKERREGISTRERT",
         )
         val joarkSøknad = JoarkSøknad(
             fakta = listOf(faktum),
@@ -100,7 +100,7 @@ internal class BrukerregistrertTiltakTest {
             soknadUrl = "/soknadtiltakspenger/app",
             soknadPrefix = "tiltakspenger",
             status = "UNDER_ARBEID",
-            uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4"
+            uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4",
         )
 
         val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)

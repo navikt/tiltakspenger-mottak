@@ -49,7 +49,7 @@ object Configuration {
             "KAFKA_CREDSTORE_PASSWORD" to "KAFKA_CREDSTORE_PASSWORD",
             "safBaseUrl" to "https://localhost:8080",
             "safScope" to "api://localhost:/.default",
-        )
+        ),
     )
     private val devProperties = ConfigurationMap(
         mapOf(
@@ -58,8 +58,8 @@ object Configuration {
             "application.profile" to Profile.DEV.toString(),
             "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
             "safScope" to "api://dev-fss.teamdokumenthandtering.saf-q1/.default",
-            "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering-q1"
-        )
+            "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering-q1",
+        ),
     )
     private val prodProperties = ConfigurationMap(
         mapOf(
@@ -68,8 +68,8 @@ object Configuration {
             "application.profile" to Profile.PROD.toString(),
             "safBaseUrl" to "https://saf.prod-fss-pub.nais.io",
             "safScope" to "api://prod-fss.teamdokumenthandtering.saf/.default",
-            "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering"
-        )
+            "joarkTopicName" to "teamdokumenthandtering.aapen-dok-journalfoering",
+        ),
     )
 
     private fun config() = when (System.getenv("NAIS_CLUSTER_NAME") ?: System.getProperty("NAIS_CLUSTER_NAME")) {
@@ -88,7 +88,7 @@ object Configuration {
         val scope: String = config()[Key("safScope", stringType)],
         val clientId: String = config()[Key("AZURE_APP_CLIENT_ID", stringType)],
         val clientSecret: String = config()[Key("AZURE_APP_CLIENT_SECRET", stringType)],
-        val wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)]
+        val wellknownUrl: String = config()[Key("AZURE_APP_WELL_KNOWN_URL", stringType)],
     )
 
     data class KafkaConfig(
@@ -104,7 +104,7 @@ object Configuration {
         val schemaRegistryPassword: String = config()[Key("KAFKA_SCHEMA_REGISTRY_PASSWORD", stringType)],
         val credstorePassword: String = config()[Key("KAFKA_CREDSTORE_PASSWORD", stringType)],
         val maxPollRecords: Int = 5,
-        val maxPollIntervalMs: Int = 300_000
+        val maxPollIntervalMs: Int = 300_000,
     )
 
     @JvmInline

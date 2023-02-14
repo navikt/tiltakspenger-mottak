@@ -7,42 +7,41 @@ object SafQuery {
     @Serializable
     data class Response(
         override val errors: List<GraphqlError>? = null,
-        override val data: ResponseData? = null
+        override val data: ResponseData? = null,
     ) : GraphqlResponse<ResponseData>
 
     @Serializable
     data class ResponseData(
-        val journalpost: Journalpost
+        val journalpost: Journalpost,
     )
 
     @Serializable
     data class Journalpost(
         val journalpostId: String,
-        val dokumenter: List<DokumentInfo> = arrayListOf()
+        val dokumenter: List<DokumentInfo> = arrayListOf(),
     )
 
     @Serializable
     data class DokumentInfo(
         val dokumentInfoId: String,
         val tittel: String?,
-        val dokumentvarianter: List<Dokumentvariant> = arrayListOf()
+        val dokumentvarianter: List<Dokumentvariant> = arrayListOf(),
     )
 
     @Serializable
     data class Dokumentvariant(
         val variantformat: Variantformat,
         val filnavn: String?,
-        val filtype: String
+        val filtype: String,
     )
 
     enum class Variantformat {
         ARKIV,
-        ORIGINAL
+        ORIGINAL,
     }
 }
 
 fun journalpost(journalpostId: String): String {
-
     return """
         query{
             journalpost(journalpostId: "$journalpostId"){

@@ -32,12 +32,12 @@ internal class LocalDateTimeSerializerTest {
     fun `Deserializes LocalDateTime`() {
         assertEquals(
             LocalDateTime.of(2022, Month.MARCH, 25, 14, 41, 7),
-            Json.decodeFromString<ClassForTest>("""{"dateTime":"2022-03-25T13:41:07.000Z"}""").dateTime
+            Json.decodeFromString<ClassForTest>("""{"dateTime":"2022-03-25T13:41:07.000Z"}""").dateTime,
         )
 
         assertEquals(
             LocalDateTime.of(2022, Month.MARCH, 25, 14, 41, 7),
-            Json.decodeFromString<ClassForTest>("""{"dateTime":"2022-03-25T14:41:07.000+01:00"}""").dateTime
+            Json.decodeFromString<ClassForTest>("""{"dateTime":"2022-03-25T14:41:07.000+01:00"}""").dateTime,
         )
     }
 }

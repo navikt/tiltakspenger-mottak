@@ -66,7 +66,7 @@ fun createKafkaConsumer(config: Configuration.KafkaConfig): KafkaConsumer<String
             it[SchemaRegistryClientConfig.BASIC_AUTH_CREDENTIALS_SOURCE] = "USER_INFO"
             it[SchemaRegistryClientConfig.USER_INFO_CONFIG] =
                 "${config.schemaRegistryUser}:${config.schemaRegistryPassword}"
-        }
+        },
     ).also { it.subscribe(listOf(config.joarkTopic)) }
 }
 
@@ -87,7 +87,7 @@ fun createKafkaProducer(config: Configuration.KafkaConfig): KafkaProducer<String
             it[ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION] = "1"
         },
         StringSerializer(),
-        StringSerializer()
+        StringSerializer(),
     )
 }
 

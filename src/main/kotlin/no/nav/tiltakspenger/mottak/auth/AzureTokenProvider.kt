@@ -24,7 +24,7 @@ class AzureTokenProvider(private val config: Configuration.OauthConfig) {
                 append("client_id", config.clientId)
                 append("client_secret", config.clientSecret)
                 append("scope", config.scope)
-            }
+            },
         ).body()
         tokenCache.update(response.accessToken, response.expiresIn.toLong())
         return response.accessToken
@@ -33,6 +33,6 @@ class AzureTokenProvider(private val config: Configuration.OauthConfig) {
     @Serializable
     data class WellKnown(
         @SerialName("token_endpoint")
-        val tokenEndpoint: String
+        val tokenEndpoint: String,
     )
 }

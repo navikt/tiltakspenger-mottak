@@ -12,5 +12,5 @@ data class OAuth2AccessTokenResponse(
     @SerialName("ext_expires_in")
     val extExpiresIn: Int,
     @SerialName("expires_in")
-    val expiresIn: Int
+    val expiresIn: Int,
 )

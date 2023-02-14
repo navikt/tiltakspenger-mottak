@@ -12,7 +12,7 @@ internal class TokenCacheTest {
         val tokenCache = TokenCache()
         tokenCache.update(
             accessToken = "token",
-            expiresIn = -1
+            expiresIn = -1,
         )
         assertTrue(tokenCache.isExpired())
     }
@@ -22,7 +22,7 @@ internal class TokenCacheTest {
         val tokenCache = TokenCache()
         tokenCache.update(
             accessToken = "token",
-            expiresIn = 100
+            expiresIn = 100,
         )
         assertFalse(tokenCache.isExpired())
     }
@@ -32,7 +32,7 @@ internal class TokenCacheTest {
         val tokenCache = TokenCache()
         tokenCache.update(
             accessToken = "token",
-            expiresIn = 100
+            expiresIn = 100,
         )
         assertEquals("token", tokenCache.token)
     }

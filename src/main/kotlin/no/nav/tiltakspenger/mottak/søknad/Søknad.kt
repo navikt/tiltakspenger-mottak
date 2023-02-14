@@ -29,7 +29,7 @@ data class Søknad(
     val brukerregistrertTiltak: BrukerregistrertTiltak?,
     val trygdOgPensjon: List<TrygdOgPensjon>,
     val fritekst: String? = null,
-    val vedlegg: List<Vedlegg>
+    val vedlegg: List<Vedlegg>,
 ) {
 
     companion object {
@@ -44,7 +44,7 @@ data class Søknad(
             json: String,
             journalpostId: String,
             dokumentInfoId: String,
-            vedleggMetadata: List<VedleggMetadata> = emptyList()
+            vedleggMetadata: List<VedleggMetadata> = emptyList(),
         ): Søknad {
             val joarkSøknad = Companion.json.decodeFromString<JoarkSøknad>(json)
             val personalia = joarkSøknad.fakta.firstOrNull { it.key == "personalia" }
@@ -60,7 +60,9 @@ data class Søknad(
             val deltarIntroduksjonsprogrammet =
                 if (joarkSøknad.fakta.first { it.key == "informasjonsside.deltarIIntroprogram" }.value == null) {
                     null
-                } else introduksjonsprogrammetProperties?.kommune?.isNotEmpty() ?: false
+                } else {
+                    introduksjonsprogrammetProperties?.kommune?.isNotEmpty() ?: false
+                }
             val introduksjonsprogrammetFom = introduksjonsprogrammetProperties?.fom
             val introduksjonsprogrammetTom = introduksjonsprogrammetProperties?.tom
             val oppholdInstitusjon =
@@ -90,7 +92,7 @@ data class Søknad(
                         utbetaler = it.properties.utbetaler!!,
                         prosent = it.properties.prosent,
                         fom = it.properties.fom,
-                        tom = it.properties.tom
+                        tom = it.properties.tom,
                     )
                 }
 
@@ -114,7 +116,7 @@ data class Søknad(
                 deltarIntroduksjonsprogrammet = deltarIntroduksjonsprogrammet,
                 introduksjonsprogrammetDetaljer = introduksjonsprogrammetDetaljer(
                     introduksjonsprogrammetFom,
-                    introduksjonsprogrammetTom
+                    introduksjonsprogrammetTom,
                 ),
                 oppholdInstitusjon = oppholdInstitusjon,
                 typeInstitusjon = typeInstitusjon,

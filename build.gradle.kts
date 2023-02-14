@@ -13,7 +13,7 @@ plugins {
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("com.github.ben-manes.versions") version "0.45.0"
-    id("com.diffplug.spotless") version "6.13.0"
+    id("com.diffplug.spotless") version "6.15.0"
     id("ca.cutterslade.analyze") version "1.9.0"
 }
 
@@ -82,7 +82,7 @@ java {
 
 spotless {
     kotlin {
-        ktlint("0.45.2")
+        ktlint("0.48.2")
     }
 }
 

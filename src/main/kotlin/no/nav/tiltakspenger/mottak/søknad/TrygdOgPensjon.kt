@@ -11,5 +11,5 @@ data class TrygdOgPensjon(
     @Serializable(with = StrictLocalDateSerializer::class)
     val fom: LocalDate?,
     @Serializable(with = StrictLocalDateSerializer::class)
-    val tom: LocalDate?
+    val tom: LocalDate?,
 )

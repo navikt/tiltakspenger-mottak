@@ -132,7 +132,7 @@ internal class JoarkSøknadTest {
             etternavn = "STAUDE",
             alder = 6,
             oppholdsland = "NOR",
-            søktBarnetillegg = false
+            søktBarnetillegg = false,
         )
         assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
         assertEquals(expectedBarn.mellomnavn, søknad.barnetillegg.first().mellomnavn)
@@ -148,7 +148,7 @@ internal class JoarkSøknadTest {
         val søknad = Søknad.fromJson(
             File("src/test/resources/søknad_med_tiltak_fra_arena_null_sluttdato.json").readText(),
             "",
-            ""
+            "",
         )
         val expectedBarn = Barnetillegg(
             "123",
@@ -157,7 +157,7 @@ internal class JoarkSøknadTest {
             etternavn = "bar",
             alder = 1,
             oppholdsland = "NOR",
-            søktBarnetillegg = true
+            søktBarnetillegg = true,
         )
         assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
         assertEquals(expectedBarn.mellomnavn, søknad.barnetillegg.first().mellomnavn)
@@ -173,13 +173,13 @@ internal class JoarkSøknadTest {
         val søknad = Søknad.fromJson(
             File("src/test/resources/søknad_med_manuelt_lagt_til_barn.json").readText(),
             "",
-            ""
+            "",
         )
         val expectedBarn = Barnetillegg(
             fødselsdato = LocalDate.of(2019, Month.JANUARY, 1),
             alder = 3,
             oppholdsland = "NOR",
-            søktBarnetillegg = true
+            søktBarnetillegg = true,
         )
         assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
         assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
@@ -194,13 +194,13 @@ internal class JoarkSøknadTest {
             utbetaler = "Manchester United",
             prosent = 42,
             fom = LocalDate.of(2021, Month.FEBRUARY, 9),
-            tom = null
+            tom = null,
         )
         val expected2 = TrygdOgPensjon(
             utbetaler = "Bayern München",
             prosent = 30,
             fom = null,
-            tom = null
+            tom = null,
         )
         assertTrue(søknad.trygdOgPensjon.size == 2)
         assertTrue(søknad.trygdOgPensjon.contains(expected1))

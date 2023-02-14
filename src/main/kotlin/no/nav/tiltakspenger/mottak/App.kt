@@ -32,7 +32,7 @@ fun main() {
         consumer = createKafkaConsumer(config = kafkaConfig),
         producer = createKafkaProducer(config = kafkaConfig),
         safService = safService,
-        tptsRapidName = Configuration.tptsRapidName()
+        tptsRapidName = Configuration.tptsRapidName(),
     ).also { it.start() }
 
     val server = embeddedServer(Netty, Configuration.applicationPort()) {
@@ -45,6 +45,6 @@ fun main() {
         Thread {
             log.info { "Stopper server" }
             server.stop(gracePeriodMillis = 3000, timeoutMillis = 3000)
-        }
+        },
     )
 }
