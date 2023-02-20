@@ -37,6 +37,8 @@ object Configuration {
     private val localProperties = ConfigurationMap(
         mapOf(
             "tptsRapidName" to "tpts.rapid.v1",
+            "identTopicName" to "tpts.identer.v1",
+            "journalpostIdTopicName" to "tpts.journalpostider.v1",
             "KAFKA_CONSUMER_GROUP_ID" to "consumer-v1",
             "application.profile" to Profile.LOCAL.toString(),
             "joarkTopicName" to "joark.local",
@@ -54,6 +56,8 @@ object Configuration {
     private val devProperties = ConfigurationMap(
         mapOf(
             "tptsRapidName" to "tpts.rapid.v1",
+            "identTopicName" to "tpts.identer.v1",
+            "journalpostIdTopicName" to "tpts.journalpostider.v1",
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v5",
             "application.profile" to Profile.DEV.toString(),
             "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
@@ -64,6 +68,8 @@ object Configuration {
     private val prodProperties = ConfigurationMap(
         mapOf(
             "tptsRapidName" to "tpts.rapid.v1",
+            "identTopicName" to "tpts.identer.v1",
+            "journalpostIdTopicName" to "tpts.journalpostider.v1",
             "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v4",
             "application.profile" to Profile.PROD.toString(),
             "safBaseUrl" to "https://saf.prod-fss-pub.nais.io",
@@ -93,6 +99,8 @@ object Configuration {
 
     data class KafkaConfig(
         val joarkTopic: String = config()[Key("joarkTopicName", stringType)],
+        val identTopic: String = identerTopicName(),
+        val journalpostIdTopic: String = journalpostIderTopicName(),
         val rapidTopic: String = config()[Key("KAFKA_RAPID_TOPIC", stringType)],
         val resetPolicy: String = config()[Key("KAFKA_RESET_POLICY", stringType)],
         val consumerGroupId: String = config()[Key("KAFKA_CONSUMER_GROUP_ID", stringType)],
@@ -115,6 +123,10 @@ object Configuration {
     }
 
     fun tptsRapidName(): String = config()[Key("tptsRapidName", stringType)]
+
+    fun identerTopicName(): String = config()[Key("identTopicName", stringType)]
+
+    fun journalpostIderTopicName(): String = config()[Key("journalpostIdTopicName", stringType)]
 
     fun applicationPort(): Int = config()[Key("application.httpPort", intType)]
 }

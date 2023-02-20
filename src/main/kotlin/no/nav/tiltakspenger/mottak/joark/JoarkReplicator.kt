@@ -92,8 +92,10 @@ fun createKafkaProducer(config: Configuration.KafkaConfig): KafkaProducer<String
 }
 
 internal class JoarkReplicator(
-    private val consumer: Consumer<String, GenericRecord>,
-    private val producer: Producer<String, String>,
+    private val joarkConsumer: Consumer<String, GenericRecord>,
+    private val rapidProducer: Producer<String, String>,
+    private val identPublisher: IdentPublisher,
+    private val journalpostIdPublisher: JournalpostIdPublisher,
     private val safService: SafService,
     private val tptsRapidName: String,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO),
@@ -121,14 +123,14 @@ internal class JoarkReplicator(
 
     fun stop() {
         LOG.info { "Stopper JoarkReplicator" }
-        consumer.wakeup()
+        joarkConsumer.wakeup()
         job.cancel()
     }
 
     private fun run() {
         try {
             while (job.isActive) {
-                onRecords(consumer.poll(POLL_TIMEOUT))
+                onRecords(joarkConsumer.poll(POLL_TIMEOUT))
             }
         } catch (e: WakeupException) {
             if (job.isActive) throw e
@@ -154,13 +156,17 @@ internal class JoarkReplicator(
                     LOG.info { "Mottok joark-melding" }
                     SECURELOG.info { "Mottok joark-melding: $record" }
                     runBlocking {
-                        val soknad = safService.hentSøknad(record.key())
+                        val journalpostId = record.key()
+                        val soknad = safService.hentSøknad(journalpostId)
                         if (soknad != null) {
+                            val ident = soknad.ident
                             val json = createJsonMessage(soknad)
-                            LOG.debug { "Sender event på $tptsRapidName med key ${record.key()}" }
+                            LOG.debug { "Sender event på $tptsRapidName med key $journalpostId" }
                             SECURELOG.info("Sender melding $json")
                             søknadCounter.inc()
-                            producer.send(ProducerRecord(tptsRapidName, record.key(), json))
+                            rapidProducer.send(ProducerRecord(tptsRapidName, journalpostId, json))
+                            identPublisher.publish(ident)
+                            journalpostIdPublisher.publish(ident, journalpostId)
                         }
                     }
                 }
@@ -172,10 +178,10 @@ internal class JoarkReplicator(
             LOG.info(exception) {
                 "Processing error, reset positions to each next message (after each record that was processed OK): $msg"
             }
-            currentPartitionOffsets.forEach { (partition, offset) -> consumer.seek(partition, offset) }
+            currentPartitionOffsets.forEach { (partition, offset) -> joarkConsumer.seek(partition, offset) }
             throw exception
         } finally {
-            consumer.commitSync()
+            joarkConsumer.commitSync()
         }
     }
 
@@ -189,9 +195,9 @@ internal class JoarkReplicator(
 
     private fun closeResources() {
         LOG.info { "Lukker ressurser" }
-        tryAndLog(producer::close)
-        tryAndLog(consumer::unsubscribe)
-        tryAndLog(consumer::close)
+        tryAndLog(rapidProducer::close)
+        tryAndLog(joarkConsumer::unsubscribe)
+        tryAndLog(joarkConsumer::close)
     }
 
     private fun tryAndLog(block: () -> Unit) {
