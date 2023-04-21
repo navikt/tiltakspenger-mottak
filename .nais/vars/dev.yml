@@ -1,3 +1,4 @@
 kafka:
   pool: nav-dev
 cluster: dev-gcp
+safhost: saf.dev-fss-pub.nais.io

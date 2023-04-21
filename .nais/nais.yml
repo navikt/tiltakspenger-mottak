@@ -24,3 +24,7 @@ spec:
     max: 1
   kafka:
     pool: {{ kafka.pool }}
+  accessPolicy:
+    outbound:
+      external:
+        host: {{ saf.host }}
