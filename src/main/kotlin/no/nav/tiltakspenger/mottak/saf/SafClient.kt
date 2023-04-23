@@ -23,6 +23,7 @@ private val SECURELOG = KotlinLogging.logger("tjenestekall")
 class SafClient(private val config: Configuration.SafConfig, private val getToken: suspend () -> String) {
     companion object {
         private const val FILNAVN_SØKNAD = "tiltakspenger.json"
+        private const val FILNAVN_NY_SØKNAD = "tiltakspengersoknad.json"
         private const val FILNAVN_KVITTERINGSSIDE = "L7"
     }
 
@@ -40,7 +41,9 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
 
         if (safResponse.errors != null) throw NotFoundException("Feil fra SAF: ${safResponse.errors}")
         val journalpostResponse = safResponse.data?.journalpost
-        return toJournalfortDokumentMetadata(journalpostResponse)
+        val journalfortDokumentMetadata = toJournalfortDokumentMetadata(journalpostResponse)
+        SECURELOG.info { "Metadata $journalfortDokumentMetadata" }
+        return journalfortDokumentMetadata
     }
 
     suspend fun hentSoknad(journalfortDokumentMetadata: JournalfortDokumentMetadata): String {
@@ -68,8 +71,9 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
             }"
         }
         val dokumentInfoId = response?.dokumenter?.firstOrNull { dokument ->
-            dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD && it.variantformat == ORIGINAL }
+            dokument.dokumentvarianter.any { (it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_NY_SØKNAD) && it.variantformat == ORIGINAL }
         }?.dokumentInfoId
+        SECURELOG.info { "Vi fant dokumentinfoId $dokumentInfoId" }
 
         val vedlegg = response?.dokumenter?.filterNot { dokument ->
             dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_KVITTERINGSSIDE }
