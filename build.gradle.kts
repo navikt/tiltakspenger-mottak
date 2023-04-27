@@ -14,7 +14,7 @@ plugins {
     kotlin("plugin.serialization") version kotlinVersion
     id("com.github.ben-manes.versions") version "0.46.0"
     id("com.diffplug.spotless") version "6.18.0"
-    id("ca.cutterslade.analyze") version "1.9.0"
+    id("ca.cutterslade.analyze") version "1.9.1"
 }
 
 repositories {
