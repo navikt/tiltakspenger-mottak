@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
 
 private val LOG = KotlinLogging.logger {}
 
@@ -133,23 +132,11 @@ internal class JoarkReplicatorTest {
             updateBeginningOffsets(mapOf(partition to 0L))
         }
         val søknad = Søknad(
-            søknadId = "søknadid",
-            journalpostId = "journalpostId",
-            dokumentInfoId = "dokumentInfoId",
-            fornavn = null,
-            etternavn = null,
-            ident = "ident",
-            deltarKvp = false,
-            deltarIntroduksjonsprogrammet = false,
-            introduksjonsprogrammetDetaljer = null,
-            oppholdInstitusjon = false,
-            typeInstitusjon = null,
-            opprettet = LocalDateTime.now(),
-            barnetillegg = emptyList(),
-            arenaTiltak = null,
-            brukerregistrertTiltak = null,
-            trygdOgPensjon = emptyList(),
-            vedlegg = emptyList(),
+            ident = "harum",
+            journalpostId = "patrioque",
+            dokumentInfoId = "invenire",
+            søknad = "vivamus",
+            vedlegg = listOf(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val mockIdentPublisher = mockk<IdentPublisher>(relaxed = true)

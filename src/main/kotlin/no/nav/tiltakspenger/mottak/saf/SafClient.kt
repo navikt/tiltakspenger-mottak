@@ -23,7 +23,7 @@ private val SECURELOG = KotlinLogging.logger("tjenestekall")
 class SafClient(private val config: Configuration.SafConfig, private val getToken: suspend () -> String) {
     companion object {
         private const val FILNAVN_SØKNAD = "tiltakspenger.json"
-        private const val FILNAVN_NY_SØKNAD = "tiltakspengersoknad.json"
+        const val FILNAVN_NY_SØKNAD = "tiltakspengersoknad.json"
         private const val FILNAVN_KVITTERINGSSIDE = "L7"
     }
 
