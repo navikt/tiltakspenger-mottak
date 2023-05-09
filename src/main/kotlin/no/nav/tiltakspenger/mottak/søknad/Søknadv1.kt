@@ -15,7 +15,6 @@ import java.time.LocalDateTime
 
 @Serializable
 data class Søknadv1(
-    val versjon: String = "1",
     val søknadId: String,
     val fornavn: String?,
     val etternavn: String?,
@@ -51,10 +50,11 @@ data class Søknadv1(
             json: String,
             journalpostId: String,
             dokumentInfoId: String,
+            filnavn: String,
             vedleggMetadata: List<VedleggMetadata> = emptyList(),
         ): Søknad {
-            val vedlegg = vedleggMetadata.map {
-                Vedlegg(
+            val dokumentInfo = vedleggMetadata.map {
+                DokumentInfo(
                     journalpostId = it.journalpostId,
                     dokumentInfoId = it.dokumentInfoId,
                     filnavn = it.filnavn,
@@ -63,10 +63,14 @@ data class Søknadv1(
             val søknadv1 = fromJson(json)
             return Søknad(
                 ident = søknadv1.ident,
-                journalpostId = journalpostId,
-                dokumentInfoId = dokumentInfoId,
+                hoveddokument = DokumentInfo(
+                    journalpostId = journalpostId,
+                    dokumentInfoId = dokumentInfoId,
+                    filnavn = filnavn,
+                ),
+                versjon = "1",
                 søknad = objectMapper.writeValueAsString(søknadv1),
-                vedlegg = vedlegg,
+                vedlegg = dokumentInfo,
             )
         }
         fun fromJson(

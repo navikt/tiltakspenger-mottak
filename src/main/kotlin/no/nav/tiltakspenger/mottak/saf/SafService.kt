@@ -4,9 +4,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.saf.SafClient.Companion.FILNAVN_NY_SØKNAD
+import no.nav.tiltakspenger.mottak.saf.SafClient.Companion.FILNAVN_SØKNAD
+import no.nav.tiltakspenger.mottak.søknad.DokumentInfo
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 import no.nav.tiltakspenger.mottak.søknad.Søknadv1
-import no.nav.tiltakspenger.mottak.søknad.Vedlegg
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
@@ -28,24 +29,33 @@ class SafService(private val safClient: SafClient) {
             val mappedJson = jacksonObjectMapper().readTree(json) as ObjectNode
             return Søknad(
                 ident = mappedJson.path("personopplysninger").path("ident").asText(),
-                journalpostId = journalpostId,
-                dokumentInfoId = metadata.dokumentInfoId,
+                hoveddokument = DokumentInfo(
+                    journalpostId = journalpostId,
+                    dokumentInfoId = metadata.dokumentInfoId,
+                    filnavn = metadata.filnavn,
+                ),
                 søknad = json,
+                versjon = mappedJson.path("versjon").asText(),
                 vedlegg = metadata.vedlegg.map {
-                    Vedlegg(
+                    DokumentInfo(
                         journalpostId = it.journalpostId,
                         dokumentInfoId = it.dokumentInfoId,
                         filnavn = it.filnavn,
                     )
                 },
             )
-        } else {
+        }
+
+        if (metadata.filnavn == FILNAVN_SØKNAD) {
             return Søknadv1.toSøknad(
                 json = json,
                 journalpostId = journalpostId,
                 dokumentInfoId = metadata.dokumentInfoId,
+                filnavn = metadata.filnavn,
                 vedleggMetadata = metadata.vedlegg,
             )
         }
+
+        return null
     }
 }

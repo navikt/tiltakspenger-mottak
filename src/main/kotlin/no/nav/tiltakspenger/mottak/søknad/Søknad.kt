@@ -1,9 +1,12 @@
 package no.nav.tiltakspenger.mottak.søknad
 
+import com.fasterxml.jackson.annotation.JsonRawValue
+
 data class Søknad(
     val ident: String,
-    val journalpostId: String,
-    val dokumentInfoId: String,
+    val hoveddokument: DokumentInfo,
+    val versjon: String,
+    @JsonRawValue
     val søknad: String,
-    val vedlegg: List<Vedlegg>,
+    val vedlegg: List<DokumentInfo>,
 )

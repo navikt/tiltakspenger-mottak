@@ -9,6 +9,7 @@ import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.saf.SafService
+import no.nav.tiltakspenger.mottak.søknad.DokumentInfo
 import no.nav.tiltakspenger.mottak.søknad.Søknad
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
@@ -133,8 +134,12 @@ internal class JoarkReplicatorTest {
         }
         val søknad = Søknad(
             ident = "harum",
-            journalpostId = "patrioque",
-            dokumentInfoId = "invenire",
+            hoveddokument = DokumentInfo(
+                journalpostId = "fugit",
+                dokumentInfoId = "facilis",
+                filnavn = null,
+            ),
+            versjon = "1",
             søknad = "vivamus",
             vedlegg = listOf(),
         )

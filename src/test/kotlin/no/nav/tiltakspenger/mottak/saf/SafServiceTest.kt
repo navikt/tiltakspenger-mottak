@@ -48,7 +48,7 @@ internal class SafServiceTest {
         val journalfortDokumentMetadata = JournalfortDokumentMetadata(
             journalpostId = journalpostId,
             dokumentInfoId = dokumentInfoId,
-            filnavn = "filnavn",
+            filnavn = "tiltakspenger.json",
         )
         coEvery { safClient.hentMetadataForJournalpost(journalpostId) }.returns(
             journalfortDokumentMetadata,
