@@ -1,20 +1,20 @@
 val javaVersion = JavaVersion.VERSION_17
 val ktorVersion = "2.3.0"
 val kotlinxSerializationVersion = "1.5.0"
-val kotlinxCoroutinesVersion = "1.6.4"
+val kotlinxCoroutinesVersion = "1.7.0"
 val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.3"
 val jacksonVersion = "2.13.4"
-val mockkVersion = "1.13.4"
+val mockkVersion = "1.13.5"
 
 plugins {
-    val kotlinVersion = "1.8.20"
+    val kotlinVersion = "1.8.21"
     application
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("com.github.ben-manes.versions") version "0.46.0"
-    id("com.diffplug.spotless") version "6.17.0"
-    id("ca.cutterslade.analyze") version "1.9.0"
+    id("com.diffplug.spotless") version "6.18.0"
+    id("ca.cutterslade.analyze") version "1.9.1"
 }
 
 repositories {
@@ -30,8 +30,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:$kotlinxCoroutinesVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core-jvm:$kotlinxSerializationVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:$kotlinxSerializationVersion")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation("ch.qos.logback:logback-classic:1.4.7")
     implementation("net.logstash.logback:logstash-logback-encoder:7.3")
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("io.ktor:ktor-client-content-negotiation-jvm:$ktorVersion")
@@ -50,14 +49,14 @@ dependencies {
     implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
     implementation("org.jetbrains:annotations:24.0.1")
     implementation("org.apache.avro:avro:1.11.1")
-    implementation("io.confluent:kafka-avro-serializer:7.3.3") {
+    implementation("io.confluent:kafka-avro-serializer:7.4.0") {
         // we want to use the one provided by R&R, not the Confluent-specific one
         exclude(group = "org.apache.kafka", module = "kafka-clients")
     }
-    implementation("com.github.navikt:rapids-and-rivers:2023031511211678875716.e6e2c9250860")
+    implementation("com.github.navikt:rapids-and-rivers:2023042609401682494832.502ede9d3e7e")
     implementation("com.natpryce:konfig:1.6.10.0")
 
-    testImplementation(platform("org.junit:junit-bom:5.9.2"))
+    testImplementation(platform("org.junit:junit-bom:5.9.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.ktor:ktor-client-mock-jvm:$ktorVersion")
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktorVersion")
