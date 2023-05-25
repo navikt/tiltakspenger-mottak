@@ -1,7 +1,5 @@
 package no.nav.tiltakspenger.mottak.saf
 
-import com.fasterxml.jackson.databind.node.ObjectNode
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -58,10 +56,11 @@ internal class SafServiceTest {
         // when
         val soknad = safService.hentSøknad(journalpostId)
 
-        val mappedJson = jacksonObjectMapper().readTree(soknad?.søknad) as ObjectNode
+//        val mappedJson = jacksonObjectMapper().readTree(soknad?.søknad) as ObjectNode
 
         // then
-        assertEquals("12304", mappedJson.path("søknadId").asText())
+//        assertEquals("12304", mappedJson.path("søknadId").asText())
+        assertEquals("12304", soknad?.søknadId)
         coVerify(exactly = 1) { safClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { safClient.hentSoknad(journalfortDokumentMetadata) }
     }

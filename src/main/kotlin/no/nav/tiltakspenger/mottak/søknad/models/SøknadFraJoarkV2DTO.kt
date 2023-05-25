@@ -72,7 +72,7 @@ data class Personopplysninger(
     val etternavn: String,
 )
 
-data class SøknadFraJoarkDTO(
+data class SøknadFraJoarkV2DTO(
     val id: UUID,
     val versjon: String,
     val ident: String,
