@@ -58,7 +58,7 @@ object Configuration {
             "tptsRapidName" to "tpts.rapid.v1",
             "identTopicName" to "tpts.identer.v1",
             "journalpostIdTopicName" to "tpts.journalpostider.v1",
-            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v5",
+            "KAFKA_CONSUMER_GROUP_ID" to "tiltakspenger-aiven-mottak-v6",
             "application.profile" to Profile.DEV.toString(),
             "safBaseUrl" to "https://saf.dev-fss-pub.nais.io",
             "safScope" to "api://dev-fss.teamdokumenthandtering.saf-q1/.default",
