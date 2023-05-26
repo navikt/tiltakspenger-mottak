@@ -23,6 +23,7 @@ class SafService(private val safClient: SafClient) {
         SECURELOG.info { "Hentet søknad $json" }
 
         if (metadata.filnavn == FILNAVN_NY_SØKNAD) {
+            SECURELOG.info { "Vi mapper ny søknad" }
             return SøknadDTO.fromNySøknad(
                 json = json,
                 dokInfo = DokumentInfoDTO(
@@ -35,6 +36,7 @@ class SafService(private val safClient: SafClient) {
         }
 
         if (metadata.filnavn == FILNAVN_SØKNAD) {
+            SECURELOG.info { "Vi mapper gammel søknad" }
             return SøknadDTO.fromGammelSøknad(
                 json = json,
                 dokInfo = DokumentInfoDTO(

@@ -75,6 +75,13 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
         }?.dokumentInfoId
         SECURELOG.info { "Vi fant dokumentinfoId $dokumentInfoId" }
 
+        val filnavn = response?.dokumenter?.firstOrNull { dokument ->
+            dokument.dokumentvarianter.any { (it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_NY_SØKNAD) && it.variantformat == ORIGINAL }
+        }?.dokumentvarianter?.map {
+            it.filnavn
+        }?.firstOrNull()
+        SECURELOG.info { "Vi fant filnavn $filnavn" }
+
         val vedlegg = response?.dokumenter?.filterNot { dokument ->
             dokument.dokumentvarianter.any { it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_KVITTERINGSSIDE }
         }?.map {
@@ -91,7 +98,7 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
             JournalfortDokumentMetadata(
                 journalpostId = response.journalpostId,
                 dokumentInfoId = dokumentInfoId,
-                filnavn = FILNAVN_SØKNAD,
+                filnavn = filnavn,
                 vedlegg = vedlegg,
             )
         }
