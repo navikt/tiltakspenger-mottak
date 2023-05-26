@@ -77,9 +77,9 @@ class SafClient(private val config: Configuration.SafConfig, private val getToke
 
         val filnavn = response?.dokumenter?.firstOrNull { dokument ->
             dokument.dokumentvarianter.any { (it.filnavn == FILNAVN_SØKNAD || it.filnavn == FILNAVN_NY_SØKNAD) && it.variantformat == ORIGINAL }
-        }?.dokumentvarianter?.map {
-            it.filnavn
-        }?.first()
+        }?.dokumentvarianter?.first {
+            it.variantformat == ORIGINAL
+        }?.filnavn
         SECURELOG.info { "Vi fant filnavn $filnavn" }
 
         val vedlegg = response?.dokumenter?.filterNot { dokument ->

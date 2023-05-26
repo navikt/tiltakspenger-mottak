@@ -9,14 +9,14 @@
           "tittel": "en eller annen tittel",
           "dokumentvarianter": [
             {
-              "variantformat": "ORIGINAL",
-              "filnavn": "tiltakspengersoknad.json",
-              "filtype": "JSON"
-            },
-            {
               "variantformat": "ARKIV",
               "filnavn": "NAV 76-13.45.pdfa",
               "filtype": "PDF"
+            },
+            {
+              "variantformat": "ORIGINAL",
+              "filnavn": "tiltakspengersoknad.json",
+              "filtype": "JSON"
             }
           ]
         },
