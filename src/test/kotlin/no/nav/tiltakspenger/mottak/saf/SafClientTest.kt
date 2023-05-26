@@ -58,6 +58,18 @@ internal class SafClientTest {
     }
 
     @Test
+    fun `skal lage request til saf graphql og parse responsen for ny søknad`() {
+        mockSafRequest("/journalpost_ny_soknad.json")
+        val safResponse = runBlocking {
+            safClient.hentMetadataForJournalpost("524272526")
+        }
+
+        assertEquals("524272526", safResponse?.journalpostId)
+        assertEquals("tiltakspengersoknad.json", safResponse?.filnavn)
+        assertEquals("548464748", safResponse?.dokumentInfoId)
+    }
+
+    @Test
     fun `ignorerer søknad som har filnavn==null`() {
         mockSafRequest("/journalpost_med_null_filnavn.json")
         val safResponse = runBlocking {

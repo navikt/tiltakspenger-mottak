@@ -1,0 +1,37 @@
+{
+  "errors": null,
+  "data": {
+    "journalpost": {
+      "journalpostId": "524272526",
+      "dokumenter": [
+        {
+          "dokumentInfoId": "548464748",
+          "tittel": "en eller annen tittel",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ORIGINAL",
+              "filnavn": "tiltakspengersoknad.json",
+              "filtype": "JSON"
+            },
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "NAV 76-13.45.pdfa",
+              "filtype": "PDF"
+            }
+          ]
+        },
+        {
+          "dokumentInfoId": "548464747",
+          "tittel": "Kvitteringsside for dokumentinnsending",
+          "dokumentvarianter": [
+            {
+              "variantformat": "ARKIV",
+              "filnavn": "L7",
+              "filtype": "PDF"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
