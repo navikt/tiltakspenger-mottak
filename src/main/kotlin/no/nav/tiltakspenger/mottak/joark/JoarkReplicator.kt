@@ -18,7 +18,7 @@ import no.nav.tiltakspenger.mottak.INDIVIDSTONAD
 import no.nav.tiltakspenger.mottak.health.HealthCheck
 import no.nav.tiltakspenger.mottak.health.HealthStatus
 import no.nav.tiltakspenger.mottak.saf.SafService
-import no.nav.tiltakspenger.mottak.søknad.Søknad
+import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.consumer.Consumer
@@ -159,7 +159,7 @@ internal class JoarkReplicator(
                         val journalpostId = record.key()
                         val soknad = safService.hentSøknad(journalpostId)
                         if (soknad != null) {
-                            val ident = soknad.ident
+                            val ident = soknad.personopplysninger.ident
                             val json = createJsonMessage(soknad)
                             LOG.debug { "Sender event på $tptsRapidName med key $journalpostId" }
                             SECURELOG.info("Sender melding $json")
@@ -185,8 +185,8 @@ internal class JoarkReplicator(
         }
     }
 
-    private fun createJsonMessage(søknad: Søknad) =
-        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknad)).toJson()
+    private fun createJsonMessage(søknadDTO: SøknadDTO) =
+        JsonMessage.newMessage(eventName = "søknad_mottatt", mapOf("søknad" to søknadDTO)).toJson()
 
     private fun isCorrectTemaAndStatus(record: ConsumerRecord<String, GenericRecord>) =
         INDIVIDSTONAD == (record.value().get("temaNytt")) &&

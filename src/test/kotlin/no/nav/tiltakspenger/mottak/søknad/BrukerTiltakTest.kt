@@ -1,6 +1,5 @@
 package no.nav.tiltakspenger.mottak.søknad
 
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.søknad.models.Faktum
 import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
@@ -15,7 +14,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
 
-internal class BrukerregistrertTiltakTest {
+internal class BrukerTiltakTest {
     private val json = Json { ignoreUnknownKeys = true }
 
     @Test
@@ -23,7 +22,7 @@ internal class BrukerregistrertTiltakTest {
         val jsonFromFile = File("src/test/resources/søknad_deltar_intro.json").readText()
         val joarkSøknad = json.decodeFromString<JoarkSøknad>(jsonFromFile)
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
+        val tiltak = BrukerTiltakDTO.fromV1Soknad(joarkSøknad)
 
         assertNotNull(tiltak)
         assertEquals("Annet", tiltak?.tiltakskode)
@@ -40,7 +39,7 @@ internal class BrukerregistrertTiltakTest {
     fun `søknad med brukerregistrert tiltak som mangler arrangørnavn`() {
         val jsonFromFile = File("src/test/resources/søknad_med_brukerregistrert_tiltak_uten_arrangør.json").readText()
         val joarkSøknad = json.decodeFromString<JoarkSøknad>(jsonFromFile)
-        assertDoesNotThrow { BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad) }
+        assertDoesNotThrow { BrukerTiltakDTO.fromV1Soknad(joarkSøknad) }
     }
 
     @Test
@@ -67,7 +66,7 @@ internal class BrukerregistrertTiltakTest {
             uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4",
         )
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
+        val tiltak = BrukerTiltakDTO.fromV1Soknad(joarkSøknad)
 
         assertNull(tiltak)
     }
@@ -103,7 +102,7 @@ internal class BrukerregistrertTiltakTest {
             uuid = "3a479a78-78e7-4ff9-9ff2-b5e998d936f4",
         )
 
-        val tiltak = BrukerregistrertTiltak.fromJoarkSoknad(joarkSøknad)
+        val tiltak = BrukerTiltakDTO.fromV1Soknad(joarkSøknad)
 
         assertEquals(0, tiltak?.antallDager)
     }

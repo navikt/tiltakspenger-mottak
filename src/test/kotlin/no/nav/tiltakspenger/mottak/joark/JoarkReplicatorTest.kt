@@ -9,7 +9,13 @@ import kotlinx.coroutines.test.runTest
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.Configuration
 import no.nav.tiltakspenger.mottak.saf.SafService
-import no.nav.tiltakspenger.mottak.søknad.Søknad
+import no.nav.tiltakspenger.mottak.søknad.DokumentInfoDTO
+import no.nav.tiltakspenger.mottak.søknad.FraOgMedDatoSpmDTO
+import no.nav.tiltakspenger.mottak.søknad.JaNeiSpmDTO
+import no.nav.tiltakspenger.mottak.søknad.PeriodeSpmDTO
+import no.nav.tiltakspenger.mottak.søknad.PersonopplysningerDTO
+import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO
+import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -132,24 +138,36 @@ internal class JoarkReplicatorTest {
             assign(listOf(partition))
             updateBeginningOffsets(mapOf(partition to 0L))
         }
-        val søknad = Søknad(
-            søknadId = "søknadid",
-            journalpostId = "journalpostId",
-            dokumentInfoId = "dokumentInfoId",
-            fornavn = null,
-            etternavn = null,
-            ident = "ident",
-            deltarKvp = false,
-            deltarIntroduksjonsprogrammet = false,
-            introduksjonsprogrammetDetaljer = null,
-            oppholdInstitusjon = false,
-            typeInstitusjon = null,
-            opprettet = LocalDateTime.now(),
-            barnetillegg = emptyList(),
+        val søknadDTO = SøknadDTO(
+            versjon = "1",
+            søknadId = "søknadId",
+            dokInfo = DokumentInfoDTO(
+                journalpostId = "noluisse",
+                dokumentInfoId = "ac",
+                filnavn = null,
+            ),
+            personopplysninger = PersonopplysningerDTO(
+                ident = "dis",
+                fornavn = "a",
+                etternavn = "liber",
+            ),
             arenaTiltak = null,
-            brukerregistrertTiltak = null,
-            trygdOgPensjon = emptyList(),
+            brukerTiltak = null,
+            barnetilleggPdl = emptyList(),
+            barnetilleggManuelle = emptyList(),
             vedlegg = emptyList(),
+            kvp = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            intro = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            institusjon = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            etterlønn = JaNeiSpmDTO(svar = SpmSvarDTO.Nei),
+            gjenlevendepensjon = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+            alderspensjon = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+            sykepenger = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+            supplerendeStønadAlder = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+            supplerendeStønadFlyktning = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+            jobbsjansen = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+            trygdOgPensjon = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
+            opprettet = LocalDateTime.now(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
         val mockIdentPublisher = mockk<IdentPublisher>(relaxed = true)
@@ -163,7 +181,7 @@ internal class JoarkReplicatorTest {
             safService,
             Configuration.tptsRapidName(),
         )
-        coEvery { safService.hentSøknad(journalpostId.toString()) } returns søknad
+        coEvery { safService.hentSøknad(journalpostId.toString()) } returns søknadDTO
         val record = GenericData.Record(joarkjournalfoeringhendelserAvroSchema).apply {
             put("journalpostId", journalpostId)
             put("temaNytt", "IND")

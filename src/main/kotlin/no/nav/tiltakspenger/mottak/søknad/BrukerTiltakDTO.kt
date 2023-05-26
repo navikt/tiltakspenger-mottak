@@ -6,7 +6,7 @@ import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
 import java.time.LocalDate
 
 @Serializable
-data class BrukerregistrertTiltak(
+data class BrukerTiltakDTO(
     val tiltakskode: String,
     val arrangoernavn: String?,
     val beskrivelse: String?, // kun om det er 'Annet' tiltak
@@ -17,10 +17,10 @@ data class BrukerregistrertTiltak(
     val antallDager: Int,
 ) {
     companion object {
-        fun fromJoarkSoknad(joarkSøknad: JoarkSøknad): BrukerregistrertTiltak? {
+        fun fromV1Soknad(joarkSøknad: JoarkSøknad): BrukerTiltakDTO? {
             val brukerregistrertTiltakJson =
                 joarkSøknad.fakta.firstOrNull { it.key == "tiltaksliste.annetTiltak" } ?: return null
-            return BrukerregistrertTiltak(
+            return BrukerTiltakDTO(
                 tiltakskode = brukerregistrertTiltakJson.value!!,
                 arrangoernavn = brukerregistrertTiltakJson.properties.arrangoernavn,
                 beskrivelse = brukerregistrertTiltakJson.properties.beskrivelse,

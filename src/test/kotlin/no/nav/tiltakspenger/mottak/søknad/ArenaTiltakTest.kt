@@ -11,10 +11,10 @@ internal class ArenaTiltakTest {
     @Test
     fun `soknad med tiltak fra arena`() {
         val json = File("src/test/resources/søknad_med_tiltak_fra_arena.json").readText()
-        val arenaTiltak = ArenaTiltak.fromJson(json)
+        val arenaTiltak = ArenaTiltakDTO.fromJson(json)
         assertNotNull(arenaTiltak)
         assertEquals("JOBBK", arenaTiltak?.tiltakskode)
-        assertEquals("JOBLEARN AS", arenaTiltak?.arrangoer)
+        assertEquals("JOBLEARN AS", arenaTiltak?.arrangoernavn)
         assertEquals("136347592", arenaTiltak?.arenaId)
         assertEquals(LocalDate.parse("2021-12-06"), arenaTiltak?.opprinneligStartdato)
         assertNull(arenaTiltak?.opprinneligSluttdato)
@@ -23,10 +23,10 @@ internal class ArenaTiltakTest {
     @Test
     fun `soknad med tiltak fra arena som mangler arrangørnavn`() {
         val json = File("src/test/resources/søknad_med_tiltak_fra_arena_uten_sluttdato_og_arrangør.json").readText()
-        val arenaTiltak = ArenaTiltak.fromJson(json)
+        val arenaTiltak = ArenaTiltakDTO.fromJson(json)
         assertNotNull(arenaTiltak)
         assertEquals("UTVAOONAV", arenaTiltak?.tiltakskode)
-        assertNull(arenaTiltak?.arrangoer)
+        assertNull(arenaTiltak?.arrangoernavn)
         assertEquals("138377366", arenaTiltak?.arenaId)
         assertEquals(LocalDate.parse("2022-09-01"), arenaTiltak?.opprinneligStartdato)
         assertNull(arenaTiltak?.opprinneligSluttdato)
@@ -35,10 +35,10 @@ internal class ArenaTiltakTest {
     @Test
     fun `soknad med tiltak fra arena som mangler sluttdato`() {
         val json = File("src/test/resources/søknad_med_tiltak_fra_arena_null_sluttdato.json").readText()
-        val arenaTiltak = ArenaTiltak.fromJson(json)
+        val arenaTiltak = ArenaTiltakDTO.fromJson(json)
         assertNotNull(arenaTiltak)
         assertEquals("INDOPPFAG", arenaTiltak?.tiltakskode)
-        assertEquals("FOOBAR UTVIKLING", arenaTiltak?.arrangoer)
+        assertEquals("FOOBAR UTVIKLING", arenaTiltak?.arrangoernavn)
         assertEquals("138651086", arenaTiltak?.arenaId)
         assertEquals(LocalDate.parse("2022-09-12"), arenaTiltak?.startdato)
         assertNull(arenaTiltak?.sluttdato)
@@ -47,7 +47,7 @@ internal class ArenaTiltakTest {
     @Test
     fun `soknad uten tiltak fra arena`() {
         val json = File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText()
-        val arenaTiltak = ArenaTiltak.fromJson(json)
+        val arenaTiltak = ArenaTiltakDTO.fromJson(json)
         assertNull(arenaTiltak)
     }
 }

@@ -1,18 +1,16 @@
 package no.nav.tiltakspenger.mottak.saf
 
 import mu.KotlinLogging
-import no.nav.tiltakspenger.mottak.søknad.Søknad
+import no.nav.tiltakspenger.mottak.saf.SafClient.Companion.FILNAVN_NY_SØKNAD
+import no.nav.tiltakspenger.mottak.saf.SafClient.Companion.FILNAVN_SØKNAD
+import no.nav.tiltakspenger.mottak.søknad.DokumentInfoDTO
+import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
 
 private val LOG = KotlinLogging.logger {}
 private val SECURELOG = KotlinLogging.logger("tjenestekall")
 
 class SafService(private val safClient: SafClient) {
-
-    companion object {
-        private const val FILNAVN_NY_SØKNAD = "tiltakspengersoknad.json"
-    }
-
-    suspend fun hentSøknad(journalpostId: String): Søknad? {
+    suspend fun hentSøknad(journalpostId: String): SøknadDTO? {
         LOG.info { "Henter metadata for journalpost med journalpostId $journalpostId" }
         val metadata = safClient.hentMetadataForJournalpost(journalpostId)
         if (metadata == null) {
@@ -20,13 +18,34 @@ class SafService(private val safClient: SafClient) {
             return null
         }
         LOG.info { "Henter søknad med dokumentInfoId ${metadata.dokumentInfoId}" }
-        if (metadata.filnavn == FILNAVN_NY_SØKNAD) {
-            LOG.info { "Journalpost med id $journalpostId ignoreres, er ny søknad" }
-            return null
-        }
         val json = safClient.hentSoknad(metadata)
         LOG.info { "Hentet søknad med dokumentInfoId ${metadata.dokumentInfoId}, se secure-log for detaljer" }
         SECURELOG.info { "Hentet søknad $json" }
-        return Søknad.fromJson(json, journalpostId, metadata.dokumentInfoId, metadata.vedlegg)
+
+        if (metadata.filnavn == FILNAVN_NY_SØKNAD) {
+            return SøknadDTO.fromNySøknad(
+                json = json,
+                dokInfo = DokumentInfoDTO(
+                    journalpostId = journalpostId,
+                    dokumentInfoId = metadata.dokumentInfoId,
+                    filnavn = metadata.filnavn,
+                ),
+                vedleggMetadata = metadata.vedlegg,
+            )
+        }
+
+        if (metadata.filnavn == FILNAVN_SØKNAD) {
+            return SøknadDTO.fromGammelSøknad(
+                json = json,
+                dokInfo = DokumentInfoDTO(
+                    journalpostId = journalpostId,
+                    dokumentInfoId = metadata.dokumentInfoId,
+                    filnavn = metadata.filnavn,
+                ),
+                vedleggMetadata = metadata.vedlegg,
+            )
+        }
+
+        return null
     }
 }

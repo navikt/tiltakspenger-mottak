@@ -1,10 +1,11 @@
 package no.nav.tiltakspenger.mottak.søknad.models
 
-import no.nav.tiltakspenger.mottak.søknad.Barnetillegg
-import no.nav.tiltakspenger.mottak.søknad.Søknad
-import no.nav.tiltakspenger.mottak.søknad.TrygdOgPensjon
+import no.nav.tiltakspenger.mottak.søknad.BarnetilleggDTO
+import no.nav.tiltakspenger.mottak.søknad.DokumentInfoDTO
+import no.nav.tiltakspenger.mottak.søknad.JaNeiSpmDTO
+import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO
+import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -12,21 +13,25 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.time.LocalDate
-import java.time.Month
 
 internal class JoarkSøknadTest {
+    val dokInfo = DokumentInfoDTO(
+        journalpostId = "journalpostId",
+        dokumentInfoId = "dokumentInfoId",
+        filnavn = "tiltakspenger.json",
+    )
 
     @Test
     fun `from json to Søknad with ArenaTiltak`() {
         val faktums = this::class.java.classLoader.getResource("søknad_med_tiltak_fra_arena.json")!!.readText()
-        Søknad.fromJson(faktums, "42", "43").also {
-            assertEquals("TALENTFULL", it.fornavn)
-            assertEquals("BOLLE", it.etternavn)
-            assertEquals("20058803546", it.ident)
+        SøknadDTO.fromGammelSøknad(faktums, dokInfo).also {
+            assertEquals("TALENTFULL", it.personopplysninger.fornavn)
+            assertEquals("BOLLE", it.personopplysninger.etternavn)
+            assertEquals("20058803546", it.personopplysninger.ident)
             assertEquals("2021-12-20T13:08:38.444", it.opprettet.toString())
             assertEquals("136347592", it.arenaTiltak?.arenaId)
             assertEquals("JOBBK", it.arenaTiltak?.tiltakskode)
-            assertEquals("JOBLEARN AS", it.arenaTiltak?.arrangoer)
+            assertEquals("JOBLEARN AS", it.arenaTiltak?.arrangoernavn)
             assertEquals("2021-12-06", it.arenaTiltak?.opprinneligStartdato.toString())
             assertEquals(null, it.arenaTiltak?.opprinneligSluttdato?.toString())
         }
@@ -35,9 +40,9 @@ internal class JoarkSøknadTest {
     @Test
     fun `should put brukerregistrert start and sluttdato in soknad`() {
         val soknad = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
-        Søknad.fromJson(soknad, "", "").also {
-            assertEquals(LocalDate.parse("2022-03-01"), it.brukerregistrertTiltak?.fom)
-            assertEquals(LocalDate.parse("2022-03-31"), it.brukerregistrertTiltak?.tom)
+        SøknadDTO.fromGammelSøknad(soknad, dokInfo).also {
+            assertEquals(LocalDate.parse("2022-03-01"), it.brukerTiltak?.fom)
+            assertEquals(LocalDate.parse("2022-03-31"), it.brukerTiltak?.tom)
             assertNull(it.arenaTiltak)
         }
     }
@@ -45,184 +50,164 @@ internal class JoarkSøknadTest {
     @Test
     fun `null name in soknad does not throw exception`() {
         val soknad = File("src/test/resources/søknad_barn_med_manglende_navn_pga_kode6.json").readText()
-        assertDoesNotThrow { Søknad.fromJson(soknad, "", "") }
+        assertDoesNotThrow { SøknadDTO.fromGammelSøknad(soknad, dokInfo) }
     }
 
     @Test
     fun `soker som deltar på intro should have true in deltarIntroduksjonsprogrammet field`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_deltar_intro.json").readText(), "", "")
-        assertTrue(søknad.deltarIntroduksjonsprogrammet!!)
+        val søknad = SøknadDTO.fromGammelSøknad(File("src/test/resources/søknad_deltar_intro.json").readText(), dokInfo)
+        assertTrue(søknad.intro.svar == SpmSvarDTO.Ja)
     }
 
     @Test
     fun `soker som deltar på intro should have detaljer`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_deltar_intro.json").readText(), "", "")
-        assertTrue(søknad.deltarIntroduksjonsprogrammet!!)
-        assertEquals(LocalDate.of(2022, 4, 1), søknad.introduksjonsprogrammetDetaljer?.fom)
-        assertEquals(LocalDate.of(2022, 4, 30), søknad.introduksjonsprogrammetDetaljer?.tom)
+        val søknad = SøknadDTO.fromGammelSøknad(File("src/test/resources/søknad_deltar_intro.json").readText(), dokInfo)
+        assertTrue(søknad.intro.svar == SpmSvarDTO.Ja)
+        assertEquals(LocalDate.of(2022, 4, 1), søknad.intro.fom)
+        assertEquals(LocalDate.of(2022, 4, 30), søknad.intro.tom)
     }
 
     @Test
     fun `soker som ikke får spørsmål om introduksjonsprogrammet vet vi ingenting om`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
-        val søknad = Søknad.fromJson(soknadJson, "", "")
-        assertNull(søknad.deltarIntroduksjonsprogrammet)
-        assertNull(søknad.introduksjonsprogrammetDetaljer?.fom)
-        assertNull(søknad.introduksjonsprogrammetDetaljer?.tom)
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.intro.svar == SpmSvarDTO.IkkeBesvart)
+        assertNull(søknad.intro.fom)
+        assertNull(søknad.intro.tom)
     }
 
     @Test
     fun `soker som IKKE deltar på intro should have false in deltarIntroduksjonsprogrammet field`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_deltar_ikke_intro.json")!!.readText()
-        val søknad = Søknad.fromJson(soknadJson, "", "")
-        assertFalse(søknad.deltarIntroduksjonsprogrammet!!)
-        assertNull(søknad.introduksjonsprogrammetDetaljer?.fom)
-        assertNull(søknad.introduksjonsprogrammetDetaljer?.tom)
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.intro.svar == SpmSvarDTO.Nei)
+        assertNull(søknad.intro.fom)
+        assertNull(søknad.intro.tom)
     }
 
     @Test
     fun `soker som deltar på kvp should have true in deltarKvp field`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_deltar_kvp.json").readText(), "", "")
-        assertTrue(søknad.deltarKvp)
+        val soknadJson = this::class.java.classLoader.getResource("søknad_deltar_kvp.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.kvp.svar == SpmSvarDTO.Ja)
     }
 
     @Test
     fun `soker som IKKE deltar på kvp should have false in deltarKvp field`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
-        val søknad = Søknad.fromJson(soknadJson, "", "")
-        assertFalse(søknad.deltarKvp)
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.kvp.svar == SpmSvarDTO.Nei)
     }
 
     @Test
     fun `soker på insitusjon should have true in oppholdInstitusjon field`() {
-        val søknad =
-            Søknad.fromJson(File("src/test/resources/søknad_barn_med_manglende_navn_pga_kode6.json").readText(), "", "")
-        assertTrue(søknad.oppholdInstitusjon)
-        assertEquals("annet", søknad.typeInstitusjon)
+        val soknadJson = this::class.java.classLoader.getResource("søknad_barn_med_manglende_navn_pga_kode6.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.institusjon.svar == SpmSvarDTO.Ja)
     }
 
     @Test
     fun `soker utenfor insitusjon should have false in oppholdInstitusjon field`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText(), "", "")
-        assertFalse(søknad.oppholdInstitusjon)
-        assertNull(søknad.typeInstitusjon)
+        val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.institusjon.svar == SpmSvarDTO.Nei)
     }
 
     @Test
     fun `should get tiltaks-info from soknad with tiltak from Arena`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_tiltak_fra_arena.json").readText(), "", "")
-        assertEquals("JOBLEARN AS", søknad.arenaTiltak?.arrangoer)
+        val soknadJson = this::class.java.classLoader.getResource("søknad_med_tiltak_fra_arena.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+
+        assertEquals("JOBLEARN AS", søknad.arenaTiltak?.arrangoernavn)
         assertEquals("JOBBK", søknad.arenaTiltak?.tiltakskode)
     }
 
     @Test
     fun `should get tiltaks-info from soknad with tiltak from user`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText(), "", "")
-        assertEquals("Tull og tøys AS", søknad.brukerregistrertTiltak?.arrangoernavn)
-        assertEquals("AMO", søknad.brukerregistrertTiltak?.tiltakskode)
+        val soknadJson = this::class.java.classLoader.getResource("søknad_uten_tiltak_fra_arena.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+
+        assertEquals("Tull og tøys AS", søknad.brukerTiltak?.arrangoernavn)
+        assertEquals("AMO", søknad.brukerTiltak?.tiltakskode)
     }
 
     @Test
     fun `barnetillegg med forhåndsregistrert barn`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_tiltak_fra_arena.json").readText(), "", "")
-        val expectedBarn = Barnetillegg(
-            "26011579360",
+        val soknadJson = this::class.java.classLoader.getResource("søknad_med_tiltak_fra_arena.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+
+        val expectedBarn = BarnetilleggDTO(
+            oppholderSegIEØS = JaNeiSpmDTO(svar = SpmSvarDTO.Ja),
             fornavn = "KORRUPT",
             mellomnavn = null,
             etternavn = "STAUDE",
-            alder = 6,
-            oppholdsland = "NOR",
-            søktBarnetillegg = false,
+            fødselsdato = LocalDate.of(2015, 1, 26),
         )
-        assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
-        assertEquals(expectedBarn.mellomnavn, søknad.barnetillegg.first().mellomnavn)
-        assertEquals(expectedBarn.etternavn, søknad.barnetillegg.first().etternavn)
-        assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
-        assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
-        assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
-        assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
+        assertEquals(expectedBarn.fornavn, søknad.barnetilleggPdl.first().fornavn)
+        assertEquals(expectedBarn.mellomnavn, søknad.barnetilleggPdl.first().mellomnavn)
+        assertEquals(expectedBarn.etternavn, søknad.barnetilleggPdl.first().etternavn)
+        assertEquals(expectedBarn.oppholderSegIEØS, søknad.barnetilleggPdl.first().oppholderSegIEØS)
+        assertEquals(expectedBarn.fødselsdato, søknad.barnetilleggPdl.first().fødselsdato)
     }
 
     @Test
     fun `barnetillegg med mellomnavn i barn`() {
-        val søknad = Søknad.fromJson(
-            File("src/test/resources/søknad_med_tiltak_fra_arena_null_sluttdato.json").readText(),
-            "",
-            "",
-        )
-        val expectedBarn = Barnetillegg(
-            "123",
+        val soknadJson = this::class.java.classLoader.getResource("søknad_med_tiltak_fra_arena_null_sluttdato.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+
+        val expectedBarn = BarnetilleggDTO(
+            oppholderSegIEØS = JaNeiSpmDTO(svar = SpmSvarDTO.Ja),
             fornavn = "foo",
             mellomnavn = "foo",
             etternavn = "bar",
-            alder = 1,
-            oppholdsland = "NOR",
-            søktBarnetillegg = true,
+            fødselsdato = LocalDate.of(2015, 3, 12),
         )
-        assertEquals(expectedBarn.fornavn, søknad.barnetillegg.first().fornavn)
-        assertEquals(expectedBarn.mellomnavn, søknad.barnetillegg.first().mellomnavn)
-        assertEquals(expectedBarn.etternavn, søknad.barnetillegg.first().etternavn)
-        assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
-        assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
-        assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
-        assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
+        assertEquals(expectedBarn.fornavn, søknad.barnetilleggPdl.first().fornavn)
+        assertEquals(expectedBarn.mellomnavn, søknad.barnetilleggPdl.first().mellomnavn)
+        assertEquals(expectedBarn.etternavn, søknad.barnetilleggPdl.first().etternavn)
+        assertEquals(expectedBarn.oppholderSegIEØS, søknad.barnetilleggPdl.first().oppholderSegIEØS)
+        assertEquals(expectedBarn.fødselsdato, søknad.barnetilleggPdl.first().fødselsdato)
     }
 
     @Test
     fun `barnetillegg med manuelt registrert barn`() {
-        val søknad = Søknad.fromJson(
-            File("src/test/resources/søknad_med_manuelt_lagt_til_barn.json").readText(),
-            "",
-            "",
+        val soknadJson = this::class.java.classLoader.getResource("søknad_med_manuelt_lagt_til_barn.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+
+        val expectedBarn = BarnetilleggDTO(
+            fødselsdato = LocalDate.of(2019, 1, 1),
+            fornavn = "Kjell T",
+            mellomnavn = null,
+            etternavn = "Ring",
+            oppholderSegIEØS = JaNeiSpmDTO(svar = SpmSvarDTO.Ja),
         )
-        val expectedBarn = Barnetillegg(
-            fødselsdato = LocalDate.of(2019, Month.JANUARY, 1),
-            alder = 3,
-            oppholdsland = "NOR",
-            søktBarnetillegg = true,
-        )
-        assertEquals(expectedBarn.oppholdsland, søknad.barnetillegg.first().oppholdsland)
-        assertEquals(expectedBarn.alder, søknad.barnetillegg.first().alder)
-        assertEquals(expectedBarn.ident, søknad.barnetillegg.first().ident)
-        assertEquals(expectedBarn.fødselsdato, søknad.barnetillegg.first().fødselsdato)
+        assertEquals(expectedBarn.oppholderSegIEØS, søknad.barnetilleggManuelle.first().oppholderSegIEØS)
+        assertEquals(expectedBarn.fødselsdato, søknad.barnetilleggManuelle.first().fødselsdato)
+        assertEquals(expectedBarn.fornavn, søknad.barnetilleggManuelle.first().fornavn)
+        assertEquals(expectedBarn.mellomnavn, søknad.barnetilleggManuelle.first().mellomnavn)
+        assertEquals(expectedBarn.etternavn, søknad.barnetilleggManuelle.first().etternavn)
     }
 
     @Test
     fun `trygd og pensjon kommer med`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_trygd_og_pensjon.json").readText(), "", "")
-        val expected1 = TrygdOgPensjon(
-            utbetaler = "Manchester United",
-            prosent = 42,
-            fom = LocalDate.of(2021, Month.FEBRUARY, 9),
-            tom = null,
+        val soknadJson = this::class.java.classLoader.getResource("søknad_med_trygd_og_pensjon.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+
+        val expected = JaNeiSpmDTO(
+            svar = SpmSvarDTO.Ja,
         )
-        val expected2 = TrygdOgPensjon(
-            utbetaler = "Bayern München",
-            prosent = 30,
-            fom = null,
-            tom = null,
-        )
-        assertTrue(søknad.trygdOgPensjon.size == 2)
-        assertTrue(søknad.trygdOgPensjon.contains(expected1))
-        assertTrue(søknad.trygdOgPensjon.contains(expected2))
+        assertEquals(expected, søknad.etterlønn)
     }
 
     @Test
     fun `trygd og pensjon er empty om det ikke eksisterer`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad.json").readText(), "", "")
-        assertTrue(søknad.trygdOgPensjon.isEmpty())
-    }
+        val soknadJson = this::class.java.classLoader.getResource("søknad.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
 
-    @Test
-    fun `fritekst kommer med`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_med_trygd_og_pensjon.json").readText(), "", "")
-        assertEquals("en tilleggsopplysning", søknad.fritekst)
-    }
-
-    @Test
-    fun `søknad med null i fritekst`() {
-        val søknad = Søknad.fromJson(File("src/test/resources/søknad_uten_tiltak_fra_arena.json").readText(), "", "")
-        assertTrue(søknad.fritekst.isNullOrEmpty())
+        val expected = JaNeiSpmDTO(
+            svar = SpmSvarDTO.Nei,
+        )
+        assertEquals(expected, søknad.etterlønn)
     }
 
     @Test
@@ -239,6 +224,6 @@ internal class JoarkSøknadTest {
               ]
             }
         """.trimIndent()
-        assertThrows<IllegalArgumentException> { Søknad.fromJson(json, "", "") }
+        assertThrows<IllegalArgumentException> { SøknadDTO.fromGammelSøknad(json, dokInfo) }
     }
 }

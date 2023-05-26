@@ -46,7 +46,7 @@ internal class SafServiceTest {
         val journalfortDokumentMetadata = JournalfortDokumentMetadata(
             journalpostId = journalpostId,
             dokumentInfoId = dokumentInfoId,
-            filnavn = "filnavn",
+            filnavn = "tiltakspenger.json",
         )
         coEvery { safClient.hentMetadataForJournalpost(journalpostId) }.returns(
             journalfortDokumentMetadata,
@@ -56,7 +56,10 @@ internal class SafServiceTest {
         // when
         val soknad = safService.hentSøknad(journalpostId)
 
+//        val mappedJson = jacksonObjectMapper().readTree(soknad?.søknad) as ObjectNode
+
         // then
+//        assertEquals("12304", mappedJson.path("søknadId").asText())
         assertEquals("12304", soknad?.søknadId)
         coVerify(exactly = 1) { safClient.hentMetadataForJournalpost(journalpostId) }
         coVerify(exactly = 1) { safClient.hentSoknad(journalfortDokumentMetadata) }
