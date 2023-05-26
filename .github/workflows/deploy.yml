@@ -70,17 +70,17 @@ jobs:
           VAR: image=${{ env.IMAGE }},name=${{ github.event.repository.name }}
           VARS: .nais/vars/dev.yml
 
-  deploy-prod:
-    name: Deploy to NAIS prod
-    needs: deploy-dev
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/nais.yml
-          VAR: image=${{ env.IMAGE }},name=${{ github.event.repository.name }}
-          VARS: .nais/vars/prod.yml
+#  deploy-prod:
+#    name: Deploy to NAIS prod
+#    needs: deploy-dev
+#    if: github.ref == 'refs/heads/main'
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - uses: nais/deploy/actions/deploy@v1
+#        env:
+#          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+#          CLUSTER: prod-gcp
+#          RESOURCE: .nais/nais.yml
+#          VAR: image=${{ env.IMAGE }},name=${{ github.event.repository.name }}
+#          VARS: .nais/vars/prod.yml

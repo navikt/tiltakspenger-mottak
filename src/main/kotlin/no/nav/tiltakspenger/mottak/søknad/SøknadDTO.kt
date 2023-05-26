@@ -74,28 +74,70 @@ data class SøknadDTO(
                     fornavn = soknad.personopplysninger.fornavn,
                     etternavn = soknad.personopplysninger.etternavn,
                 ),
-                arenaTiltak = null,
+                arenaTiltak = ArenaTiltakDTO(
+                    arenaId = soknad.tiltak.aktivitetId,
+                    arrangoernavn = "---",
+                    tiltakskode = "",
+                    opprinneligSluttdato = soknad.tiltak.periode?.til,
+                    opprinneligStartdato = soknad.tiltak.periode!!.fra,
+                    sluttdato = soknad.tiltak.periode.til,
+                    startdato = soknad.tiltak.periode.fra,
+                ),
                 brukerTiltak = null,
-                barnetilleggPdl = emptyList(),
+                barnetilleggPdl = soknad.barnetillegg.registrerteBarnSøktBarnetilleggFor.map {
+                    BarnetilleggDTO(
+                        fødselsdato = it.fødselsdato,
+                        fornavn = it.fornavn,
+                        mellomnavn = it.mellomnavn,
+                        etternavn = it.etternavn,
+                        oppholderSegIEØS = JaNeiSpmDTO(
+                            svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
+                        ),
+                    )
+                },
                 barnetilleggManuelle = emptyList(),
                 vedlegg = vedlegg,
-                kvp = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
-                ),
-                intro = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
-                ),
-                institusjon = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
-                ),
+                kvp = if (soknad.kvalifiseringsprogram.deltar) {
+                    PeriodeSpmDTO(
+                        svar = Ja,
+                        fom = soknad.kvalifiseringsprogram.periode!!.fra,
+                        tom = soknad.kvalifiseringsprogram.periode.til,
+                    )
+                } else {
+                    PeriodeSpmDTO(
+                        svar = Nei,
+                        fom = null,
+                        tom = null,
+                    )
+                },
+                intro = if (soknad.introduksjonsprogram.deltar) {
+                    PeriodeSpmDTO(
+                        svar = Ja,
+                        fom = soknad.introduksjonsprogram.periode!!.fra,
+                        tom = soknad.introduksjonsprogram.periode.til,
+                    )
+                } else {
+                    PeriodeSpmDTO(
+                        svar = Nei,
+                        fom = null,
+                        tom = null,
+                    )
+                },
+                institusjon = if (soknad.institusjonsopphold.borPåInstitusjon) {
+                    PeriodeSpmDTO(
+                        svar = Ja,
+                        fom = soknad.institusjonsopphold.periode!!.fra,
+                        tom = soknad.institusjonsopphold.periode.til,
+                    )
+                } else {
+                    PeriodeSpmDTO(
+                        svar = Nei,
+                        fom = null,
+                        tom = null,
+                    )
+                },
                 etterlønn = JaNeiSpmDTO(
-                    svar = Nei,
+                    svar = if (soknad.etterlønn.mottarEllerSøktEtterlønn) Ja else Nei,
                 ),
                 gjenlevendepensjon = FraOgMedDatoSpmDTO(
                     svar = Nei,
