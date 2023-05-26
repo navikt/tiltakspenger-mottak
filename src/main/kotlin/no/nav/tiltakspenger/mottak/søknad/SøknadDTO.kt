@@ -66,7 +66,7 @@ data class SøknadDTO(
             }
 
             return SøknadDTO(
-                versjon = soknad.versjon,
+                versjon = "2",
                 søknadId = soknad.id.toString(),
                 dokInfo = dokInfo,
                 personopplysninger = PersonopplysningerDTO(

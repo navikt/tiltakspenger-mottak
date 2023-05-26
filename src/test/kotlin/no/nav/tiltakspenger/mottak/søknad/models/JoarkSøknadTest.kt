@@ -22,6 +22,16 @@ internal class JoarkSøknadTest {
     )
 
     @Test
+    fun `from ny søknad`() {
+        val faktums = this::class.java.classLoader.getResource("ny_søknad.json")!!.readText()
+        SøknadDTO.fromNySøknad(faktums, dokInfo).also {
+            assertEquals("NØDVENDIG", it.personopplysninger.fornavn)
+            assertEquals("HOFTE", it.personopplysninger.etternavn)
+            assertEquals("09877698987", it.personopplysninger.ident)
+        }
+    }
+
+    @Test
     fun `from json to Søknad with ArenaTiltak`() {
         val faktums = this::class.java.classLoader.getResource("søknad_med_tiltak_fra_arena.json")!!.readText()
         SøknadDTO.fromGammelSøknad(faktums, dokInfo).also {

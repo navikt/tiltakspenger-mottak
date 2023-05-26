@@ -1,0 +1,49 @@
+{
+  "id": "0cefdf07-6add-4253-84ba-52db87be765f",
+  "acr": "Level4",
+  "kvalifiseringsprogram": {
+    "deltar": false,
+    "periode": null
+  },
+  "introduksjonsprogram": {
+    "deltar": false,
+    "periode": null
+  },
+  "institusjonsopphold": {
+    "borPåInstitusjon": false,
+    "periode": null
+  },
+  "tiltak": {
+    "aktivitetId": "123",
+    "periode": {
+      "fra": "2025-04-01",
+      "til": "2025-04-10"
+    },
+    "søkerHeleTiltaksperioden": true,
+    "arrangør": "Testarrangør",
+    "type": "Annen utdanning"
+  },
+  "barnetillegg": {
+    "søkerOmBarnetillegg": false,
+    "ønskerÅSøkeBarnetilleggForAndreBarn": null,
+    "manueltRegistrerteBarnSøktBarnetilleggFor": [],
+    "registrerteBarnSøktBarnetilleggFor": []
+  },
+  "pensjonsordning": {
+    "mottarEllerSøktPensjonsordning": false,
+    "utbetaler": null,
+    "periode": null
+  },
+  "etterlønn": {
+    "mottarEllerSøktEtterlønn": false,
+    "utbetaler": null,
+    "periode": null
+  },
+  "personopplysninger": {
+    "ident": "09877698987",
+    "fornavn": "NØDVENDIG",
+    "etternavn": "HOFTE"
+  },
+  "harBekreftetAlleOpplysninger": true,
+  "innsendingTidspunkt": "2023-05-09T11:16:25.921059"
+}
