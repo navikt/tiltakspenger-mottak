@@ -1,12 +1,10 @@
 package no.nav.tiltakspenger.mottak.søknad.models
 
 import kotlinx.serialization.Serializable
-import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeWithoutZoneSerializer
 import no.nav.tiltakspenger.mottak.serder.StrictLocalDateSerializer
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.UUID
 
 @Serializable
 data class Periode(
