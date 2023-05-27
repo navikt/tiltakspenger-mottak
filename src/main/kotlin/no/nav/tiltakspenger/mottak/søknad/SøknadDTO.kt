@@ -77,7 +77,7 @@ data class SøknadDTO(
                 arenaTiltak = ArenaTiltakDTO(
                     arenaId = soknad.tiltak.aktivitetId,
                     arrangoernavn = "---",
-                    tiltakskode = "",
+                    tiltakskode = "AMO",
                     opprinneligSluttdato = soknad.tiltak.periode?.til,
                     opprinneligStartdato = soknad.tiltak.periode!!.fra,
                     sluttdato = soknad.tiltak.periode.til,
