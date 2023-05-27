@@ -21,8 +21,8 @@ data class ManueltRegistrertBarn(
     val etternavn: String,
     @Serializable(with = StrictLocalDateSerializer::class)
     val fødselsdato: LocalDate,
-    val bostedsland: String,
-    val oppholderSegUtenforEøs: Boolean,
+    val bostedsland: String = "NO",
+    val oppholderSegUtenforEøs: Boolean = false,
 )
 
 @Serializable
@@ -33,8 +33,8 @@ data class RegistrertBarn(
     val etternavn: String,
     @Serializable(with = StrictLocalDateSerializer::class)
     val fødselsdato: LocalDate,
-    val bostedsland: String,
-    val oppholderSegUtenforEøs: Boolean,
+    val bostedsland: String = "NO",
+    val oppholderSegUtenforEøs: Boolean = false,
 )
 
 @Serializable
@@ -59,7 +59,7 @@ data class Institusjonsopphold(
 data class Tiltak(
     val aktivitetId: String,
     val periode: Periode?,
-    val søkerHeleTiltaksperioden: Boolean,
+    val søkerHeleTiltaksperioden: Boolean?,
 )
 
 @Serializable
