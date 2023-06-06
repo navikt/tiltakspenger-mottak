@@ -80,29 +80,29 @@ data class Barnetillegg(
     val registrerteBarnSøktBarnetilleggFor: List<RegistrertBarn>,
 )
 
-// @Serializable
-// data class Pensjonsordning(
-//    val mottar: Boolean?,
-// )
-
 @Serializable
 data class Pensjonsordning(
-    val mottarEllerSøktPensjonsordning: Boolean,
-    val utbetaler: String?,
-    val periode: Periode?,
+    val mottar: Boolean?,
 )
 
 // @Serializable
-// data class Etterlønn(
-//    val mottar: Boolean?,
+// data class Pensjonsordning(
+//    val mottarEllerSøktPensjonsordning: Boolean,
+//    val utbetaler: String?,
+//    val periode: Periode?,
 // )
 
 @Serializable
 data class Etterlønn(
-    val mottarEllerSøktEtterlønn: Boolean,
-    val utbetaler: String?,
-    val periode: Periode?,
+    val mottar: Boolean?,
 )
+
+// @Serializable
+// data class Etterlønn(
+//    val mottarEllerSøktEtterlønn: Boolean,
+//    val utbetaler: String?,
+//    val periode: Periode?,
+// )
 
 @Serializable
 data class Personopplysninger(
@@ -158,15 +158,15 @@ data class SøknadFraJoarkV2DTO(
     val tiltak: Tiltak,
     val vedleggsnavn: List<String>,
     val barnetillegg: Barnetillegg,
-//    val mottarAndreUtbetalinger: Boolean,
-//    val sykepenger: Sykepenger,
-//    val gjenlevendepensjon: Gjenlevendepensjon,
-//    val alderspensjon: Alderspensjon,
-//    val supplerendestønadover67: Supplerendestønadover67,
-//    val supplerendestønadflyktninger: Supplerendestønadflyktninger,
+    val mottarAndreUtbetalinger: Boolean,
+    val sykepenger: Sykepenger,
+    val gjenlevendepensjon: Gjenlevendepensjon,
+    val alderspensjon: Alderspensjon,
+    val supplerendestønadover67: Supplerendestønadover67,
+    val supplerendestønadflyktninger: Supplerendestønadflyktninger,
     val pensjonsordning: Pensjonsordning,
     val etterlønn: Etterlønn,
-//    val jobbsjansen: Jobbsjansen,
+    val jobbsjansen: Jobbsjansen,
     val personopplysninger: Personopplysninger,
     val harBekreftetAlleOpplysninger: Boolean,
     val harBekreftetÅSvareSåGodtManKan: Boolean,

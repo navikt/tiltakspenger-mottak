@@ -1,10 +1,10 @@
 package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import no.nav.tiltakspenger.mottak.saf.VedleggMetadata
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
+import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.FeilaktigBesvart
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.IkkeBesvart
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.IkkeMedISøknaden
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.Ja
@@ -67,7 +67,7 @@ data class SøknadDTO(
 
             return SøknadDTO(
                 versjon = "2",
-                søknadId = soknad.id.toString(),
+                søknadId = soknad.id,
                 dokInfo = dokInfo,
                 personopplysninger = PersonopplysningerDTO(
                     ident = soknad.personopplysninger.ident,
@@ -76,10 +76,10 @@ data class SøknadDTO(
                 ),
                 arenaTiltak = ArenaTiltakDTO(
                     arenaId = soknad.tiltak.aktivitetId,
-                    arrangoernavn = "---",
-                    tiltakskode = "AMO",
-                    opprinneligSluttdato = soknad.tiltak.periode?.til,
-                    opprinneligStartdato = soknad.tiltak.periode!!.fra,
+                    arrangoernavn = soknad.tiltak.arrangør,
+                    tiltakskode = soknad.tiltak.type,
+                    opprinneligSluttdato = soknad.tiltak.arenaRegistrertPeriode?.til,
+                    opprinneligStartdato = soknad.tiltak.arenaRegistrertPeriode?.fra,
                     sluttdato = soknad.tiltak.periode.til,
                     startdato = soknad.tiltak.periode.fra,
                 ),
@@ -91,125 +91,130 @@ data class SøknadDTO(
                         mellomnavn = it.mellomnavn,
                         etternavn = it.etternavn,
                         oppholderSegIEØS = JaNeiSpmDTO(
-                            svar = Nei, // svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
+                            svar = Ja, // svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
                         ),
                     )
                 },
-                barnetilleggManuelle = emptyList(),
+                barnetilleggManuelle = soknad.barnetillegg.manueltRegistrerteBarnSøktBarnetilleggFor.map {
+                    BarnetilleggDTO(
+                        fødselsdato = it.fødselsdato,
+                        fornavn = it.fornavn,
+                        mellomnavn = it.mellomnavn,
+                        etternavn = it.etternavn,
+                        oppholderSegIEØS = JaNeiSpmDTO(
+                            svar = Ja, // svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
+                        ),
+                    )
+                },
                 vedlegg = vedlegg,
-                kvp = if (soknad.kvalifiseringsprogram.deltar) {
-                    PeriodeSpmDTO(
-                        svar = Ja,
-                        fom = soknad.kvalifiseringsprogram.periode!!.fra,
-                        tom = soknad.kvalifiseringsprogram.periode.til,
-                    )
-                } else {
-                    PeriodeSpmDTO(
-                        svar = Nei,
-                        fom = null,
-                        tom = null,
-                    )
-                },
-                intro = if (soknad.introduksjonsprogram.deltar) {
-                    PeriodeSpmDTO(
-                        svar = Ja,
-                        fom = soknad.introduksjonsprogram.periode!!.fra,
-                        tom = soknad.introduksjonsprogram.periode.til,
-                    )
-                } else {
-                    PeriodeSpmDTO(
-                        svar = Nei,
-                        fom = null,
-                        tom = null,
-                    )
-                },
-                institusjon = if (soknad.institusjonsopphold.borPåInstitusjon) {
-                    PeriodeSpmDTO(
-                        svar = Ja,
-                        fom = soknad.institusjonsopphold.periode!!.fra,
-                        tom = soknad.institusjonsopphold.periode.til,
-                    )
-                } else {
-                    PeriodeSpmDTO(
-                        svar = Nei,
-                        fom = null,
-                        tom = null,
-                    )
-                },
-//                etterlønn = JaNeiSpmDTO(
-//                    svar = if (soknad.etterlønn.mottar == null) {
-//                        IkkeBesvart
-//                    } else {
-//                        if (soknad.etterlønn.mottar == true) Ja else Nei
-//                    },
-//                ),
+                kvp = mapPeriodeSpm(
+                    mottar = soknad.kvalifiseringsprogram.deltar,
+                    periode = soknad.kvalifiseringsprogram.periode,
+                ),
+                intro = mapPeriodeSpm(
+                    mottar = soknad.introduksjonsprogram.deltar,
+                    periode = soknad.introduksjonsprogram.periode,
+                ),
+                institusjon = mapPeriodeSpm(
+                    mottar = soknad.institusjonsopphold.borPåInstitusjon,
+                    periode = soknad.institusjonsopphold.periode,
+                ),
                 etterlønn = JaNeiSpmDTO(
-                    svar = if (soknad.etterlønn.mottarEllerSøktEtterlønn == false) {
-                        Nei
+                    svar = if (soknad.etterlønn.mottar == null) {
+                        IkkeBesvart
                     } else {
-                        Ja
+                        if (soknad.etterlønn.mottar == true) Ja else Nei
                     },
                 ),
-                gjenlevendepensjon = FraOgMedDatoSpmDTO(
-                    IkkeBesvart,
-                    fom = null,
+                gjenlevendepensjon = mapFraOgMedSpm(
+                    mottar = soknad.gjenlevendepensjon.mottar,
+                    fraDato = soknad.gjenlevendepensjon.periode?.fra,
                 ),
-//                gjenlevendepensjon = if (soknad.gjenlevendepensjon.mottar == null) {
-//                    FraOgMedDatoSpmDTO(
-//                        svar = IkkeBesvart,
-//                        fom = null,
-//                    )
-//                } else {
-//                    if (soknad.gjenlevendepensjon.mottar == true) {
-//                        if (soknad.gjenlevendepensjon.periode == null) {
-//                            FraOgMedDatoSpmDTO(
-//                                svar = FeilaktigBesvart,
-//                                fom = null,
-//                            )
-//                        } else {
-//                            FraOgMedDatoSpmDTO(
-//                                svar = Ja,
-//                                fom = soknad.gjenlevendepensjon.periode.fra,
-//                            )
-//                        }
-//                    } else {
-//                        FraOgMedDatoSpmDTO(
-//                            svar = Nei,
-//                            fom = null,
-//                        )
-//                    }
-//                },
-                alderspensjon = FraOgMedDatoSpmDTO(
-                    svar = Nei,
-                    fom = null,
+                alderspensjon = mapFraOgMedSpm(
+                    mottar = soknad.alderspensjon.mottar,
+                    fraDato = soknad.alderspensjon.fraDato,
                 ),
-                sykepenger = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
+                sykepenger = mapPeriodeSpm(
+                    mottar = soknad.sykepenger.mottar,
+                    periode = soknad.sykepenger.periode,
                 ),
-                supplerendeStønadAlder = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
+                supplerendeStønadAlder = mapPeriodeSpm(
+                    mottar = soknad.supplerendestønadover67.mottar,
+                    periode = soknad.supplerendestønadover67.periode,
                 ),
-                supplerendeStønadFlyktning = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
+                supplerendeStønadFlyktning = mapPeriodeSpm(
+                    mottar = soknad.supplerendestønadflyktninger.mottar,
+                    periode = soknad.supplerendestønadflyktninger.periode,
                 ),
-                jobbsjansen = PeriodeSpmDTO(
-                    svar = Nei,
-                    fom = null,
-                    tom = null,
+                jobbsjansen = mapPeriodeSpm(
+                    mottar = soknad.jobbsjansen.mottar,
+                    periode = soknad.jobbsjansen.periode,
                 ),
-                trygdOgPensjon = FraOgMedDatoSpmDTO(
-                    svar = Nei,
-                    fom = null,
+                trygdOgPensjon = mapFraOgMedSpm(
+                    mottar = soknad.pensjonsordning.mottar,
+                    fraDato = LocalDate.MIN,
                 ),
-                opprettet = LocalDateTime.now(),
+                opprettet = soknad.innsendingTidspunkt,
             )
         }
+
+        fun mapPeriodeSpm(mottar: Boolean?, periode: Periode?) =
+            if (mottar == null) {
+                PeriodeSpmDTO(
+                    svar = IkkeBesvart,
+                    fom = null,
+                    tom = null,
+                )
+            } else {
+                if (mottar == true) {
+                    if (periode == null) {
+                        PeriodeSpmDTO(
+                            svar = FeilaktigBesvart,
+                            fom = null,
+                            tom = null,
+                        )
+                    } else {
+                        PeriodeSpmDTO(
+                            svar = Ja,
+                            fom = periode.fra,
+                            tom = periode.til,
+                        )
+                    }
+                } else {
+                    PeriodeSpmDTO(
+                        svar = Nei,
+                        fom = null,
+                        tom = null,
+                    )
+                }
+            }
+
+        fun mapFraOgMedSpm(mottar: Boolean?, fraDato: LocalDate?) =
+            if (mottar == null) {
+                FraOgMedDatoSpmDTO(
+                    svar = IkkeBesvart,
+                    fom = null,
+                )
+            } else {
+                if (mottar == true) {
+                    if (fraDato == null) {
+                        FraOgMedDatoSpmDTO(
+                            svar = FeilaktigBesvart,
+                            fom = null,
+                        )
+                    } else {
+                        FraOgMedDatoSpmDTO(
+                            svar = Ja,
+                            fom = fraDato,
+                        )
+                    }
+                } else {
+                    FraOgMedDatoSpmDTO(
+                        svar = Nei,
+                        fom = null,
+                    )
+                }
+            }
 
         fun fromGammelSøknad(
             json: String,

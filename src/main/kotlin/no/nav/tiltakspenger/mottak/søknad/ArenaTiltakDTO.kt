@@ -12,7 +12,7 @@ data class ArenaTiltakDTO(
     val arrangoernavn: String?, // kan være null, f.eks. "Utvidet oppfølging i NAV"
     val tiltakskode: String,
     @Serializable(with = StrictLocalDateSerializer::class) val opprinneligSluttdato: LocalDate? = null,
-    @Serializable(with = StrictLocalDateSerializer::class) val opprinneligStartdato: LocalDate,
+    @Serializable(with = StrictLocalDateSerializer::class) val opprinneligStartdato: LocalDate? = null,
     @Serializable(with = StrictLocalDateSerializer::class) val sluttdato: LocalDate? = null,
     @Serializable(with = StrictLocalDateSerializer::class) val startdato: LocalDate,
 ) {

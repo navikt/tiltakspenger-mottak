@@ -1,69 +1,103 @@
 {
-  "id": "48d24d99-826f-4709-9865-e7dc9752ff75",
+  "id": "c79a0043-a97c-4f15-bf57-43e5d9c4d0c8",
   "acr": "Level4",
   "kvalifiseringsprogram": {
-    "deltar": false,
-    "periode": null
+    "deltar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
   },
   "introduksjonsprogram": {
-    "deltar": false,
-    "periode": null
+    "deltar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
   },
   "institusjonsopphold": {
-    "borPåInstitusjon": false,
-    "periode": null
+    "borPåInstitusjon": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
   },
   "tiltak": {
-    "aktivitetId": "TA6873411",
+    "aktivitetId": "123",
     "periode": {
-      "fra": "2023-06-12",
-      "til": "2023-09-29"
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
     },
-    "arenaRegistrertPeriode": {
-      "fra": "2023-06-12",
-      "til": "2023-09-29"
-    },
-    "søkerHeleTiltaksperioden": true,
-    "arrangør": "MÅLRETTET KOMPETANSE AS",
-    "type": "GRUPPEAMO",
-    "typeNavn": "Gruppe AMO"
+    "arenaRegistrertPeriode": null,
+    "søkerHeleTiltaksperioden": null,
+    "arrangør": "Testarrangør",
+    "type": "Annen utdanning",
+    "typeNavn": "Annen utdanning"
   },
   "vedleggsnavn": [],
   "barnetillegg": {
-    "søkerOmBarnetillegg": true,
-    "ønskerÅSøkeBarnetilleggForAndreBarn": false,
-    "manueltRegistrerteBarnSøktBarnetilleggFor": [],
-    "registrerteBarnSøktBarnetilleggFor": [
+    "manueltRegistrerteBarnSøktBarnetilleggFor": [
       {
-        "fornavn": "KVADRATISK",
+        "fornavn": "Barn",
         "mellomnavn": null,
-        "etternavn": "MALERBUKSE",
-        "fødselsdato": "2010-01-13"
-      },
-      {
-        "fornavn": "VILJESTERK",
-        "mellomnavn": null,
-        "etternavn": "ABBEDISSE",
-        "fødselsdato": "2018-11-01"
+        "etternavn": "Barnesen",
+        "fødselsdato": "2023-06-01"
       }
-    ]
+    ],
+    "registrerteBarnSøktBarnetilleggFor": []
+  },
+  "mottarAndreUtbetalinger": true,
+  "sykepenger": {
+    "mottar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
+  },
+  "gjenlevendepensjon": {
+    "mottar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
+  },
+  "alderspensjon": {
+    "mottar": true,
+    "fraDato": "2023-06-01"
+  },
+  "supplerendestønadover67": {
+    "mottar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
+  },
+  "supplerendestønadflyktninger": {
+    "mottar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
   },
   "pensjonsordning": {
-    "mottarEllerSøktPensjonsordning": false,
-    "utbetaler": null,
-    "periode": null
+    "mottar": true
   },
   "etterlønn": {
-    "mottarEllerSøktEtterlønn": false,
-    "utbetaler": null,
-    "periode": null
+    "mottar": true
+  },
+  "jobbsjansen": {
+    "mottar": true,
+    "periode": {
+      "fra": "2023-06-01",
+      "til": "2023-06-30"
+    }
   },
   "personopplysninger": {
-    "ident": "06918396347",
-    "fornavn": "GRÅ",
-    "etternavn": "REKE"
+    "ident": "30896998982",
+    "fornavn": "RAVGUL",
+    "etternavn": "ENG"
   },
   "harBekreftetAlleOpplysninger": true,
   "harBekreftetÅSvareSåGodtManKan": true,
-  "innsendingTidspunkt": "2023-06-01T14:57:19.746585643"
+  "innsendingTidspunkt": "2023-06-05T15:13:21.633164273"
 }
