@@ -21,13 +21,23 @@ internal class JoarkSøknadTest {
         filnavn = "tiltakspenger.json",
     )
 
+//    @Test
+//    fun `from ny søknad`() {
+//        val faktums = this::class.java.classLoader.getResource("ny_søknad_med_verdier.json")!!.readText()
+//        SøknadDTO.fromNySøknad(faktums, dokInfo).also {
+//            assertEquals("GREI", it.personopplysninger.fornavn)
+//            assertEquals("ASTERISK", it.personopplysninger.etternavn)
+//            assertEquals("12345678901", it.personopplysninger.ident)
+//        }
+//    }
+
     @Test
-    fun `from ny søknad`() {
-        val faktums = this::class.java.classLoader.getResource("ny_søknad.json")!!.readText()
+    fun `from ny søknad som feiler med mangler ident`() {
+        val faktums = this::class.java.classLoader.getResource("ny_søknad_som_feiler.json")!!.readText()
         SøknadDTO.fromNySøknad(faktums, dokInfo).also {
-            assertEquals("NØDVENDIG", it.personopplysninger.fornavn)
-            assertEquals("HOFTE", it.personopplysninger.etternavn)
-            assertEquals("09877698987", it.personopplysninger.ident)
+            assertEquals("GRÅ", it.personopplysninger.fornavn)
+            assertEquals("REKE", it.personopplysninger.etternavn)
+            assertEquals("06918396347", it.personopplysninger.ident)
         }
     }
 

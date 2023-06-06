@@ -15,13 +15,18 @@
   },
   "tiltak": {
     "aktivitetId": "123",
-    "periode": {
-      "fra": "2025-04-01",
-      "til": "2025-04-10"
-    },
-    "søkerHeleTiltaksperioden": true,
+    "type": "ARBTREN",
+    "typeNavn": "Arbeidstrening",
     "arrangør": "Testarrangør",
-    "type": "Annen utdanning"
+    "søkerHeleTiltaksperioden": false,
+    "periode": {
+      "fra": "2024-01-01",
+      "til": "2024-01-02"
+    },
+    "arenaRegistrertPeriode": {
+      "fra": "2025-01-01",
+      "til": "2025-01-02"
+    }
   },
   "barnetillegg": {
     "søkerOmBarnetillegg": false,
@@ -44,6 +49,7 @@
     "fornavn": "NØDVENDIG",
     "etternavn": "HOFTE"
   },
+  "mottarAndreUtbetalinger":true,
   "harBekreftetAlleOpplysninger": true,
   "innsendingTidspunkt": "2023-05-09T11:16:25.921059"
 }

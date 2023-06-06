@@ -91,7 +91,7 @@ data class SøknadDTO(
                         mellomnavn = it.mellomnavn,
                         etternavn = it.etternavn,
                         oppholderSegIEØS = JaNeiSpmDTO(
-                            svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
+                            svar = Nei, // svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
                         ),
                     )
                 },
@@ -136,13 +136,49 @@ data class SøknadDTO(
                         tom = null,
                     )
                 },
+//                etterlønn = JaNeiSpmDTO(
+//                    svar = if (soknad.etterlønn.mottar == null) {
+//                        IkkeBesvart
+//                    } else {
+//                        if (soknad.etterlønn.mottar == true) Ja else Nei
+//                    },
+//                ),
                 etterlønn = JaNeiSpmDTO(
-                    svar = if (soknad.etterlønn.mottarEllerSøktEtterlønn) Ja else Nei,
+                    svar = if (soknad.etterlønn.mottarEllerSøktEtterlønn == false) {
+                        Nei
+                    } else {
+                        Ja
+                    },
                 ),
                 gjenlevendepensjon = FraOgMedDatoSpmDTO(
-                    svar = Nei,
+                    IkkeBesvart,
                     fom = null,
                 ),
+//                gjenlevendepensjon = if (soknad.gjenlevendepensjon.mottar == null) {
+//                    FraOgMedDatoSpmDTO(
+//                        svar = IkkeBesvart,
+//                        fom = null,
+//                    )
+//                } else {
+//                    if (soknad.gjenlevendepensjon.mottar == true) {
+//                        if (soknad.gjenlevendepensjon.periode == null) {
+//                            FraOgMedDatoSpmDTO(
+//                                svar = FeilaktigBesvart,
+//                                fom = null,
+//                            )
+//                        } else {
+//                            FraOgMedDatoSpmDTO(
+//                                svar = Ja,
+//                                fom = soknad.gjenlevendepensjon.periode.fra,
+//                            )
+//                        }
+//                    } else {
+//                        FraOgMedDatoSpmDTO(
+//                            svar = Nei,
+//                            fom = null,
+//                        )
+//                    }
+//                },
                 alderspensjon = FraOgMedDatoSpmDTO(
                     svar = Nei,
                     fom = null,

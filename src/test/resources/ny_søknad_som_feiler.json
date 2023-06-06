@@ -1,0 +1,69 @@
+{
+  "id": "48d24d99-826f-4709-9865-e7dc9752ff75",
+  "acr": "Level4",
+  "kvalifiseringsprogram": {
+    "deltar": false,
+    "periode": null
+  },
+  "introduksjonsprogram": {
+    "deltar": false,
+    "periode": null
+  },
+  "institusjonsopphold": {
+    "borPåInstitusjon": false,
+    "periode": null
+  },
+  "tiltak": {
+    "aktivitetId": "TA6873411",
+    "periode": {
+      "fra": "2023-06-12",
+      "til": "2023-09-29"
+    },
+    "arenaRegistrertPeriode": {
+      "fra": "2023-06-12",
+      "til": "2023-09-29"
+    },
+    "søkerHeleTiltaksperioden": true,
+    "arrangør": "MÅLRETTET KOMPETANSE AS",
+    "type": "GRUPPEAMO",
+    "typeNavn": "Gruppe AMO"
+  },
+  "vedleggsnavn": [],
+  "barnetillegg": {
+    "søkerOmBarnetillegg": true,
+    "ønskerÅSøkeBarnetilleggForAndreBarn": false,
+    "manueltRegistrerteBarnSøktBarnetilleggFor": [],
+    "registrerteBarnSøktBarnetilleggFor": [
+      {
+        "fornavn": "KVADRATISK",
+        "mellomnavn": null,
+        "etternavn": "MALERBUKSE",
+        "fødselsdato": "2010-01-13"
+      },
+      {
+        "fornavn": "VILJESTERK",
+        "mellomnavn": null,
+        "etternavn": "ABBEDISSE",
+        "fødselsdato": "2018-11-01"
+      }
+    ]
+  },
+  "pensjonsordning": {
+    "mottarEllerSøktPensjonsordning": false,
+    "utbetaler": null,
+    "periode": null
+  },
+  "etterlønn": {
+    "mottarEllerSøktEtterlønn": false,
+    "utbetaler": null,
+    "periode": null
+  },
+  "personopplysninger": {
+    "ident": "06918396347",
+    "fornavn": "GRÅ",
+    "etternavn": "REKE"
+  },
+  "harBekreftetAlleOpplysninger": true,
+  "harBekreftetÅSvareSåGodtManKan": true,
+  "innsendingTidspunkt": "2023-06-01T14:57:19.746585643"
+}
