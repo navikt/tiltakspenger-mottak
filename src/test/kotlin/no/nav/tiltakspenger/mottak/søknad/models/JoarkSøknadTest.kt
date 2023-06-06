@@ -120,6 +120,14 @@ internal class JoarkSøknadTest {
     }
 
     @Test
+    fun `barn med dnr blir mappet riktig`() {
+        val soknadJson = this::class.java.classLoader.getResource("gammel_søknad_med_barn_som_har_dnummer.json")!!.readText()
+        val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)
+        assertTrue(søknad.barnetilleggPdl[0].fødselsdato == LocalDate.of(2018, 11, 1))
+        assertTrue(søknad.barnetilleggPdl[1].fødselsdato == LocalDate.of(2010, 1, 13))
+    }
+
+    @Test
     fun `soker på insitusjon should have true in oppholdInstitusjon field`() {
         val soknadJson = this::class.java.classLoader.getResource("søknad_barn_med_manglende_navn_pga_kode6.json")!!.readText()
         val søknad = SøknadDTO.fromGammelSøknad(soknadJson, dokInfo)

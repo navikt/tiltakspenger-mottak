@@ -440,7 +440,14 @@ data class SøknadDTO(
             return if (trygdogpensjonListe.isEmpty()) JaNeiSpmDTO(Nei) else JaNeiSpmDTO(Ja)
         }
 
-        private fun toFødselsdato(ident: String): LocalDate =
-            LocalDate.parse(ident.subSequence(0, 6), DateTimeFormatter.ofPattern("ddMMuu"))
+        private fun toFødselsdato(ident: String): LocalDate {
+            val mm = ident.subSequence(2, 3).toString().toInt()
+            return if (mm > 2) {
+                val fnr = ident.subSequence(0, 2).toString() + (mm - 8).toString() + ident.subSequence(3, 6).toString()
+                LocalDate.parse(fnr, DateTimeFormatter.ofPattern("ddMMuu"))
+            } else {
+                LocalDate.parse(ident.subSequence(0, 6), DateTimeFormatter.ofPattern("ddMMuu"))
+            }
+        }
     }
 }

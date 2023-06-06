@@ -1,0 +1,270 @@
+{
+  "soknadId": 14971,
+  "skjemaNummer": "NAV 76-13.45",
+  "versjon": null,
+  "uuid": "020986b5-7681-4a59-942f-56f35cceee86",
+  "brukerBehandlingId": "761d89c7-7941-4012-8dee-2de1f26e0195",
+  "behandlingskjedeId": null,
+  "fakta": [
+    {
+      "faktumId": 777769,
+      "soknadId": 14971,
+      "key": "bolker",
+      "value": null,
+      "properties": {
+        "personalia": "true",
+        "tilleggsopplysninger": "true",
+        "barnetillegg": "true",
+        "tiltaksliste": "true",
+        "trygdogpensjon": "true"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777770,
+      "soknadId": 14971,
+      "key": "personalia",
+      "value": null,
+      "properties": {
+        "gjeldendeAdresseLandkode": null,
+        "statsborgerskapType": "norsk",
+        "statsborgerskap": "NOR",
+        "mellomnavn": null,
+        "utenlandskKontoBanknavn": null,
+        "erUtenlandskBankkonto": "false",
+        "kjonn": "m",
+        "sekundarAdresseType": null,
+        "epost": "noreply@nav.no",
+        "gjeldendeAdresse": "MØLLEVEIEN 7D, 3440 RØYKEN",
+        "fornavn": "GRÅ",
+        "fnr": "06918396347",
+        "alder": "39",
+        "sekundarAdresseGyldigTil": null,
+        "utenlandskKontoLand": null,
+        "sekundarAdresseGyldigFra": null,
+        "sekundarAdresse": null,
+        "kontonummer": null,
+        "etternavn": "REKE",
+        "gjeldendeAdresseType": "BOSTEDSADRESSE",
+        "diskresjonskode": null,
+        "navn": "GRÅ REKE",
+        "gjeldendeAdresseGyldigTil": null,
+        "gjeldendeAdresseGyldigFra": null
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 777771,
+      "soknadId": 14971,
+      "key": "dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777772,
+      "soknadId": 14971,
+      "key": "informasjonsside.dagpenger",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777773,
+      "soknadId": 14971,
+      "key": "informasjonsside.dagpenger.beholde.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777774,
+      "soknadId": 14971,
+      "key": "informasjonsside.institusjon",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777775,
+      "soknadId": 14971,
+      "key": "informasjonsside.institusjon.ja.hvaslags",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777776,
+      "soknadId": 14971,
+      "key": "informasjonsside.institusjon.ja.hvaslags.annet.soketilleggstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777777,
+      "soknadId": 14971,
+      "key": "informasjonsside.kvalifiseringsprogram",
+      "value": "nei",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777778,
+      "soknadId": 14971,
+      "key": "informasjonsside.kvalifiseringsprogram.ja.soketilleggsstonad",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777779,
+      "soknadId": 14971,
+      "key": "informasjonsside.deltarIIntroprogram",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777780,
+      "soknadId": 14971,
+      "key": "informasjonsside.deltarIIntroprogram.info",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777781,
+      "soknadId": 14971,
+      "key": "tiltaksliste.valgtTiltak",
+      "value": "777791",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777782,
+      "soknadId": 14971,
+      "key": "tiltaksliste.tiltakslistenErTom",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777783,
+      "soknadId": 14971,
+      "key": "trygdogpensjon",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777784,
+      "soknadId": 14971,
+      "key": "tilleggsopplysninger.fritekst",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777791,
+      "soknadId": 14971,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "ARBTREN",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2023-06-30",
+        "arenaId": "140358232",
+        "startdato": "2023-03-06",
+        "navn": "Arbeidstrening",
+        "erIEndreStatus": "false",
+        "arrangoer": "LARVIK KOMMUNE SENTRALE ADM",
+        "sluttdato": "2023-06-30",
+        "opprinneligstartdato": "2023-03-06"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777792,
+      "soknadId": 14971,
+      "key": "tiltaksliste.tiltakFraArena",
+      "value": "GRUPPEAMO",
+      "properties": {
+        "harSluttdatoFraArena": "true",
+        "opprinneligsluttdato": "2023-09-29",
+        "arenaId": "140358236",
+        "startdato": "2023-06-12",
+        "navn": "Gruppe AMO",
+        "erIEndreStatus": "false",
+        "arrangoer": "MÅLRETTET KOMPETANSE AS",
+        "sluttdato": "2023-09-29",
+        "opprinneligstartdato": "2023-06-12"
+      },
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777793,
+      "soknadId": 14971,
+      "key": "arenakall.har.feilet",
+      "value": "false",
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    },
+    {
+      "faktumId": 777794,
+      "soknadId": 14971,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "etternavn": "ABBEDISSE",
+        "mellomnavn": null,
+        "kjonn": "m",
+        "sammensattnavn": "VILJESTERK ABBEDISSE",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "01911897748",
+        "fornavn": "VILJESTERK",
+        "sokerbarnetillegg": "ja",
+        "alder": "4"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 777795,
+      "soknadId": 14971,
+      "key": "barn",
+      "value": null,
+      "properties": {
+        "mellomnavn": null,
+        "etternavn": "MALERBUKSE",
+        "kjonn": "m",
+        "sammensattnavn": "KVADRATISK MALERBUKSE",
+        "uniqueKey": "fnr",
+        "land": "NOR",
+        "fnr": "13811098323",
+        "fornavn": "KVADRATISK",
+        "sokerbarnetillegg": "ja",
+        "alder": "13"
+      },
+      "type": "SYSTEMREGISTRERT"
+    },
+    {
+      "faktumId": 777796,
+      "soknadId": 14971,
+      "key": "trygdogpensjon.utbetalere",
+      "value": null,
+      "properties": {},
+      "type": "BRUKERREGISTRERT"
+    }
+  ],
+  "status": "UNDER_ARBEID",
+  "aktoerId": "06918396347",
+  "opprettetDato": "2023-06-05T14:22:46.753Z",
+  "sistLagret": "2023-06-05T14:23:15.333Z",
+  "delstegStatus": "VEDLEGG_VALIDERT",
+  "vedlegg": [],
+  "journalforendeEnhet": null,
+  "soknadPrefix": "tiltakspenger",
+  "soknadUrl": "/soknadtiltakspenger/app",
+  "fortsettSoknadUrl": "/soknadtiltakspenger/app",
+  "erEttersending": false
+}
