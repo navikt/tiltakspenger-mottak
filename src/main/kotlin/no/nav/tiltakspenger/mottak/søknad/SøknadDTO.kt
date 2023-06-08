@@ -9,8 +9,16 @@ import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.IkkeBesvart
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.IkkeMedISøknaden
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.Ja
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.Nei
+import no.nav.tiltakspenger.mottak.søknad.models.Alderspensjon
+import no.nav.tiltakspenger.mottak.søknad.models.Etterlønn
+import no.nav.tiltakspenger.mottak.søknad.models.Gjenlevendepensjon
 import no.nav.tiltakspenger.mottak.søknad.models.JoarkSøknad
+import no.nav.tiltakspenger.mottak.søknad.models.Jobbsjansen
+import no.nav.tiltakspenger.mottak.søknad.models.Pensjonsordning
 import no.nav.tiltakspenger.mottak.søknad.models.Periode
+import no.nav.tiltakspenger.mottak.søknad.models.Supplerendestønadflyktninger
+import no.nav.tiltakspenger.mottak.søknad.models.Supplerendestønadover67
+import no.nav.tiltakspenger.mottak.søknad.models.Sykepenger
 import no.nav.tiltakspenger.mottak.søknad.models.SøknadFraJoarkV2DTO
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -56,13 +64,28 @@ data class SøknadDTO(
             dokInfo: DokumentInfoDTO,
             vedleggMetadata: List<VedleggMetadata> = emptyList(),
         ): SøknadDTO {
-            val soknad = Companion.json.decodeFromString<SøknadFraJoarkV2DTO>(json)
+            val soknadOrginal = Companion.json.decodeFromString<SøknadFraJoarkV2DTO>(json)
             val vedlegg = vedleggMetadata.map {
                 DokumentInfoDTO(
                     journalpostId = it.journalpostId,
                     dokumentInfoId = it.dokumentInfoId,
                     filnavn = it.filnavn,
                 )
+            }
+
+            val soknad = if (soknadOrginal.mottarAndreUtbetalinger == false) {
+                soknadOrginal.copy(
+                    etterlønn = Etterlønn(false),
+                    gjenlevendepensjon = Gjenlevendepensjon(false, null),
+                    alderspensjon = Alderspensjon(false, null),
+                    sykepenger = Sykepenger(false, null),
+                    supplerendestønadflyktninger = Supplerendestønadflyktninger(false, null),
+                    supplerendestønadover67 = Supplerendestønadover67(false, null),
+                    jobbsjansen = Jobbsjansen(false, null),
+                    pensjonsordning = Pensjonsordning(false),
+                )
+            } else {
+                soknadOrginal
             }
 
             return SøknadDTO(
@@ -152,13 +175,13 @@ data class SøknadDTO(
                 ),
                 trygdOgPensjon = mapFraOgMedSpm(
                     mottar = soknad.pensjonsordning.mottar,
-                    fraDato = LocalDate.MIN,
+                    fraDato = LocalDate.of(1970, 1, 1),
                 ),
                 opprettet = soknad.innsendingTidspunkt,
             )
         }
 
-        fun mapPeriodeSpm(mottar: Boolean?, periode: Periode?) =
+        private fun mapPeriodeSpm(mottar: Boolean?, periode: Periode?) =
             if (mottar == null) {
                 PeriodeSpmDTO(
                     svar = IkkeBesvart,
@@ -189,7 +212,7 @@ data class SøknadDTO(
                 }
             }
 
-        fun mapFraOgMedSpm(mottar: Boolean?, fraDato: LocalDate?) =
+        private fun mapFraOgMedSpm(mottar: Boolean?, fraDato: LocalDate?) =
             if (mottar == null) {
                 FraOgMedDatoSpmDTO(
                     svar = IkkeBesvart,
