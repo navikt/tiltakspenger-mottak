@@ -1,6 +1,7 @@
 {
-  "id": "0cefdf07-6add-4253-84ba-52db87be765f",
+  "id": "12304",
   "acr": "Level4",
+  "versjon": "3",
   "kvalifiseringsprogram": {
     "deltar": false,
     "periode": null
@@ -14,42 +15,76 @@
     "periode": null
   },
   "tiltak": {
-    "aktivitetId": "123",
-    "type": "ARBTREN",
-    "typeNavn": "Arbeidstrening",
-    "arrangør": "Testarrangør",
-    "søkerHeleTiltaksperioden": false,
+    "aktivitetId": "TA6873411",
     "periode": {
-      "fra": "2024-01-01",
-      "til": "2024-01-02"
+      "fra": "2023-06-12",
+      "til": "2023-09-29"
     },
     "arenaRegistrertPeriode": {
-      "fra": "2025-01-01",
-      "til": "2025-01-02"
-    }
+      "fra": "2023-06-12",
+      "til": "2023-09-29"
+    },
+    "arrangør": "MÅLRETTET KOMPETANSE AS",
+    "type": "GRUPPEAMO",
+    "typeNavn": "Gruppe AMO"
   },
+  "vedleggsnavn": [],
   "barnetillegg": {
-    "søkerOmBarnetillegg": false,
-    "ønskerÅSøkeBarnetilleggForAndreBarn": null,
     "manueltRegistrerteBarnSøktBarnetilleggFor": [],
-    "registrerteBarnSøktBarnetilleggFor": []
+    "registrerteBarnSøktBarnetilleggFor": [
+      {
+        "fornavn": "KVADRATISK",
+        "mellomnavn": null,
+        "etternavn": "MALERBUKSE",
+        "fødselsdato": "2010-01-13",
+        "oppholdInnenforEøs": true
+      },
+      {
+        "fornavn": "VILJESTERK",
+        "mellomnavn": null,
+        "etternavn": "ABBEDISSE",
+        "fødselsdato": "2018-11-01",
+        "oppholdInnenforEøs": true
+      }
+    ]
   },
-  "pensjonsordning": {
-    "mottarEllerSøktPensjonsordning": false,
-    "utbetaler": null,
+  "mottarAndreUtbetalinger": false,
+  "sykepenger": {
+    "mottar": null,
     "periode": null
   },
+  "gjenlevendepensjon": {
+    "mottar": null,
+    "periode": null
+  },
+  "alderspensjon": {
+    "mottar": null,
+    "fraDato": null
+  },
+  "supplerendestønadover67": {
+    "mottar": null,
+    "periode": null
+  },
+  "supplerendestønadflyktninger": {
+    "mottar": null,
+    "periode": null
+  },
+  "pensjonsordning": {
+    "mottar": null
+  },
   "etterlønn": {
-    "mottarEllerSøktEtterlønn": false,
-    "utbetaler": null,
+    "mottar": null
+  },
+  "jobbsjansen": {
+    "mottar": null,
     "periode": null
   },
   "personopplysninger": {
-    "ident": "09877698987",
-    "fornavn": "NØDVENDIG",
-    "etternavn": "HOFTE"
+    "ident": "06918396347",
+    "fornavn": "GRÅ",
+    "etternavn": "REKE"
   },
-  "mottarAndreUtbetalinger":true,
   "harBekreftetAlleOpplysninger": true,
-  "innsendingTidspunkt": "2023-05-09T11:16:25.921059"
+  "harBekreftetÅSvareSåGodtManKan": true,
+  "innsendingTidspunkt": "2023-06-13T14:49:20.708147187"
 }
