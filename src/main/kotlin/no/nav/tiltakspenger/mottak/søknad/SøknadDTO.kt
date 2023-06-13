@@ -62,7 +62,7 @@ data class SøknadDTO(
 //            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 
         fun hentVersjon(json: String): String? {
-            return Companion.json.parseToJsonElement(json).jsonObject["version"]?.toString()
+            return Companion.json.parseToJsonElement(json).jsonObject["versjon"]?.toString()
         }
 
         fun fromSøknadV3(
