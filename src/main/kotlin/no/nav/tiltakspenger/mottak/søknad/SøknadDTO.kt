@@ -2,6 +2,7 @@ package no.nav.tiltakspenger.mottak.søknad
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonObject
 import no.nav.tiltakspenger.mottak.saf.VedleggMetadata
 import no.nav.tiltakspenger.mottak.serder.LocalDateTimeSerializer
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO.FeilaktigBesvart
@@ -20,6 +21,7 @@ import no.nav.tiltakspenger.mottak.søknad.models.Supplerendestønadflyktninger
 import no.nav.tiltakspenger.mottak.søknad.models.Supplerendestønadover67
 import no.nav.tiltakspenger.mottak.søknad.models.Sykepenger
 import no.nav.tiltakspenger.mottak.søknad.models.SøknadFraJoarkV2DTO
+import java.lang.Error
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -59,12 +61,21 @@ data class SøknadDTO(
 //            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 //            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 
-        fun fromNySøknad(
+        fun hentVersjon(json: String): String? {
+            return Companion.json.parseToJsonElement(json).jsonObject["version"]?.toString()
+        }
+
+        fun fromSøknadV3(
             json: String,
             dokInfo: DokumentInfoDTO,
             vedleggMetadata: List<VedleggMetadata> = emptyList(),
         ): SøknadDTO {
-            val soknadOrginal = Companion.json.decodeFromString<SøknadFraJoarkV2DTO>(json)
+            val soknadOrginal = try {
+                Companion.json.decodeFromString<SøknadFraJoarkV2DTO>(json)
+            } catch (e: Error) {
+                throw IllegalStateException("Vi fikk en Søknad med versjonsnummer som ikke matcher inneholdet")
+            }
+
             val vedlegg = vedleggMetadata.map {
                 DokumentInfoDTO(
                     journalpostId = it.journalpostId,
@@ -89,7 +100,7 @@ data class SøknadDTO(
             }
 
             return SøknadDTO(
-                versjon = "2",
+                versjon = soknad.versjon,
                 søknadId = soknad.id,
                 dokInfo = dokInfo,
                 personopplysninger = PersonopplysningerDTO(

@@ -134,6 +134,7 @@ data class Jobbsjansen(
 data class SøknadFraJoarkV2DTO(
     val id: String,
     val acr: String,
+    val versjon: String,
     val kvalifiseringsprogram: Kvalifiseringsprogram,
     val introduksjonsprogram: Introduksjonsprogram,
     val institusjonsopphold: Institusjonsopphold,

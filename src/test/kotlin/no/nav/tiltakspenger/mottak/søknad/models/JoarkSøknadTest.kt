@@ -34,7 +34,7 @@ internal class JoarkSøknadTest {
     @Test
     fun `from ny søknad som feiler med mangler ident`() {
         val faktums = this::class.java.classLoader.getResource("ny_søknad_som_feiler.json")!!.readText()
-        SøknadDTO.fromNySøknad(faktums, dokInfo).also {
+        SøknadDTO.fromSøknadV3(faktums, dokInfo).also {
             assertEquals("RAVGUL", it.personopplysninger.fornavn)
             assertEquals("ENG", it.personopplysninger.etternavn)
             assertEquals("30896998982", it.personopplysninger.ident)

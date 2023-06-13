@@ -24,15 +24,28 @@ class SafService(private val safClient: SafClient) {
 
         if (metadata.filnavn == FILNAVN_NY_SØKNAD) {
             SECURELOG.info { "Vi mapper ny søknad" }
-            return SøknadDTO.fromNySøknad(
-                json = json,
-                dokInfo = DokumentInfoDTO(
-                    journalpostId = journalpostId,
-                    dokumentInfoId = metadata.dokumentInfoId,
-                    filnavn = metadata.filnavn,
-                ),
-                vedleggMetadata = metadata.vedlegg,
-            )
+            val versjon = SøknadDTO.hentVersjon(json)
+            if (versjon == null) {
+                LOG.error { "Vi fikk en søknad uten versjonsnummer. Hopper over denne" }
+                return null
+            }
+
+            return when (versjon) {
+                "3" -> SøknadDTO.fromSøknadV3(
+                    json = json,
+                    dokInfo = DokumentInfoDTO(
+                        journalpostId = journalpostId,
+                        dokumentInfoId = metadata.dokumentInfoId,
+                        filnavn = metadata.filnavn,
+                    ),
+                    vedleggMetadata = metadata.vedlegg,
+                )
+
+                else -> {
+                    LOG.error { "Vi fikk en søknad med versjonsnummer vi ikke kjenner til. Legg inn støtte for denne!" }
+                    throw IllegalStateException("Ukjent versjonsnr")
+                }
+            }
         }
 
         if (metadata.filnavn == FILNAVN_SØKNAD) {
