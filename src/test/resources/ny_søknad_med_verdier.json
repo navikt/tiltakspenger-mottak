@@ -101,7 +101,7 @@
         "mellomnavn": "",
         "etternavn": "Filledokke",
         "fødselsdato": "2027-01-01",
-        "bostedsland": "NO"
+        "oppholdInnenforEøs": true
       }
     ],
     "søkerOmBarnetillegg": true,
@@ -110,7 +110,8 @@
         "fornavn": "Titten",
         "mellomnavn": "",
         "etternavn": "Tei",
-        "fødselsdato": "2027-01-01"
+        "fødselsdato": "2027-01-01",
+        "oppholdInnenforEøs": true
       }
     ],
     "ønskerÅSøkeBarnetilleggForAndreBarn": true

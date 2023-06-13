@@ -39,13 +39,13 @@ data class SøknadDTO(
     val intro: PeriodeSpmDTO,
     val institusjon: PeriodeSpmDTO,
     val etterlønn: JaNeiSpmDTO,
-    val gjenlevendepensjon: FraOgMedDatoSpmDTO,
+    val gjenlevendepensjon: PeriodeSpmDTO,
     val alderspensjon: FraOgMedDatoSpmDTO,
     val sykepenger: PeriodeSpmDTO,
     val supplerendeStønadAlder: PeriodeSpmDTO,
     val supplerendeStønadFlyktning: PeriodeSpmDTO,
     val jobbsjansen: PeriodeSpmDTO,
-    val trygdOgPensjon: FraOgMedDatoSpmDTO,
+    val trygdOgPensjon: JaNeiSpmDTO,
     @Serializable(with = LocalDateTimeSerializer::class)
     val opprettet: LocalDateTime,
 ) {
@@ -114,7 +114,7 @@ data class SøknadDTO(
                         mellomnavn = it.mellomnavn,
                         etternavn = it.etternavn,
                         oppholderSegIEØS = JaNeiSpmDTO(
-                            svar = Ja, // svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
+                            svar = if (it.oppholdInnenforEøs) Ja else Nei,
                         ),
                     )
                 },
@@ -125,7 +125,7 @@ data class SøknadDTO(
                         mellomnavn = it.mellomnavn,
                         etternavn = it.etternavn,
                         oppholderSegIEØS = JaNeiSpmDTO(
-                            svar = Ja, // svar = if (it.oppholderSegUtenforEøs) Ja else Nei,
+                            svar = if (it.oppholdInnenforEøs) Ja else Nei,
                         ),
                     )
                 },
@@ -144,14 +144,14 @@ data class SøknadDTO(
                 ),
                 etterlønn = JaNeiSpmDTO(
                     svar = if (soknad.etterlønn.mottar == null) {
-                        IkkeBesvart
+                        if (!soknad.mottarAndreUtbetalinger) Nei else IkkeBesvart
                     } else {
                         if (soknad.etterlønn.mottar == true) Ja else Nei
                     },
                 ),
-                gjenlevendepensjon = mapFraOgMedSpm(
+                gjenlevendepensjon = mapPeriodeSpm(
                     mottar = soknad.gjenlevendepensjon.mottar,
-                    fraDato = soknad.gjenlevendepensjon.periode?.fra,
+                    periode = soknad.gjenlevendepensjon.periode,
                 ),
                 alderspensjon = mapFraOgMedSpm(
                     mottar = soknad.alderspensjon.mottar,
@@ -173,9 +173,12 @@ data class SøknadDTO(
                     mottar = soknad.jobbsjansen.mottar,
                     periode = soknad.jobbsjansen.periode,
                 ),
-                trygdOgPensjon = mapFraOgMedSpm(
-                    mottar = soknad.pensjonsordning.mottar,
-                    fraDato = LocalDate.of(1970, 1, 1),
+                trygdOgPensjon = JaNeiSpmDTO(
+                    svar = if (soknad.pensjonsordning.mottar == null) {
+                        if (!soknad.mottarAndreUtbetalinger) Nei else IkkeBesvart
+                    } else {
+                        if (soknad.pensjonsordning.mottar == true) Ja else Nei
+                    },
                 ),
                 opprettet = soknad.innsendingTidspunkt,
             )
@@ -271,9 +274,10 @@ data class SøknadDTO(
                 intro = hentIntro(joarkSøknad, tiltakPeriode),
                 institusjon = hentInstitusjon(joarkSøknad, tiltakPeriode),
                 etterlønn = hentEtterlønn(joarkSøknad),
-                gjenlevendepensjon = FraOgMedDatoSpmDTO(
+                gjenlevendepensjon = PeriodeSpmDTO(
                     svar = IkkeMedISøknaden,
                     fom = null,
+                    tom = null,
                 ),
                 alderspensjon = FraOgMedDatoSpmDTO(
                     svar = IkkeMedISøknaden,
@@ -299,9 +303,8 @@ data class SøknadDTO(
                     fom = null,
                     tom = null,
                 ),
-                trygdOgPensjon = FraOgMedDatoSpmDTO(
+                trygdOgPensjon = JaNeiSpmDTO(
                     svar = IkkeMedISøknaden,
-                    fom = null,
                 ),
                 opprettet = joarkSøknad.opprettetDato,
             )

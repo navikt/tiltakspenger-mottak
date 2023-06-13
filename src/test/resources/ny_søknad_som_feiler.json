@@ -41,7 +41,8 @@
         "fornavn": "Barn",
         "mellomnavn": null,
         "etternavn": "Barnesen",
-        "fødselsdato": "2023-06-01"
+        "fødselsdato": "2023-06-01",
+        "oppholdInnenforEøs": true
       }
     ],
     "registrerteBarnSøktBarnetilleggFor": []

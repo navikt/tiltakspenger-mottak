@@ -29,20 +29,17 @@ data class ManueltRegistrertBarn(
     val etternavn: String,
     @Serializable(with = StrictLocalDateSerializer::class)
     val fødselsdato: LocalDate,
-//    val bostedsland: String = "NO",
-//    val oppholderSegUtenforEøs: Boolean = false,
+    val oppholdInnenforEøs: Boolean,
 )
 
 @Serializable
 data class RegistrertBarn(
-//    val ident: String,
     val fornavn: String,
     val mellomnavn: String?,
     val etternavn: String,
     @Serializable(with = StrictLocalDateSerializer::class)
     val fødselsdato: LocalDate,
-//    val bostedsland: String = "NO",
-//    val oppholderSegUtenforEøs: Boolean = false,
+    val oppholdInnenforEøs: Boolean,
 )
 
 @Serializable
@@ -68,7 +65,6 @@ data class Tiltak(
     val aktivitetId: String,
     val periode: Periode,
     val arenaRegistrertPeriode: Deltakelsesperiode?,
-    val søkerHeleTiltaksperioden: Boolean?,
     val arrangør: String,
     val type: String,
     val typeNavn: String,
@@ -85,24 +81,10 @@ data class Pensjonsordning(
     val mottar: Boolean?,
 )
 
-// @Serializable
-// data class Pensjonsordning(
-//    val mottarEllerSøktPensjonsordning: Boolean,
-//    val utbetaler: String?,
-//    val periode: Periode?,
-// )
-
 @Serializable
 data class Etterlønn(
     val mottar: Boolean?,
 )
-
-// @Serializable
-// data class Etterlønn(
-//    val mottarEllerSøktEtterlønn: Boolean,
-//    val utbetaler: String?,
-//    val periode: Periode?,
-// )
 
 @Serializable
 data class Personopplysninger(
@@ -173,18 +155,3 @@ data class SøknadFraJoarkV2DTO(
     @Serializable(with = LocalDateTimeWithoutZoneSerializer::class)
     val innsendingTidspunkt: LocalDateTime,
 )
-
-// @Serializable
-// data class SøknadFraJoarkV2DTO(
-//    val id: String,
-//    val kvalifiseringsprogram: Kvalifiseringsprogram,
-//    val introduksjonsprogram: Introduksjonsprogram,
-//    val institusjonsopphold: Institusjonsopphold,
-//    val tiltak: Tiltak,
-//    val barnetillegg: Barnetillegg,
-//    val pensjonsordning: Pensjonsordning,
-//    val etterlønn: Etterlønn,
-//    val personopplysninger: Personopplysninger,
-//    @Serializable(with = LocalDateTimeWithoutZoneSerializer::class)
-//    val innsendingTidspunkt: LocalDateTime,
-// )
