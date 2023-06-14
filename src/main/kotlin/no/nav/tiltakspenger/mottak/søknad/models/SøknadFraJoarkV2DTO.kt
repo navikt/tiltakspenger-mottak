@@ -79,6 +79,12 @@ data class Barnetillegg(
 @Serializable
 data class Pensjonsordning(
     val mottar: Boolean?,
+    val periode: Periode?,
+)
+
+@Serializable
+data class LønnetArbeid(
+    val erILønnetArbeid: Boolean?,
 )
 
 @Serializable
@@ -149,6 +155,7 @@ data class SøknadFraJoarkV2DTO(
     val supplerendestønadflyktninger: Supplerendestønadflyktninger,
     val pensjonsordning: Pensjonsordning,
     val etterlønn: Etterlønn,
+    val lønnetArbeid: LønnetArbeid,
     val jobbsjansen: Jobbsjansen,
     val personopplysninger: Personopplysninger,
     val harBekreftetAlleOpplysninger: Boolean,

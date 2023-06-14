@@ -166,7 +166,8 @@ internal class JoarkReplicatorTest {
             supplerendeStønadAlder = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
             supplerendeStønadFlyktning = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
             jobbsjansen = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            trygdOgPensjon = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
+            trygdOgPensjon = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
+            lønnetArbeid = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
             opprettet = LocalDateTime.now(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())

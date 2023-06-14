@@ -31,7 +31,7 @@ class SafService(private val safClient: SafClient) {
             }
 
             return when (versjon) {
-                "3" -> SøknadDTO.fromSøknadV3(
+                "4" -> SøknadDTO.fromSøknadV4(
                     json = json,
                     dokInfo = DokumentInfoDTO(
                         journalpostId = journalpostId,
