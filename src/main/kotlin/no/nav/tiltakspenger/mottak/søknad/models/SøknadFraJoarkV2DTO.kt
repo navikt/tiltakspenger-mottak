@@ -34,9 +34,9 @@ data class ManueltRegistrertBarn(
 
 @Serializable
 data class RegistrertBarn(
-    val fornavn: String,
+    val fornavn: String?,
     val mellomnavn: String?,
-    val etternavn: String,
+    val etternavn: String?,
     @Serializable(with = StrictLocalDateSerializer::class)
     val fødselsdato: LocalDate,
     val oppholdInnenforEøs: Boolean,
