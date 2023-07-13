@@ -1,9 +1,11 @@
 name: "CodeQL"
 on:
   push:
-    branches: [ "main", "*" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: '0 7 * * *'
 jobs:
   analyze:
     name: Analyze
@@ -15,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'kotlin' ]
+        language: [ 'java' ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -29,9 +31,7 @@ jobs:
           distribution: 'temurin'
           java-version: 17
       - name: Build
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build --info installDist
+        run: ./gradlew clean build
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
