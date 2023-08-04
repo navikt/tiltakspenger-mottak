@@ -26,7 +26,6 @@ import java.time.format.DateTimeFormatter
 
 @Serializable
 data class SøknadDTO(
-    val versjon: String,
     val søknadId: String,
     val dokInfo: DokumentInfoDTO,
     val personopplysninger: PersonopplysningerDTO,
@@ -83,21 +82,23 @@ data class SøknadDTO(
                 )
             }
 
-            val soknad = if (soknadOrginal.mottarAndreUtbetalinger == false) {
+            val spørsmålsbesvarelserOrginal = soknadOrginal.spørsmålsbesvarelserDTO
+            val soknad = if (!spørsmålsbesvarelserOrginal.mottarAndreUtbetalinger) {
                 soknadOrginal.copy(
-                    gjenlevendepensjon = Gjenlevendepensjon(false, null),
-                    alderspensjon = Alderspensjon(false, null),
-                    supplerendestønadflyktninger = Supplerendestønadflyktninger(false, null),
-                    supplerendestønadover67 = Supplerendestønadover67(false, null),
-                    jobbsjansen = Jobbsjansen(false, null),
-                    pensjonsordning = Pensjonsordning(false, null),
+                    spørsmålsbesvarelserDTO = spørsmålsbesvarelserOrginal.copy(
+                        gjenlevendepensjon = Gjenlevendepensjon(false, null),
+                        alderspensjon = Alderspensjon(false, null),
+                        supplerendestønadflyktninger = Supplerendestønadflyktninger(false, null),
+                        supplerendestønadover67 = Supplerendestønadover67(false, null),
+                        jobbsjansen = Jobbsjansen(false, null),
+                        pensjonsordning = Pensjonsordning(false, null),
+                    ),
                 )
             } else {
                 soknadOrginal
             }
 
             return SøknadDTO(
-                versjon = soknad.versjon,
                 søknadId = soknad.id,
                 dokInfo = dokInfo,
                 personopplysninger = PersonopplysningerDTO(
@@ -106,16 +107,16 @@ data class SøknadDTO(
                     etternavn = soknad.personopplysninger.etternavn,
                 ),
                 arenaTiltak = ArenaTiltakDTO(
-                    arenaId = soknad.tiltak.aktivitetId,
-                    arrangoernavn = soknad.tiltak.arrangør,
-                    tiltakskode = soknad.tiltak.type,
-                    opprinneligSluttdato = soknad.tiltak.arenaRegistrertPeriode?.til,
-                    opprinneligStartdato = soknad.tiltak.arenaRegistrertPeriode?.fra,
-                    sluttdato = soknad.tiltak.periode.til,
-                    startdato = soknad.tiltak.periode.fra,
+                    arenaId = spørsmålsbesvarelserOrginal.tiltak.aktivitetId,
+                    arrangoernavn = spørsmålsbesvarelserOrginal.tiltak.arrangør,
+                    tiltakskode = spørsmålsbesvarelserOrginal.tiltak.type,
+                    opprinneligSluttdato = spørsmålsbesvarelserOrginal.tiltak.arenaRegistrertPeriode?.til,
+                    opprinneligStartdato = spørsmålsbesvarelserOrginal.tiltak.arenaRegistrertPeriode?.fra,
+                    sluttdato = spørsmålsbesvarelserOrginal.tiltak.periode.til,
+                    startdato = spørsmålsbesvarelserOrginal.tiltak.periode.fra,
                 ),
                 brukerTiltak = null,
-                barnetilleggPdl = soknad.barnetillegg.registrerteBarnSøktBarnetilleggFor.map {
+                barnetilleggPdl = spørsmålsbesvarelserOrginal.barnetillegg.registrerteBarnSøktBarnetilleggFor.map {
                     BarnetilleggDTO(
                         fødselsdato = it.fødselsdato,
                         fornavn = it.fornavn,
@@ -126,7 +127,7 @@ data class SøknadDTO(
                         ),
                     )
                 },
-                barnetilleggManuelle = soknad.barnetillegg.manueltRegistrerteBarnSøktBarnetilleggFor.map {
+                barnetilleggManuelle = spørsmålsbesvarelserOrginal.barnetillegg.manueltRegistrerteBarnSøktBarnetilleggFor.map {
                     BarnetilleggDTO(
                         fødselsdato = it.fødselsdato,
                         fornavn = it.fornavn,
@@ -139,57 +140,57 @@ data class SøknadDTO(
                 },
                 vedlegg = vedlegg,
                 kvp = mapPeriodeSpm(
-                    mottar = soknad.kvalifiseringsprogram.deltar,
-                    periode = soknad.kvalifiseringsprogram.periode,
+                    mottar = spørsmålsbesvarelserOrginal.kvalifiseringsprogram.deltar,
+                    periode = spørsmålsbesvarelserOrginal.kvalifiseringsprogram.periode,
                 ),
                 intro = mapPeriodeSpm(
-                    mottar = soknad.introduksjonsprogram.deltar,
-                    periode = soknad.introduksjonsprogram.periode,
+                    mottar = spørsmålsbesvarelserOrginal.introduksjonsprogram.deltar,
+                    periode = spørsmålsbesvarelserOrginal.introduksjonsprogram.periode,
                 ),
                 institusjon = mapPeriodeSpm(
-                    mottar = soknad.institusjonsopphold.borPåInstitusjon,
-                    periode = soknad.institusjonsopphold.periode,
+                    mottar = spørsmålsbesvarelserOrginal.institusjonsopphold.borPåInstitusjon,
+                    periode = spørsmålsbesvarelserOrginal.institusjonsopphold.periode,
                 ),
                 etterlønn = JaNeiSpmDTO(
-                    svar = if (soknad.etterlønn.mottar == null) {
-                        if (!soknad.mottarAndreUtbetalinger) Nei else IkkeBesvart
+                    svar = if (spørsmålsbesvarelserOrginal.etterlønn.mottar == null) {
+                        if (!spørsmålsbesvarelserOrginal.mottarAndreUtbetalinger) Nei else IkkeBesvart
                     } else {
-                        if (soknad.etterlønn.mottar == true) Ja else Nei
+                        if (spørsmålsbesvarelserOrginal.etterlønn.mottar == true) Ja else Nei
                     },
                 ),
                 gjenlevendepensjon = mapPeriodeSpm(
-                    mottar = soknad.gjenlevendepensjon.mottar,
-                    periode = soknad.gjenlevendepensjon.periode,
+                    mottar = spørsmålsbesvarelserOrginal.gjenlevendepensjon.mottar,
+                    periode = spørsmålsbesvarelserOrginal.gjenlevendepensjon.periode,
                 ),
                 alderspensjon = mapFraOgMedSpm(
-                    mottar = soknad.alderspensjon.mottar,
-                    fraDato = soknad.alderspensjon.fraDato,
+                    mottar = spørsmålsbesvarelserOrginal.alderspensjon.mottar,
+                    fraDato = spørsmålsbesvarelserOrginal.alderspensjon.fraDato,
                 ),
                 sykepenger = mapPeriodeSpm(
-                    mottar = soknad.sykepenger.mottar,
-                    periode = soknad.sykepenger.periode,
+                    mottar = spørsmålsbesvarelserOrginal.sykepenger.mottar,
+                    periode = spørsmålsbesvarelserOrginal.sykepenger.periode,
                 ),
                 supplerendeStønadAlder = mapPeriodeSpm(
-                    mottar = soknad.supplerendestønadover67.mottar,
-                    periode = soknad.supplerendestønadover67.periode,
+                    mottar = spørsmålsbesvarelserOrginal.supplerendestønadover67.mottar,
+                    periode = spørsmålsbesvarelserOrginal.supplerendestønadover67.periode,
                 ),
                 supplerendeStønadFlyktning = mapPeriodeSpm(
-                    mottar = soknad.supplerendestønadflyktninger.mottar,
-                    periode = soknad.supplerendestønadflyktninger.periode,
+                    mottar = spørsmålsbesvarelserOrginal.supplerendestønadflyktninger.mottar,
+                    periode = spørsmålsbesvarelserOrginal.supplerendestønadflyktninger.periode,
                 ),
                 jobbsjansen = mapPeriodeSpm(
-                    mottar = soknad.jobbsjansen.mottar,
-                    periode = soknad.jobbsjansen.periode,
+                    mottar = spørsmålsbesvarelserOrginal.jobbsjansen.mottar,
+                    periode = spørsmålsbesvarelserOrginal.jobbsjansen.periode,
                 ),
                 trygdOgPensjon = mapPeriodeSpm(
-                    mottar = soknad.pensjonsordning.mottar,
-                    periode = soknad.pensjonsordning.periode,
+                    mottar = spørsmålsbesvarelserOrginal.pensjonsordning.mottar,
+                    periode = spørsmålsbesvarelserOrginal.pensjonsordning.periode,
                 ),
                 lønnetArbeid = JaNeiSpmDTO(
-                    svar = if (soknad.lønnetArbeid.erILønnetArbeid == null) {
+                    svar = if (spørsmålsbesvarelserOrginal.lønnetArbeid.erILønnetArbeid == null) {
                         IkkeBesvart
                     } else {
-                        if (soknad.lønnetArbeid.erILønnetArbeid) Ja else Nei
+                        if (spørsmålsbesvarelserOrginal.lønnetArbeid.erILønnetArbeid) Ja else Nei
                     },
                 ),
                 opprettet = soknad.innsendingTidspunkt,
@@ -273,7 +274,6 @@ data class SøknadDTO(
             }
 
             return SøknadDTO(
-                versjon = "1",
                 søknadId = joarkSøknad.soknadId.toString(),
                 dokInfo = dokInfo,
                 personopplysninger = hentPersonopplysninger(joarkSøknad),

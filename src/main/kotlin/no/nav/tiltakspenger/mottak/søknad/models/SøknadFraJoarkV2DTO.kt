@@ -137,15 +137,11 @@ data class Jobbsjansen(
 )
 
 @Serializable
-data class SøknadFraJoarkV2DTO(
-    val id: String,
-    val acr: String,
-    val versjon: String,
+data class SpørsmålsbesvarelserDTO(
     val kvalifiseringsprogram: Kvalifiseringsprogram,
     val introduksjonsprogram: Introduksjonsprogram,
     val institusjonsopphold: Institusjonsopphold,
     val tiltak: Tiltak,
-    val vedleggsnavn: List<String>,
     val barnetillegg: Barnetillegg,
     val mottarAndreUtbetalinger: Boolean,
     val sykepenger: Sykepenger,
@@ -157,9 +153,17 @@ data class SøknadFraJoarkV2DTO(
     val etterlønn: Etterlønn,
     val lønnetArbeid: LønnetArbeid,
     val jobbsjansen: Jobbsjansen,
-    val personopplysninger: Personopplysninger,
     val harBekreftetAlleOpplysninger: Boolean,
     val harBekreftetÅSvareSåGodtManKan: Boolean,
+)
+
+@Serializable
+data class SøknadFraJoarkV2DTO(
+    val id: String,
+    val acr: String,
+    val spørsmålsbesvarelserDTO: SpørsmålsbesvarelserDTO,
+    val personopplysninger: Personopplysninger,
+    val vedleggsnavn: List<String>,
     @Serializable(with = LocalDateTimeWithoutZoneSerializer::class)
     val innsendingTidspunkt: LocalDateTime,
 )
