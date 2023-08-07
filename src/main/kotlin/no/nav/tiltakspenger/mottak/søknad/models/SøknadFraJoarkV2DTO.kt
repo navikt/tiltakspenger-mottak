@@ -162,7 +162,7 @@ data class SøknadFraJoarkV2DTO(
     val versjon: String,
     val id: String,
     val acr: String,
-    val spørsmålsbesvarelserDTO: SpørsmålsbesvarelserDTO,
+    val spørsmålsbesvarelser: SpørsmålsbesvarelserDTO,
     val personopplysninger: Personopplysninger,
     val vedleggsnavn: List<String>,
     @Serializable(with = LocalDateTimeWithoutZoneSerializer::class)

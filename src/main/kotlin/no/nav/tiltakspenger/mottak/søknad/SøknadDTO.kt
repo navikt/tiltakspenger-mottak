@@ -83,10 +83,10 @@ data class SøknadDTO(
                 )
             }
 
-            val spørsmålsbesvarelserOrginal = soknadOrginal.spørsmålsbesvarelserDTO
+            val spørsmålsbesvarelserOrginal = soknadOrginal.spørsmålsbesvarelser
             val soknad = if (!spørsmålsbesvarelserOrginal.mottarAndreUtbetalinger) {
                 soknadOrginal.copy(
-                    spørsmålsbesvarelserDTO = spørsmålsbesvarelserOrginal.copy(
+                    spørsmålsbesvarelser = spørsmålsbesvarelserOrginal.copy(
                         gjenlevendepensjon = Gjenlevendepensjon(false, null),
                         alderspensjon = Alderspensjon(false, null),
                         supplerendestønadflyktninger = Supplerendestønadflyktninger(false, null),
