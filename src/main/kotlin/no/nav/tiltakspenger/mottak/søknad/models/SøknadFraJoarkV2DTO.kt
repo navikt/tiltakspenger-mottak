@@ -159,6 +159,7 @@ data class SpørsmålsbesvarelserDTO(
 
 @Serializable
 data class SøknadFraJoarkV2DTO(
+    val versjon: String,
     val id: String,
     val acr: String,
     val spørsmålsbesvarelserDTO: SpørsmålsbesvarelserDTO,

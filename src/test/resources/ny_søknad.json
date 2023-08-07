@@ -1,6 +1,7 @@
 {
   "id": "12304",
   "acr": "Level4",
+  "versjon": "4",
   "spørsmålsbesvarelserDTO": {
     "kvalifiseringsprogram": {
       "deltar": false,

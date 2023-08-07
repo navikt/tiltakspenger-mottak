@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter
 
 @Serializable
 data class SøknadDTO(
+    val versjon: String,
     val søknadId: String,
     val dokInfo: DokumentInfoDTO,
     val personopplysninger: PersonopplysningerDTO,
@@ -100,6 +101,7 @@ data class SøknadDTO(
 
             return SøknadDTO(
                 søknadId = soknad.id,
+                versjon = soknad.versjon,
                 dokInfo = dokInfo,
                 personopplysninger = PersonopplysningerDTO(
                     ident = soknad.personopplysninger.ident,
@@ -274,6 +276,7 @@ data class SøknadDTO(
             }
 
             return SøknadDTO(
+                versjon = "1",
                 søknadId = joarkSøknad.soknadId.toString(),
                 dokInfo = dokInfo,
                 personopplysninger = hentPersonopplysninger(joarkSøknad),
