@@ -2,89 +2,91 @@
   "id": "12304",
   "acr": "Level4",
   "versjon": "4",
-  "kvalifiseringsprogram": {
-    "deltar": false,
-    "periode": null
-  },
-  "introduksjonsprogram": {
-    "deltar": false,
-    "periode": null
-  },
-  "institusjonsopphold": {
-    "borPåInstitusjon": false,
-    "periode": null
-  },
-  "tiltak": {
-    "aktivitetId": "123",
-    "periode": {
-      "fra": "2025-04-01",
-      "til": "2025-04-10"
+  "spørsmålsbesvarelserDTO": {
+    "kvalifiseringsprogram": {
+      "deltar": false,
+      "periode": null
     },
-    "arenaRegistrertPeriode": {
-      "fra": "2025-04-01",
-      "til": "2025-04-10"
+    "introduksjonsprogram": {
+      "deltar": false,
+      "periode": null
     },
-    "arrangør": "Testarrangør",
-    "type": "Annen utdanning",
-    "typeNavn": "Annen utdanning"
-  },
-  "vedleggsnavn": [],
-  "barnetillegg": {
-    "manueltRegistrerteBarnSøktBarnetilleggFor": [],
-    "registrerteBarnSøktBarnetilleggFor": [
-      {
-        "fornavn": "INKLUDERENDE",
-        "mellomnavn": null,
-        "etternavn": "DIVA",
-        "fødselsdato": "2010-02-13",
-        "oppholdInnenforEøs": true
+    "institusjonsopphold": {
+      "borPåInstitusjon": false,
+      "periode": null
+    },
+    "tiltak": {
+      "aktivitetId": "123",
+      "periode": {
+        "fra": "2025-04-01",
+        "til": "2025-04-10"
+      },
+      "arenaRegistrertPeriode": {
+        "fra": "2025-04-01",
+        "til": "2025-04-10"
+      },
+      "arrangør": "Testarrangør",
+      "type": "Annen utdanning",
+      "typeNavn": "Annen utdanning"
+    },
+    "barnetillegg": {
+      "manueltRegistrerteBarnSøktBarnetilleggFor": [],
+      "registrerteBarnSøktBarnetilleggFor": [
+        {
+          "fornavn": "INKLUDERENDE",
+          "mellomnavn": null,
+          "etternavn": "DIVA",
+          "fødselsdato": "2010-02-13",
+          "oppholdInnenforEøs": true
+        }
+      ]
+    },
+    "mottarAndreUtbetalinger": true,
+    "sykepenger": {
+      "mottar": false,
+      "periode": null
+    },
+    "gjenlevendepensjon": {
+      "mottar": false,
+      "periode": null
+    },
+    "alderspensjon": {
+      "mottar": false,
+      "fraDato": null
+    },
+    "supplerendestønadover67": {
+      "mottar": false,
+      "periode": null
+    },
+    "supplerendestønadflyktninger": {
+      "mottar": false,
+      "periode": null
+    },
+    "pensjonsordning": {
+      "mottar": true,
+      "periode": {
+        "fra": "2025-04-01",
+        "til": "2025-04-10"
       }
-    ]
-  },
-  "mottarAndreUtbetalinger": true,
-  "sykepenger": {
-    "mottar": false,
-    "periode": null
-  },
-  "gjenlevendepensjon": {
-    "mottar": false,
-    "periode": null
-  },
-  "alderspensjon": {
-    "mottar": false,
-    "fraDato": null
-  },
-  "supplerendestønadover67": {
-    "mottar": false,
-    "periode": null
-  },
-  "supplerendestønadflyktninger": {
-    "mottar": false,
-    "periode": null
-  },
-  "pensjonsordning": {
-    "mottar": true,
-    "periode": {
-      "fra": "2025-04-01",
-      "til": "2025-04-10"
-    }
-  },
-  "etterlønn": {
-    "mottar": false
-  },
-  "lønnetArbeid": {
-    "erILønnetArbeid": true
-  },
-  "jobbsjansen": {
-    "mottar": false,
-    "periode": null
+    },
+    "etterlønn": {
+      "mottar": false
+    },
+    "lønnetArbeid": {
+      "erILønnetArbeid": true
+    },
+    "jobbsjansen": {
+      "mottar": false,
+      "periode": null
+    },
+    "harBekreftetAlleOpplysninger": true,
+    "harBekreftetÅSvareSåGodtManKan": true
   },
   "personopplysninger": {
     "ident": "09877698987",
     "fornavn": "NØDVENDIG",
     "etternavn": "HOFTE"
   },
-  "harBekreftetAlleOpplysninger": true,
-  "harBekreftetÅSvareSåGodtManKan": true,
+  "vedleggsnavn": [],
   "innsendingTidspunkt": "2023-06-14T21:47:57.884418021"
 }

@@ -139,7 +139,7 @@ internal class JoarkReplicatorTest {
             updateBeginningOffsets(mapOf(partition to 0L))
         }
         val søknadDTO = SøknadDTO(
-            versjon = "1",
+            versjon = "4",
             søknadId = "søknadId",
             dokInfo = DokumentInfoDTO(
                 journalpostId = "noluisse",
