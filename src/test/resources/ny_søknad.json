@@ -72,9 +72,6 @@
     "etterlønn": {
       "mottar": false
     },
-    "lønnetArbeid": {
-      "erILønnetArbeid": true
-    },
     "jobbsjansen": {
       "mottar": false,
       "periode": null

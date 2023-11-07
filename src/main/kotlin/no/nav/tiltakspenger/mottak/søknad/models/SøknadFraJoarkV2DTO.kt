@@ -83,11 +83,6 @@ data class Pensjonsordning(
 )
 
 @Serializable
-data class LønnetArbeid(
-    val erILønnetArbeid: Boolean?,
-)
-
-@Serializable
 data class Etterlønn(
     val mottar: Boolean?,
 )
@@ -151,7 +146,6 @@ data class SpørsmålsbesvarelserDTO(
     val supplerendestønadflyktninger: Supplerendestønadflyktninger,
     val pensjonsordning: Pensjonsordning,
     val etterlønn: Etterlønn,
-    val lønnetArbeid: LønnetArbeid,
     val jobbsjansen: Jobbsjansen,
     val harBekreftetAlleOpplysninger: Boolean,
     val harBekreftetÅSvareSåGodtManKan: Boolean,

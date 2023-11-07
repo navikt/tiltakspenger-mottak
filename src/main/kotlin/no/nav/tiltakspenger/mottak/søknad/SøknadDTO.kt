@@ -46,7 +46,6 @@ data class SøknadDTO(
     val supplerendeStønadFlyktning: PeriodeSpmDTO,
     val jobbsjansen: PeriodeSpmDTO,
     val trygdOgPensjon: PeriodeSpmDTO,
-    val lønnetArbeid: JaNeiSpmDTO,
     @Serializable(with = LocalDateTimeSerializer::class)
     val opprettet: LocalDateTime,
 ) {
@@ -188,13 +187,6 @@ data class SøknadDTO(
                     mottar = spørsmålsbesvarelserOrginal.pensjonsordning.mottar,
                     periode = spørsmålsbesvarelserOrginal.pensjonsordning.periode,
                 ),
-                lønnetArbeid = JaNeiSpmDTO(
-                    svar = if (spørsmålsbesvarelserOrginal.lønnetArbeid.erILønnetArbeid == null) {
-                        IkkeBesvart
-                    } else {
-                        if (spørsmålsbesvarelserOrginal.lønnetArbeid.erILønnetArbeid) Ja else Nei
-                    },
-                ),
                 opprettet = soknad.innsendingTidspunkt,
             )
         }
@@ -322,9 +314,6 @@ data class SøknadDTO(
                     svar = IkkeMedISøknaden,
                     fom = null,
                     tom = null,
-                ),
-                lønnetArbeid = JaNeiSpmDTO(
-                    svar = IkkeMedISøknaden,
                 ),
                 opprettet = joarkSøknad.opprettetDato,
             )
