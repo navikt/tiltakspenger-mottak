@@ -189,11 +189,7 @@ data class SøknadDTO(
                     periode = spørsmålsbesvarelserOrginal.pensjonsordning.periode,
                 ),
                 lønnetArbeid = JaNeiSpmDTO(
-                    svar = if (spørsmålsbesvarelserOrginal.lønnetArbeid.erILønnetArbeid == null) {
-                        IkkeBesvart
-                    } else {
-                        if (spørsmålsbesvarelserOrginal.lønnetArbeid.erILønnetArbeid) Ja else Nei
-                    },
+                    svar = Nei,
                 ),
                 opprettet = soknad.innsendingTidspunkt,
             )
