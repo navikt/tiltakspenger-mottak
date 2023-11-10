@@ -151,7 +151,6 @@ data class SpørsmålsbesvarelserDTO(
     val supplerendestønadflyktninger: Supplerendestønadflyktninger,
     val pensjonsordning: Pensjonsordning,
     val etterlønn: Etterlønn,
-    val lønnetArbeid: LønnetArbeid,
     val jobbsjansen: Jobbsjansen,
     val harBekreftetAlleOpplysninger: Boolean,
     val harBekreftetÅSvareSåGodtManKan: Boolean,
