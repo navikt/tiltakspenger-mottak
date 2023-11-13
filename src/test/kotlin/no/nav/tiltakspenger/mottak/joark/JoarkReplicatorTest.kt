@@ -16,6 +16,8 @@ import no.nav.tiltakspenger.mottak.søknad.PeriodeSpmDTO
 import no.nav.tiltakspenger.mottak.søknad.PersonopplysningerDTO
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO
 import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
+import no.nav.tiltakspenger.mottak.søknad.TiltakDTO
+import no.nav.tiltakspenger.mottak.søknad.models.Periode
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -30,6 +32,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 private val LOG = KotlinLogging.logger {}
@@ -151,8 +154,15 @@ internal class JoarkReplicatorTest {
                 fornavn = "a",
                 etternavn = "liber",
             ),
-            arenaTiltak = null,
-            brukerTiltak = null,
+            tiltak = TiltakDTO(
+                aktivitetId = "123",
+                periode = Periode(fra = LocalDate.of(2023, 1, 1), til = LocalDate.of(2023, 3, 31)),
+                arenaRegistrertPeriode = null,
+                arrangør = "arrangør",
+                type = "AMO",
+                typeNavn = "AMO",
+
+            ),
             barnetilleggPdl = emptyList(),
             barnetilleggManuelle = emptyList(),
             vedlegg = emptyList(),
@@ -160,14 +170,13 @@ internal class JoarkReplicatorTest {
             intro = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
             institusjon = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
             etterlønn = JaNeiSpmDTO(svar = SpmSvarDTO.Nei),
-            gjenlevendepensjon = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            alderspensjon = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null),
-            sykepenger = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            supplerendeStønadAlder = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            supplerendeStønadFlyktning = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            jobbsjansen = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            trygdOgPensjon = PeriodeSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden, fom = null, tom = null),
-            lønnetArbeid = JaNeiSpmDTO(svar = SpmSvarDTO.IkkeMedISøknaden),
+            gjenlevendepensjon = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            alderspensjon = FraOgMedDatoSpmDTO(svar = SpmSvarDTO.Nei, fom = null),
+            sykepenger = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            supplerendeStønadAlder = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            supplerendeStønadFlyktning = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            jobbsjansen = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
+            trygdOgPensjon = PeriodeSpmDTO(svar = SpmSvarDTO.Nei, fom = null, tom = null),
             opprettet = LocalDateTime.now(),
         )
         val mockProducer = MockProducer(true, StringSerializer(), StringSerializer())
