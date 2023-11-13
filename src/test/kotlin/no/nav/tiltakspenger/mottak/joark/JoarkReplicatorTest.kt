@@ -17,7 +17,6 @@ import no.nav.tiltakspenger.mottak.søknad.PersonopplysningerDTO
 import no.nav.tiltakspenger.mottak.søknad.SpmSvarDTO
 import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
 import no.nav.tiltakspenger.mottak.søknad.TiltakDTO
-import no.nav.tiltakspenger.mottak.søknad.models.Periode
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.avro.generic.GenericRecord
@@ -155,12 +154,12 @@ internal class JoarkReplicatorTest {
                 etternavn = "liber",
             ),
             tiltak = TiltakDTO(
-                aktivitetId = "123",
-                periode = Periode(fra = LocalDate.of(2023, 1, 1), til = LocalDate.of(2023, 3, 31)),
-                arenaRegistrertPeriode = null,
+                id = "123",
+                deltakelseFom = LocalDate.of(2023, 1, 1),
+                deltakelseTom = LocalDate.of(2023, 3, 31),
                 arrangør = "arrangør",
-                type = "AMO",
-                typeNavn = "AMO",
+                typeKode = "AMO",
+                typeNavn = "Arbeidsmarkedsopplæring (AMO)",
 
             ),
             barnetilleggPdl = emptyList(),

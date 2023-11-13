@@ -96,11 +96,11 @@ data class SøknadDTO(
                     etternavn = soknad.personopplysninger.etternavn,
                 ),
                 tiltak = TiltakDTO(
-                    aktivitetId = spørsmålsbesvarelserOrginal.tiltak.aktivitetId,
-                    periode = spørsmålsbesvarelserOrginal.tiltak.periode,
-                    arenaRegistrertPeriode = spørsmålsbesvarelserOrginal.tiltak.arenaRegistrertPeriode,
+                    id = spørsmålsbesvarelserOrginal.tiltak.aktivitetId,
+                    deltakelseFom = spørsmålsbesvarelserOrginal.tiltak.periode.fra,
+                    deltakelseTom = spørsmålsbesvarelserOrginal.tiltak.periode.til,
                     arrangør = spørsmålsbesvarelserOrginal.tiltak.arrangør,
-                    type = spørsmålsbesvarelserOrginal.tiltak.type,
+                    typeKode = spørsmålsbesvarelserOrginal.tiltak.type,
                     typeNavn = spørsmålsbesvarelserOrginal.tiltak.typeNavn,
                 ),
                 barnetilleggPdl = spørsmålsbesvarelserOrginal.barnetillegg.registrerteBarnSøktBarnetilleggFor.map {
