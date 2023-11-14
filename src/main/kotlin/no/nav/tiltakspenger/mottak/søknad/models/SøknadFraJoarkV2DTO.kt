@@ -83,13 +83,8 @@ data class Pensjonsordning(
 )
 
 @Serializable
-data class LønnetArbeid(
-    val erILønnetArbeid: Boolean?,
-)
-
-@Serializable
 data class Etterlønn(
-    val mottar: Boolean?,
+    val mottar: Boolean,
 )
 
 @Serializable
@@ -101,7 +96,7 @@ data class Personopplysninger(
 
 @Serializable
 data class Sykepenger(
-    val mottar: Boolean?,
+    val mottar: Boolean,
     val periode: Periode?,
 )
 
