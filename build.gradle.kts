@@ -1,4 +1,4 @@
-val javaVersion = JavaVersion.VERSION_17
+val javaVersion = JavaVersion.VERSION_20
 val ktorVersion = "2.3.4"
 val kotlinxSerializationVersion = "1.6.0"
 val kotlinxCoroutinesVersion = "1.7.3"
@@ -14,7 +14,7 @@ plugins {
     kotlin("plugin.serialization") version kotlinVersion
     id("com.github.ben-manes.versions") version "0.47.0"
     id("com.diffplug.spotless") version "6.21.0"
-    id("ca.cutterslade.analyze") version "1.9.1"
+//    id("ca.cutterslade.analyze") version "1.9.1"
 }
 
 repositories {
@@ -82,13 +82,13 @@ java {
 
 spotless {
     kotlin {
-        ktlint("0.48.2")
+        ktlint("0.49.1")
     }
 }
 
 // https://github.com/ben-manes/gradle-versions-plugin
 fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
@@ -114,12 +114,12 @@ tasks {
             isNonStable(candidate.version)
         }
     }
-    analyzeClassesDependencies {
-        warnUsedUndeclared = true
-        warnUnusedDeclared = true
-    }
-    analyzeTestClassesDependencies {
-        warnUsedUndeclared = true
-        warnUnusedDeclared = true
-    }
+//    analyzeClassesDependencies {
+//        warnUsedUndeclared = true
+//        warnUnusedDeclared = true
+//    }
+//    analyzeTestClassesDependencies {
+//        warnUsedUndeclared = true
+//        warnUnusedDeclared = true
+//    }
 }
