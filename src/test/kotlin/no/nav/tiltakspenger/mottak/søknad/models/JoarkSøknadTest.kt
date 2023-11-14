@@ -21,4 +21,14 @@ internal class JoarkSøknadTest {
             assertEquals("09877698987", it.personopplysninger.ident)
         }
     }
+
+    @Test
+    fun `from ny søknad som har false i mottarAndreUtbetalinger`() {
+        val faktums = this::class.java.classLoader.getResource("søknadMedFalseMottarAndreUtbetalinger.json")!!.readText()
+        SøknadDTO.fromSøknadV4(faktums, dokInfo).also {
+            assertEquals("VOKSENDE", it.personopplysninger.fornavn)
+            assertEquals("TJA", it.personopplysninger.etternavn)
+            assertEquals("29927899076", it.personopplysninger.ident)
+        }
+    }
 }
