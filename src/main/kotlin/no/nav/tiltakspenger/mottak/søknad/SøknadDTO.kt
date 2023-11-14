@@ -70,10 +70,9 @@ data class SøknadDTO(
                 )
             }
 
-            val spørsmålsbesvarelserOrginal = soknadOrginal.spørsmålsbesvarelser
-            val soknad = if (!spørsmålsbesvarelserOrginal.mottarAndreUtbetalinger) {
+            val soknad = if (!soknadOrginal.spørsmålsbesvarelser.mottarAndreUtbetalinger) {
                 soknadOrginal.copy(
-                    spørsmålsbesvarelser = spørsmålsbesvarelserOrginal.copy(
+                    spørsmålsbesvarelser = soknadOrginal.spørsmålsbesvarelser.copy(
                         gjenlevendepensjon = Gjenlevendepensjon(false, null),
                         alderspensjon = Alderspensjon(false, null),
                         supplerendestønadflyktninger = Supplerendestønadflyktninger(false, null),
@@ -96,14 +95,14 @@ data class SøknadDTO(
                     etternavn = soknad.personopplysninger.etternavn,
                 ),
                 tiltak = TiltakDTO(
-                    id = spørsmålsbesvarelserOrginal.tiltak.aktivitetId,
-                    deltakelseFom = spørsmålsbesvarelserOrginal.tiltak.periode.fra,
-                    deltakelseTom = spørsmålsbesvarelserOrginal.tiltak.periode.til,
-                    arrangør = spørsmålsbesvarelserOrginal.tiltak.arrangør,
-                    typeKode = spørsmålsbesvarelserOrginal.tiltak.type,
-                    typeNavn = spørsmålsbesvarelserOrginal.tiltak.typeNavn,
+                    id = soknad.spørsmålsbesvarelser.tiltak.aktivitetId,
+                    deltakelseFom = soknad.spørsmålsbesvarelser.tiltak.periode.fra,
+                    deltakelseTom = soknad.spørsmålsbesvarelser.tiltak.periode.til,
+                    arrangør = soknad.spørsmålsbesvarelser.tiltak.arrangør,
+                    typeKode = soknad.spørsmålsbesvarelser.tiltak.type,
+                    typeNavn = soknad.spørsmålsbesvarelser.tiltak.typeNavn,
                 ),
-                barnetilleggPdl = spørsmålsbesvarelserOrginal.barnetillegg.registrerteBarnSøktBarnetilleggFor.map {
+                barnetilleggPdl = soknad.spørsmålsbesvarelser.barnetillegg.registrerteBarnSøktBarnetilleggFor.map {
                     BarnetilleggDTO(
                         fødselsdato = it.fødselsdato,
                         fornavn = it.fornavn,
@@ -114,7 +113,7 @@ data class SøknadDTO(
                         ),
                     )
                 },
-                barnetilleggManuelle = spørsmålsbesvarelserOrginal.barnetillegg.manueltRegistrerteBarnSøktBarnetilleggFor.map {
+                barnetilleggManuelle = soknad.spørsmålsbesvarelser.barnetillegg.manueltRegistrerteBarnSøktBarnetilleggFor.map {
                     BarnetilleggDTO(
                         fødselsdato = it.fødselsdato,
                         fornavn = it.fornavn,
@@ -127,47 +126,47 @@ data class SøknadDTO(
                 },
                 vedlegg = vedlegg,
                 kvp = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.kvalifiseringsprogram.deltar,
-                    periode = spørsmålsbesvarelserOrginal.kvalifiseringsprogram.periode,
+                    mottar = soknad.spørsmålsbesvarelser.kvalifiseringsprogram.deltar,
+                    periode = soknad.spørsmålsbesvarelser.kvalifiseringsprogram.periode,
                 ),
                 intro = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.introduksjonsprogram.deltar,
-                    periode = spørsmålsbesvarelserOrginal.introduksjonsprogram.periode,
+                    mottar = soknad.spørsmålsbesvarelser.introduksjonsprogram.deltar,
+                    periode = soknad.spørsmålsbesvarelser.introduksjonsprogram.periode,
                 ),
                 institusjon = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.institusjonsopphold.borPåInstitusjon,
-                    periode = spørsmålsbesvarelserOrginal.institusjonsopphold.periode,
+                    mottar = soknad.spørsmålsbesvarelser.institusjonsopphold.borPåInstitusjon,
+                    periode = soknad.spørsmålsbesvarelser.institusjonsopphold.periode,
                 ),
                 etterlønn = JaNeiSpmDTO(
-                    svar = if (spørsmålsbesvarelserOrginal.etterlønn.mottar) Ja else Nei,
+                    svar = if (soknad.spørsmålsbesvarelser.etterlønn.mottar) Ja else Nei,
                 ),
                 gjenlevendepensjon = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.gjenlevendepensjon.mottar!!,
-                    periode = spørsmålsbesvarelserOrginal.gjenlevendepensjon.periode,
+                    mottar = soknad.spørsmålsbesvarelser.gjenlevendepensjon.mottar!!,
+                    periode = soknad.spørsmålsbesvarelser.gjenlevendepensjon.periode,
                 ),
                 alderspensjon = mapFraOgMedSpm(
-                    mottar = spørsmålsbesvarelserOrginal.alderspensjon.mottar!!,
-                    fraDato = spørsmålsbesvarelserOrginal.alderspensjon.fraDato,
+                    mottar = soknad.spørsmålsbesvarelser.alderspensjon.mottar!!,
+                    fraDato = soknad.spørsmålsbesvarelser.alderspensjon.fraDato,
                 ),
                 sykepenger = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.sykepenger.mottar,
-                    periode = spørsmålsbesvarelserOrginal.sykepenger.periode,
+                    mottar = soknad.spørsmålsbesvarelser.sykepenger.mottar,
+                    periode = soknad.spørsmålsbesvarelser.sykepenger.periode,
                 ),
                 supplerendeStønadAlder = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.supplerendestønadover67.mottar!!,
-                    periode = spørsmålsbesvarelserOrginal.supplerendestønadover67.periode,
+                    mottar = soknad.spørsmålsbesvarelser.supplerendestønadover67.mottar!!,
+                    periode = soknad.spørsmålsbesvarelser.supplerendestønadover67.periode,
                 ),
                 supplerendeStønadFlyktning = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.supplerendestønadflyktninger.mottar!!,
-                    periode = spørsmålsbesvarelserOrginal.supplerendestønadflyktninger.periode,
+                    mottar = soknad.spørsmålsbesvarelser.supplerendestønadflyktninger.mottar!!,
+                    periode = soknad.spørsmålsbesvarelser.supplerendestønadflyktninger.periode,
                 ),
                 jobbsjansen = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.jobbsjansen.mottar!!,
-                    periode = spørsmålsbesvarelserOrginal.jobbsjansen.periode,
+                    mottar = soknad.spørsmålsbesvarelser.jobbsjansen.mottar!!,
+                    periode = soknad.spørsmålsbesvarelser.jobbsjansen.periode,
                 ),
                 trygdOgPensjon = mapPeriodeSpm(
-                    mottar = spørsmålsbesvarelserOrginal.pensjonsordning.mottar!!,
-                    periode = spørsmålsbesvarelserOrginal.pensjonsordning.periode,
+                    mottar = soknad.spørsmålsbesvarelser.pensjonsordning.mottar!!,
+                    periode = soknad.spørsmålsbesvarelser.pensjonsordning.periode,
                 ),
                 opprettet = soknad.innsendingTidspunkt,
             )
