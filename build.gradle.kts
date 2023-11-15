@@ -1,20 +1,20 @@
-val javaVersion = JavaVersion.VERSION_17
+val javaVersion = JavaVersion.VERSION_21
 val ktorVersion = "2.3.4"
 val kotlinxSerializationVersion = "1.6.0"
 val kotlinxCoroutinesVersion = "1.7.3"
 val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.3"
 val jacksonVersion = "2.13.4"
-val mockkVersion = "1.13.7"
+val mockkVersion = "1.13.8"
 
 plugins {
-    val kotlinVersion = "1.9.10"
+    val kotlinVersion = "1.9.20"
     application
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
-    id("com.github.ben-manes.versions") version "0.47.0"
+    // id("com.github.ben-manes.versions") version "0.47.0"
     id("com.diffplug.spotless") version "6.21.0"
-    id("ca.cutterslade.analyze") version "1.9.1"
+    // id("ca.cutterslade.analyze") version "1.9.1"
 }
 
 repositories {
@@ -86,14 +86,6 @@ spotless {
     }
 }
 
-// https://github.com/ben-manes/gradle-versions-plugin
-fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
-    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
-    val isStable = stableKeyword || regex.matches(version)
-    return isStable.not()
-}
-
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = javaVersion.toString()
@@ -108,12 +100,7 @@ tasks {
         // https://phauer.com/2018/best-practices-unit-testing-kotlin/
         systemProperty("junit.jupiter.testinstance.lifecycle.default", "per_class")
     }
-    // https://github.com/ben-manes/gradle-versions-plugin
-    dependencyUpdates {
-        rejectVersionIf {
-            isNonStable(candidate.version)
-        }
-    }
+    /*
     analyzeClassesDependencies {
         warnUsedUndeclared = true
         warnUnusedDeclared = true
@@ -122,4 +109,5 @@ tasks {
         warnUsedUndeclared = true
         warnUnusedDeclared = true
     }
+     */
 }
