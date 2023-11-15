@@ -2,7 +2,6 @@ package no.nav.tiltakspenger.mottak.saf
 
 import mu.KotlinLogging
 import no.nav.tiltakspenger.mottak.saf.SafClient.Companion.FILNAVN_NY_SØKNAD
-import no.nav.tiltakspenger.mottak.saf.SafClient.Companion.FILNAVN_SØKNAD
 import no.nav.tiltakspenger.mottak.søknad.DokumentInfoDTO
 import no.nav.tiltakspenger.mottak.søknad.SøknadDTO
 
@@ -26,19 +25,6 @@ class SafService(private val safClient: SafClient) {
             SECURELOG.info { "Vi mapper ny søknad" }
 
             return SøknadDTO.fromSøknadV4(
-                json = json,
-                dokInfo = DokumentInfoDTO(
-                    journalpostId = journalpostId,
-                    dokumentInfoId = metadata.dokumentInfoId,
-                    filnavn = metadata.filnavn,
-                ),
-                vedleggMetadata = metadata.vedlegg,
-            )
-        }
-
-        if (metadata.filnavn == FILNAVN_SØKNAD) {
-            SECURELOG.info { "Vi mapper gammel søknad" }
-            return SøknadDTO.fromGammelSøknad(
                 json = json,
                 dokInfo = DokumentInfoDTO(
                     journalpostId = journalpostId,

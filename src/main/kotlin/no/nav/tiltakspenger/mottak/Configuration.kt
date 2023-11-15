@@ -7,7 +7,7 @@ import com.natpryce.konfig.Key
 import com.natpryce.konfig.intType
 import com.natpryce.konfig.overriding
 import com.natpryce.konfig.stringType
-import java.net.URL
+import java.net.URI
 
 const val INDIVIDSTONAD = "IND"
 
@@ -118,7 +118,7 @@ object Configuration {
     @JvmInline
     value class SafConfig(val baseUrl: String = config()[Key("safBaseUrl", stringType)]) {
         init {
-            check(URL(baseUrl).toString() == baseUrl)
+            check(URI(baseUrl).toURL().toString() == baseUrl)
         }
     }
 

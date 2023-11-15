@@ -1,0 +1,88 @@
+{
+  "id": "16481752-be62-4db5-8d63-b7ab2a4993bd",
+  "acr": "Level4",
+  "versjon": "4",
+  "spørsmålsbesvarelser": {
+    "kvalifiseringsprogram": {
+      "deltar": false,
+      "periode": null
+    },
+    "introduksjonsprogram": {
+      "deltar": false,
+      "periode": null
+    },
+    "institusjonsopphold": {
+      "borPåInstitusjon": false,
+      "periode": null
+    },
+    "tiltak": {
+      "aktivitetId": "TA6418307",
+      "periode": {
+        "fra": "2024-01-01",
+        "til": "2024-06-30"
+      },
+      "arenaRegistrertPeriode": {
+        "fra": "2024-01-01",
+        "til": "2024-06-30"
+      },
+      "arrangør": "Kommunerevisjonen",
+      "type": "ENKFAGYRKE",
+      "typeNavn": "Enkeltplass Fag- og yrkesopplæring VGS og høyere yrkesfaglig utdanning"
+    },
+    "barnetillegg": {
+      "manueltRegistrerteBarnSøktBarnetilleggFor": [
+        {
+          "fornavn": "Barnebass",
+          "mellomnavn": null,
+          "etternavn": "Brassebarn",
+          "fødselsdato": "2023-11-01",
+          "oppholdInnenforEøs": true
+        }
+      ],
+      "registrerteBarnSøktBarnetilleggFor": []
+    },
+    "mottarAndreUtbetalinger": false,
+    "sykepenger": {
+      "mottar": false,
+      "periode": null
+    },
+    "gjenlevendepensjon": {
+      "mottar": null,
+      "periode": null
+    },
+    "alderspensjon": {
+      "mottar": null,
+      "fraDato": null
+    },
+    "supplerendestønadover67": {
+      "mottar": null,
+      "periode": null
+    },
+    "supplerendestønadflyktninger": {
+      "mottar": null,
+      "periode": null
+    },
+    "pensjonsordning": {
+      "mottar": null,
+      "periode": null
+    },
+    "etterlønn": {
+      "mottar": false
+    },
+    "jobbsjansen": {
+      "mottar": null,
+      "periode": null
+    },
+    "harBekreftetAlleOpplysninger": true,
+    "harBekreftetÅSvareSåGodtManKan": true
+  },
+  "vedleggsnavn": [
+    "1bb5d339-f7c7-4f38-a9d1-12b15081ca79.jpeg"
+  ],
+  "personopplysninger": {
+    "ident": "29927899076",
+    "fornavn": "VOKSENDE",
+    "etternavn": "TJA"
+  },
+  "innsendingTidspunkt": "2023-06-14T21:47:57.884418021"
+}

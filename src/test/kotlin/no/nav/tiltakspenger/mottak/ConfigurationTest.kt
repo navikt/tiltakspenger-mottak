@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import java.net.MalformedURLException
+import java.net.URISyntaxException
 
 internal class ConfigurationTest {
     @Test
@@ -19,7 +19,7 @@ internal class ConfigurationTest {
 
     @Test
     fun `gir feil når URL ikke er gyldig`() {
-        assertThrows<MalformedURLException> {
+        assertThrows<URISyntaxException> {
             Configuration.SafConfig(baseUrl = "ikke en url")
         }
     }
