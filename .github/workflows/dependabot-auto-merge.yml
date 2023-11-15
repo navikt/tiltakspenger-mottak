@@ -5,6 +5,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      packages: 'write'
     if: github.actor == 'dependabot[bot]'
     steps:
       - name: Checkout
