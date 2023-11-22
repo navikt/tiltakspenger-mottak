@@ -6,7 +6,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     permissions:
-      packages: 'write'
+      packages: write
     if: github.actor == 'dependabot[bot]'
     steps:
       - name: Checkout
@@ -39,9 +39,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      packages: write
       contents: write
-      actions: write
     # Only allow dependabot from this repo and not via forks
     if: github.actor == 'dependabot[bot]' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
