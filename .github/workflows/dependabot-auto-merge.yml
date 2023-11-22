@@ -38,6 +38,9 @@ jobs:
     name: Merge
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: write
     # Only allow dependabot from this repo and not via forks
     if: github.actor == 'dependabot[bot]' && github.event.pull_request.head.repo.full_name == github.repository
     steps:
