@@ -47,7 +47,7 @@ dependencies {
     implementation("io.prometheus:simpleclient:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
-    implementation("org.jetbrains:annotations:24.0.1")
+    implementation("org.jetbrains:annotations:24.1.0")
     implementation("org.apache.avro:avro:1.11.2")
     implementation("io.confluent:kafka-avro-serializer:7.5.0") {
         // we want to use the one provided by R&R, not the Confluent-specific one
