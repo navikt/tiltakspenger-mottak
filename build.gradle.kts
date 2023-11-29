@@ -58,7 +58,7 @@ dependencies {
     implementation("com.github.navikt:rapids-and-rivers:2023101613431697456627.0cdd93eb696f")
     implementation("com.natpryce:konfig:1.6.10.0")
 
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation(platform("org.junit:junit-bom:5.10.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("io.ktor:ktor-client-mock-jvm:$ktorVersion")
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktorVersion")
