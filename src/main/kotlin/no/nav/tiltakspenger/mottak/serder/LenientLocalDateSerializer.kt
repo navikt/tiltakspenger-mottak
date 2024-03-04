@@ -21,6 +21,6 @@ object LenientLocalDateSerializer : KSerializer<LocalDate?> {
     }
 
     override fun serialize(encoder: Encoder, value: LocalDate?) {
-        TODO("YAGNI")
+        // Denne trenger vi ikke, men må overrides siden vi trenger `deserialize`
     }
 }

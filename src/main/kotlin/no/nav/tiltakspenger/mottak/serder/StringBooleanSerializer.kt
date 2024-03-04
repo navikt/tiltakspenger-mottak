@@ -23,6 +23,6 @@ object StringBooleanSerializer : KSerializer<Boolean> {
     }
 
     override fun serialize(encoder: Encoder, value: Boolean) {
-        TODO("YAGNI")
+        // Denne trenger vi ikke, men må overrides siden vi trenger `deserialize`
     }
 }
