@@ -8,7 +8,7 @@ val jacksonVersion = "2.13.4"
 val mockkVersion = "1.13.10"
 
 plugins {
-    val kotlinVersion = "1.9.22"
+    val kotlinVersion = "1.9.23"
     application
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
