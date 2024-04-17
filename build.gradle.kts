@@ -55,7 +55,7 @@ dependencies {
         // we want to use the one provided by R&R, not the Confluent-specific one
         exclude(group = "org.apache.kafka", module = "kafka-clients")
     }
-    implementation("com.github.navikt:rapids-and-rivers:2024022311041708682651.01821651ed22")
+    implementation("com.github.navikt:rapids-and-rivers:2024041714471713358051.71746f05c18e")
     implementation("com.natpryce:konfig:1.6.10.0")
 
     testImplementation(platform("org.junit:junit-bom:5.10.2"))
