@@ -64,7 +64,7 @@ dependencies {
     testImplementation("io.ktor:ktor-server-test-host-jvm:$ktorVersion")
     testImplementation("io.mockk:mockk-jvm:$mockkVersion")
     testImplementation("io.mockk:mockk-dsl-jvm:$mockkVersion")
-    testImplementation("org.skyscreamer:jsonassert:1.5.2")
+    testImplementation("org.skyscreamer:jsonassert:1.5.3")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:$kotlinxCoroutinesVersion")
 }
 
