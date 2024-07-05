@@ -28,7 +28,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
       - name: Build
-        run: ./gradlew clean build -x test
+        run: ./gradlew clean build -x test testClasses
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
