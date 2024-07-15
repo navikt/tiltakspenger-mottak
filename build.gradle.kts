@@ -5,7 +5,7 @@ val kotlinxCoroutinesVersion = "1.8.1"
 val prometheusVersion = "0.16.0"
 val testContainersVersion = "1.17.3"
 val jacksonVersion = "2.13.4"
-val mockkVersion = "1.13.11"
+val mockkVersion = "1.13.12"
 
 plugins {
     val kotlinVersion = "2.0.0"
